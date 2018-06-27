@@ -1,0 +1,192 @@
+/* 
+  Localizable.strings
+  rff
+
+  Created by Riyadh Foods Industrial Co. on 18/06/2018.
+  Copyright © 2018 Riyadh Foods Industrial Co. All rights reserved.
+*/
+
+"Old password" = "الرقم السري القديم";
+"New Password" =  "الرقم السري الجديد";
+"CHANGE" = "تغيير";
+
+// Menu items
+"HOME" = "الرئيسية";
+"MASTER" = "الصلاحيات";
+"Change Password" = "تغيير كلمة السر";
+"TRACKING" = "قائمة المهام";
+"Inbox" = "البريد الوارد";
+"EMPLOYEE MOVEMENT" = "إجراءات الموظف";
+"Employee Vacation" = "نموذج اجازه";
+"Loan" = "سلف";
+"Resign" = "استقالة";
+"Employee violation" = "المخالفات";
+"Return from Vacation" = "نموذج العودة من الاجازة";
+"Salary Preview" = "عرض الراتب";
+"Employee Info" = "معلومات الموظف";
+"Salary Change" = "تعديل الراتب";
+"Vacation Days Update" = "تحديث ايام الاجازة";
+"Ticket Change" = "تغيير التذكرة";
+"Job Title Change" = "تغيير المسمى الوظيفي";
+"Business Trip" = "رحلة عمل";
+"In Out Deduction" = "In Out Deduction";
+"ATTENDANCE" = "الحضور و الانصراف";
+"Attendance Details" = "تفاصيل الحضور";
+"OverTime Calculation" = "حساب العمل الاضافي";
+"Settle Calculation" = "إحتساب التصفية";
+"Attendance Clearance" = "الحضور و الانصراف";
+"PURCHASE SYSTEM" = "المشتريات";
+"Purchase Inbox" = "اوامر الشراء";
+"Purchase" = "المشتريات";
+"Purchase System-Riyadh Food" = "نظام الشراء لشركة الرياض فود";
+"IT DEPARTMENT" = "تقنية المعلومات";
+"IT Request" = "طلبات التقنية";
+"IT-Master File" = "القائمة الرئيسية";
+"Add Category" = "إضافة صنف";
+"My Requests" = "طلباتي";
+"Device Details" = "تفاصيل الجهاز";
+"PAYMENT REQUISITION" = "طلبات الصرف";
+"New Payment-Req" = "طلب صرف جديد";
+"Track Payment-Req" = "متابعة طلبات الصرف";
+"Update Bank Status" = "تحديث حالة البنك";
+"TASK" = "المهام";
+"New Task" = "مهمة جديدة";
+"Task Details" = "تفاصيل المهمة";
+"COMPLAIN" = "الشكاوي";
+"New Complain" = "شكوى جديدة";
+"My Complains" = "شكوى";
+"SALES" = "مبيعات";
+"Sales Inbox" = "المبيعات";
+"Sales Order Approval" = "الموافقة على طلب المبيعات";
+"Sales Return Approval" = "الموافقة على طلبات المرتجعات";
+"Sales Promotion Approval" = "الموافقة على عروض البيع";
+"Sales Order Requests" = "طلبات شركة الرياض للاغذية";
+"Return Order Requests" = "طلبات ارجاع شركة الرياض للاغذية";
+"Promotion Request" = "برنامج العروض";
+"Othaim Sales Status" = "حالة مبيعات العثيم";
+"Sales Plan Summary" = "ملخض خطة المبيعات";
+"Sales Person Area Setup" = "إعداد منطقة مندوب مبيعات";
+"Sales Store Update" = "تحديث مستودع المبيعات";
+"REPORT" = "التقارير";
+
+// Helper files
+"SignOut" = "تسجيل خروج";
+"Are you sure you want to sign out?" = "هل انت متأكد من تسجيل الخروج؟";
+"Yes" = "نعم";
+"Cancel" = "إلغاء";
+
+// Home
+"Home" = "الرئيسية";
+"No data" = "لا توجد بيانات";
+"English Description:" = "الوصف بالانجليزي:";
+"Arabic Description:" = "الوصف بالعربي:";
+"Count:" = "العدد:";
+"CLICK TO VIEW" = "اضغط للعرض";
+
+// Sales Inbox
+"Sales Inbox" = "المبيعات";
+"Search content" = "محتوى البحث";
+"SEARCH" = "بحث";
+"Select a list" = "اختر القاىمة";
+"Order List" = "Order List";
+"Transfer List" = "Transfer List";
+"Return List" = "Return List";
+"Alert" = "تنبية";
+"You did not select a list" = "لم يتم اختيار قاىمة";
+"out of" = "من";
+"ID" = "الرقم";
+"Emp Created" = "انشاء الموظف";
+"Customer Name" = "اسم العميل";
+"Items" = "الاصناف";
+"Date" = "التاريخ";
+"Request Date" = "تاريخ الطلب";
+"Return Date" = "تاريخ الارتجاع";
+"Status" = "الحالة";
+"Pending By" = "معلق من";
+"Comment" = "ملاحظات";
+"No Data" = "لا توجد بيانات";
+
+// Sales order request
+"Salesperson Details" = "بيانات مندوب المبيعات";
+"Store Details" = "بيانات العميل";
+"Credit Details" = "Credit Details";
+"Add Items" = "إضافة الاصناف";
+"Summary" = "موجز";
+"Alert!" = "تنبيه!";
+"NEXT" = "التالي";
+"Company" = "الشركة";
+"Select company" = "اختر الشركة";
+"Branch" = "فرع";
+"Select branch" = "اختر الفرع";
+"Doc ID" = "رقم الوثيقة";
+"Loc Code" = "رمز الموقع";
+"Select location code" = "اختر رمز الموقع";
+"You did not select a company, branch or location code" = "You did not select a company, branch or location code";
+
+"salesperson" = "مندوب المبيعات";
+"Customer" = "العميل";
+"Select customer" = "اختر العميل";
+"Delivery Date" = "تاريخ التوصيل";
+"Super Market?" ="سوير ماركت؟";
+"Offer?" = "عرض؟";
+"yes" = "نعم";
+"no" = "لا";
+
+"Store" = "المستودع";
+"Select store id" = "اختر رقم المستودع";
+"City" = "المدينة";
+"Select city" = "اختر المدينة";
+"Sales Person" = "رجل البيع";
+"Select sales person" = "اختر رجل البيع";
+"Merchandiser" = "المصفف";
+"Select merchandiser" = "اختر المصفف";
+"You did not select a store id" = "You did not select a store id";
+
+"Credit Limit:" = "Credit Limit";
+"Total Due:" = "Total Due";
+"0 to 31 Days:" = "0 to 31 Days";
+"31 to 60 Days:" = "31 to 60 Days";
+"61 to 90 Days:" = "61 to 90 Days";
+"91 to 120 Days:" = "91 to 120 Days";
+"above 120 Days:" = "above 120 Days";
+"Status:" = "Status:";
+
+"Select item" = "اختر الصنف";
+"Unoit of Measure" = "وحدة القياس";
+"Select unoit of measure" = "اختر وحدة القياس";
+"QTY" = "الكمية";
+"ADD ITEM" = "اضافة صنف";
+"Items added is " = "الاصناف المضافه ";
+"SHOW ITEMS" = "عرض الاصناف المضافة";
+
+"Description" = "الوصف";
+"QTY" = "الكمية";
+"Unit Price" = "سعر الوحدة";
+"Total Price" = "اجمالي المبلغ";
+"SEND" = "إرسال";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

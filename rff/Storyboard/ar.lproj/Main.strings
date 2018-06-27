@@ -1,0 +1,30 @@
+
+/* Class = "UITextField"; text = "English - إنجليزي"; ObjectID = "2iT-jT-fzB"; */
+"2iT-jT-fzB.text" = "English - إنجليزي";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "469-7U-Bpd"; */
+"469-7U-Bpd.text" = "Label";
+
+/* Class = "UILabel"; text = "© Copyright RiyadhFoods Company 2016- All Right Reserved."; ObjectID = "I0b-X6-FaS"; */
+"I0b-X6-FaS.text" = "© Copyright RiyadhFoods Company 2016- All Right Reserved.";
+
+/* Class = "UITextField"; placeholder = "Username - اسم المستخدم"; ObjectID = "OAA-Je-EIr"; */
+"OAA-Je-EIr.placeholder" = "Username - اسم المستخدم";
+
+/* Class = "UIButton"; normalTitle = "LOGIN"; ObjectID = "PTz-gZ-yPX"; */
+"PTz-gZ-yPX.normalTitle" = "LOGIN";
+
+/* Class = "UITextField"; placeholder = "Password - الرقم السري"; ObjectID = "RpM-ny-esP"; */
+"RpM-ny-esP.placeholder" = "Password - الرقم السري";
+
+/* Class = "UILabel"; text = "name_Label"; ObjectID = "TKg-9A-Sfv"; */
+"TKg-9A-Sfv.text" = "name_Label";
+
+/* Class = "UILabel"; text = "➕"; ObjectID = "TwI-Pp-CHP"; */
+"TwI-Pp-CHP.text" = "➕";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "VAX-zf-DiM"; */
+"VAX-zf-DiM.text" = "Label";
+
+/* Class = "UITextField"; text = "RiyadhFoods - شركة الرياض لصناعات التغذية"; ObjectID = "bUc-Qw-Ou3"; */
+"bUc-Qw-Ou3.text" = "RiyadhFoods - شركة الرياض لصناعات التغذية";

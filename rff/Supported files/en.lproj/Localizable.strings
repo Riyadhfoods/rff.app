@@ -1,0 +1,235 @@
+/* 
+  Localizable.strings
+  rff
+
+  Created by Riyadh Foods Industrial Co. on 18/06/2018.
+  Copyright © 2018 Riyadh Foods Industrial Co. All rights reserved.
+*/
+
+"Old password" = "Old password";
+"New Password" = "New Password";
+"CHANGE" = "CHANGE";
+
+// Menu items
+"HOME" = "HOME";
+"MASTER" = "MASTER";
+"Change Password" = "Change Password";
+"TRACKING" = "TRACKING";
+"Inbox" = "Inbox";
+"EMPLOYEE MOVEMENT" = "EMPLOYEE MOVEMENT";
+"Employee Vacation" = "Employee Vacation";
+"Loan" = "Loan";
+"Resign" = "Resign";
+"Employee violation" = "Employee violation";
+"Return from Vacation" = "Return from Vacation";
+"Salary Preview" = "Salary Preview";
+"Employee Info" = "Employee Info";
+"Salary Change" = "Salary Change";
+"Vacation Days Update" = "Vacation Days Update";
+"Ticket Change" = "Ticket Change";
+"Job Title Change" = "Job Title Change";
+"Business Trip" = "Business Trip";
+"In Out Deduction" = "In Out Deduction";
+"ATTENDANCE" = "ATTENDANCE";
+"Attendance Details" = "Attendance Details";
+"OverTime Calculation" = "OverTime Calculation";
+"Settle Calculation" = "Settle Calculation";
+"Attendance Clearance" = "Attendance Clearance";
+"PURCHASE SYSTEM" = "PURCHASE SYSTEM";
+"Purchase Inbox" = "Purchase Inbox";
+"Purchase" = "Purchase";
+"Purchase System-Riyadh Food" = "Purchase System-Riyadh Food";
+"IT DEPARTMENT" = "IT DEPARTMENT";
+"IT Request" = "IT Request";
+"IT-Master File" = "IT-Master File";
+"Add Category" = "Add Category";
+"My Requests" = "My Requests";
+"Device Details" = "Device Details";
+"PAYMENT REQUISITION" = "PAYMENT REQUISITION";
+"New Payment-Req" = "New Payment-Req";
+"Track Payment-Req" = "Track Payment-Req";
+"Update Bank Status" = "Update Bank Status";
+"TASK" = "TASK";
+"New Task" = "New Task";
+"Task Details" = "Task Details";
+"COMPLAIN" = "COMPLAIN";
+"New Complain" = "New Complain";
+"My Complains" = "My Complains";
+"SALES" = "SALES";
+"Sales Inbox" = "Sales Inbox";
+"Sales Order Approval" = "Sales Order Approval";
+"Sales Return Approval" = "Sales Return Approval";
+"Sales Promotion Approval" = "Sales Promotion Approval";
+"Sales Order Requests" = "Sales Order Requests";
+"Return Order Requests" = "Return Order Requests";
+"Promotion Request" = "Promotion Request";
+"Othaim Sales Status" = "Othaim Sales Status";
+"Sales Plan Summary" = "Sales Plan Summary";
+"Sales Person Area Setup" = "Sales Person Area Setup";
+"Sales Store Update" = "Sales Store Update";
+"REPORT" = "REPORT";
+
+// Helper files
+"SignOut" = "SignOut";
+"Are you sure you want to sign out?" = "Are you sure you want to sign out?";
+"Yes" = "Yes";
+"Cancel" = "Cancel";
+
+// Home
+"Home" = "Home";
+"No data" = "No data";
+"English Description:" = "English Description:";
+"Arabic Description:" = "Arabic Description:";
+"Count:" = "Count:";
+"CLICK TO VIEW" = "CLICK TO VIEW";
+
+// Sales Inbox
+"Sales Inbox" = "Sales Inbox";
+"Search content" = "Search content";
+"SEARCH" = "SEARCH";
+"Select a list" = "Select a list";
+"Order List" = "Order List";
+"Transfer List" = "Transfer List";
+"Return List" = "Return List";
+"Alert" = "Alert";
+"You did not select a list" = "You did not select a list";
+"out of" = "out of";
+"ID" = "ID";
+"Emp Created" = "Emp Created";
+"Customer Name" = "Customer Name";
+"Items" = "Items";
+"Date" = "Date";
+"Request Date" = "Request Date";
+"Return Date" = "Return Date";
+"Status" = "Status";
+"PendingBy" = "PendingBy";
+"Comment" = "Comment";
+"No Data" = "No Data";
+
+// Sales order request
+"Salesperson Details" = "Salesperson Details";
+"Store Details" = "Store Details";
+"Credit Details" = "Credit Details";
+"Add Items" = "Add Items";
+"Summary" = "Summary";
+"Alert!" = "Alert!";
+"NEXT" = "NEXT";
+"Company" = "Company";
+"Select company" = "Select company";
+"Branch" = "Branch";
+"Select branch" = "Select branch";
+"Doc ID" = "Doc ID";
+"Select customer" = "Select customer";
+"Loc Code" = "Loc Code";
+"Select location code" = "Select location code";
+"You did not select a company, branch or location code" = "You did not select a company, branch or location code";
+
+"salesperson" = "salesperson";
+"No salespreson aviable" = "No salespreson aviable";
+"Customer" = "Customer";
+"Select customer" = "Select customer";
+"Delivery Date" = "Delivery Date";
+"Super Market?" = "Super Market?";
+"Offer?" = "Offer?";
+"yes" = "yes";
+"no" = "no";
+
+"Store" = "Store";
+"Select store id" = "Select store id";
+"City" = "City";
+"Select city" = "Select city";
+"Sales Person" = "Sales Person";
+"Select sales person" = "Select sales person";
+"Merchandiser" = "Merchandiser";
+"Select merchandiser" = "Select merchandiser";
+"You did not select a store id" = "You did not select a store id";
+
+"Credit Limit:" = "Credit Limit";
+"Total Due:" = "Total Due";
+"0 to 31 Days:" = "0 to 31 Days";
+"31 to 60 Days:" = "31 to 60 Days";
+"61 to 90 Days:" = "61 to 90 Days";
+"91 to 120 Days:" = "91 to 120 Days";
+"above 120 Days:" = "above 120 Days";
+"Status:" = "Status:";
+
+"Select item" = "Select item";
+"Unoit of Measure" = "Unoit of Measure";
+"Select unoit of measure" = "Select unoit of measure";
+"QTY" = "QTY";
+"ADD ITEM" = "ADD ITEM";
+"Items added is " = "Items added is ";
+"SHOW ITEMS" = "SHOW ITEMS";
+"Added" = "Added";
+"Item has been added" = "Item has been added";
+"You have already added this item. Do you wnat to add it again" = "You have already added this item. Do you wnat to add it again";
+
+"Description" = "Description";
+"QTY" = "QTY";
+"Unit Price" = "Unit Price";
+"Total Price" = "Total Price";
+"SEND" = "SEND";
+
+//
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+//"Company" = "Company";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

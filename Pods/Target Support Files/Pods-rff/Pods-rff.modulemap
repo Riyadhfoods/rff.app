@@ -1,0 +1,6 @@
+framework module Pods_rff {
+  umbrella header "Pods-rff-umbrella.h"
+
+  export *
+  module * { export * }
+}
