@@ -17,7 +17,18 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var requestDate: UILabel!
     @IBOutlet weak var returnDate: UILabel!
-    @IBOutlet weak var upperStack: UIStackView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var docId: UITextField!
+    @IBOutlet weak var loccode: UITextField!
+    @IBOutlet weak var approveAndSaveGBBtn: UIButton!
+    @IBOutlet weak var approveAndEnterManBtn: UIButton!
+    @IBOutlet weak var approveBtn: UIButton!
+    @IBOutlet weak var rejectAllBtn: UIButton!
+    @IBOutlet weak var reportIssueBtn: UIButton!
+    @IBOutlet weak var exportBtn: UIButton!
+    @IBOutlet weak var returnBtn: UIButton!
+    @IBOutlet weak var stackView: UIStackView!
+    @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
     
     // -- MARK: Variables
     
@@ -38,6 +49,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        stackViewWidth.constant = AppDelegate().screenSize.width - 32
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if let currentUserId = AuthServices.currentUserId{
             userId = currentUserId
@@ -94,13 +106,11 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? DetailsSalesOrderApprovalCell{
-            cell.textLabel?.text = cellTitleArray[indexPath.row]
+            cell.titleLabel.text = cellTitleArray[indexPath.row]
             return cell
         }
         return UITableViewCell()
     }
-    
-    
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let rowDetailsArray = getArray(row: indexPath.row)
@@ -155,10 +165,22 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     
     // -- MARK: IBActions
     
+    @IBAction func approveAndSaveGBButtonTapped(_ sender: Any) {
+    }
+    
+    @IBAction func approveAndEnterManButtonTapped(_ sender: Any) {
+    }
+    
     @IBAction func approveButtonTapped(_ sender: Any) {
     }
     
     @IBAction func rejectAllButtonTapped(_ sender: Any) {
+    }
+    
+    @IBAction func reportIssueButtonTapped(_ sender: Any) {
+    }
+    
+    @IBAction func exportButtonTapped(_ sender: Any) {
     }
     
     @IBAction func returnButtonTapped(_ sender: Any) {
