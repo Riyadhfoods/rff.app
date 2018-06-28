@@ -43,6 +43,10 @@
 		C03C7C1820C7F75100D8248C /* Sales.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C7C1620C7F75100D8248C /* Sales.swift */; };
 		C03C7C1920C7F75100D8248C /* ArrayOfSales.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C7C1720C7F75100D8248C /* ArrayOfSales.swift */; };
 		C03C7C1B20C7F7E000D8248C /* SalesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C03C7C1A20C7F7E000D8248C /* SalesModel.swift */; };
+		C0489E9620E4CE4900CF6167 /* ReturnItemSelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0489E9520E4CE4900CF6167 /* ReturnItemSelectedViewController.swift */; };
+		C0489E9820E4CE6800CF6167 /* ReturnItemSelectedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0489E9720E4CE6800CF6167 /* ReturnItemSelectedCell.swift */; };
+		C0489E9A20E4EAA900CF6167 /* ArrayOfSaveToGp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0489E9920E4EAA900CF6167 /* ArrayOfSaveToGp.swift */; };
+		C0489E9E20E4F0A200CF6167 /* SaveToGp.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0489E9D20E4F0A100CF6167 /* SaveToGp.swift */; };
 		C05777AB20CE79CB00423FE7 /* SalesOrderApprovalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05777AA20CE79CB00423FE7 /* SalesOrderApprovalCell.swift */; };
 		C05777AE20CE90B200423FE7 /* SalesReturnApprovalCellCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05777AD20CE90B200423FE7 /* SalesReturnApprovalCellCell.swift */; };
 		C05777B020CE944D00423FE7 /* DetailsSalesOrderApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C05777AF20CE944D00423FE7 /* DetailsSalesOrderApprovalViewController.swift */; };
@@ -229,6 +233,10 @@
 		C03C7C1620C7F75100D8248C /* Sales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sales.swift; sourceTree = "<group>"; };
 		C03C7C1720C7F75100D8248C /* ArrayOfSales.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfSales.swift; sourceTree = "<group>"; };
 		C03C7C1A20C7F7E000D8248C /* SalesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesModel.swift; sourceTree = "<group>"; };
+		C0489E9520E4CE4900CF6167 /* ReturnItemSelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnItemSelectedViewController.swift; sourceTree = "<group>"; };
+		C0489E9720E4CE6800CF6167 /* ReturnItemSelectedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnItemSelectedCell.swift; sourceTree = "<group>"; };
+		C0489E9920E4EAA900CF6167 /* ArrayOfSaveToGp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfSaveToGp.swift; sourceTree = "<group>"; };
+		C0489E9D20E4F0A100CF6167 /* SaveToGp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveToGp.swift; sourceTree = "<group>"; };
 		C05777AA20CE79CB00423FE7 /* SalesOrderApprovalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesOrderApprovalCell.swift; sourceTree = "<group>"; };
 		C05777AD20CE90B200423FE7 /* SalesReturnApprovalCellCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReturnApprovalCellCell.swift; sourceTree = "<group>"; };
 		C05777AF20CE944D00423FE7 /* DetailsSalesOrderApprovalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsSalesOrderApprovalViewController.swift; sourceTree = "<group>"; };
@@ -554,8 +562,10 @@
 			isa = PBXGroup;
 			children = (
 				C03C7C1720C7F75100D8248C /* ArrayOfSales.swift */,
+				C0489E9920E4EAA900CF6167 /* ArrayOfSaveToGp.swift */,
 				C03C7C1620C7F75100D8248C /* Sales.swift */,
 				C03C7C1A20C7F7E000D8248C /* SalesModel.swift */,
+				C0489E9D20E4F0A100CF6167 /* SaveToGp.swift */,
 				C0B1EBC920DB92F600E5E4C5 /* ItemAddedModel.swift */,
 				C005D5D720CD0C6D00E1740A /* SalesRequest.swift */,
 			);
@@ -907,6 +917,8 @@
 			children = (
 				C08A26DE20A6E8340028052C /* ReturnOrderRequestsViewController.swift */,
 				C0B8828320CFAB2800237010 /* AddReturnInvoiceViewController.swift */,
+				C0489E9520E4CE4900CF6167 /* ReturnItemSelectedViewController.swift */,
+				C0489E9720E4CE6800CF6167 /* ReturnItemSelectedCell.swift */,
 			);
 			path = "return order request";
 			sourceTree = "<group>";
@@ -1167,6 +1179,7 @@
 				C0A9E72620DE423C000C7A0D /* DetailsSalesReturnApprovalCell.swift in Sources */,
 				C013CC4620BEAE3200B08289 /* DepVacTicket.swift in Sources */,
 				C08A268120A6E2DE0028052C /* TrackingInboxViewController.swift in Sources */,
+				C0489E9A20E4EAA900CF6167 /* ArrayOfSaveToGp.swift in Sources */,
 				C008655A20C94472006CD88E /* ItemsSelectedCell.swift in Sources */,
 				C0A9E72220DE4222000C7A0D /* CustomerAgingViewController.swift in Sources */,
 				C0A9E71220DE19A6000C7A0D /* UserCommentViewController.swift in Sources */,
@@ -1201,12 +1214,14 @@
 				C0B3A31B20A2F71800A03211 /* ListTableViewCell.swift in Sources */,
 				C0FFEE2B20A4412C00712531 /* slideMenuExtension.swift in Sources */,
 				C0A9E71A20DE2162000C7A0D /* UserCommentCell.swift in Sources */,
+				C0489E9820E4CE6800CF6167 /* ReturnItemSelectedCell.swift in Sources */,
 				C08A26B920A6E6E80028052C /* PurchaseViewController.swift in Sources */,
 				C0D2ABA920A829A3001AE4FD /* WebFormViewController.swift in Sources */,
 				C0A9E70E20DE197D000C7A0D /* ItemsDetailsViewController.swift in Sources */,
 				C03C7C1920C7F75100D8248C /* ArrayOfSales.swift in Sources */,
 				C0F8BC9F20BD708300791A8C /* VisaRequiresCell.swift in Sources */,
 				C08A267D20A6E2AB0028052C /* HomeViewController.swift in Sources */,
+				C0489E9E20E4F0A200CF6167 /* SaveToGp.swift in Sources */,
 				C08A26C720A6E75B0028052C /* NewPaymentReqViewController.swift in Sources */,
 				C0234D3A20C5237E008BB55B /* extensions.swift in Sources */,
 				C0B7F4BE20A1A89F007D1F67 /* Section.swift in Sources */,
@@ -1250,6 +1265,7 @@
 				C08A26C320A6E73B0028052C /* MyRequestsViewController.swift in Sources */,
 				C03C7C0D20C7D9FF00D8248C /* OrderStyleTableViewController.swift in Sources */,
 				C0A9E72420DE4231000C7A0D /* WorkFlowReturnViewController.swift in Sources */,
+				C0489E9620E4CE4900CF6167 /* ReturnItemSelectedViewController.swift in Sources */,
 				C08A269320A6E3AC0028052C /* SalaryPreviewViewController.swift in Sources */,
 				C035314920B1875700E0DBD9 /* SoapHttpClientExtension.swift in Sources */,
 				C061756D209EF792007F8E59 /* AppDelegate.swift in Sources */,

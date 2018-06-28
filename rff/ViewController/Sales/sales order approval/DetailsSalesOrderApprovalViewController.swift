@@ -26,15 +26,18 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     @IBOutlet weak var rejectAllBtn: UIButton!
     @IBOutlet weak var reportIssueBtn: UIButton!
     @IBOutlet weak var exportBtn: UIButton!
-    @IBOutlet weak var returnBtn: UIButton!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var docIdStackView: UIStackView!
+    @IBOutlet weak var locCodeStackView: UIStackView!
+    @IBOutlet weak var commentStackView: UIStackView!
     
     // -- MARK: Variables
     
     let webservice = Sales()
     let cellId = "cell_detailsSalesOrderRequest"
     let cellTitleArray = ["Item(s) Details", "Cutomer Credit Details", "User Comment", "Work Flow"]
+    var buttonVisibilityArray: [SalesModel] = [SalesModel]()
     var itemsDetailsArray = [SalesModel]()
     var customerCreditDetailsArray = [SalesModel]()
     var userCommentArray = [SalesModel]()
@@ -49,6 +52,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setCustomNavAndBackButton(navItem: navigationItem, title: "Aprroval Form")
         stackViewWidth.constant = AppDelegate().screenSize.width - 32
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         if let currentUserId = AuthServices.currentUserId{
@@ -57,6 +61,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
         requestDate.text = reqDate
         returnDate.text = deliveryDate
         
+        handleVisibilityOfButtons()
         setViewAlignment()
         setUpCommentDisplay()
         commentTextView.delegate = self
@@ -80,6 +85,24 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     }
     
     // -- MARK: Setups
+    
+    func handleVisibilityOfButtons(){
+        buttonVisibilityArray = webservice.CheckSalesApproval(emp_number: orderId, order_number: orderId, comment: "")
+        for buttonVisiblity in buttonVisibilityArray{
+            commentStackView.isHidden = setButtonVisibility(booleanString: buttonVisiblity.U_Comment)
+            docIdStackView.isHidden = setButtonVisibility(booleanString: buttonVisiblity.DocId_control_vis)
+            locCodeStackView.isHidden = setButtonVisibility(booleanString: buttonVisiblity.Loc_control_vis)
+            approveAndSaveGBBtn.isHidden = setButtonVisibility(booleanString: buttonVisiblity.Savetogp_btn_vis)
+            approveAndEnterManBtn.isHidden = setButtonVisibility(booleanString: buttonVisiblity.ApproveandEnterManually_btn)
+            approveBtn.isHidden = setButtonVisibility(booleanString: buttonVisiblity.App_btn_vis)
+            rejectAllBtn.isHidden = setButtonVisibility(booleanString: buttonVisiblity.Rej_btn_vis)
+            reportIssueBtn.isHidden = setButtonVisibility(booleanString: buttonVisiblity.Report_btn_vis)
+        }
+    }
+    
+    func setButtonVisibility(booleanString: String) -> Bool{
+        return !(booleanString == "true")
+    }
     
     func setUpCommentDisplay(){
         commentTextView.text = ""
@@ -106,7 +129,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? DetailsSalesOrderApprovalCell{
-            cell.titleLabel.text = cellTitleArray[indexPath.row]
+            cell.textLabel?.text = cellTitleArray[indexPath.row]
             return cell
         }
         return UITableViewCell()
@@ -147,6 +170,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
         if segue.identifier == "showItemsDetails"{
             if let vc = segue.destination as? ItemsDetailsViewController{
                 vc.itemsDetailsArray = self.itemsDetailsArray
+                vc.orderId = self.orderId
             }
         } else if segue.identifier == "showCustomerCreditDetails" {
             if let vc = segue.destination as? CustomerCreditDetailsViewController{
@@ -165,7 +189,9 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     
     // -- MARK: IBActions
     
+    var saveToGPRetur = [SaveToGpModel]()
     @IBAction func approveAndSaveGBButtonTapped(_ sender: Any) {
+        
     }
     
     @IBAction func approveAndEnterManButtonTapped(_ sender: Any) {
@@ -181,8 +207,5 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     }
     
     @IBAction func exportButtonTapped(_ sender: Any) {
-    }
-    
-    @IBAction func returnButtonTapped(_ sender: Any) {
     }
 }

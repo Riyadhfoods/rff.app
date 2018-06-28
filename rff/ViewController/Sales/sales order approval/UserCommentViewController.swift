@@ -27,8 +27,7 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //userCommentArray = webservice.BindUserComment_SalesApprovalForm(orderid: orderId)
-        
+        title = "User Comment"
         setViewAlignment()
     }
 
@@ -51,7 +50,7 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
             let userComment = userCommentArray[indexPath.row]
             
             cell.empName.text = userComment.SOA_EMPNAME
-            cell.comment.text = userComment.SOA_COMMENT
+            cell.comment.text = userComment.SOA_COMMENT == "" ? AppDelegate.noComment : userComment.SOA_COMMENT
             
             return cell
         }

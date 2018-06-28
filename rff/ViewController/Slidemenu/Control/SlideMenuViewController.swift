@@ -209,9 +209,9 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func getNavTitle(indexPath: IndexPath){
         if (indexPath.section == 0 || indexPath.section == 11){
-            SlideMenuViewController.selectedItem = sections[indexPath.section].name
+            SlideMenuViewController.selectedItem = sections[indexPath.section].name.localize()
         } else {
-            SlideMenuViewController.selectedItem = sections[indexPath.section].items[indexPath.row]
+            SlideMenuViewController.selectedItem = sections[indexPath.section].items[indexPath.row].localize()
         }
     }
 }

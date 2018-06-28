@@ -27,8 +27,7 @@ class WorkFlowViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //workFlowArray = webservice.BindApprovalGrid_SalesApprovalForm(orderid: orderId)
-        
+        title = "Work Flow"
         setViewAlignment()
     }
 

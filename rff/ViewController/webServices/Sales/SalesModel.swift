@@ -96,8 +96,37 @@ public class SalesModel{
     public var SOA_REQUESTDATE : String = ""
     public var SOA_DELIVERYDATE : String = ""
     
+    public var Approver1 : String = ""
+    public var App_Retail : String = ""
+    public var App_Market: String = ""
+    public var ApproveandEnterManually_btn : String = ""
+    public var App_Export : String = ""
+    public var U_Comment : String = ""
+    public var App_Diary : String = ""
+    public var Approver: String = ""
+    public var App_btn_vis : String = ""
+    public var Rej_btn_vis : String = ""
+    public var Report_btn_vis : String = ""
+    public var Savetogp_btn_vis: String = ""
+    public var Loc_control_vis : String = ""
+    public var DocId_control_vis : String = ""
+    public var DocumentId : String = ""
+    public var SSO_EmployeeCreated : String = ""
+    public var SSO_OrderId : String = ""
+    public var SSO_ReqDate: String = ""
+    public var SSO_DeliveryDate: String = ""
+    public var SSO_ITEMS : String = ""
+    public var SSO_CustomerName: String = ""
+    public var SSO_Comment: String = ""
+    public var SSO_Status : String = ""
+    
     public var SalesPersonInFull: String = ""
     public var CustomerInFull: String = ""
+    
+    public var CustomerStore_StoreId : String = ""
+    public var CustomerStore_City: String = ""
+    public var CustomerStore_SalesPerson: String = ""
+    public var CustomerStore_Merchandiser : String = ""
     
     public var ItemsAdded: [ItemAddedModel] = [ItemAddedModel]()
 }

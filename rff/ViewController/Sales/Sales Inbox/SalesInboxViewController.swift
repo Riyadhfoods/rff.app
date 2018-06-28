@@ -36,10 +36,13 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
     var transferArray: [SalesModel] = [SalesModel]()
     var returnArray: [SalesModel] = [SalesModel]()
     
+    var currentUserId = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // ---------------
         setViewAlignment()
+        activityIndicator.stopAnimating()
         
         ListTextfield.tintColor = .clear
         showListPickerTextfield.tintColor = .clear
@@ -91,19 +94,18 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBAction func searchButtonTapped(_ sender: Any) {
         if ListTextfield.text == selectListArray[0].localize(){
             let alertTitle = "Alert".localize()
-                //getString(englishString: "Alert", arabicString: "تنبيه", language: languageChosen)
             let alertMessage = "You did not select a list".localize()
-                //getString(englishString: "Select a list first", arabicString: "اختر من القائمة اولاً", language: languageChosen)
-            
             AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
         }
         
         if let userId = AuthServices.currentUserId, let searchText = seachTextfield.text{
-            salesArray = salesWebservice.GetSalesInbox(id: selectedListIndex, emp_id: userId, searchtext: searchText, index: 0, activityIndicator: activityIndicator)
-                //salesWebservice.GetSalesInbox(id: selectedListIndex, emp_id: userId, searchtext: searchText, index: 0)
+            activityIndicator.startAnimating()
+            salesArray = salesWebservice.GetSalesInbox(id: selectedListIndex, emp_id: userId, searchtext: searchText, index: 0)
+            activityIndicator.stopAnimating()
         } else {
             return
         }
+        
         switch selectedListIndex {
         case 1:
             performSegue(withIdentifier: segueId_orderStyle, sender: nil)
@@ -121,30 +123,28 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
         case segueId_orderStyle:
             if let vc = segue.destination as? OrderStyleTableViewController{
                 vc.listIndexSelected = self.selectedListIndex
-                if let search = seachTextfield.text{
-                   vc.searchMessage = search
-                }
                 vc.salesArray = salesArray
             }
         case segueId_transferStyle:
             if let vc = segue.destination as? TansferStyleTableViewController{
                 vc.listIndexSelected = self.selectedListIndex
-                if let search = seachTextfield.text{
-                    vc.searchMessage = search
-                }
                 vc.salesArray = salesArray
             }
         case segueId_returnStyle:
             if let vc = segue.destination as? ReturnStyleTableViewController{
                 vc.listIndexSelected = self.selectedListIndex
-                if let search = seachTextfield.text{
-                    vc.searchMessage = search
-                }
                 vc.salesArray = salesArray
             }
         default:
             break
         }
+    }
+    
+    func getSearchText() -> String{
+        if let search = seachTextfield.text{
+            return search
+        }
+        return ""
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

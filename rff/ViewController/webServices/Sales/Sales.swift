@@ -144,8 +144,6 @@
                             let elemText:TextElement = elem as! TextElement
                             strVal += elemText.text
                         }
-//                        let elemText:TextElement = elem1?.children.first as! TextElement
-//                        strVal = elemText.text
                     }
                     elemName = elem1!.name
                     // Array Propert of returnValue subProperty for rItem1
@@ -159,6 +157,114 @@
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "grid_error" {
                         rItem1.grid_error =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "CustomerStore_StoreId" {
+                        rItem1.CustomerStore_StoreId =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "CustomerStore_City" {
+                        rItem1.CustomerStore_City =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "CustomerStore_SalesPerson" {
+                        rItem1.CustomerStore_SalesPerson =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "CustomerStore_Merchandiser" {
+                        rItem1.CustomerStore_Merchandiser =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Approver1" {
+                        rItem1.Approver1 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "App_Retail" {
+                        rItem1.App_Retail =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "App_Market" {
+                        rItem1.App_Market =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "ApproveandEnterManually_btn" {
+                        rItem1.ApproveandEnterManually_btn =  (strVal.lowercased())
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "App_Export" {
+                        rItem1.App_Export =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "U_Comment" {
+                        rItem1.U_Comment =  (strVal.lowercased())
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "App_Diary" {
+                        rItem1.App_Diary =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Approver" {
+                        rItem1.Approver =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "App_btn_vis" {
+                        rItem1.App_btn_vis =  (strVal.lowercased())
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Rej_btn_vis" {
+                        rItem1.Rej_btn_vis =  (strVal.lowercased())
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Report_btn_vis" {
+                        rItem1.Report_btn_vis =  (strVal.lowercased())
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Savetogp_btn_vis" {
+                        rItem1.Savetogp_btn_vis =  (strVal.lowercased())
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Loc_control_vis" {
+                        rItem1.Loc_control_vis =  (strVal.lowercased())
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "DocId_control_vis" {
+                        rItem1.DocId_control_vis =  (strVal.lowercased())
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "DocumentId" {
+                        rItem1.DocumentId =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SSO_EmployeeCreated" {
+                        rItem1.SSO_EmployeeCreated =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SSO_OrderId" {
+                        rItem1.SSO_OrderId =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SSO_ReqDate" {
+                        rItem1.SSO_ReqDate =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SSO_DeliveryDate" {
+                        rItem1.SSO_DeliveryDate =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SSO_ITEMS" {
+                        rItem1.SSO_ITEMS =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SSO_CustomerName" {
+                        rItem1.SSO_CustomerName =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SSO_Comment" {
+                        rItem1.SSO_Comment =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SSO_Status" {
+                        rItem1.SSO_Status =  strVal
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "Flag" {
@@ -1166,6 +1272,276 @@
         
         let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         let returnValue:[SalesModel]=SalesArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func BindCombobox(ordernumber:String)-> [SalesModel]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<BindCombobox xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<ordernumber>"
+        soapReqXML += ordernumber
+        soapReqXML += "</ordernumber>"
+        soapReqXML += "</BindCombobox>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/BindCombobox"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesModel] = SalesArrFromXML(data : responseData)
+        return returnValue
+    }
+    public func CheckSalesApproval(emp_number:String, order_number:String, comment:String)-> [SalesModel]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<CheckSalesApproval xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<emp_number>"
+        soapReqXML += emp_number
+        soapReqXML += "</emp_number>"
+        soapReqXML += "<order_number>"
+        soapReqXML += order_number
+        soapReqXML += "</order_number>"
+        soapReqXML += "<comment>"
+        soapReqXML += comment
+        soapReqXML += "</comment>"
+        soapReqXML += "</CheckSalesApproval>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/CheckSalesApproval"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesModel] = SalesArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func BindSalesOrderGrid(empno:String)-> [SalesModel]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<BindSalesOrderGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<empno>"
+        soapReqXML += empno
+        soapReqXML += "</empno>"
+        soapReqXML += "</BindSalesOrderGrid>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/BindSalesOrderGrid"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesModel]=SalesArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SaveToGpArrFromXMLString(xmlToParse:String) -> [SaveToGpModel] {
+        
+        let xml = SWXMLHash.lazy(xmlToParse)
+        let xmlRoot = xml.children.first
+        let xmlBody = xmlRoot?.children.last
+        let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
+        let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
+        var strVal = ""
+        var elemName = ""
+        var returnValue: [SaveToGpModel] = [SaveToGpModel]()
+        if elemName == "" {
+            // Array Property For returnValue
+            let itemCount1: Int = (xmlResult0?.children.count)!
+            for i1 in 0 ..< itemCount1 {
+                let rItem1 = SaveToGpModel()
+                let xmlResult_Parent1:XMLIndexer? = xmlResult0?.children[i1]
+                let childCount1 :Int = (xmlResult_Parent1?.children.count)!
+                for j1 in 0 ..< childCount1 {
+                    
+                    let xmlResult1: XMLIndexer? =  xmlResult_Parent1?.children[j1]
+                    let elem1: XMLElement? =  xmlResult1?.element
+                    strVal = ""
+                    if elem1?.children.first is TextElement {
+                        let elemText:TextElement = elem1?.children.first as! TextElement
+                        strVal = elemText.text
+                        
+                    }
+                    elemName = elem1!.name
+                    // Array Propert of returnValue subProperty for rItem1
+                    if elemName == "GP_Save" {
+                        rItem1.GP_Save =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "GP_Error" {
+                        rItem1.GP_Error =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Savetogp_btn_vis" {
+                        rItem1.Savetogp_btn_vis =  (strVal.lowercased() == "true")
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "ApproveandEnterManually_btn" {
+                        rItem1.ApproveandEnterManually_btn =  (strVal.lowercased() == "true")
+                    }
+                    
+                }
+                returnValue.append(rItem1)
+                
+            }
+        }
+        return returnValue
+    }
+    public func SaveToGpArrFromXML(data: Data)-> [SaveToGpModel] {
+        
+        let xmlToParse   = String.init(data: data, encoding: String.Encoding.utf8)!
+        return SaveToGpArrFromXMLString( xmlToParse : xmlToParse)
+    }
+    public func SaveToGp(orderno:String, combo_loc_code:String, combo_doc_id:String, empnumber:String)-> [SaveToGpModel]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SaveToGp xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<orderno>"
+        soapReqXML += orderno
+        soapReqXML += "</orderno>"
+        soapReqXML += "<combo_loc_code>"
+        soapReqXML += combo_loc_code
+        soapReqXML += "</combo_loc_code>"
+        soapReqXML += "<combo_doc_id>"
+        soapReqXML += combo_doc_id
+        soapReqXML += "</combo_doc_id>"
+        soapReqXML += "<empnumber>"
+        soapReqXML += empnumber
+        soapReqXML += "</empnumber>"
+        soapReqXML += "</SaveToGp>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SaveToGp"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SaveToGpModel]=SaveToGpArrFromXML(data : responseData)
+        return returnValue
+    }
+    public func BeforeApproveFinalOrder(serialnumber:String, ordernumber:String, checkbox:Bool){
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<BeforeApproveFinalOrder xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<serialnumber>"
+        soapReqXML += serialnumber
+        soapReqXML += "</serialnumber>"
+        soapReqXML += "<ordernumber>"
+        soapReqXML += ordernumber
+        soapReqXML += "</ordernumber>"
+        soapReqXML += "<checkbox>"
+        soapReqXML += String(checkbox)
+        soapReqXML += "</checkbox>"
+        soapReqXML += "</BeforeApproveFinalOrder>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/BeforeApproveFinalOrder"
+        
+        SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+    }
+    
+    public func ApproveFinalOrder(orderno:String, approver:String, empno:String, comment:String)-> String{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<ApproveFinalOrder xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<orderno>"
+        soapReqXML += orderno
+        soapReqXML += "</orderno>"
+        soapReqXML += "<approver>"
+        soapReqXML += approver
+        soapReqXML += "</approver>"
+        soapReqXML += "<empno>"
+        soapReqXML += empno
+        soapReqXML += "</empno>"
+        soapReqXML += "<comment>"
+        soapReqXML += comment
+        soapReqXML += "</comment>"
+        soapReqXML += "</ApproveFinalOrder>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/ApproveFinalOrder"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVal :String? = stringFromXML(data : responseData);
+        if strVal == nil {
+            
+            return  ""
+        }
+        let returnValue:String = strVal!
+        return returnValue
+    }
+    public func Reject_SalesOrderApproval(ordernumber:String, empnumber:String, app_diary:String, app_retail:String, app_market:String, export:String, approval1:String, approver:String, comment:String)-> String{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<Reject_SalesOrderApproval xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<ordernumber>"
+        soapReqXML += ordernumber
+        soapReqXML += "</ordernumber>"
+        soapReqXML += "<empnumber>"
+        soapReqXML += empnumber
+        soapReqXML += "</empnumber>"
+        soapReqXML += "<app_diary>"
+        soapReqXML += app_diary
+        soapReqXML += "</app_diary>"
+        soapReqXML += "<app_retail>"
+        soapReqXML += app_retail
+        soapReqXML += "</app_retail>"
+        soapReqXML += "<app_market>"
+        soapReqXML += app_market
+        soapReqXML += "</app_market>"
+        soapReqXML += "<export>"
+        soapReqXML += export
+        soapReqXML += "</export>"
+        soapReqXML += "<approval1>"
+        soapReqXML += approval1
+        soapReqXML += "</approval1>"
+        soapReqXML += "<approver>"
+        soapReqXML += approver
+        soapReqXML += "</approver>"
+        soapReqXML += "<comment>"
+        soapReqXML += comment
+        soapReqXML += "</comment>"
+        soapReqXML += "</Reject_SalesOrderApproval>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/Reject_SalesOrderApproval"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVal :String? = stringFromXML(data : responseData);
+        if strVal == nil {
+            
+            return  ""
+        }
+        let returnValue:String = strVal!
         return returnValue
     }
  }

@@ -35,6 +35,7 @@ class OrderStyleTableViewController: UITableViewController {
     
     var lastIndex: Int = 0
     var reminder: Int = 0
+    var currentUserId = ""
     
     // -- MARK: viewDidLoad
     
@@ -51,22 +52,21 @@ class OrderStyleTableViewController: UITableViewController {
             totalRow = salesArray[0].totalrows
             currentRow = salesArray[0].currentrows
         }
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // -- MARK: Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if isSalesArrayEmpty{
             emptyMessage(message: "No Data".localize(), viewController: self, tableView: tableView)
             return salesArray.count
@@ -107,7 +107,7 @@ class OrderStyleTableViewController: UITableViewController {
             cell.itemsLabel.text = items
             cell.statusLabel.text = status
             cell.pendingByLabel.text = pendingBy
-            cell.commentLabel.text = comment
+            cell.commentLabel.text = comment == "" ? AppDelegate.noComment : comment
             
             cell.viewOutlet.addTarget(self, action: #selector(viewButtonTapped(sender:)), for: .touchUpInside)
             cell.viewOutlet.tag = indexPath.row

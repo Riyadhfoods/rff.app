@@ -35,6 +35,7 @@ class ReturnStyleTableViewController: UITableViewController {
     
     var lastIndex: Int = 0
     var reminder: Int = 0
+    var currentUserId = ""
     
     // -- MARK: viewDidLoad
 
@@ -60,12 +61,10 @@ class ReturnStyleTableViewController: UITableViewController {
     // -- MARK: Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         if isSalesArrayEmpty{
             emptyMessage(message: "No Data".localize(), viewController: self, tableView: tableView)
             return salesArray.count
@@ -106,7 +105,7 @@ class ReturnStyleTableViewController: UITableViewController {
             cell.returnDateLabel.text = rtnDate
             cell.statusLabel.text = status
             cell.pendingByLabel.text = pendingBy
-            cell.commentLabel.text = comment
+            cell.commentLabel.text = comment == "" ? AppDelegate.noComment : comment
             
             cell.viewOutlet.addTarget(self, action: #selector(viewButtonTapped(sender:)), for: .touchUpInside)
             cell.viewOutlet.tag = indexPath.row

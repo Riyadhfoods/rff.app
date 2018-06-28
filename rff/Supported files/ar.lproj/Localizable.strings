@@ -105,6 +105,10 @@
 "Pending By" = "معلق من";
 "Comment" = "ملاحظات";
 "No Data" = "لا توجد بيانات";
+"<" = ">";
+"<<" = ">>";
+">" = "<";
+">>" = "<<";
 
 // Sales order request
 "Salesperson Details" = "بيانات مندوب المبيعات";

@@ -1,15 +1,15 @@
 //
-//  DetailsSalesOrderApprovalCell.swift
+//  ReturnItemSelectedCell.swift
 //  rff
 //
-//  Created by Riyadh Foods Industrial Co. on 23/06/2018.
+//  Created by Riyadh Foods Industrial Co. on 28/06/2018.
 //  Copyright © 2018 Riyadh Foods Industrial Co. All rights reserved.
 //
 
 import UIKit
 
-class DetailsSalesOrderApprovalCell: UITableViewCell {
-    
+class ReturnItemSelectedCell: UITableViewCell {
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

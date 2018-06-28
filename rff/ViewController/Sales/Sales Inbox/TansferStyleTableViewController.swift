@@ -35,6 +35,7 @@ class TansferStyleTableViewController: UITableViewController {
     
     var lastIndex: Int = 0
     var reminder: Int = 0
+    var currentUserId = ""
     
     // -- MARK: viewDidLoad
     
@@ -105,7 +106,7 @@ class TansferStyleTableViewController: UITableViewController {
             cell.itemsLabel.text = items
             cell.statusLabel.text = status
             cell.pendingByLabel.text = pendingBy
-            cell.commentLabel.text = comment
+            cell.commentLabel.text = comment == "" ? AppDelegate.noComment : comment
             
             cell.selectOutlet.addTarget(self, action: #selector(selectButtonTapped(sender:)), for: .touchUpInside)
             cell.selectOutlet.tag = indexPath.row

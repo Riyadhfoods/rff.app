@@ -105,6 +105,10 @@
 "PendingBy" = "PendingBy";
 "Comment" = "Comment";
 "No Data" = "No Data";
+"<" = "<";
+"<<" = "<<";
+">" = ">";
+">>" = ">>";
 
 // Sales order request
 "Salesperson Details" = "Salesperson Details";

@@ -23,10 +23,8 @@ class SalesOrderApprovalViewController: UIViewController, UITableViewDelegate, U
     let webService = Sales()
     
     var salesOrderDetails: [SalesModel] = [SalesModel]()
-    var itemsDetailsArray = [SalesModel]()
-    var customerCreditDetailsArray = [SalesModel]()
-    var userCommentArray = [SalesModel]()
-    var workFlowArray = [SalesModel]()
+    var buttonVisibilityArray: [SalesModel] = [SalesModel]()
+    
     
     var urlSrtingArray = [String]()
     var rowIndexSelected = 0
@@ -36,6 +34,7 @@ class SalesOrderApprovalViewController: UIViewController, UITableViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setCustomNavAndBackButton(navItem: navigationItem, title: "Sales Order Approval")
         activityIndicator.startAnimating()
         setViewAlignment()
         
@@ -66,13 +65,22 @@ class SalesOrderApprovalViewController: UIViewController, UITableViewDelegate, U
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SalesOrderApprovalCell{
-            cell.orderId.text = salesOrderDetails[indexPath.row].OrderID
-            cell.empCreated.text = salesOrderDetails[indexPath.row].SO_EmpCreated
-            cell.customerName.text = salesOrderDetails[indexPath.row].SO_CustomerName
-            cell.items.text = salesOrderDetails[indexPath.row].SO_Items
-            cell.date.text = salesOrderDetails[indexPath.row].DeliveryDate
-            cell.status.text = salesOrderDetails[indexPath.row].SO_Status
-            cell.comment.text = salesOrderDetails[indexPath.row].SO_Comment
+            
+            let orderId = salesOrderDetails[indexPath.row].OrderID
+            let empCreate = salesOrderDetails[indexPath.row].SO_EmpCreated
+            let customerName = salesOrderDetails[indexPath.row].SO_CustomerName
+            let item = salesOrderDetails[indexPath.row].SO_Items
+            let date = salesOrderDetails[indexPath.row].DeliveryDate
+            let status = salesOrderDetails[indexPath.row].SO_Status
+            let comment = salesOrderDetails[indexPath.row].SO_Comment
+            
+            cell.orderId.text = orderId
+            cell.empCreated.text = empCreate
+            cell.customerName.text = customerName
+            cell.items.text = item
+            cell.date.text = date
+            cell.status.text = status
+            cell.comment.text = comment  == "" ? AppDelegate.noComment : comment
             cell.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
             cell.selectButton.tag = indexPath.row
             return cell

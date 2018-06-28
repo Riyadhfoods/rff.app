@@ -28,8 +28,7 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         setViewAlignment()
         
-        title = "Order ID" + " \(orderId)"
-        //itemsDetailsArray = webservice.BindOrderItemGridFor_SalesApprovalForm(emp_id: userId, ordernumber: orderId)
+        title = "Order ID:" + " \(orderId)"
     }
 
     override func didReceiveMemoryWarning() {

@@ -5,7 +5,6 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -124,21 +123,21 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="5rv-gZ-Eqq">
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="4XK-kP-Gra">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" red="0.95508803934010156" green="0.95508803934010156" blue="0.95508803934010156" alpha="0.46615475171232879" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="0.64375535100000003" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="color" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="4XK-kP-Gra" firstAttribute="top" secondItem="ruv-pb-f8N" secondAttribute="top" id="3Xr-Vx-bcR"/>
                             <constraint firstItem="rn1-br-D2E" firstAttribute="leading" secondItem="ruv-pb-f8N" secondAttribute="leading" constant="16" id="GTS-d0-zFG"/>
-                            <constraint firstItem="ruv-pb-f8N" firstAttribute="bottom" secondItem="5rv-gZ-Eqq" secondAttribute="bottom" id="Jue-MW-72U"/>
                             <constraint firstItem="ruv-pb-f8N" firstAttribute="trailing" secondItem="rn1-br-D2E" secondAttribute="trailing" constant="16" id="ezW-9e-X0s"/>
-                            <constraint firstItem="5rv-gZ-Eqq" firstAttribute="leading" secondItem="ruv-pb-f8N" secondAttribute="leading" id="hOI-7B-AC1"/>
-                            <constraint firstItem="ruv-pb-f8N" firstAttribute="trailing" secondItem="5rv-gZ-Eqq" secondAttribute="trailing" id="k4V-0t-Vbi"/>
+                            <constraint firstItem="ruv-pb-f8N" firstAttribute="bottom" secondItem="4XK-kP-Gra" secondAttribute="bottom" id="hxs-BH-gr4"/>
                             <constraint firstItem="rn1-br-D2E" firstAttribute="top" secondItem="ruv-pb-f8N" secondAttribute="top" constant="18" id="lC9-w8-nas"/>
-                            <constraint firstItem="5rv-gZ-Eqq" firstAttribute="top" secondItem="Tzx-JR-82O" secondAttribute="topMargin" id="m7L-Ot-21a"/>
+                            <constraint firstItem="4XK-kP-Gra" firstAttribute="leading" secondItem="ruv-pb-f8N" secondAttribute="leading" id="sHE-7I-uDU"/>
+                            <constraint firstItem="ruv-pb-f8N" firstAttribute="trailing" secondItem="4XK-kP-Gra" secondAttribute="trailing" id="u3g-nk-hx1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="ruv-pb-f8N"/>
                     </view>
@@ -155,7 +154,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="ListTextfield" destination="Sf0-LM-uw2" id="ysf-ek-xeP"/>
-                        <outlet property="activityIndicator" destination="5rv-gZ-Eqq" id="Uuy-8P-1me"/>
+                        <outlet property="activityIndicator" destination="4XK-kP-Gra" id="7ae-Xc-vic"/>
                         <outlet property="menuBtn" destination="BEt-In-878" id="j87-sz-oyX"/>
                         <outlet property="seachTextfield" destination="GcG-pz-aji" id="J5h-BA-cww"/>
                         <outlet property="searchOutlet" destination="mkx-ax-WEs" id="UHB-j0-uFm"/>

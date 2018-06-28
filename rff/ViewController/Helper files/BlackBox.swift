@@ -20,6 +20,11 @@ func setCustomNav(navItem: UINavigationItem, title: String){
     navItem.title = title.localize()
 }
 
+func setCustomNavAndBackButton(navItem: UINavigationItem, title: String){
+    navItem.title = title.localize()
+    navItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+}
+
 func setbackNavTitle(navItem: UINavigationItem){
     navItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 }

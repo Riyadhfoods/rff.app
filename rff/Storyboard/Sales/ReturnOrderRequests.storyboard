@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nFN-2h-bh4">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="nFN-2h-bh4">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -35,7 +35,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CYz-HB-XAH">
                                                         <rect key="frame" x="0.0" y="26" width="343" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select a company" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gvl-AM-KPc">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select company" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Gvl-AM-KPc">
                                                                 <rect key="frame" x="8" y="0.0" width="300" height="40"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -123,7 +123,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ls3-mo-Brj">
                                                         <rect key="frame" x="0.0" y="26" width="343" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lt5-tT-Kca">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select sales person" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Lt5-tT-Kca">
                                                                 <rect key="frame" x="8" y="0.0" width="300" height="40"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -177,7 +177,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZKP-OB-aad">
                                                         <rect key="frame" x="0.0" y="26" width="343" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nlP-Ag-UNH">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select customer" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nlP-Ag-UNH">
                                                                 <rect key="frame" x="8" y="0.0" width="300" height="40"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -231,7 +231,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gTv-Jg-ckE">
                                                         <rect key="frame" x="0.0" y="26" width="343" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select a branch" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aLf-Z4-f8H">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select branch" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aLf-Z4-f8H">
                                                                 <rect key="frame" x="8" y="0.0" width="300" height="40"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -330,11 +330,13 @@
                         <outlet property="menuBtn" destination="kOD-1g-e7T" id="Ghs-IS-3bm"/>
                         <outlet property="returnDateTextField" destination="PhA-xt-EXt" id="k7f-Px-x2d"/>
                         <outlet property="salesPersonTextField" destination="Lt5-tT-Kca" id="Bni-Sf-Zn0"/>
+                        <outlet property="scrollView" destination="kbg-WQ-TWN" id="m83-hD-bFf"/>
                         <outlet property="showBranchPickerView" destination="zDv-2h-ccm" id="qd5-aW-qZB"/>
                         <outlet property="showCompanyPickerView" destination="rMJ-pq-kyc" id="9gQ-9I-syr"/>
                         <outlet property="showCustomerPickerView" destination="EKk-Ng-c8V" id="UeI-Us-FTr"/>
                         <outlet property="showSalesPersonPickerView" destination="Tdd-OG-zRo" id="L6D-0d-AYg"/>
-                        <segue destination="F81-i5-CEf" kind="show" id="yKs-ig-amm"/>
+                        <outlet property="stackViewWidth" destination="DPF-w6-yPY" id="aC6-Yb-ggx"/>
+                        <segue destination="F81-i5-CEf" kind="show" identifier="showInvoice" id="yKs-ig-amm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GOH-cu-vSR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -349,11 +351,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xl9-x7-AEq">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Xl9-x7-AEq">
                                 <rect key="frame" x="16" y="576.5" width="343" height="70.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Items added is 9999" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cPf-bj-9mS">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="20.5"/>
+                                        <rect key="frame" x="92.5" y="0.0" width="158" height="20.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -372,12 +374,16 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Ttf-28-grh" secondAttribute="trailing" id="X8w-CU-V8o"/>
+                                    <constraint firstItem="Ttf-28-grh" firstAttribute="leading" secondItem="Xl9-x7-AEq" secondAttribute="leading" id="qZk-Wg-TuU"/>
+                                </constraints>
                             </stackView>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I13-xx-3aB">
                                 <rect key="frame" x="0.0" y="64" width="375" height="512"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FQj-tR-Mwm">
-                                        <rect key="frame" x="16" y="16" width="343" height="402.5"/>
+                                        <rect key="frame" x="16" y="16" width="343" height="455.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ilg-0I-J8K">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="66"/>
@@ -425,7 +431,7 @@
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NyP-5H-Dh0">
                                                         <rect key="frame" x="0.0" y="26" width="343" height="40"/>
                                                         <subviews>
-                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select one" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A7n-cW-j6q">
+                                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Select invoce" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="A7n-cW-j6q">
                                                                 <rect key="frame" x="8" y="0.0" width="300" height="40"/>
                                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 <constraints>
@@ -561,9 +567,24 @@
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="F81-i5-CEf" id="uXr-3p-jET"/>
+                                                        </connections>
                                                     </textView>
                                                 </subviews>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uhv-C2-Jva">
+                                                <rect key="frame" x="0.0" y="410.5" width="343" height="45"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="45" id="645-zX-C0i"/>
+                                                </constraints>
+                                                <state key="normal" title="UPLOAD FILE">
+                                                    <color key="titleColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="uploadFileButtonTapped:" destination="F81-i5-CEf" eventType="touchUpInside" id="7RO-oC-fW5"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="343" id="eVY-AM-gSR"/>
@@ -596,24 +617,65 @@
                         <outlet property="invoiceDateTextField" destination="p50-S9-IAt" id="bmK-bt-Bm0"/>
                         <outlet property="invoiceTextField" destination="A7n-cW-j6q" id="Zhy-wX-Gch"/>
                         <outlet property="itemTextField" destination="o1t-Gu-Csu" id="pcA-QI-eeI"/>
+                        <outlet property="scrollView" destination="I13-xx-3aB" id="yX0-hG-KJ3"/>
                         <outlet property="showInvoicePickerView" destination="zhI-bI-y2k" id="9db-ev-Nl3"/>
                         <outlet property="showItemPickerView" destination="8Ia-Rc-z2l" id="gdv-aE-WIh"/>
+                        <outlet property="stackViewWidth" destination="eVY-AM-gSR" id="sev-Te-kgK"/>
+                        <outlet property="uploadFileBtn" destination="uhv-C2-Jva" id="W6v-Pa-QFf"/>
                         <outlet property="warningLabel" destination="u7r-7R-crD" id="Wlg-2K-Ckj"/>
-                        <segue destination="WiI-SP-E9r" kind="show" id="Vy0-qK-KNf"/>
+                        <segue destination="WiI-SP-E9r" kind="show" identifier="showItemSelected" id="Vy0-qK-KNf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ucE-YO-dcA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-6137" y="4181"/>
+            <point key="canvasLocation" x="-6138.3999999999996" y="4180.6596701649178"/>
         </scene>
-        <!--View Controller-->
+        <!--Return Item Selected View Controller-->
         <scene sceneID="iAb-34-IiJ">
             <objects>
-                <viewController id="WiI-SP-E9r" sceneMemberID="viewController">
+                <viewController id="WiI-SP-E9r" customClass="ReturnItemSelectedViewController" customModule="rff" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iKF-8J-Q2y">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k9A-bT-psz">
+                                <rect key="frame" x="16" y="602" width="343" height="45"/>
+                                <color key="backgroundColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="oX3-uF-k0T"/>
+                                </constraints>
+                                <state key="normal" title="SHOW ITEMS">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="showItemButtonTapped:" destination="F81-i5-CEf" eventType="touchUpInside" id="zxs-mL-I9b"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="hxR-bc-SdG">
+                                <rect key="frame" x="16" y="72" width="343" height="522"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="AdM-zD-bdA" customClass="ReturnItemSelectedCell" customModule="rff" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="343" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="AdM-zD-bdA" id="q4R-uK-uXb">
+                                            <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="idb-On-8SR" firstAttribute="trailing" secondItem="hxR-bc-SdG" secondAttribute="trailing" constant="16" id="0y3-RI-XGE"/>
+                            <constraint firstItem="idb-On-8SR" firstAttribute="bottom" secondItem="k9A-bT-psz" secondAttribute="bottom" constant="20" id="531-Yr-l6u"/>
+                            <constraint firstItem="hxR-bc-SdG" firstAttribute="top" secondItem="idb-On-8SR" secondAttribute="top" constant="8" id="DVF-ce-cR7"/>
+                            <constraint firstItem="idb-On-8SR" firstAttribute="trailing" secondItem="k9A-bT-psz" secondAttribute="trailing" constant="16" id="Kgs-oK-lFk"/>
+                            <constraint firstItem="k9A-bT-psz" firstAttribute="top" secondItem="hxR-bc-SdG" secondAttribute="bottom" constant="8" id="NO9-Yw-D0n"/>
+                            <constraint firstItem="k9A-bT-psz" firstAttribute="leading" secondItem="idb-On-8SR" secondAttribute="leading" constant="16" id="g2L-3A-bbD"/>
+                            <constraint firstItem="hxR-bc-SdG" firstAttribute="leading" secondItem="idb-On-8SR" secondAttribute="leading" constant="16" id="si1-G7-tfm"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="idb-On-8SR"/>
                     </view>
                 </viewController>
