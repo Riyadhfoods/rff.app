@@ -21,6 +21,7 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
     var orderId = ""
     var userId = ""
     var itemsDetailsArray = [SalesModel]()
+    var isChecked: Bool = true
     
     // -- MARK: viewDidLoad
     
@@ -57,10 +58,21 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
             cell.lastYearORDQty.text = item.SOA_LASTYEARORDERQTY
             cell.yearToDateORDQty.text = item.SOA_YEARTODATEORDERQTY
             cell.total.text = item.SOA_TOTAL
+            cell.checkBoxBtn.addTarget(self, action: #selector(checkBoxButtonTapped(sender:)), for: .touchUpInside)
+            cell.checkBoxBtn.tag = indexPath.row
             
             return cell
         }
         return UITableViewCell()
+    }
+    
+    @objc func checkBoxButtonTapped(sender: UIButton){
+        isChecked = !isChecked
+        if isChecked == true{
+            sender.setBackgroundImage(#imageLiteral(resourceName: "checkBox"), for: .normal)
+        } else {
+            sender.setBackgroundImage(UIImage(), for: .normal)
+        }
     }
     
 }

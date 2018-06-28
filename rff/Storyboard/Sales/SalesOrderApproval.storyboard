@@ -433,21 +433,34 @@
                                                                         </label>
                                                                     </subviews>
                                                                 </stackView>
-                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wNc-b9-VHe">
+                                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yfU-gS-qUL">
                                                                     <rect key="frame" x="0.0" y="235" width="311" height="39"/>
                                                                     <subviews>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total(Unit Cast * QTY):" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ui2-qV-cmU">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="311" height="19.5"/>
-                                                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                                                            <nil key="textColor"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
-                                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999.00000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Lk-Gt-pC3">
-                                                                            <rect key="frame" x="0.0" y="19.5" width="311" height="19.5"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                            <nil key="textColor"/>
-                                                                            <nil key="highlightedColor"/>
-                                                                        </label>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wNc-b9-VHe">
+                                                                            <rect key="frame" x="0.0" y="0.0" width="272" height="39"/>
+                                                                            <subviews>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total(Unit Cast * QTY):" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ui2-qV-cmU">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="272" height="19.5"/>
+                                                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9999.00000" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Lk-Gt-pC3">
+                                                                                    <rect key="frame" x="0.0" y="19.5" width="272" height="19.5"/>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                                                    <nil key="textColor"/>
+                                                                                    <nil key="highlightedColor"/>
+                                                                                </label>
+                                                                            </subviews>
+                                                                        </stackView>
+                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OoH-FH-UEK">
+                                                                            <rect key="frame" x="272" y="0.0" width="39" height="39"/>
+                                                                            <constraints>
+                                                                                <constraint firstAttribute="width" constant="39" id="nd9-w8-cis"/>
+                                                                                <constraint firstAttribute="height" constant="39" id="oHj-MC-Zd9"/>
+                                                                            </constraints>
+                                                                            <state key="normal" backgroundImage="checkBox"/>
+                                                                        </button>
                                                                     </subviews>
                                                                 </stackView>
                                                             </subviews>
@@ -475,6 +488,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="changePrice" destination="t1B-Ta-AEi" id="Mrt-Ht-uHk"/>
+                                            <outlet property="checkBoxBtn" destination="OoH-FH-UEK" id="MH3-za-hd6"/>
                                             <outlet property="holderView" destination="we7-Th-n1f" id="Bja-v8-asg"/>
                                             <outlet property="itemDesc" destination="wne-Fn-Kmz" id="8pJ-ZH-jJu"/>
                                             <outlet property="lastYearORDQty" destination="H7q-gp-PGg" id="00S-te-ZEE"/>
@@ -3228,6 +3242,7 @@ zQABu9AAAbvdAAG74gABu+oAAbvtAAG78gABu/oAAbv9AAG8DwABvBIAAbwXAAAAAAAABAEAAAAAAAAA
 WQAAAAAAAAAAAAAAAAABvBk
 </mutableData>
         </image>
+        <image name="checkBox" width="25" height="25"/>
         <image name="menu" width="25" height="25"/>
         <image name="signOut" width="25" height="25"/>
     </resources>

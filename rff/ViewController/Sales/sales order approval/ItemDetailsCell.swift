@@ -20,6 +20,7 @@ class ItemDetailsCell: UITableViewCell {
     @IBOutlet weak var yearToDateORDQty: UILabel!
     @IBOutlet weak var total: UILabel!
     @IBOutlet weak var holderView: UIView!
+    @IBOutlet weak var checkBoxBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -27,6 +28,9 @@ class ItemDetailsCell: UITableViewCell {
         holderView.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
         holderView.layer.borderWidth = 1
         
+        checkBoxBtn.layer.cornerRadius = 39/2
+        checkBoxBtn.layer.borderWidth = 1
+        checkBoxBtn.layer.borderColor = AppDelegate().mainBackgroundColor.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

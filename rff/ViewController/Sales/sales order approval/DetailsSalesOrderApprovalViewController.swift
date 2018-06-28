@@ -42,10 +42,13 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     var customerCreditDetailsArray = [SalesModel]()
     var userCommentArray = [SalesModel]()
     var workFlowArray = [SalesModel]()
+    var comboBoxArray = [SalesModel]()
     var orderId = ""
     var userId = ""
     var reqDate = ""
     var deliveryDate = ""
+    var docIdReceived = ""
+    var locCodeReveived = ""
     
     // -- MARK: viewDidLoad
     
@@ -58,8 +61,13 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
         if let currentUserId = AuthServices.currentUserId{
             userId = currentUserId
         }
+        
+        setupComboBox()
+        
         requestDate.text = reqDate
         returnDate.text = deliveryDate
+        docId.text = docIdReceived
+        loccode.text = locCodeReveived
         
         handleVisibilityOfButtons()
         setViewAlignment()
@@ -85,6 +93,18 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     }
     
     // -- MARK: Setups
+    
+    func setupComboBox(){
+        comboBoxArray = webservice.BindCombobox(ordernumber: orderId)
+        for comboBox in comboBoxArray{
+            if comboBox.DocumentId != ""{
+               docIdReceived = comboBox.DocumentId
+            }
+            if comboBox.LocationCode != ""{
+                locCodeReveived = comboBox.LocationCode
+            }
+        }
+    }
     
     func handleVisibilityOfButtons(){
         buttonVisibilityArray = webservice.CheckSalesApproval(emp_number: orderId, order_number: orderId, comment: "")
@@ -189,8 +209,23 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     
     // -- MARK: IBActions
     
-    var saveToGPRetur = [SaveToGpModel]()
+    var saveToGPReturn = [SaveToGpModel]()
     @IBAction func approveAndSaveGBButtonTapped(_ sender: Any) {
+        saveToGPReturn = webservice.SaveToGp(orderno: userId, combo_loc_code: locCodeReveived, combo_doc_id: docIdReceived, empnumber: userId)
+        
+        for itemDetail in itemsDetailsArray{
+            //webservice.BeforeApproveFinalOrder(serialnumber: <#T##String#>, ordernumber: <#T##String#>, checkbox: <#T##Bool#>)
+        }
+        for saveReturn in saveToGPReturn{
+            approveAndSaveGBBtn.isHidden = !saveReturn.Savetogp_btn_vis
+            approveAndEnterManBtn.isHidden = !saveReturn.ApproveandEnterManually_btn
+            
+            if saveReturn.GP_Error != ""{
+                return
+            }
+            
+            
+        }
         
     }
     
