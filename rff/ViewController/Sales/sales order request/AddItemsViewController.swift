@@ -62,14 +62,14 @@ class AddItemsViewController: UIViewController, UIPickerViewDataSource, UIPicker
     var uofmSelectedRow: Int = 0
     
     var count: Int = 0
-    let customer = salesRequestDetails.customer
-    let loccode = salesRequestDetails.loccode
+    let customer = salesOrderRequestDetails.customer
+    let loccode = salesOrderRequestDetails.loccode
     
     func setCount(count: Int) {
         self.count = count
     }
     func itemsArrayReceived(itemsArray: [ItemsModul]) {
-        salesRequestDetails.itemsArray = itemsArray
+        salesOrderRequestDetails.itemsArray = itemsArray
     }
     
     // -- MARK: viewDidLoad
@@ -101,8 +101,8 @@ class AddItemsViewController: UIViewController, UIPickerViewDataSource, UIPicker
         super.viewDidAppear(animated)
         setViewAlignment()
         setbackNavTitle(navItem: navigationItem)
-        if !salesRequestDetails.itemsArray.isEmpty{
-            count = salesRequestDetails.itemsArray.count
+        if !salesOrderRequestDetails.itemsArray.isEmpty{
+            count = salesOrderRequestDetails.itemsArray.count
         }
         setCountLabel(c: count)
     }
@@ -262,7 +262,7 @@ class AddItemsViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 warningLabel.text = item.grid_error
                 return
             }
-            salesRequestDetails.itemsArray.append(
+            salesOrderRequestDetails.itemsArray.append(
                 ItemsModul(
                     grid_error: item.grid_error,
                     Grid_ItemId: item.Grid_ItemId,
@@ -285,7 +285,7 @@ class AddItemsViewController: UIViewController, UIPickerViewDataSource, UIPicker
     
     @IBAction func showItemsButtonTapped(_ sender: Any) {
         if let commentTxt = commentTextview.text{
-            salesRequestDetails.comment = commentTxt
+            salesOrderRequestDetails.comment = commentTxt
         }
         performSegue(withIdentifier: "showSummary", sender: nil)
     }

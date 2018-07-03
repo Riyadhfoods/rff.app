@@ -20,7 +20,7 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
     let cellId = "cell_itemsDetails"
     var orderId = ""
     var userId = ""
-    var itemsDetailsArray = [SalesModel]()
+    //var itemsDetailsArray = [SalesOrderItemsDetailsModel]()
     var isChecked: Bool = true
     
     // -- MARK: viewDidLoad
@@ -39,27 +39,33 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if itemsDetailsArray.count == 0{
+        if itemsDetails.count == 0{
             emptyMessage(message: "No Data".localize(), viewController: self, tableView: itemDetailsTableView)
         }
-        return itemsDetailsArray.count
+        return itemsDetails.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ItemDetailsCell{
             
-            let item = itemsDetailsArray[indexPath.row]
-            cell.num.text = item.SOA_SERIALNUMBER
-            cell.itemDesc.text = item.SOA_ITEMDESC
-            cell.changePrice.text = item.SOA_CHANGEDPRICE
-            cell.orgPrice.text = item.SOA_ORIGINALPRICE
-            cell.qty.text = item.SOA_QTY
-            cell.uofm.text = item.SOA_UNITOFMEASUREMENT
-            cell.lastYearORDQty.text = item.SOA_LASTYEARORDERQTY
-            cell.yearToDateORDQty.text = item.SOA_YEARTODATEORDERQTY
-            cell.total.text = item.SOA_TOTAL
+            let item = itemsDetails[indexPath.row]
+            cell.num.text = item.serialNumber
+            cell.itemDesc.text = item.itemDesc
+            cell.changePrice.text = item.changePrice
+            cell.orgPrice.text = item.originalPrice
+            cell.qty.text = item.qty
+            cell.uofm.text = item.unitOfMeasurement
+            cell.lastYearORDQty.text = item.lastYearOrderQty
+            cell.yearToDateORDQty.text = item.yearToDateOrderQty
+            cell.total.text = item.total
             cell.checkBoxBtn.addTarget(self, action: #selector(checkBoxButtonTapped(sender:)), for: .touchUpInside)
             cell.checkBoxBtn.tag = indexPath.row
+            
+            if item.isItemChecked == true{
+                cell.checkBoxBtn.setBackgroundImage(#imageLiteral(resourceName: "checkBox"), for: .normal)
+            } else {
+                cell.checkBoxBtn.setBackgroundImage(UIImage(), for: .normal)
+            }
             
             return cell
         }
@@ -68,11 +74,15 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
     
     @objc func checkBoxButtonTapped(sender: UIButton){
         isChecked = !isChecked
+        
         if isChecked == true{
             sender.setBackgroundImage(#imageLiteral(resourceName: "checkBox"), for: .normal)
         } else {
             sender.setBackgroundImage(UIImage(), for: .normal)
         }
+        
+        itemsDetails[sender.tag].isItemChecked = isChecked
+        itemDetailsTableView.reloadData()
     }
     
 }

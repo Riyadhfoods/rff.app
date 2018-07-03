@@ -69,7 +69,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         
         // Changing the back button of the navigation contoller
         //navigationItem.backBarButtonItem = backButtonItem
-        setCustomNav(navItem: navigationItem)
+        setCustomDefaultNav(navItem: navigationItem)
         listTextfield.tintColor = .clear
         categoryTextfield.tintColor = .clear
         showListPickerTextField.tintColor = .clear
@@ -84,10 +84,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     // -- MARK: Setups
     
     func setupLanguagChange(){
-//        searchContectTextfield.placeholder = getString(englishString: "Search content", arabicString: "محتوى البحث", language: languageChosen)
-//        setUpHeaderLabel(txt: searchContectTextfield, language: languageChosen)
-//        searchButtonOutlet.setTitle(getString(englishString: "SEARCH", arabicString: "بحث", language: languageChosen), for: .normal)
-        returnButtonOutlet.setTitle(getString(englishString: "RETURN", arabicString: "عودة", language: languageChosen), for: .normal)
+        searchContectTextfield.placeholder = "Search content".localize()
     }
     
     func setUpPickerView(){
@@ -109,28 +106,15 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     func setUpArrays(){
         arrayOfListReceived = webservice.Bind_ddlReqType(langid: languageChosen)
         
-        if languageChosen == 1 {
-            list.listname = "Select a list"
-            categoryArray = [
-                "Select a category",
-                "Pending",
-                "Rejected",
-                "On Hold",
-                "Approved",
-                "All"
-            ]
-        } else {
-            list.listname = "اختر القائمة"
-            categoryArray = [
-                "اختر الحاله",
-                "قيد الانتظار",
-                "مرفوض",
-                "معلق",
-                "موافقة",
-                "الكل"
-            ]
-        }
-        
+        list.listname = "Select list".localize()
+        categoryArray = [
+            "Select category".localize(),
+            "Pending".localize(),
+            "Rejected".localize(),
+            "On Hold".localize(),
+            "Approved".localize(),
+            "All".localize()
+        ]
         list.listtype = "0"
         arrayOfList.append(list)
         
@@ -213,8 +197,8 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         if listRowIndex == 0
             || CategopryRowIndex == 0 {
             AlertMessage().showAlertMessage(
-                alertTitle: getString(englishString: "Alert!", arabicString: "تنبيه", language: languageChosen),
-                alertMessage: getString(englishString: "Select a list or category first", arabicString: "اختر قائمة او حالة اولاً", language: languageChosen),
+                alertTitle: "Alert!".localize(),
+                alertMessage: "You did not select a list or category".localize(),
                 actionTitle: "Ok",
                 onAction: {
                 return
@@ -236,9 +220,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     @IBAction func returnButtonTapped(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Home", bundle: nil)
-        let homeStoryboard = storyboard.instantiateViewController(withIdentifier: "homeViewControllerNav")
-        revealViewController().pushFrontViewController(homeStoryboard, animated: true)
+        moveTo(storyboard: "Home", withIdentifier: "homeViewControllerNav", viewController: self)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

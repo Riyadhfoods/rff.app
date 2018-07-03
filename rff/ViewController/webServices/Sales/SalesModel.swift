@@ -64,7 +64,7 @@ public class SalesModel{
     public var DrpItemId: String = ""
     public var Date: String = ""
     
-    public var Flag : String = ""
+    public var Flag : Bool = false
     public var SOA_SERIALNUMBER: String = ""
     public var SOA_EMPID : String = ""
     public var SOA_NAME: String = ""
@@ -99,17 +99,17 @@ public class SalesModel{
     public var Approver1 : String = ""
     public var App_Retail : String = ""
     public var App_Market: String = ""
-    public var ApproveandEnterManually_btn : String = ""
+    public var ApproveandEnterManually_btn : Bool = false
     public var App_Export : String = ""
-    public var U_Comment : String = ""
+    public var U_Comment : Bool = false
     public var App_Diary : String = ""
     public var Approver: String = ""
-    public var App_btn_vis : String = ""
-    public var Rej_btn_vis : String = ""
-    public var Report_btn_vis : String = ""
-    public var Savetogp_btn_vis: String = ""
-    public var Loc_control_vis : String = ""
-    public var DocId_control_vis : String = ""
+    public var App_btn_vis : Bool = false
+    public var Rej_btn_vis : Bool = false
+    public var Report_btn_vis : Bool = false
+    public var Savetogp_btn_vis: Bool = false
+    public var Loc_control_vis : Bool = false
+    public var DocId_control_vis : Bool = false
     public var DocumentId : String = ""
     public var SSO_EmployeeCreated : String = ""
     public var SSO_OrderId : String = ""

@@ -52,8 +52,6 @@ class OrderStyleTableViewController: UITableViewController {
             totalRow = salesArray[0].totalrows
             currentRow = salesArray[0].currentrows
         }
-        
-        
     }
 
     override func didReceiveMemoryWarning() {
@@ -93,7 +91,7 @@ class OrderStyleTableViewController: UITableViewController {
             print(indexPath.row)
             let id = "\(salesArray[indexPath.row].ID)"
             let empCreated = salesArray[indexPath.row].EmpCreated
-            let date = salesArray[indexPath.row].date
+            let date = salesArray[indexPath.row].Date
             let items = salesArray[indexPath.row].Items
             let status = salesArray[indexPath.row].Status
             let pendingBy = salesArray[indexPath.row].PendingBy

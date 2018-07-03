@@ -10,7 +10,6 @@ import UIKit
 
 protocol ItemCountAddedDelegate {
     func setCount(count: Int)
-    //func itemsArrayReceived(itemsArray: [ItemsModul])
 }
 
 class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
@@ -41,7 +40,7 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     
     func setDelegate(){
         if delegate != nil{
-            delegate?.setCount(count: salesRequestDetails.itemsArray.count)
+            delegate?.setCount(count: salesOrderRequestDetails.itemsArray.count)
         }
     }
     
@@ -53,22 +52,22 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if salesRequestDetails.itemsArray.count == 0 {
+        if salesOrderRequestDetails.itemsArray.count == 0 {
             emptyMessage(message: "No data".localize(), viewController: self, tableView: itemsTableView)
         }
-        return salesRequestDetails.itemsArray.count
+        return salesOrderRequestDetails.itemsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ItemsSelectedCell{
-            cell.unoits = webservice.BindSalesOrderUnitofMeasure(itemid: salesRequestDetails.itemsArray[indexPath.row].Grid_Desc)
+            cell.unoits = webservice.BindSalesOrderUnitofMeasure(itemid: salesOrderRequestDetails.itemsArray[indexPath.row].Grid_Desc)
             
             cell.num.text = "\(indexPath.row + 1)"
-            cell.desc.text = salesRequestDetails.itemsArray[indexPath.row].Grid_Desc
-            cell.PCSTextfield.text = salesRequestDetails.itemsArray[indexPath.row].Grid_UOM
-            cell.qtyTextfield.text = salesRequestDetails.itemsArray[indexPath.row].Grid_Qty
-            cell.unitPriceTextfield.text = salesRequestDetails.itemsArray[indexPath.row].Grid_UnitPrice
-            cell.totalPrice.text = salesRequestDetails.itemsArray[indexPath.row].Grid_TotalPrice
+            cell.desc.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_Desc
+            cell.PCSTextfield.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_UOM
+            cell.qtyTextfield.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_Qty
+            cell.unitPriceTextfield.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_UnitPrice
+            cell.totalPrice.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_TotalPrice
             cell.deleteButton.tag = indexPath.row
             cell.deleteButton.addTarget(self, action: #selector(handleDeleteAction(sender:)), for: .touchUpInside)
             cell.indexpathRow = indexPath.row
@@ -82,7 +81,7 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @objc func handleDeleteAction(sender: UIButton){
-        salesRequestDetails.itemsArray.remove(at: sender.tag)
+        salesOrderRequestDetails.itemsArray.remove(at: sender.tag)
         itemsTableView.reloadData()
         setDelegate()
     }
@@ -91,10 +90,10 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     
     @IBAction func sendButtonTapped(_ sender: Any) {
         var count = 0
-        salesRequestDetails.table = !salesRequestDetails.itemsArray.isEmpty
-        if salesRequestDetails.table{
-            for item in salesRequestDetails.itemsArray{
-                itemSentStatus = webservice.SendItemGrid(orderid: salesRequestDetails.orderId, serialno: count, customerid: salesRequestDetails.customer, Grid_ItemId: item.Grid_ItemId, Grid_Desc: item.Grid_Desc, Grid_UnitPrice: item.Grid_UnitPrice, Grid_Qty: item.Grid_Qty, Grid_TotalPrice: item.Grid_TotalPrice, Grid_UOM: item.Grid_UOM)
+        salesOrderRequestDetails.table = !salesOrderRequestDetails.itemsArray.isEmpty
+        if salesOrderRequestDetails.table{
+            for item in salesOrderRequestDetails.itemsArray{
+                itemSentStatus = webservice.SendItemGrid(orderid: salesOrderRequestDetails.orderId, serialno: count, customerid: salesOrderRequestDetails.customer, Grid_ItemId: item.Grid_ItemId, Grid_Desc: item.Grid_Desc, Grid_UnitPrice: item.Grid_UnitPrice, Grid_Qty: item.Grid_Qty, Grid_TotalPrice: item.Grid_TotalPrice, Grid_UOM: item.Grid_UOM)
                 for status in itemSentStatus{
                     if status.grid_error != ""{
                         let alertTitle = "Alert".localize()
@@ -103,40 +102,40 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
                             return
                         }, cancelAction: nil, self)
                     } else {
-                        if salesRequestDetails.orderId == ""{
-                            salesRequestDetails.orderId = status.OrderID
+                        if salesOrderRequestDetails.orderId == ""{
+                            salesOrderRequestDetails.orderId = status.OrderID
                         }
-                        if status.Flag == "true" {
-                            salesRequestDetails.flag = true
-                        } else { salesRequestDetails.flag = false }
+                        if status.Flag == true {
+                            salesOrderRequestDetails.flag = true
+                        } else { salesOrderRequestDetails.flag = false }
                         count += 1
                         print("It sent successfully")
                     }
                 }
             }
             
-            print(salesRequestDetails)
+            print(salesOrderRequestDetails)
             sentStatus = webservice.Senditem(
-                orderid: salesRequestDetails.orderId,
-                branchid: salesRequestDetails.branchId,
-                customerid: salesRequestDetails.customer,
-                branch: salesRequestDetails.branch,
-                table: salesRequestDetails.table,
-                salesperson: salesRequestDetails.salesperson,
-                company: salesRequestDetails.companyId,
-                emp_id: salesRequestDetails.emp_id,
-                comment: salesRequestDetails.comment,
-                city: salesRequestDetails.city,
-                store: salesRequestDetails.store,
-                salespersonstore: salesRequestDetails.salespersonstore,
-                merchandiser: salesRequestDetails.merchandiser,
-                offer: salesRequestDetails.offer,
-                deliverydate: salesRequestDetails.deliverydate,
-                loccode: salesRequestDetails.loccode,
-                docid: salesRequestDetails.docid,
-                purchasegrid: salesRequestDetails.purchasegrid,
-                supermarket: salesRequestDetails.supermarket,
-                flag: salesRequestDetails.flag)
+                orderid: salesOrderRequestDetails.orderId,
+                branchid: salesOrderRequestDetails.branchId,
+                customerid: salesOrderRequestDetails.customer,
+                branch: salesOrderRequestDetails.branch,
+                table: salesOrderRequestDetails.table,
+                salesperson: salesOrderRequestDetails.salesperson,
+                company: salesOrderRequestDetails.companyId,
+                emp_id: salesOrderRequestDetails.emp_id,
+                comment: salesOrderRequestDetails.comment,
+                city: salesOrderRequestDetails.city,
+                store: salesOrderRequestDetails.store,
+                salespersonstore: salesOrderRequestDetails.salespersonstore,
+                merchandiser: salesOrderRequestDetails.merchandiser,
+                offer: salesOrderRequestDetails.offer,
+                deliverydate: salesOrderRequestDetails.deliverydate,
+                loccode: salesOrderRequestDetails.loccode,
+                docid: salesOrderRequestDetails.docid,
+                purchasegrid: salesOrderRequestDetails.purchasegrid,
+                supermarket: salesOrderRequestDetails.supermarket,
+                flag: salesOrderRequestDetails.flag)
             
             for status in sentStatus{
                 if status.grid_error != ""{
@@ -150,7 +149,7 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
                 }, cancelAction: nil, self)
             } else {
                 AlertMessage().showAlertMessage(alertTitle: "Success".localize(), alertMessage: "Order request sent successfully".localize(), actionTitle: "Ok", onAction: {
-                    salesRequestDetails.removeAll()
+                    salesOrderRequestDetails.removeAll()
                     self.navigationController?.popToRootViewController(animated: true)
                 }, cancelAction: nil, self)
             }

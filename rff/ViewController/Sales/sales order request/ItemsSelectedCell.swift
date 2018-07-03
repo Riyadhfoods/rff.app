@@ -58,12 +58,12 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         PCSTextfield.text = unoits.isEmpty ? "" : unoits[selectedRow].UnitofMeasure
         
         if let itemText = desc.text, let qtyText = qtyTextfield.text, let unoitText = PCSTextfield.text{
-            itemAddedReceived = webservice.BindPurchaseGridData(quantity: qtyText, quantityrequired: 0.0, ItemId: itemText, unitofmeasure: unoitText, customerid: salesRequestDetails.customer, loccode: salesRequestDetails.customer)
+            itemAddedReceived = webservice.BindPurchaseGridData(quantity: qtyText, quantityrequired: 0.0, ItemId: itemText, unitofmeasure: unoitText, customerid: salesOrderRequestDetails.customer, loccode: salesOrderRequestDetails.customer)
             
             for item in itemAddedReceived{
                 if item.grid_error == "" {
                     unitPriceTextfield.text = item.Grid_UnitPrice
-                    salesRequestDetails.itemsArray[indexpathRow].Grid_UnitPrice = item.Grid_UnitPrice
+                    salesOrderRequestDetails.itemsArray[indexpathRow].Grid_UnitPrice = item.Grid_UnitPrice
                 }
             }
         }
@@ -117,11 +117,11 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
             totalPrice.text = resultFormatted
             
             if textField == qtyTextfield{
-                salesRequestDetails.itemsArray[textField.tag].Grid_Qty = qtyTxt
+                salesOrderRequestDetails.itemsArray[textField.tag].Grid_Qty = qtyTxt
             } else {
-                salesRequestDetails.itemsArray[textField.tag].Grid_UnitPrice = unitPriceTxt
+                salesOrderRequestDetails.itemsArray[textField.tag].Grid_UnitPrice = unitPriceTxt
             }
-            salesRequestDetails.itemsArray[textField.tag].Grid_TotalPrice = resultFormatted
+            salesOrderRequestDetails.itemsArray[textField.tag].Grid_TotalPrice = resultFormatted
         }
     }
     

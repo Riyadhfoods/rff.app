@@ -117,6 +117,7 @@
         }
         return nil // Invalid input
     }
+    
     public func SalesArrFromXMLString(xmlToParse:String)->[SalesModel] {
         
         let xml = SWXMLHash.lazy(xmlToParse)
@@ -188,7 +189,7 @@
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "ApproveandEnterManually_btn" {
-                        rItem1.ApproveandEnterManually_btn =  (strVal.lowercased())
+                        rItem1.ApproveandEnterManually_btn =  (strVal.lowercased() == "true")
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "App_Export" {
@@ -196,7 +197,7 @@
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "U_Comment" {
-                        rItem1.U_Comment =  (strVal.lowercased())
+                        rItem1.U_Comment =  (strVal.lowercased() == "true")
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "App_Diary" {
@@ -208,27 +209,27 @@
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "App_btn_vis" {
-                        rItem1.App_btn_vis =  (strVal.lowercased())
+                        rItem1.App_btn_vis =  (strVal.lowercased() == "true")
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "Rej_btn_vis" {
-                        rItem1.Rej_btn_vis =  (strVal.lowercased())
+                        rItem1.Rej_btn_vis =  (strVal.lowercased() == "true")
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "Report_btn_vis" {
-                        rItem1.Report_btn_vis =  (strVal.lowercased())
+                        rItem1.Report_btn_vis =  (strVal.lowercased() == "true")
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "Savetogp_btn_vis" {
-                        rItem1.Savetogp_btn_vis =  (strVal.lowercased())
+                        rItem1.Savetogp_btn_vis =  (strVal.lowercased() == "true")
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "Loc_control_vis" {
-                        rItem1.Loc_control_vis =  (strVal.lowercased())
+                        rItem1.Loc_control_vis =  (strVal.lowercased() == "true")
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "DocId_control_vis" {
-                        rItem1.DocId_control_vis =  (strVal.lowercased())
+                        rItem1.DocId_control_vis =  (strVal.lowercased() == "true")
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "DocumentId" {
@@ -268,7 +269,7 @@
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "Flag" {
-                        rItem1.Flag =  (strVal.lowercased())
+                        rItem1.Flag =  (strVal.lowercased() == "true")
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "SOA_SERIALNUMBER" {
@@ -1544,4 +1545,874 @@
         let returnValue:String = strVal!
         return returnValue
     }
+    
+    public func SalesReturnArrFromXMLString(xmlToParse:String)->[SalesReturn] {
+        
+        let xml = SWXMLHash.lazy(xmlToParse)
+        let xmlRoot = xml.children.first
+        let xmlBody = xmlRoot?.children.last
+        let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
+        let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
+        var strVal = ""
+        var elemName = ""
+        var returnValue:[SalesReturn] = [SalesReturn]()
+        if elemName == "" {
+            // Array Property For returnValue
+            let itemCount1: Int = (xmlResult0?.children.count)!
+            for i1 in 0 ..< itemCount1 {
+                let rItem1 = SalesReturn()
+                let xmlResult_Parent1:XMLIndexer? = xmlResult0?.children[i1]
+                let childCount1 :Int = (xmlResult_Parent1?.children.count)!
+                for j1 in 0 ..< childCount1 {
+                    
+                    let xmlResult1: XMLIndexer? =  xmlResult_Parent1?.children[j1]
+                    let elem1: XMLElement? =  xmlResult1?.element
+                    strVal = ""
+                    if elem1?.children.first is TextElement {
+                        let elemText:TextElement = elem1?.children.first as! TextElement
+                        strVal = elemText.text
+                        
+                    }
+                    elemName = elem1!.name
+                    // Array Propert of returnValue subProperty for rItem1
+                    if elemName == "CreditLimit" {
+                        rItem1.CreditLimit =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "TotalDue" {
+                        rItem1.TotalDue =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "ZeroTo31Days" {
+                        rItem1.ZeroTo31Days =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "ThirtyOneto60Days" {
+                        rItem1.ThirtyOneto60Days =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SixtyOneTo90Days" {
+                        rItem1.SixtyOneTo90Days =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Nineoneto120Days" {
+                        rItem1.Nineoneto120Days =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Above120Days" {
+                        rItem1.Above120Days =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Status" {
+                        rItem1.Status =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Sop_Number" {
+                        rItem1.Sop_Number =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "ReturnID" {
+                        rItem1.ReturnID =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "EmpCreated" {
+                        rItem1.EmpCreated =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Items" {
+                        rItem1.Items =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "ReqDate" {
+                        rItem1.ReqDate =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "RetDate" {
+                        rItem1.RetDate =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "Comment" {
+                        rItem1.Comment =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_EmpCreated" {
+                        rItem1.SRA_EmpCreated =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_CustomerName" {
+                        rItem1.SRA_CustomerName =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_SalesPerson" {
+                        rItem1.SRA_SalesPerson =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_ReqDate" {
+                        rItem1.SRA_ReqDate =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_ReturnDate" {
+                        rItem1.SRA_ReturnDate =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_InvoiceNumber" {
+                        rItem1.SRA_InvoiceNumber =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_LotNumber" {
+                        rItem1.SRA_LotNumber =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_ItemNumber" {
+                        rItem1.SRA_ItemNumber =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_Description" {
+                        rItem1.SRA_Description =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_Unitprice" {
+                        rItem1.SRA_Unitprice =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_TotalCost" {
+                        rItem1.SRA_TotalCost =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_Qty" {
+                        rItem1.SRA_Qty =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_UOFM" {
+                        rItem1.SRA_UOFM =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_ReturnType" {
+                        rItem1.SRA_ReturnType =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_EMP_ID" {
+                        rItem1.SRA_EMP_ID =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_Name" {
+                        rItem1.SRA_Name =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_EmpRole" {
+                        rItem1.SRA_EmpRole =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_Status" {
+                        rItem1.SRA_Status =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_TransDate" {
+                        rItem1.SRA_TransDate =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_User_EmpName" {
+                        rItem1.SRA_User_EmpName =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_User_EmpComment" {
+                        rItem1.SRA_User_EmpComment =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_SerialNumber" {
+                        rItem1.SRA_SerialNumber =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "VIEW" {
+                        rItem1.VIEW =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "INDEX" {
+                        rItem1.INDEX =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "FILENAME" {
+                        rItem1.FILENAME =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "FILETYPE" {
+                        rItem1.FILETYPE =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_APPROVE_BTN" {
+                        rItem1.SRA_APPROVE_BTN =  (strVal.lowercased() == "true")
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_REJECT_BTN" {
+                        rItem1.SRA_REJECT_BTN =  (strVal.lowercased() == "true")
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_APPROVER" {
+                        rItem1.SRA_APPROVER =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_CustomerDDL" {
+                        rItem1.SRR_CustomerDDL =  (strVal.lowercased() == "true")
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_SalesPersonDDL" {
+                        rItem1.SRR_SalesPersonDDL =  (strVal.lowercased() == "true")
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMNUMBER" {
+                        rItem1.SRR_ITEMNUMBER =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_INVOICENO" {
+                        rItem1.SRR_INVOICENO =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_DESCRIPTION" {
+                        rItem1.SRR_DESCRIPTION =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_LOTNO" {
+                        rItem1.SRR_LOTNO =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_UOFM" {
+                        rItem1.SRR_UOFM =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_QTY" {
+                        rItem1.SRR_QTY =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_TOTALPRICE" {
+                        rItem1.SRR_TOTALPRICE =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_UNITPRICE" {
+                        rItem1.SRR_UNITPRICE =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_INVOICEDATE" {
+                        rItem1.SRR_INVOICEDATE =  strVal
+                    }
+                    
+                }
+                returnValue.append(rItem1)
+                
+            }
+        }
+        return returnValue
+    }
+    public func SalesReturnArrFromXML(data: Data)-> [SalesReturn] {
+        
+        let xmlToParse   = String.init(data: data, encoding: String.Encoding.utf8)!
+        return SalesReturnArrFromXMLString( xmlToParse : xmlToParse)
+    }
+    
+    public func SRR_BindCustomerAging(customer_no:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRR_BindCustomerAging xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<customer_no>"
+        soapReqXML += customer_no
+        soapReqXML += "</customer_no>"
+        soapReqXML += "</SRR_BindCustomerAging>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRR_BindCustomerAging"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SRR_BindInvoice(salesperson_id:String, customernumber:String, invoice_date:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRR_BindInvoice xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<salesperson_id>"
+        soapReqXML += salesperson_id
+        soapReqXML += "</salesperson_id>"
+        soapReqXML += "<customernumber>"
+        soapReqXML += customernumber
+        soapReqXML += "</customernumber>"
+        soapReqXML += "<invoice_date>"
+        soapReqXML += invoice_date
+        soapReqXML += "</invoice_date>"
+        soapReqXML += "</SRR_BindInvoice>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRR_BindInvoice"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SRO_BindOrder(empno:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRO_BindOrder xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<empno>"
+        soapReqXML += empno
+        soapReqXML += "</empno>"
+        soapReqXML += "</SRO_BindOrder>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRO_BindOrder"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    public func SRA_BindApproverGrid(empno:String, returnid:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRA_BindApproverGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<empno>"
+        soapReqXML += empno
+        soapReqXML += "</empno>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "</SRA_BindApproverGrid>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRA_BindApproverGrid"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SRA_BindUserGrid(empno:String, returnid:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRA_BindUserGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<empno>"
+        soapReqXML += empno
+        soapReqXML += "</empno>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "</SRA_BindUserGrid>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRA_BindUserGrid"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SR_SaveAttachment(returnid:String, attachment_name:String)-> String{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SR_SaveAttachment xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "<attachment_name>"
+        soapReqXML += attachment_name
+        soapReqXML += "</attachment_name>"
+        soapReqXML += "</SR_SaveAttachment>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SR_SaveAttachment"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVal :String? = stringFromXML(data : responseData);
+        if strVal == nil {
+            
+            return  ""
+        }
+        let returnValue:String = strVal!
+        return returnValue
+    }
+    
+    public func SRR_SEND_SRR(supermarket:Bool, itemtable:Bool, returnid:String, customervalue:String, customertext:String, salespersonvalue:String, salespersontext:String, returndate:String, emp_no:String, comment:String, branchtext:String, companyid:String, branchvalue:String, storevalue:String, cityvalue:String, storesalespersonvalue:String, merchandiser:String)-> [String?]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRR_SEND_SRR xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<supermarket>"
+        soapReqXML += String(supermarket)
+        soapReqXML += "</supermarket>"
+        soapReqXML += "<itemtable>"
+        soapReqXML += String(itemtable)
+        soapReqXML += "</itemtable>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "<customervalue>"
+        soapReqXML += customervalue
+        soapReqXML += "</customervalue>"
+        soapReqXML += "<customertext>"
+        soapReqXML += customertext
+        soapReqXML += "</customertext>"
+        soapReqXML += "<salespersonvalue>"
+        soapReqXML += salespersonvalue
+        soapReqXML += "</salespersonvalue>"
+        soapReqXML += "<salespersontext>"
+        soapReqXML += salespersontext
+        soapReqXML += "</salespersontext>"
+        soapReqXML += "<returndate>"
+        soapReqXML += returndate
+        soapReqXML += "</returndate>"
+        soapReqXML += "<emp_no>"
+        soapReqXML += emp_no
+        soapReqXML += "</emp_no>"
+        soapReqXML += "<comment>"
+        soapReqXML += comment
+        soapReqXML += "</comment>"
+        soapReqXML += "<branchtext>"
+        soapReqXML += branchtext
+        soapReqXML += "</branchtext>"
+        soapReqXML += "<companyid>"
+        soapReqXML += companyid
+        soapReqXML += "</companyid>"
+        soapReqXML += "<branchvalue>"
+        soapReqXML += branchvalue
+        soapReqXML += "</branchvalue>"
+        soapReqXML += "<storevalue>"
+        soapReqXML += storevalue
+        soapReqXML += "</storevalue>"
+        soapReqXML += "<cityvalue>"
+        soapReqXML += cityvalue
+        soapReqXML += "</cityvalue>"
+        soapReqXML += "<storesalespersonvalue>"
+        soapReqXML += storesalespersonvalue
+        soapReqXML += "</storesalespersonvalue>"
+        soapReqXML += "<merchandiser>"
+        soapReqXML += merchandiser
+        soapReqXML += "</merchandiser>"
+        soapReqXML += "</SRR_SEND_SRR>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRR_SEND_SRR"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVals :[String?] = stringArrFromXML(data : responseData);
+        var vals = [String?]()
+        for i in 0  ..< strVals.count {
+            let xVal =  strVals[i]
+            vals.append(xVal)
+        }
+        let returnValue:[String?] = vals
+        return returnValue
+    }
+    
+    public func SRR_BindItemsonChangeofInvoice(invoicenumber:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRR_BindItemsonChangeofInvoice xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<invoicenumber>"
+        soapReqXML += invoicenumber
+        soapReqXML += "</invoicenumber>"
+        soapReqXML += "</SRR_BindItemsonChangeofInvoice>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRR_BindItemsonChangeofInvoice"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SRR_BEFORESEND_SRR(itemid:String, invoicenumber:String, quantity:String, returnid:String, rownumber:Int, Item_Desc:String, unitofmeasure:String, totalcost:String, unitprice:String, lotnumber:String, invoicedate:String, returntype_grid:String)-> [String?]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRR_BEFORESEND_SRR xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<itemid>"
+        soapReqXML += itemid
+        soapReqXML += "</itemid>"
+        soapReqXML += "<invoicenumber>"
+        soapReqXML += invoicenumber
+        soapReqXML += "</invoicenumber>"
+        soapReqXML += "<quantity>"
+        soapReqXML += quantity
+        soapReqXML += "</quantity>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "<rownumber>"
+        soapReqXML += String(rownumber)
+        soapReqXML += "</rownumber>"
+        soapReqXML += "<Item_Desc>"
+        soapReqXML += Item_Desc
+        soapReqXML += "</Item_Desc>"
+        soapReqXML += "<unitofmeasure>"
+        soapReqXML += unitofmeasure
+        soapReqXML += "</unitofmeasure>"
+        soapReqXML += "<totalcost>"
+        soapReqXML += totalcost
+        soapReqXML += "</totalcost>"
+        soapReqXML += "<unitprice>"
+        soapReqXML += unitprice
+        soapReqXML += "</unitprice>"
+        soapReqXML += "<lotnumber>"
+        soapReqXML += lotnumber
+        soapReqXML += "</lotnumber>"
+        soapReqXML += "<invoicedate>"
+        soapReqXML += invoicedate
+        soapReqXML += "</invoicedate>"
+        soapReqXML += "<returntype_grid>"
+        soapReqXML += returntype_grid
+        soapReqXML += "</returntype_grid>"
+        soapReqXML += "</SRR_BEFORESEND_SRR>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRR_BEFORESEND_SRR"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVals :[String?] = stringArrFromXML(data : responseData);
+        var vals = [String?]()
+        for i in 0  ..< strVals.count {
+            let xVal =  strVals[i]
+            vals.append(xVal)
+        }
+        let returnValue:[String?] = vals
+        return returnValue
+    }
+    
+    public func SRR_AddItem(rownumber:Int, returnid:String, empno:String, qty:String, invoicenumber:String, item:String, table:String)-> [String?]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRR_AddItem xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<rownumber>"
+        soapReqXML += String(rownumber)
+        soapReqXML += "</rownumber>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "<empno>"
+        soapReqXML += empno
+        soapReqXML += "</empno>"
+        soapReqXML += "<qty>"
+        soapReqXML += qty
+        soapReqXML += "</qty>"
+        soapReqXML += "<invoicenumber>"
+        soapReqXML += invoicenumber
+        soapReqXML += "</invoicenumber>"
+        soapReqXML += "<item>"
+        soapReqXML += item
+        soapReqXML += "</item>"
+        soapReqXML += "<table>"
+        soapReqXML += table
+        soapReqXML += "</table>"
+        soapReqXML += "</SRR_AddItem>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRR_AddItem"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVals :[String?] = stringArrFromXML(data : responseData);
+        var vals = [String?]()
+        for i in 0  ..< strVals.count {
+            let xVal =  strVals[i]
+            vals.append(xVal)
+        }
+        let returnValue:[String?] = vals
+        return returnValue
+    }
+    
+    public func SRA_REJECT(returnid:String, empnumber:String, comment:String, approver:String)-> String{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRA_REJECT xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "<empnumber>"
+        soapReqXML += empnumber
+        soapReqXML += "</empnumber>"
+        soapReqXML += "<comment>"
+        soapReqXML += comment
+        soapReqXML += "</comment>"
+        soapReqXML += "<approver>"
+        soapReqXML += approver
+        soapReqXML += "</approver>"
+        soapReqXML += "</SRA_REJECT>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRA_REJECT"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVal :String? = stringFromXML(data : responseData);
+        if strVal == nil {
+            
+            return  ""
+        }
+        let returnValue:String = strVal!
+        return returnValue
+    }
+    
+    public func SRA_ONLOADCOMPLETE(empnumber:String, returnid:String, comment:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRA_ONLOADCOMPLETE xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<empnumber>"
+        soapReqXML += empnumber
+        soapReqXML += "</empnumber>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "<comment>"
+        soapReqXML += comment
+        soapReqXML += "</comment>"
+        soapReqXML += "</SRA_ONLOADCOMPLETE>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRA_ONLOADCOMPLETE"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SRA_BindItemGrid(empno:String, returnid:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRA_BindItemGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<empno>"
+        soapReqXML += empno
+        soapReqXML += "</empno>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "</SRA_BindItemGrid>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRA_BindItemGrid"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SRA_BindAttachmentGrid(empno:String, returnid:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRA_BindAttachmentGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<empno>"
+        soapReqXML += empno
+        soapReqXML += "</empno>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "</SRA_BindAttachmentGrid>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRA_BindAttachmentGrid"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SRA_BEFOREAPPROVE(empno:String, returnid:String, gridcheckbox:Bool, serialnumber:String)-> String{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRA_BEFOREAPPROVE xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<empno>"
+        soapReqXML += empno
+        soapReqXML += "</empno>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "<gridcheckbox>"
+        soapReqXML += String(gridcheckbox)
+        soapReqXML += "</gridcheckbox>"
+        soapReqXML += "<serialnumber>"
+        soapReqXML += serialnumber
+        soapReqXML += "</serialnumber>"
+        soapReqXML += "</SRA_BEFOREAPPROVE>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRA_BEFOREAPPROVE"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVal :String? = stringFromXML(data : responseData);
+        if strVal == nil {
+            
+            return  ""
+        }
+        let returnValue:String = strVal!
+        return returnValue
+    }
+    
+    public func SRA_APPROVE(empnumber:String, returnid:String, approver:String, comment:String)-> String{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRA_APPROVE xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<empnumber>"
+        soapReqXML += empnumber
+        soapReqXML += "</empnumber>"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "<approver>"
+        soapReqXML += approver
+        soapReqXML += "</approver>"
+        soapReqXML += "<comment>"
+        soapReqXML += comment
+        soapReqXML += "</comment>"
+        soapReqXML += "</SRA_APPROVE>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRA_APPROVE"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVal :String? = stringFromXML(data : responseData);
+        if strVal == nil {
+            
+            return  ""
+        }
+        let returnValue:String = strVal!
+        return returnValue
+    }
+    
+    public func GetTempFilename()-> String{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<GetTempFilename xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "</GetTempFilename>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/GetTempFilename"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVal :String? = stringFromXML(data : responseData);
+        if strVal == nil {
+            
+            return  ""
+        }
+        let returnValue:String = strVal!
+        return returnValue
+    }
+    
+    public func BindSalesReturnSalesPerson()-> [SalesModel]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<BindSalesReturnSalesPerson xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "</BindSalesReturnSalesPerson>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/BindSalesReturnSalesPerson"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesModel]=SalesArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func BindSalesReturnCustomers(salesperson:String)-> [SalesModel]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<BindSalesReturnCustomers xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<salespersonid>"
+        soapReqXML += salesperson
+        soapReqXML += "</salespersonid>"
+        soapReqXML += "</BindSalesReturnCustomers>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/BindSalesReturnCustomers"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesModel] = SalesArrFromXML(data : responseData)
+        return returnValue
+    }
+    
  }

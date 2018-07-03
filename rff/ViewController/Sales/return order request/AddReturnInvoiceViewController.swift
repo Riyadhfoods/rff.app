@@ -8,6 +8,12 @@
 
 import UIKit
 
+struct InvoicesModel {
+    var invoiceDate: String = ""
+    var invoice: String = ""
+    var item: String = ""
+}
+
 class AddReturnInvoiceViewController: UIViewController, UITextViewDelegate {
 
     // -- MARK: IBOutlets
@@ -21,20 +27,32 @@ class AddReturnInvoiceViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var countLabel: UILabel!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
-    @IBOutlet weak var uploadFileBtn: UIButton!
+    
+    @IBOutlet weak var StoreAndCreditTableView: UITableView!
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
     // -- MARK: Variables
     
+    let webservice = Sales()
     var invoiceDatePicker: UIDatePicker = UIDatePicker()
     var invoicePickerView: UIPickerView = UIPickerView()
     var itemPickerView: UIPickerView = UIPickerView()
     var pickerView: UIPickerView = UIPickerView()
     var invoiceNameArray: [String] = [String]()
     var itemNameArray: [String] = [String]()
+    var invoices: [InvoicesModel] = [InvoicesModel]()
     
     var datePicker = UIDatePicker()
     let currentDate = Date()
     var date: String = ""
+    var isThereStore = false
+    var isThereCreditLimit = false
+    
+    var storeArray = [SalesModel]()
+    var creditDetailsArray = [SalesReturn]()
+    var invoiceArray = [SalesReturn]()
+    let cellId = "cell_storeAndCredit"
+    let storeAndCreditArray = ["Store Details", "Credit Limmit Details"]
     
     // -- MARK: viewDidLoad
     
@@ -45,14 +63,16 @@ class AddReturnInvoiceViewController: UIViewController, UITextViewDelegate {
         showInvoicePickerView.tintColor = .clear
         showItemPickerView.tintColor = .clear
         
+        StoreAndCreditTableView.delegate = self
+        StoreAndCreditTableView.dataSource = self
+        StoreAndCreditTableView.isHidden = true
+        
         setViewAlignment()
         setUpCommentDisplay()
-        setupArrays()
         setupDatePicker()
         setupPickerView()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
-        view.addGestureRecognizer(tapGesture)
+        setupArrays()
     }
     
     @objc func didTapView(gesture: UITapGestureRecognizer) {
@@ -73,6 +93,12 @@ class AddReturnInvoiceViewController: UIViewController, UITextViewDelegate {
     func setupArrays(){
         invoiceNameArray = ["Select invoce"]
         itemNameArray = [" "]
+        
+        storeArray = webservice.BindDdlStore(customerid: returnOrderRequestDetails.customer)
+        isThereStore = !storeArray.isEmpty
+        
+        creditDetailsArray = webservice.SRR_BindCustomerAging(customer_no: returnOrderRequestDetails.customer)
+        isThereCreditLimit = !creditDetailsArray.isEmpty
     }
     
     func initialValues(){
@@ -85,9 +111,6 @@ class AddReturnInvoiceViewController: UIViewController, UITextViewDelegate {
         commentTextView.layer.cornerRadius = 5.0
         commentTextView.layer.borderColor = mainBackgroundColor.cgColor
         commentTextView.layer.borderWidth = 1
-        
-        uploadFileBtn.layer.borderWidth = 1
-        uploadFileBtn.layer.borderColor = AppDelegate().mainBackgroundColor.cgColor
     }
     
     func setupPickerView(){
@@ -109,17 +132,28 @@ class AddReturnInvoiceViewController: UIViewController, UITextViewDelegate {
         return true
     }
     
-    // -- MARK: objc functions
-    
-    
-    
     // -- MARK: IBActions
 
     @IBAction func showItemButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "showItemSelected", sender: nil)
+        if let commentText = commentTextView.text{
+            returnOrderRequestDetails.comment = commentText
+        }
+        //performSegue(withIdentifier: "showItemSelected", sender: nil)
+        print(returnOrderRequestDetails)
     }
     
-    @IBAction func uploadFileButtonTapped(_ sender: Any) {
+    @IBAction func addButtonTapped(_ sender: Any) {
+        if let invoiceDateText = invoiceDateTextField.text, let invoiceText = invoiceTextField.text, let itemText = itemTextField.text{
+//            if invoiceDateText.isEmpty || invoiceText.isEmpty || itemText.isEmpty{
+//                AlertMessage().showAlertMessage(alertTitle: "Alert", alertMessage: "You did not fill invoice date or did not select invoice or item", actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
+//            } else {
+//                invoiceArray.append(InvoicesModel(invoiceDate: invoiceDateText, invoice: invoiceText, item: itemText))
+//                returnOrderRequestDetails.invoicesArray = invoices
+//            }
+            invoices.append(InvoicesModel(invoiceDate: invoiceDateText, invoice: invoiceText, item: itemText))
+            returnOrderRequestDetails.invoicesArray = invoices
+            print(invoices)
+        }
     }
     
 }
@@ -151,6 +185,15 @@ extension AddReturnInvoiceViewController: UIPickerViewDelegate, UIPickerViewData
     @objc func datePickerDoneClick(){
         if date.isEmpty{
             invoiceDateTextField.text = getStringDate(date: currentDate)
+            
+            invoiceArray = webservice.SRR_BindInvoice(salesperson_id: returnOrderRequestDetails.salespersonId, customernumber: returnOrderRequestDetails.companyId, invoice_date: getStringDate(date: currentDate))
+            invoiceTextField.text = invoiceNameArray[0]
+            for invoice in invoiceArray{
+                invoiceNameArray.append(invoice.Sop_Number)
+            }
+            
+            StoreAndCreditTableView.isHidden = false
+            StoreAndCreditTableView.reloadData()
         }
         invoiceDateTextField.resignFirstResponder()
     }
@@ -184,6 +227,64 @@ extension AddReturnInvoiceViewController: UIPickerViewDelegate, UIPickerViewData
         }
     }
     
+}
+
+extension AddReturnInvoiceViewController: UITableViewDelegate, UITableViewDataSource{
+    // -- Mark: Table view data source
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return storeAndCreditArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? StoreAndCreditCell{
+            cell.textLabel?.text = storeAndCreditArray[indexPath.row]
+            
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if indexPath.row == 0{
+            performSegue(withIdentifier: "showStoreDetailsOfReturn", sender: nil)
+        } else if indexPath.row == 1{
+            performSegue(withIdentifier: "showCreditDetailsOfReturn", sender: nil)
+        }
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if !isThereStore{
+            if indexPath.row == 0 {
+                tableViewHeight.constant = 44
+                return 0
+            }
+        } else if !isThereCreditLimit{
+            if indexPath.row == 1 {
+                tableViewHeight.constant = 44
+                return 0
+            }
+        } else {
+            tableViewHeight.constant = 88
+        }
+        
+        if !isThereStore && !isThereCreditLimit { StoreAndCreditTableView.isHidden = true }
+        return 44
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showStoreDetailsOfReturn" {
+            if let vc = segue.destination as? ReturnStoreViewController{
+                vc.storeArray = self.storeArray
+            }
+        } else if segue.identifier == "showCreditDetailsOfReturn" {
+            if let vc = segue.destination as? ReturnCreditDetailsViewController{
+                vc.creditDetailsArray = self.creditDetailsArray
+            }
+        }
+    }
 }
 
 extension AddReturnInvoiceViewController{

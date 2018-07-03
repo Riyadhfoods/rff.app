@@ -29,14 +29,6 @@ class PendingInboxCell: UITableViewCell {
         holderView.layer.cornerRadius = 5.0
         holderView.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
         holderView.layer.borderWidth = 1
-        
-        setUpHeaderLabel(label: englishDescriptionLeft, language: language)
-        setUpHeaderLabel(label: arabicDescriptionLeft, language: language)
-        setUpHeaderLabel(label: countLeft, language: language)
-        
-        setUpHeaderLabel(label: englishDescriptionRight, language: language)
-        setUpHeaderLabel(label: arabicDescriptionRight, language: language)
-        setUpHeaderLabel(label: countRight, language: language)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

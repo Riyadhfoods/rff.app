@@ -52,7 +52,7 @@ class InboxTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         if arrayOfInboxGrid.count == 0 {
-            emptyMessage(message: "No data", viewController: self, tableView: self.tableView)
+            emptyMessage(message: "No data".localize(), viewController: self, tableView: self.tableView)
         }
         return arrayOfInboxGrid.count
     }
@@ -65,16 +65,9 @@ class InboxTableViewController: UITableViewController {
             let emp_name = arrayOfInboxGrid[indexPath.row].empname
             let date = arrayOfInboxGrid[indexPath.row].date
             
-            cell.empIdEnglish.text = getString(englishString: emp_id, arabicString: "رقم الموظف", language: languageChosen)
-            cell.empNameEnglish.text = getString(englishString: emp_name, arabicString: "اسم الموظف", language: languageChosen)
-            cell.dateEnglish.text = getString(englishString: date, arabicString: "التاريخ", language: languageChosen)
-            cell.viewForm.setTitle(getString(englishString: "VIEW FORM", arabicString: "عرض النموذج", language: languageChosen), for: .normal)
-            
-            cell.empIdArabic.text = getString(englishString: "Emp ID:", arabicString: emp_id, language: languageChosen)
-            cell.empNameArabic.text = getString(englishString: "Emp Name:", arabicString: emp_name, language: languageChosen)
-            cell.dateArabic.text = getString(englishString: "Date:", arabicString: date, language: languageChosen)
-            
-            
+            cell.empIdEnglish.text = emp_id
+            cell.empNameEnglish.text = emp_name
+            cell.dateEnglish.text = date
             return cell
         }
 

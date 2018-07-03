@@ -48,7 +48,7 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
         showListPickerTextfield.tintColor = .clear
         seachTextfield.placeholder = "Search content".localize()
         
-        setCustomNav(navItem: navigationItem)
+        setCustomDefaultNav(navItem: navigationItem)
         setUpPickerView()
         setSlideMenu(controller: self, menuButton: menuBtn)
     }
@@ -92,6 +92,7 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     @IBAction func searchButtonTapped(_ sender: Any) {
+        view.bringSubview(toFront: activityIndicator)
         if ListTextfield.text == selectListArray[0].localize(){
             let alertTitle = "Alert".localize()
             let alertMessage = "You did not select a list".localize()

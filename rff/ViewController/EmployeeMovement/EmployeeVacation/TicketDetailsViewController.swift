@@ -94,6 +94,9 @@ class TicketDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Changing the back button of the navigation contoller
+        setCustomDefaultNav(navItem: navigationItem)
+        
         comment.text = ""
         comment.delegate = self
         
@@ -107,7 +110,6 @@ class TicketDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         setupScreenLayout()
         sutupTicketRequestSelector()
         sutupExitSelector()
-        setUpLanguageChosen()
         setUpCommentDisplay()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
@@ -153,9 +155,9 @@ class TicketDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         innerSelectorExitNo.layer.cornerRadius = cornerRadiusValueInner
         
         ExitYesButton.layer.cornerRadius = cornerRadiusValueView
-        ExitYesButton.backgroundColor = mainBackgroundColor
+        ExitYesButton.backgroundColor = .white
         exitNoBuuton.layer.cornerRadius = cornerRadiusValueView
-        exitNoBuuton.backgroundColor = .white
+        exitNoBuuton.backgroundColor = mainBackgroundColor
     }
     
     func sutupVisaRequireCell(cell: VisaRequiresCell, requireVisaSelected: Int){
@@ -181,15 +183,6 @@ class TicketDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         cell.holderView.layer.borderWidth = 1
     }
     
-    func setUpLanguageChosen(){
-        setlanguageForTitle(label: ticketDetailsTitle, titleEnglish: "Ticket Details", titleArabic: "تفاصيل التذاكر", language: languageChosen)
-        setlanguageForTitle(label: ticketRequestTitle, titleEnglish: "Ticket Request", titleArabic: "طلب تذكر", language: languageChosen)
-        setlanguageForTitle(label: exitReEntryVisaTitle, titleEnglish: "Exit Re-Entry Visa", titleArabic: "تأشيرة خروج وعودة", language: languageChosen)
-        setlanguageForTitle(label: dependentTicketTitle, titleEnglish: "Dependent Ticket", titleArabic: "إعتماد التذكرة", language: languageChosen)
-        setlanguageForTitle(label: commentTitle, titleEnglish: "Comment", titleArabic: "ملاحظات", language: languageChosen)
-        submitOutlet.setTitle(getString(englishString: "SUBMIT", arabicString: "تسليم", language: languageChosen), for: .normal)
-    }
-    
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -203,20 +196,13 @@ class TicketDetailsViewController: UIViewController, UITableViewDelegate, UITabl
             let ticket = ticketdependentArray[indexPath.row].Ticket
             let dependentName = ticketdependentArray[indexPath.row].DependentName
             
-            cell.ticketNumberRight.text = getString(englishString: ticket, arabicString: "بدل تذكرة:", language: languageChosen)
-            cell.dependentNameRight.text = getString(englishString: dependentName, arabicString: "اسم الموظف:", language: languageChosen)
-            
-            cell.ticketNumberLeft.text = getString(englishString: "Ticket:", arabicString: ticket, language: languageChosen)
-            cell.dependentNameLeft.text = getString(englishString: "Name:", arabicString: dependentName, language: languageChosen)
-            
+            cell.ticketNumberRight.text = ticket
+            cell.dependentNameRight.text = dependentName
             cell.visaNoButton.addTarget(self, action: #selector(visaNoButtonTapped(sender:)), for: .touchUpInside)
             cell.visaNoButton.tag = indexPath.row
             
             cell.visaYesButton.addTarget(self, action: #selector(visaYesButtonTapped(sender:)), for: .touchUpInside)
             cell.visaYesButton.tag = indexPath.row
-            
-            changeBoldFont(labelLeft: cell.ticketNumberLeft, labelRight: cell.ticketNumberRight, langauge: languageChosen)
-            changeBoldFont(labelLeft: cell.dependentNameLeft, labelRight: cell.dependentNameRight, langauge: languageChosen)
             
             return cell
         }
@@ -284,8 +270,6 @@ class TicketDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBAction func submitButtonTapped(_ sender: Any) {
         empVacationDetails.DependentVactionTicket = ticketdependentArray
         print(empVacationDetails)
-        print("Ticket Request = \(ticketRequest)")
-        print("Delegate Id = \(delegateId)")
         
         let editSettlementAmountString = (empVacationDetails.TotalSettlementAmount).replacingOccurrences(of: ",", with: "")
         let settlementAmountDouble = (editSettlementAmountString as NSString).doubleValue
@@ -310,8 +294,8 @@ class TicketDetailsViewController: UIViewController, UITableViewDelegate, UITabl
         print(empVacationDetails)
         
         if empVacationDetails.Error == ""{
-            let alertTitle = getString(englishString: "Alert", arabicString: "تنبيه", language: languageChosen)
-            let messageTitle = getString(englishString: "You have already applied for vacation", arabicString: "لقد تقدمت بطلب عطله مسبقاً", language: languageChosen)
+            let alertTitle = "Alert".localize()
+            let messageTitle = "You have already applied for vacation".localize()
             AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: messageTitle, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
             
         } else if empVacationDetails.Error == "1"{
@@ -343,7 +327,7 @@ class TicketDetailsViewController: UIViewController, UITableViewDelegate, UITabl
                 error: "")
         }
         
-        let alertTitle = getString(englishString: "Vacation applied successfully", arabicString: "تم تسليم طلب الاجازة بنجاح", language: languageChosen)
+        let alertTitle = "Vacation applied successfully".localize()
         AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: "", actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
     }
     

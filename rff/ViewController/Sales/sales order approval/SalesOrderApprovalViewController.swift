@@ -34,7 +34,7 @@ class SalesOrderApprovalViewController: UIViewController, UITableViewDelegate, U
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setCustomNavAndBackButton(navItem: navigationItem, title: "Sales Order Approval")
+        setCustomNavAndBackButton(navItem: navigationItem, title: "Sales Order Approval".localize(), backTitle: "Return")
         activityIndicator.startAnimating()
         setViewAlignment()
         
@@ -48,10 +48,10 @@ class SalesOrderApprovalViewController: UIViewController, UITableViewDelegate, U
                 if let userIdInt = Int(userId){
                     salesOrderDetails = webService.SalesOrderApprove(empno: userIdInt)
                     salesOrdertableview.reloadData()
-                    activityIndicator.stopAnimating()
                 }
             }
         }
+        activityIndicator.stopAnimating()
     }
     
     // -- MARK: Table view data source

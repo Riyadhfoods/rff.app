@@ -1,17 +1,15 @@
 //
-//  CreditDetailsViewController.swift
+//  ReturnCreditDetailsViewController.swift
 //  rff
 //
-//  Created by Riyadh Foods Industrial Co. on 07/06/2018.
+//  Created by Riyadh Foods Industrial Co. on 01/07/2018.
 //  Copyright © 2018 Riyadh Foods Industrial Co. All rights reserved.
 //
 
 import UIKit
 
-class CreditDetailsViewController: UIViewController {
+class ReturnCreditDetailsViewController: UIViewController {
 
-    // -- MARK: IBOutlets
-    
     @IBOutlet weak var creditLimitRight: UILabel!
     @IBOutlet weak var totalDueRight: UILabel!
     @IBOutlet weak var upTo31Right: UILabel!
@@ -25,7 +23,7 @@ class CreditDetailsViewController: UIViewController {
     // -- MARK: Variables
     
     let webservice = Sales()
-    var creditDetailsArray = [SalesModel]()
+    var creditDetailsArray = [SalesReturn]()
     
     // -- MARK: viewDidLoad
     
@@ -40,31 +38,27 @@ class CreditDetailsViewController: UIViewController {
         viewHolder.layer.borderWidth = 1
         setupCreditDetails()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
     func setupCreditDetails(){
-        //salesDetails.CustomerInFull
-        creditDetailsArray = webservice.BindCustomerAgingGV(cutomerid: salesOrderRequestDetails.customer)
-        if creditDetailsArray.isEmpty{
-            return
-        }
         creditLimitRight.text = creditDetailsArray[0].CreditLimit
-        totalDueRight.text = creditDetailsArray[0].ToTalDue
-        upTo31Right.text = creditDetailsArray[0].ZEROTO31days
-        upTo60Right.text = creditDetailsArray[0].ThirtyOneTo60Days
-        upTo90Right.text = creditDetailsArray[0].SIXTYOneTo90Days
-        upTo120Right.text = creditDetailsArray[0].NINETYOneTo120Days
-        moreThan90Right.text = creditDetailsArray[0].Above120DAYS
-        statusRight.text = creditDetailsArray[0].CustomerAgying_Status
+        totalDueRight.text = creditDetailsArray[0].TotalDue
+        upTo31Right.text = creditDetailsArray[0].ZeroTo31Days
+        upTo60Right.text = creditDetailsArray[0].ThirtyOneto60Days
+        upTo90Right.text = creditDetailsArray[0].SixtyOneTo90Days
+        upTo120Right.text = creditDetailsArray[0].Nineoneto120Days
+        moreThan90Right.text = creditDetailsArray[0].Above120Days
+        statusRight.text = creditDetailsArray[0].Status
     }
-
+    
     // -- MARK: IBActions
     
     @IBAction func nextButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "showAddItems", sender: nil)
+        //performSegue(withIdentifier: "showAddItems", sender: nil)
     }
+
 }

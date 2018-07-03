@@ -6,10 +6,6 @@
   Copyright © 2018 Riyadh Foods Industrial Co. All rights reserved.
 */
 
-"Old password" = "الرقم السري القديم";
-"New Password" =  "الرقم السري الجديد";
-"CHANGE" = "تغيير";
-
 // Menu items
 "HOME" = "الرئيسية";
 "MASTER" = "الصلاحيات";
@@ -82,6 +78,56 @@
 "Arabic Description:" = "الوصف بالعربي:";
 "Count:" = "العدد:";
 "CLICK TO VIEW" = "اضغط للعرض";
+
+// Change Password
+"Old password" = "الرقم السري القديم";
+"New Password" =  "الرقم السري الجديد";
+"CHANGE" = "تغيير";
+"Password Change Successfully" = "تم تغيير الرقم السري بنجاح";
+"Error!" = "خطأ";
+
+// Tracking inbox
+"Select list" = "اختر من القائمة";
+"Select category" = "نوع السجل";
+"RETURN" = "رجوع";
+"Pending" = "قيد الانتظار";
+"Rejected" = "مرفوض";
+"On Hold" = "معلق";
+"Approved" = "موافقة";
+"All" = "الكل";
+"You did not select a list or category" = "لم يتم اختيار قائمة او حاله";
+"Emp ID:" = "رقم الموظف:";
+"Emp Name:" = "اسم الموظف:";
+"Date:" = "التاديخ:";
+"VIEW FORM" = "عرض النموذج";
+
+// Employee vacation
+"ADD VACATION" = "إضافة اجازه";
+"Select Employee" = "اختر الموظف";
+"Your delegate" = "الموظف البديل";
+"Vacations Details" = "تفاصيل الإجازة";
+"No of Days" = "الإجازة المطلوبة";
+"Balance Vacation" = "الإجازة المستحقة";
+"Leave Start Date" = "تاريخ بداية الإجازة";
+"Return Date" = "تاريخ نهاية الإجازة";
+"Vacation Type" = "نوع الاجازة";
+"Exit Re-Entry Days" = "عدد ايام الخروج والعودة";
+"Extra Days" = "ايام اضافية";
+"Settlement Details" = "تفاصيل التصفية";
+"Settlement Amount:" = "مبلغ التصفية:";
+"NEXT" = "التالي";
+"Done" = "تم";
+"Ticket Details" = "تفاصيل التذاكر";
+"Ticket Request" = "طلب تذكر";
+"Exit Re-Entry Visa" = "تأشيرة خروج وعودة";
+"Dependent Ticket" = "إعتماد التذكرة";
+"Require Visa:" = "طلب التأشيرة";
+"Ticket:" = "بدل تذكرة:";
+"Name:" = "اسم الموظف:";
+"SUBMIT" = "تسليم";
+"You have already applied for vacation" = "لقد تقدمت بطلب عطله مسبقاً";
+"Vacation applied successfully" = "تم تسليم طلب الاجازة بنجاح";
+"Choose your delegate" = "اختر الموظف البديل";
 
 // Sales Inbox
 "Sales Inbox" = "المبيعات";

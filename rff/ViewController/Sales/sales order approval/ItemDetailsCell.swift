@@ -31,6 +31,8 @@ class ItemDetailsCell: UITableViewCell {
         checkBoxBtn.layer.cornerRadius = 39/2
         checkBoxBtn.layer.borderWidth = 1
         checkBoxBtn.layer.borderColor = AppDelegate().mainBackgroundColor.cgColor
+        
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -21,8 +21,7 @@ class EmployeeVacationViewController: UIViewController {
         super.viewDidLoad()
         
         // Changing the back button of the navigation contoller
-        setCustomNav(navItem: navigationItem)
-        addVacationButtonOutlet.setTitle(getString(englishString: "ADD VACATION", arabicString: "إضافة اجازه", language: languageChosen), for: .normal)
+        setCustomDefaultNav(navItem: navigationItem)
         
         setViewAlignment()
         setSlideMenu(controller: self, menuButton: menuBtn)

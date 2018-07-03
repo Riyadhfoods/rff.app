@@ -234,7 +234,7 @@ extension XMLParserDelegate {
                 foundProcessingInstructionWithTarget target: String,
                 data: String?) { }
     
-    func parser(_ parser: Foundation.XMLParser, foundComment comment: String) { }
+    func parser(_ parser: Foundation.XMLParser, foundComment commentReturn: String) { }
     
     func parser(_ parser: Foundation.XMLParser, foundCDATA CDATABlock: Data) { }
     

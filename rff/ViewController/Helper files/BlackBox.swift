@@ -11,18 +11,23 @@ import NotificationCenter
 
 let mainBackgroundColor = AppDelegate().mainBackgroundColor
 
-func setCustomNav(navItem: UINavigationItem){
+func setCustomDefaultNav(navItem: UINavigationItem){
     navItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
     navItem.title = SlideMenuViewController.selectedItem.localize()
 }
 
 func setCustomNav(navItem: UINavigationItem, title: String){
     navItem.title = title.localize()
+    navItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 }
 
-func setCustomNavAndBackButton(navItem: UINavigationItem, title: String){
+func setCustomNavAndBackButton(navItem: UINavigationItem, title: String, backTitle: String?){
     navItem.title = title.localize()
-    navItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    if let backTitle = backTitle{
+        navItem.backBarButtonItem = UIBarButtonItem(title: backTitle, style: .plain, target: nil, action: nil)
+    } else {
+        navItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+    }
 }
 
 func setbackNavTitle(navItem: UINavigationItem){
@@ -76,83 +81,6 @@ func setUpKeyboardToolBar(textfield: UITextField, viewController: Any?, cancelTi
     textfield.inputAccessoryView = tb
 }
 
-
-// Localization
-
-func getString(englishString: String, arabicString: String, language: Int) -> String{
-    return language == 1 ? englishString : arabicString
-}
-
-func setlanguageForTitle(label: UILabel, titleEnglish: String, titleArabic: String, language: Int){
-    if language == 1{
-        label.text = titleEnglish
-        label.textAlignment = .left
-    } else {
-        label.text = titleArabic
-        label.textAlignment = .right
-    }
-}
-
-func setlanguageForTitle(txt: UITextField, titleEnglish: String, titleArabic: String, language: Int){
-    if language == 1{
-        txt.text = titleEnglish
-        txt.textAlignment = .left
-    } else {
-        txt.text = titleArabic
-        txt.textAlignment = .right
-    }
-}
-
-func setUpHeaderLabel(label: UILabel, language: Int){
-    if language == 1{
-        label.textAlignment = .left
-    } else {
-        label.textAlignment = .right
-    }
-}
-
-func setUpHeaderLabel(txt: UITextField, language: Int){
-    if language == 1{
-        txt.textAlignment = .left
-    } else {
-        txt.textAlignment = .right
-    }
-}
-
-func changeBoldFont(labelLeft: UILabel, labelRight: UILabel, langauge: Int){
-    if langauge == 1{
-        labelLeft.font = UIFont.boldSystemFont(ofSize: 15)
-        labelRight.font = UIFont.systemFont(ofSize: 15)
-    } else {
-        labelRight.font = UIFont.boldSystemFont(ofSize: 15)
-        labelLeft.font = UIFont.systemFont(ofSize: 15)
-    }
-}
-
-func changeBoldFontAndColor(labelLeft: UILabel, labelRight: UILabel, langauge: Int){
-    if langauge == 1{
-        labelLeft.font = UIFont.boldSystemFont(ofSize: 17)
-        labelLeft.textColor = .black
-        labelRight.font = UIFont.systemFont(ofSize: 17)
-        labelRight.textColor = AppDelegate().mainBackgroundColor
-    } else {
-        labelRight.font = UIFont.boldSystemFont(ofSize: 17)
-        labelRight.textColor = .black
-        labelLeft.font = UIFont.systemFont(ofSize: 17)
-        labelLeft.textColor = AppDelegate().mainBackgroundColor
-    }
-}
-
-func changeTitlePositionIfArabic(labelOne: UILabel, labelTwo: UILabel, titleEnglish: String, titleArabic: String, language: Int){
-    if language == 1{
-        labelOne.text = titleEnglish
-        labelOne.textAlignment = .left
-    } else {
-        labelTwo.text = titleArabic
-        labelTwo.textAlignment = .right
-    }
-}
-
 // Slide Menu
 func setSlideMenu(controller: UIViewController, menuButton: UIBarButtonItem){
     if controller.revealViewController() != nil{
@@ -167,6 +95,16 @@ func setSlideMenu(controller: UIViewController, menuButton: UIBarButtonItem){
         controller.revealViewController().rearViewRevealWidth = AppDelegate().screenSize.width * 0.75
         controller.revealViewController().rightViewRevealWidth = AppDelegate().screenSize.width * 0.75
         controller.view.addGestureRecognizer(controller.revealViewController().panGestureRecognizer())
+    }
+}
+
+//Moving to that storyboard
+
+func moveTo(storyboard name: String, withIdentifier id: String, viewController: UIViewController){
+    let storyboard = UIStoryboard(name: name, bundle: nil)
+    let viewControllerStoryboard = storyboard.instantiateViewController(withIdentifier: id)
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+        viewController.revealViewController().pushFrontViewController(viewControllerStoryboard, animated: true)
     }
 }
 

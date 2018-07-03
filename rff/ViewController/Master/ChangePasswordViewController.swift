@@ -34,7 +34,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         oldPasswordTextfield.delegate = self
         newPasswordTextfield.delegate = self
         
-        setCustomNav(navItem: navigationItem)
+        setCustomDefaultNav(navItem: navigationItem)
         
         setViewAlignment()
         setSlideMenu(controller: self, menuButton: menuBtn)
@@ -46,8 +46,8 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func changeButtonTapped(_ sender: Any) {
-        successfulAlertTitle = getString(englishString: "Password Change Successfully", arabicString: "تم تغيير الرقم السري بنجاح", language: languageChosen)
-        errorAlertTitle = getString(englishString: "Error!", arabicString: "خطأ", language: languageChosen)
+        successfulAlertTitle = "Password Change Successfully".localize()
+        errorAlertTitle = "Error!".localize()
         
         if let currentUserId = AuthServices.currentUserId, let oldPassword = oldPasswordTextfield.text, let newPassword = newPasswordTextfield.text{
             AuthServices().changePassword(id: currentUserId, oldPassword: oldPassword, newPassword: newPassword, onSeccuss: {

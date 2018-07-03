@@ -8,6 +8,8 @@
 
 import UIKit
 
+var returnOrderRequestDetails = ROR()
+
 class ReturnOrderRequestsViewController: UIViewController {
 
     // -- MARK: IBOutlets
@@ -24,41 +26,51 @@ class ReturnOrderRequestsViewController: UIViewController {
     @IBOutlet weak var showBranchPickerView: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var selectorSuperMarketYes: UIView!
+    @IBOutlet weak var selectorSuperMarketNo: UIView!
+    @IBOutlet weak var innerSelectorSuperMarketYes: UIView!
+    @IBOutlet weak var innerSelectorSuperMarketNo: UIView!
+    @IBOutlet weak var superMarketYesButton: UIButton!
+    @IBOutlet weak var superMarketNoButton: UIButton!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -- MARK: Variables
     
     let screenSize = AppDelegate().screenSize
-    var companyNameArray = [String]()
-    var salesPersonNameArray = [String]()
-    var customerNameArray = [String]()
-    var branchNameArray = [String]()
-    
     var companyPickerView = UIPickerView()
     var salesPersonPickerView = UIPickerView()
     var customerPickerView = UIPickerView()
     var branchPickerView = UIPickerView()
     var pickerView = UIPickerView()
+    var row = 0
+    
     var datePicker = UIDatePicker()
     let currentDate = Date()
     var date: String = ""
+    
+    let webservice = Sales()
+    var companyArray = [SalesModel]()
+    var companyNamesArray = [String]()
+    var salespersonArray = [SalesModel]()
+    var salesPersonNamesArray = [String]()
+    var salesPersonIdArray = [String]()
+    var customerArray = [SalesModel]()
+    var customerNamesArray = [String]()
+    var customerIdArray = [String]()
+    var companyIdArray = [String]()
+    var branchArray = [SalesModel]()
+    var branchNamesArray = [String]()
+    var branchIdArray = [String]()
 
     // -- MARK: viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        stackViewWidth.constant = AppDelegate().screenSize.width - 32
-        showCompanyPickerView.tintColor = .clear
-        returnDateTextField.tintColor = .clear
-        showSalesPersonPickerView.tintColor = .clear
-        showCustomerPickerView.tintColor = .clear
-        showBranchPickerView.tintColor = .clear
-        
-        setupArrays()
-        setupPickerView()
-        setupDatePicker()
+        setUpViews()
         setViewAlignment()
         setSlideMenu(controller: self, menuButton: menuBtn)
+        activityIndicator.startAnimating()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
         view.addGestureRecognizer(tapGesture)
@@ -70,44 +82,132 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        initialValues()
+        if companyArray.isEmpty && salespersonArray.isEmpty && branchArray.isEmpty{
+            setupArrays()
+        }
+        activityIndicator.stopAnimating()
     }
     
     // -- MARK: Set ups
     
+    func setUpSalesOrderData(){
+        companyArray = webservice.BindSalesOrderCompany()
+        salespersonArray = webservice.BindSalesReturnSalesPerson()
+        branchArray = webservice.BindSalesOrderBranches()
+    }
+    
+    func setUpViews(){
+        stackViewWidth.constant = AppDelegate().screenSize.width - 32
+        showCompanyPickerView.tintColor = .clear
+        returnDateTextField.tintColor = .clear
+        showSalesPersonPickerView.tintColor = .clear
+        showCustomerPickerView.tintColor = .clear
+        showBranchPickerView.tintColor = .clear
+        
+        companyNamesArray = ["Select company"]
+        companyIdArray = [""]
+        salesPersonNamesArray = ["Select sales person"]
+        salesPersonIdArray = [""]
+        customerNamesArray = ["Select customer"]
+        customerIdArray = [""]
+        branchNamesArray = ["Select branch"]
+        branchIdArray = [""]
+        
+        setupPickerView()
+        setupDatePicker()
+        setUpSelectors()
+    }
+    
     func setupArrays(){
-        companyNameArray = ["Select company"]
-        salesPersonNameArray = ["Select sales person"]
-        customerNameArray = ["Select customer"]
-        branchNameArray = ["Select branch"]
+        setUpSalesOrderData()
+        initialValues()
+        
+        for company in companyArray{
+            companyNamesArray.append(company.EName)
+            companyIdArray.append(company.Comp_ID)
+        }
+        
+        for salesperson in salespersonArray{
+            salesPersonNamesArray.append(salesperson.SalesPerson)
+            salesPersonIdArray.append(salesperson.SalesPersonId)
+        }
+        
+        for branch in branchArray{
+            branchNamesArray.append(branch.Branch)
+            branchIdArray.append(branch.AccountEmp)
+        }
+        initialValues()
     }
     
     func initialValues(){
-        companyTextField.text = companyNameArray[0]
-        salesPersonTextField.text = salesPersonNameArray[0]
-        customerTextField.text = customerNameArray[0]
-        branchTextField.text = branchNameArray[0]
+        companyTextField.text = companyNamesArray[0]
+        salesPersonTextField.text = salesPersonNamesArray[0]
+        customerTextField.text = customerNamesArray[0]
+        branchTextField.text = branchNamesArray[0]
     }
     
     func setupPickerView(){
-        PickerviewAction().showPickView(txtfield: showCompanyPickerView, pickerview: companyPickerView, viewController: self, cancelSelector: #selector(doneClick), doneSelector: #selector(cancelClick))
-        PickerviewAction().showPickView(txtfield: showSalesPersonPickerView, pickerview: salesPersonPickerView, viewController: self, cancelSelector: #selector(doneClick), doneSelector: #selector(cancelClick))
-        PickerviewAction().showPickView(txtfield: showCustomerPickerView, pickerview: customerPickerView, viewController: self, cancelSelector: #selector(doneClick), doneSelector: #selector(cancelClick))
-        PickerviewAction().showPickView(txtfield: showBranchPickerView, pickerview: branchPickerView, viewController: self, cancelSelector: #selector(doneClick), doneSelector: #selector(cancelClick))
+        PickerviewAction().showPickView(txtfield: showCompanyPickerView, pickerview: companyPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showSalesPersonPickerView, pickerview: salesPersonPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showCustomerPickerView, pickerview: customerPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showBranchPickerView, pickerview: branchPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
     }
     
     func setupDatePicker(){
         PickerviewAction().showDatePicker(txtfield: returnDateTextField, datePicker: datePicker, title: "Return Date", viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
     }
     
+    func setUpSelectors(){
+        let cornerRadiusValueHolder: CGFloat = 12
+        let cornerRadiusValueInner: CGFloat = 11
+        let cornerRadiusValueView: CGFloat = 9
+        
+        selectorSuperMarketYes.layer.cornerRadius = cornerRadiusValueHolder
+        selectorSuperMarketNo.layer.cornerRadius = cornerRadiusValueHolder
+        innerSelectorSuperMarketYes.layer.cornerRadius = cornerRadiusValueInner
+        innerSelectorSuperMarketNo.layer.cornerRadius = cornerRadiusValueInner
+        
+        superMarketYesButton.layer.cornerRadius = cornerRadiusValueView
+        superMarketYesButton.backgroundColor = .white
+        superMarketNoButton.layer.cornerRadius = cornerRadiusValueView
+        superMarketNoButton.backgroundColor = mainBackgroundColor
+    }
+    
     // -- MARK: IBActions
     
     @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        AuthServices().logout(self)
     }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
-        performSegue(withIdentifier: "showInvoice", sender: nil)
+        if let userId = AuthServices.currentUserId{
+            returnOrderRequestDetails.emp_id = userId
+        }
+        
+        if companyTextField.text == companyNamesArray[0] ||
+            returnDateTextField.text == "" ||
+            salesPersonTextField.text == salesPersonNamesArray[0] ||
+            customerTextField.text == customerNamesArray[0] ||
+            branchTextField.text == branchNamesArray[0]
+            {
+            AlertMessage().showAlertMessage(alertTitle: "Alert", alertMessage: "You did not fill the fields", actionTitle: nil, onAction: nil, cancelAction: "OK", self)
+        } else {
+            performSegue(withIdentifier: "showInvoice", sender: nil)
+        }
+    }
+    
+    @IBAction func superMarketYesButtonTapped(_ sender: Any) {
+        superMarketYesButton.backgroundColor = mainBackgroundColor
+        superMarketNoButton.backgroundColor = .white
+        
+        returnOrderRequestDetails.supermarket = true
+    }
+    
+    @IBAction func superMarketNoButtonTapped(_ sender: Any) {
+        superMarketYesButton.backgroundColor = .white
+        superMarketNoButton.backgroundColor = mainBackgroundColor
+        
+        returnOrderRequestDetails.supermarket = false
     }
 }
 
@@ -116,12 +216,28 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
     
     @objc func doneClick(){
         if pickerView == companyPickerView{
+            returnOrderRequestDetails.company = companyNamesArray[row]
+            returnOrderRequestDetails.companyId = companyIdArray[row]
+            
+            companyTextField.text = companyNamesArray[row]
             showCompanyPickerView.resignFirstResponder()
         } else if pickerView == salesPersonPickerView{
+            returnOrderRequestDetails.salesperson = salesPersonNamesArray[row]
+            returnOrderRequestDetails.salespersonId = salesPersonIdArray[row]
+            
+            salesPersonTextField.text = salesPersonNamesArray[row]
             showSalesPersonPickerView.resignFirstResponder()
         } else if pickerView == customerPickerView{
+            returnOrderRequestDetails.customer = customerNamesArray[row]
+            returnOrderRequestDetails.customerId = customerIdArray[row]
+            
+            customerTextField.text = customerNamesArray[row]
             showCustomerPickerView.resignFirstResponder()
         } else {
+            returnOrderRequestDetails.branch = branchNamesArray[row]
+            returnOrderRequestDetails.branchId = branchIdArray[row]
+            
+            branchTextField.text = branchNamesArray[row]
             showBranchPickerView.resignFirstResponder()
         }
     }
@@ -156,6 +272,19 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
         return dateFormatter.string(from: date)
     }
     
+    func getCustomers(salesperson: String){
+        customerArray = webservice.BindSalesReturnCustomers(salesperson: salesperson)
+        if customerArray.isEmpty {
+            customerNamesArray = ["Select customer".localize()]
+        } else {
+            customerNamesArray = ["Select customer".localize()]
+            for customer in customerArray{
+                customerNamesArray.append(customer.CustomerName)
+                customerIdArray.append(customer.CustomerId)
+            }
+        }
+    }
+    
     // -- Mark: Picker view data source
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -164,26 +293,35 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         if pickerView == companyPickerView{
-            return companyNameArray.count
+            return companyNamesArray.count
         } else if pickerView == salesPersonPickerView{
-            return salesPersonNameArray.count
+            return salesPersonNamesArray.count
         } else if pickerView == customerPickerView{
-            return customerNameArray.count
+            return customerNamesArray.count
         } else {
-            return branchNameArray.count
+            return branchNamesArray.count
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         self.pickerView = pickerView
         if pickerView == companyPickerView{
-            return companyNameArray[row]
+            return companyNamesArray[row].trimmingCharacters(in: .newlines)
         } else if pickerView == salesPersonPickerView{
-            return salesPersonNameArray[row]
+            return salesPersonNamesArray[row]
         } else if pickerView == customerPickerView{
-            return customerNameArray[row]
+            return customerNamesArray[row]
         } else {
-            return branchNameArray[row]
+            return branchNamesArray[row]
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.row = row
+        if pickerView == salesPersonPickerView{
+            print(salesPersonIdArray[row])
+            getCustomers(salesperson: salesPersonIdArray[row])
+            customerTextField.text = customerNamesArray[0]
         }
     }
     

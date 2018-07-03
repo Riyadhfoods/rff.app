@@ -98,12 +98,13 @@ class VacationsDetailsViewController: UIViewController, UIPickerViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         setupArrays()
+        setViewAlignment()
         
         // Change the width of vacation Details Stack View base of the screen size
         vacationDetailsStackViewWidth.constant = screenSize.width - 32
         
         // Changing the back button of the navigation contoller
-        setCustomNav(navItem: navigationItem)
+        setCustomDefaultNav(navItem: navigationItem)
         
         leaveStartDatePickerView.tintColor = .clear
         ReturnDatePickerView.tintColor = .clear
@@ -117,7 +118,6 @@ class VacationsDetailsViewController: UIViewController, UIPickerViewDelegate, UI
         
         setUpPickerView()
         setupDatePicker()
-        setupLanguagChange()
         setUpEmployeeDetails()
         setUpToolBar()
         
@@ -131,9 +131,8 @@ class VacationsDetailsViewController: UIViewController, UIPickerViewDelegate, UI
         super.viewDidAppear(animated)
         
         if newSettlementRecieved != "" {
-            setSettlementAmount(settlementAmountRecieved: newSettlementRecieved)
+            settlementAmount.text = newSettlementRecieved
         }
-        setViewAlignment()
     }
 
     override func didReceiveMemoryWarning() {
@@ -163,21 +162,12 @@ class VacationsDetailsViewController: UIViewController, UIPickerViewDelegate, UI
         leaveStartDatePickerView.text = empVacationDetails.Leave_Start_Dt
         ReturnDatePickerView.text = empVacationDetails.Leave_Return_Dt
         exitReEntryDays.text = empVacationDetails.ExitReEntry
+        settlementAmount.text = empVacationDetails.TotalSettlementAmount
         
         if empVacationDetails.ExtraDays == "" {
             extraDays.text = "       "
         } else {
            extraDays.text = empVacationDetails.ExtraDays
-        }
-        
-        setSettlementAmount(settlementAmountRecieved: empVacationDetails.TotalSettlementAmount)
-    }
-    
-    func setSettlementAmount(settlementAmountRecieved: String){
-        if languangeChosen == 1 {
-            settlementAmount.text = settlementAmountRecieved
-        } else {
-            settlementTitle.text = settlementAmountRecieved
         }
     }
     
@@ -200,62 +190,16 @@ class VacationsDetailsViewController: UIViewController, UIPickerViewDelegate, UI
     }
     
     func setupDatePicker(){
-        let leaveTitle = getString(englishString: "Leave Start Date", arabicString: "تاريخ بداية الإجازة", language: languangeChosen)
-        let returnTitle = getString(englishString: "Return Date", arabicString: "تاريخ نهاية الإجازة", language: languangeChosen)
+        let leaveTitle = "Leave Start Date".localize()
+        let returnTitle = "Return Date".localize()
         
         PickerviewAction().showDatePicker(txtfield: leaveStartDatePickerView, datePicker: leaveDatePickerDatePicker, title: leaveTitle, viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
         PickerviewAction().showDatePicker(txtfield: ReturnDatePickerView, datePicker: returnDatePickerDatePicker, title: returnTitle, viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
     }
     
-    func setupLanguagChange(){
-        setlanguageForTitle(label: vacationDetailsHeader, titleEnglish: "Vacations Details", titleArabic: "تفاصيل الإجازة", language: languangeChosen)
-        setlanguageForTitle(label: settlementDetailsHeader, titleEnglish: "Settlement Details", titleArabic: "تفاصيل التصفية", language: languangeChosen)
-        setlanguageForTitle(label: numberOfDaysTitle, titleEnglish: "No of Days", titleArabic: "الإجازة المطلوبة", language: languangeChosen)
-        setlanguageForTitle(label: balanceVacationTitle, titleEnglish: "Balance Vacation", titleArabic: "الإجازة المستحقة", language: languangeChosen)
-        setlanguageForTitle(label: leaveStartDateTitle, titleEnglish: "Leave Start Date", titleArabic: "تاريخ بداية الإجازة", language: languangeChosen)
-        setlanguageForTitle(label: returnDateTitle, titleEnglish: "Return Date", titleArabic: "تاريخ نهاية الإجازة", language: languangeChosen)
-        setlanguageForTitle(label: vacationTypeTitle, titleEnglish: "Vacation Type", titleArabic: "نوع الاجازة", language: languangeChosen)
-        setlanguageForTitle(label: exitTitle, titleEnglish: "Exit Re-Entry Days", titleArabic: "عدد ايام الخروج والعودة", language: languangeChosen)
-        setlanguageForTitle(label: extraDaysTitle, titleEnglish: "Extra Days", titleArabic: "ايام اضافية", language: languangeChosen)
-        setSettlementLocalization()
-        setupSubLabel()
-        
-        if languangeChosen == 1{
-            nextButtonOutlet.setTitle("NEXT", for: .normal)
-        } else {
-            nextButtonOutlet.setTitle("التالي", for: .normal)
-        }
-    }
-    
-    func setupSubLabel(){
-        setUpHeaderLabel(txt: numOfDays, language: languangeChosen)
-        setUpHeaderLabel(label: balanceVacation, language: languangeChosen)
-        setUpHeaderLabel(txt: leaveStartDatePickerView, language: languangeChosen)
-        setUpHeaderLabel(txt: ReturnDatePickerView, language: languangeChosen)
-        setUpHeaderLabel(txt: vacationTypePickerView, language: languangeChosen)
-        setUpHeaderLabel(txt: exitReEntryDays, language: languangeChosen)
-        setUpHeaderLabel(label: extraDays, language: languangeChosen)
-    }
-    
-    func setSettlementLocalization(){
-        if languangeChosen == 1{
-            settlementTitle.text = "Settlement Amount:"
-            settlementTitle.textAlignment = .left
-            settlementAmount.text = "99999999"
-            settlementAmount.textAlignment = .left
-        } else {
-            settlementAmount.text = "مبلغ التصفية:"
-            settlementTitle.textAlignment = .right
-            settlementTitle.text = "99999999"
-            settlementAmount.textAlignment = .right
-        }
-        
-        changeBoldFont(labelLeft: settlementTitle, labelRight: settlementAmount, langauge: languangeChosen)
-    }
-    
     var textfield = UITextField()
     func setUpToolBar(){
-        let doneButton = UIBarButtonItem(title: getString(englishString: "Done", arabicString: "تم", language: languangeChosen), style: .plain, target: self, action: #selector(doneClick))
+        let doneButton = UIBarButtonItem(title: "Done".localize(), style: .plain, target: self, action: #selector(doneClick))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         toolBar.setItems([spaceButton, doneButton], animated: false)
         numOfDays.inputAccessoryView = toolBar
@@ -346,7 +290,7 @@ class VacationsDetailsViewController: UIViewController, UIPickerViewDelegate, UI
             let settlementAmountChange =  webservice.get_settlement_details(vacationtype: vacationTypeId, langid: languangeChosen, emp_no: userId, startdate: startDate, ticket: ticketRequestRecieved)
             
             empVacationDetails.TotalSettlementAmount = settlementAmountChange.TotalSettlementAmount
-            setSettlementAmount(settlementAmountRecieved: empVacationDetails.TotalSettlementAmount)
+            settlementAmount.text =  empVacationDetails.TotalSettlementAmount
         }
     }
     
@@ -457,9 +401,9 @@ class VacationsDetailsViewController: UIViewController, UIPickerViewDelegate, UI
     
     // -- MARK: IBAction
     @IBAction func nextButtonTapped(_ sender: Any) {
-        if delegatePickerView.text == "Your delegate - الموظف البديل" {
-            let alertMessage = getString(englishString: "Choose your delegate", arabicString: "اختر موظف البديل", language: languangeChosen)
-            let alertTitle = getString(englishString: "Alert!", arabicString: "تنبيه", language: languangeChosen)
+        if delegatePickerView.text == "Your delegate".localize() {
+            let alertMessage = "Choose your delegate".localize()
+            let alertTitle = "Alert!".localize()
             
             AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
         }

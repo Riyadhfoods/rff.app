@@ -42,12 +42,6 @@ class VisaRequiresCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-        setUpHeaderLabel(label: ticketNumberRight, language: langauge)
-        setUpHeaderLabel(label: dependentNameRight, language: langauge)
-        setUpHeaderLabel(label: ticketNumberLeft, language: langauge)
-        setUpHeaderLabel(label: dependentNameLeft, language: langauge)
-        
-        setlanguageForTitle(label: requireVisa, titleEnglish: "Require Visa", titleArabic: "طلب التأشيرة", language: langauge)
     }
 
     @IBAction func visaYesButtonTapped(_ sender: Any) {

@@ -8,6 +8,7 @@
 
 import UIKit
 
+var invoiceDetails = [SalesReturnItemsDetailsModel]()
 class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDelegate, UITableViewDelegate, UITableViewDataSource {
 
     // -- MARK: IBOutlet
@@ -21,22 +22,64 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     @IBOutlet weak var requestDate: UILabel!
     @IBOutlet weak var ReturnDate: UILabel!
     @IBOutlet weak var comment: UITextView!
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -- MARK: Variable
     
+    let webService = Sales()
     let screenSize = AppDelegate().screenSize
     let cellId = "cell_detailsSalesReturnRequest"
-    let cellTitleArray = ["Item(s) Details", "Cutomer Aging", "Work Flow"]
+    let cellTitleArray = ["Item(s) Details", "Cutomer Aging", "User Comment", "Work Flow"]
+    
+    var itemsDetailsArray = [SalesReturn]()
+    var customerCreditDetailsArray = [SalesReturn]()
+    var userCommentArray = [SalesReturn]()
+    var workFlowArray = [SalesReturn]()
+    var isItemsChecked = [Bool]()
+    var userId = ""
+    var returnId = ""
+    var requestDateString = ""
+    var returnDateString = ""
+    
+    var isThereItems = false
+    var isThereCustomerCredit = false
+    var isThereUserComment = false
+    var isThereWorkFlow = false
+    var remainRows: CGFloat = 4
     
     // -- MARK: viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setViewAlignment()
+        
+        setCustomNavAndBackButton(navItem: navigationItem, title: "Approval Form", backTitle: nil)
+        if let currentUserId = AuthServices.currentUserId{
+            userId = currentUserId
+        }
         stackviewWidth.constant = screenSize.width - 32
         comment.delegate = self
         
-        setUpCommentDisplay()
+        activityIndicator.startAnimating()
+        setViewAlignment()
+        setUpViews()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        //itemsDetailsArray.isEmpty && customerCreditDetailsArray.isEmpty &&
+        if  userCommentArray.isEmpty && workFlowArray.isEmpty{
+            
+            userCommentArray = webService.SRA_BindUserGrid(empno: userId, returnid: returnId)
+            isThereUserComment = !userCommentArray.isEmpty
+            
+            workFlowArray = webService.SRA_BindApproverGrid(empno: userId, returnid: returnId)
+            isThereWorkFlow = !workFlowArray.isEmpty
+            
+            remainRows = 4
+            DetailsSalesReturnTableview.reloadData()
+            activityIndicator.stopAnimating()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,12 +88,14 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     
     // -- MARK: Set ups
     
-    func setUpCommentDisplay(){
+    func setUpViews(){
         comment.text = ""
         comment.layer.cornerRadius = 5.0
         comment.layer.borderColor = mainBackgroundColor.cgColor
         comment.layer.borderWidth = 1
         
+        requestDate.text = requestDateString
+        ReturnDate.text = returnDateString
     }
     
     // -- MARK: TextView handle
@@ -79,16 +124,87 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        switch indexPath.row{
-        case 0:
-            performSegue(withIdentifier: "showItemReturnApproval", sender: nil)
-        case 1:
-            performSegue(withIdentifier: "showCustomerAgingReturnApproval", sender: nil)
-        case 2:
-            performSegue(withIdentifier: "showWorkFlowReturnApproval", sender: nil)
-        default:
-            return
+        let rowDetailsArray = getArray(row: indexPath.row)
+        let performId = getId(row: indexPath.row)
+        
+        if !rowDetailsArray.isEmpty{
+            performSegue(withIdentifier: performId, sender: nil)}
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        let rowHeight: CGFloat = 44
+//
+//        if !isThereItems{
+//            if indexPath.row == 0 {
+//                return 0
+//            }
+//        } else if !isThereCustomerCredit{
+//            if indexPath.row == 1 {
+//                return 0
+//            }
+//        } else if !isThereUserComment{
+//            if indexPath.row == 2 {
+//                return 0
+//            }
+//        } else if !isThereWorkFlow{
+//            if indexPath.row == 3 {
+//                return 0
+//            }
+//        }
+////        if  !isThereItems && !isThereCustomerCredit && !isThereUserComment && !isThereWorkFlow { DetailsSalesReturnTableview.isHidden = true }
+////        else { DetailsSalesReturnTableview.isHidden = false }
+//        return 44
+//    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "showItemsDetails"{
+//            if let vc = segue.destination as? ItemsDetailsViewController{
+//                vc.orderId = self.orderId
+//            }
+//        } else if segue.identifier == "showCustomerCreditDetails" {
+//            if let vc = segue.destination as? CustomerCreditDetailsViewController{
+//                vc.customerCreditDetailsArray = self.customerCreditDetailsArray
+//            }
+//        } else
+        if segue.identifier == "showUserCommentReturnApproval" {
+            if let vc = segue.destination as? UserCommentReturnViewController{
+                vc.userCommentArray = self.userCommentArray
+            }
+        } else if segue.identifier == "showWorkFlowReturnApproval"{
+            if let vc = segue.destination as? WorkFlowReturnViewController{
+                vc.workFlowArray = self.workFlowArray
+            }
         }
+    }
+    
+    // -- MARK: Helper function
+    
+    func getId(row: Int) -> String{
+        var id = ""
+        switch row{
+        case 0: id = "showItemReturnApproval"
+        case 1: id = "showCustomerAgingReturnApproval"
+        case 2: id = "showUserCommentReturnApproval"
+        case 3: id = "showWorkFlowReturnApproval"
+        default: id = ""}
+        return id
+    }
+    
+    func getArray(row: Int) -> [SalesReturn]{
+        var array = [SalesReturn]()
+        switch row{
+        case 0: array = itemsDetailsArray
+        case 1: array = customerCreditDetailsArray
+        case 2: array = userCommentArray
+        case 3: array = workFlowArray
+        default: array = [SalesReturn]()}
+        return array
+    }
+    
+    func setTableViewHeight(height: CGFloat){
+        tableViewHeight.constant = height
     }
     
     // -- MARK: IBActions

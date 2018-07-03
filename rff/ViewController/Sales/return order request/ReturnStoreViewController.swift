@@ -1,14 +1,14 @@
 //
-//  StoreViewController.swift
+//  ReturnStoreViewController.swift
 //  rff
 //
-//  Created by Riyadh Foods Industrial Co. on 07/06/2018.
+//  Created by Riyadh Foods Industrial Co. on 01/07/2018.
 //  Copyright © 2018 Riyadh Foods Industrial Co. All rights reserved.
 //
 
 import UIKit
 
-class StoreViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ReturnStoreViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
     // -- MARK: IBOutlets
     
@@ -52,8 +52,7 @@ class StoreViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     // To keep track
     var pickerview: UIPickerView = UIPickerView()
     let languageChosen = LoginViewController.languageChosen
-    //salesDetails.CustomerInFull
-    let customer = salesOrderRequestDetails.customer
+    let customer = returnOrderRequestDetails.customer
     
     // -- MARK: viewDidLoad
     
@@ -76,16 +75,6 @@ class StoreViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         view.addGestureRecognizer(tapGesture)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        if storeArray.isEmpty{
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            setupArrays()
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-        }
-        salesOrderRequestDetails.itemsArray.removeAll()
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -94,7 +83,6 @@ class StoreViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     // -- MARK: Set ups
     
     func setupArrays(){
-        storeArray = webservice.BindDdlStore(customerid: customer)
         storeIdArray = ["Select store id".localize()]
         for store in storeArray{
             storeIdArray.append(store.StoreID)
@@ -226,8 +214,8 @@ class StoreViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
     
     // -- MARK: IBActions
-
-    @IBAction func nextButtonTapped(_ sender: Any) {
+    
+    @IBAction func saveButtonTapped(_ sender: Any) {
         if let storeTxt = storeTextfield.text,
             let cityTxt = cityTextfield.text,
             let salespersonTxt = salesPersonTextfield.text,
@@ -241,16 +229,18 @@ class StoreViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 }, cancelAction: nil, self)
             }
             
-            salesOrderRequestDetails.store = storeTxt
-            salesOrderRequestDetails.city = cityTxt
-            salesOrderRequestDetails.salespersonstore = salespersonTxt
-            salesOrderRequestDetails.merchandiser = merTxt
+            returnOrderRequestDetails.store = storeTxt
+            returnOrderRequestDetails.city = cityTxt
+            returnOrderRequestDetails.salespersonstore = salespersonTxt
+            returnOrderRequestDetails.merchandiser = merTxt
         }
-        performSegue(withIdentifier: "showCreditDetails", sender: nil)
+        navigationController?.popViewController(animated: true)
+        print(returnOrderRequestDetails)
     }
+
 }
 
-extension StoreViewController{
+extension ReturnStoreViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addObservers(onShow: { frame in

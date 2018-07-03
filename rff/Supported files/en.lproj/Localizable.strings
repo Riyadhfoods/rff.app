@@ -6,10 +6,6 @@
   Copyright © 2018 Riyadh Foods Industrial Co. All rights reserved.
 */
 
-"Old password" = "Old password";
-"New Password" = "New Password";
-"CHANGE" = "CHANGE";
-
 // Menu items
 "HOME" = "HOME";
 "MASTER" = "MASTER";
@@ -82,6 +78,56 @@
 "Arabic Description:" = "Arabic Description:";
 "Count:" = "Count:";
 "CLICK TO VIEW" = "CLICK TO VIEW";
+
+// Change Password
+"Old password" = "Old password";
+"New Password" = "New Password";
+"CHANGE" = "CHANGE";
+"Password Change Successfully" = "Password Change Successfully";
+"Error!" = "Error!";
+
+// Tracking inbox
+"Select list" = "Select list";
+"Select category" = "Select category";
+"RETURN" = "RETURN";
+"Pending" = "Pending";
+"Rejected" = "Rejected";
+"On Hold" = "On Hold";
+"Approved" = "Approved";
+"All" = "All";
+"You did not select a list or category" = "You did not select a list or category";
+"Emp ID:" = "Emp ID:";
+"Emp Name:" = "Emp Name:";
+"Date:" = "Date:";
+"VIEW FORM" = "VIEW FORM";
+
+// Employee vacation
+"ADD VACATION" = "ADD VACATION";
+"Select Employee" = "Select Employee";
+"Your delegate" = "Your delegate";
+"Vacations Details" = "Vacations Details";
+"No of Days" = "No of Days";
+"Balance Vacation" = "Balance Vacation";
+"Leave Start Date" = "Leave Start Date";
+"Return Date" = "Return Date";
+"Vacation Type" = "Vacation Type";
+"Exit Re-Entry Days" = "Exit Re-Entry Days";
+"Extra Days" = "Extra Days";
+"Settlement Details" = "Settlement Details";
+"Settlement Amount:" = "Settlement Amount:";
+"NEXT" = "NEXT";
+"Done" = "Done";
+"Ticket Details" = "Ticket Details";
+"Ticket Request" = "Ticket Request";
+"Exit Re-Entry Visa" = "Exit Re-Entry Visa";
+"Dependent Ticket" = "Dependent Ticket";
+"Require Visa:" = "Require Visa:";
+"Ticket:" = "Ticket:";
+"Name:" = "Name:";
+"SUBMIT" = "SUBMIT";
+"You have already applied for vacation" = "You have already applied for vacation";
+"Vacation applied successfully" = "Vacation applied successfully";
+"Choose your delegate" = "Choose your delegate";
 
 // Sales Inbox
 "Sales Inbox" = "Sales Inbox";

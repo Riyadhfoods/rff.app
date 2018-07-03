@@ -8,7 +8,7 @@
 
 import UIKit
 
-var salesRequestDetails = SOR()
+var salesOrderRequestDetails = SOR()
 
 class SalesOrderRequestsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
@@ -71,7 +71,7 @@ class SalesOrderRequestsViewController: UIViewController, UIPickerViewDelegate, 
         setViewAlignment()
         
         if let userId = AuthServices.currentUserId{
-            salesRequestDetails.emp_id = userId
+            salesOrderRequestDetails.emp_id = userId
         }
         
         setupView()
@@ -87,8 +87,8 @@ class SalesOrderRequestsViewController: UIViewController, UIPickerViewDelegate, 
         super.viewDidAppear(animated)
         if companyArray.isEmpty && branchArray.isEmpty && locCodeArray.isEmpty && salespersonArray.isEmpty{
             setupAarray()
-            activityIndicator.stopAnimating()
         }
+        activityIndicator.stopAnimating()
     }
     
     func setUpSalesOrderData(){
@@ -102,7 +102,7 @@ class SalesOrderRequestsViewController: UIViewController, UIPickerViewDelegate, 
     
     func setupView(){
         stackViewWidth.constant = screenSize.width - 32
-        setCustomNav(navItem: navigationItem)
+        setCustomDefaultNav(navItem: navigationItem)
         
         showCompanyPickerViewTextfield.tintColor = .clear
         showBranchPickerViewTextfield.tintColor = .clear
@@ -119,7 +119,7 @@ class SalesOrderRequestsViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     func setupAarray(){
-        salesRequestDetails.docid = docIdArray[0]
+        salesOrderRequestDetails.docid = docIdArray[0]
         setUpSalesOrderData()
         
         for company in companyArray{
@@ -138,11 +138,11 @@ class SalesOrderRequestsViewController: UIViewController, UIPickerViewDelegate, 
     }
     
     func initalvalue(){
-        salesRequestDetails.docid = docIdArray[0]
+        salesOrderRequestDetails.docid = docIdArray[0]
         if !companyArray.isEmpty{
             companyTextfield.text = companyNamesArray[1]
-            salesRequestDetails.company = companyNamesArray[1]
-            salesRequestDetails.companyId = companyIdArray[0]
+            salesOrderRequestDetails.company = companyNamesArray[1]
+            salesOrderRequestDetails.companyId = companyIdArray[0]
         }
         
         branchTextfield.text = branchNamesArray[0]
@@ -171,20 +171,20 @@ class SalesOrderRequestsViewController: UIViewController, UIPickerViewDelegate, 
     @objc func doneClick(){
         if pickerview == companyPickerView{
             companyTextfield.text = companyNamesArray[selectedRowForCompany].localize()
-            salesRequestDetails.company = companyNamesArray[selectedRowForCompany]
-            salesRequestDetails.companyId = companyIdArray[selectedRowForCompany - 1]
+            salesOrderRequestDetails.company = companyNamesArray[selectedRowForCompany]
+            salesOrderRequestDetails.companyId = companyIdArray[selectedRowForCompany - 1]
             showCompanyPickerViewTextfield.resignFirstResponder()
         } else if pickerview == branchPickerView{
             branchTextfield.text = branchNamesArray[selectedRowForBranch].localize()
-            salesRequestDetails.branch = branchNamesArray[selectedRowForBranch]
-            salesRequestDetails.branchId = branchIdArray[selectedRowForBranch - 1]
+            salesOrderRequestDetails.branch = branchNamesArray[selectedRowForBranch]
+            salesOrderRequestDetails.branchId = branchIdArray[selectedRowForBranch - 1]
             showBranchPickerViewTextfield.resignFirstResponder()
         } else if pickerview == docIdPickerView{
             docIdTextfield.text = docIdArray[0]
             showDocIdPickerViewTextfield.resignFirstResponder()
         } else {
             LocCodeTextfield.text = locCodeNumsArray[selectedRowForLocCode].localize()
-            salesRequestDetails.loccode = locCodeNumsArray[selectedRowForLocCode]
+            salesOrderRequestDetails.loccode = locCodeNumsArray[selectedRowForLocCode]
             showLocCodePickerViewTextfield.resignFirstResponder()
         }
     }

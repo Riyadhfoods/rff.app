@@ -32,10 +32,10 @@ class PickerviewAction{
         
         txtfield.delegate = viewController as? UITextFieldDelegate
         txtfield.inputView = pickerview
-        let cancelButton = UIBarButtonItem(title: getString(englishString: "Cancel", arabicString: "إلغاء", language: language), style: .plain, target: viewController, action: cancelSelector)
+        let cancelButton = UIBarButtonItem(title: "Cancel".localize(), style: .plain, target: viewController, action: cancelSelector)
         if doneSelector != nil {
             let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
-            let doneButton = UIBarButtonItem(title: getString(englishString: "Done", arabicString: "تم", language: language), style: .plain, target: viewController, action: doneSelector)
+            let doneButton = UIBarButtonItem(title: "Done".localize(), style: .plain, target: viewController, action: doneSelector)
             toolBar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         } else {
             toolBar.setItems([cancelButton], animated: false)
@@ -49,7 +49,7 @@ class PickerviewAction{
         
         datePicker.addTarget(viewController, action: datePickerSelector, for: .valueChanged)
         
-        let doneButton = UIBarButtonItem(title: getString(englishString: "Done", arabicString: "تم", language: language), style: UIBarButtonItemStyle.plain, target: viewController, action: doneSelector)
+        let doneButton = UIBarButtonItem(title: "Done".localize(), style: UIBarButtonItemStyle.plain, target: viewController, action: doneSelector)
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
         let text = UIBarButtonItem(title: title, style: .plain, target: viewController, action: nil)
         

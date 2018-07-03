@@ -70,14 +70,19 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // -- MARK: objc Functions
     
+    var storyboardName = ""
+    var viewContollerId = ""
     @objc func clickViewButtonTapped(sender: UIButton){
         if taskInbox[sender.tag].FormId == "2102"{
-            let storyboard = UIStoryboard(name: "SalesOrderApproval", bundle: nil)
-            let SOAStoryboard = storyboard.instantiateViewController(withIdentifier: "salesOrderApprovalViewControllerNav")
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                self.revealViewController().pushFrontViewController(SOAStoryboard, animated: true)
-            }
+            storyboardName = "SalesOrderApproval"
+            viewContollerId = "salesOrderApprovalViewControllerNav"
+        } else if taskInbox[sender.tag].FormId == "2081" {
+            storyboardName = "SalesReturnApproval"
+            viewContollerId = "salesReturnApprovalViewControllerNav"
         }
+        
+        if storyboardName == "" || viewContollerId == "" {return}
+        moveTo(storyboard: storyboardName, withIdentifier: viewContollerId, viewController: self)
     }
     
     // -- MARK: IBActions

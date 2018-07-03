@@ -270,14 +270,14 @@ class SalesPersonViewController: UIViewController, UIPickerViewDelegate, UIPicke
                     return
                 }, cancelAction: nil, self)
             }
-            salesRequestDetails.salesperson = salespersonText
-            salesRequestDetails.customer = customerText
-            salesRequestDetails.deliverydate = deliveryDate
-            salesRequestDetails.supermarket = supermarket
-            salesRequestDetails.offer = offer
+            salesOrderRequestDetails.salesperson = salespersonText
+            salesOrderRequestDetails.customer = customerText
+            salesOrderRequestDetails.deliverydate = deliveryDate
+            salesOrderRequestDetails.supermarket = supermarket
+            salesOrderRequestDetails.offer = offer
         }
         
-        let storeArray = webservice.BindDdlStore(customerid: salesRequestDetails.customer)
+        let storeArray = webservice.BindDdlStore(customerid: salesOrderRequestDetails.customer)
         if storeArray.isEmpty{
             performSegue(withIdentifier: "skipToAddItem", sender: nil)
         } else {

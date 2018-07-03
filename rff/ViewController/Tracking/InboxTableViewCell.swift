@@ -20,6 +20,7 @@ class InboxTableViewCell: UITableViewCell {
     @IBOutlet weak var empIdArabic: UILabel!
     @IBOutlet weak var empNameArabic: UILabel!
     @IBOutlet weak var dateArabic: UILabel!
+    @IBOutlet weak var titlesStackViewWidth: NSLayoutConstraint!
     
     let language = LoginViewController.languageChosen
     
@@ -30,12 +31,6 @@ class InboxTableViewCell: UITableViewCell {
         holderView.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
         holderView.layer.borderWidth = 1
         
-        setUpHeaderLabel(label: empIdEnglish, language: language)
-        setUpHeaderLabel(label: empNameEnglish, language: language)
-        setUpHeaderLabel(label: dateEnglish, language: language)
-        setUpHeaderLabel(label: empIdArabic, language: language)
-        setUpHeaderLabel(label: empNameArabic, language: language)
-        setUpHeaderLabel(label: dateArabic, language: language)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

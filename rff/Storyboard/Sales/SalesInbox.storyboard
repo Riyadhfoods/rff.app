@@ -410,22 +410,14 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="commentLabel" destination="EHA-Di-las" id="PC3-J8-Nhe"/>
-                                    <outlet property="commentTitle" destination="gop-kv-hd2" id="OuB-tR-rGT"/>
                                     <outlet property="custNameLabel" destination="8kO-EK-XC9" id="lPh-tP-JCW"/>
-                                    <outlet property="custNameTitle" destination="kCl-64-VAM" id="Bwc-ee-wzi"/>
                                     <outlet property="dateLabel" destination="tUa-cz-qnD" id="cgh-YG-PDM"/>
-                                    <outlet property="dateTitle" destination="IrW-za-9KF" id="h2O-qu-JAr"/>
                                     <outlet property="empCreatedLabel" destination="AL5-mc-7F6" id="Ao4-e1-W6y"/>
-                                    <outlet property="empCreatedTitle" destination="qFI-o8-gfj" id="qNE-RS-GMM"/>
                                     <outlet property="holderView" destination="O84-3x-WQp" id="1Yo-rQ-2Za"/>
                                     <outlet property="idLabel" destination="GPf-rk-q7c" id="AcS-n0-J2u"/>
-                                    <outlet property="idTitle" destination="OWQ-E8-mm7" id="NA9-ZB-3G0"/>
                                     <outlet property="itemsLabel" destination="POl-6i-nbI" id="7gU-ZO-KGZ"/>
-                                    <outlet property="itemsTitle" destination="UuC-iW-QSA" id="ayh-ik-fcc"/>
                                     <outlet property="pendingByLabel" destination="7KB-ZI-tx1" id="feo-wX-seI"/>
-                                    <outlet property="pendingByTitle" destination="fDN-pt-03j" id="jK6-py-gpR"/>
                                     <outlet property="statusLabel" destination="BBm-3H-B6j" id="I9J-DK-LsA"/>
-                                    <outlet property="statusTitle" destination="qbL-Fa-YTO" id="cW4-uu-rwz"/>
                                     <outlet property="viewOutlet" destination="Efh-Ht-QKp" id="Rbh-Vu-byg"/>
                                 </connections>
                             </tableViewCell>
@@ -811,22 +803,14 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="commentLabel" destination="hcz-Pf-e5k" id="gLO-Uz-b85"/>
-                                    <outlet property="commentTitle" destination="BJf-Dc-jc6" id="xOc-sx-4Wo"/>
                                     <outlet property="empCreatedLabel" destination="25T-7j-QT3" id="bo5-dN-SXq"/>
-                                    <outlet property="empCreatedTitle" destination="zff-aF-DAk" id="1XN-u1-hEy"/>
                                     <outlet property="holderView" destination="2oY-m8-KS2" id="Hob-S6-GxM"/>
                                     <outlet property="idLabel" destination="diZ-yS-e0e" id="J8x-WN-wq5"/>
-                                    <outlet property="idTitle" destination="nWO-id-bMi" id="tD7-yw-q4b"/>
                                     <outlet property="itemsLabel" destination="XOO-lr-xhg" id="5mA-o0-29C"/>
-                                    <outlet property="itemsTitle" destination="EPb-Gu-hff" id="Rh5-XG-mvD"/>
                                     <outlet property="pendingByLabel" destination="Lyt-pE-Atl" id="voc-SO-aS7"/>
-                                    <outlet property="pendingByTitle" destination="KMB-FG-FGP" id="9DC-Gj-2l0"/>
                                     <outlet property="requestDateLabel" destination="UNj-eL-rjs" id="hEe-Qu-cyo"/>
-                                    <outlet property="requestDateTitle" destination="qDK-RA-3sg" id="KM5-jK-RL9"/>
                                     <outlet property="returnDateLabel" destination="BbE-UR-oV3" id="qAd-Hg-CsI"/>
-                                    <outlet property="returnDateTitle" destination="igC-rm-6QO" id="wg3-lp-1ZH"/>
                                     <outlet property="statusLabel" destination="GnY-NE-hRi" id="S9l-OF-sPe"/>
-                                    <outlet property="statusTitle" destination="4HI-xE-EoZ" id="moC-BU-fgo"/>
                                     <outlet property="viewOutlet" destination="rWX-rj-X3a" id="OOb-FP-FBw"/>
                                 </connections>
                             </tableViewCell>
@@ -1180,21 +1164,14 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="commentLabel" destination="tCF-9f-bxC" id="8qu-eh-ADD"/>
-                                    <outlet property="commentTitle" destination="4FR-di-pvl" id="K75-wF-bSa"/>
                                     <outlet property="dateLabel" destination="wmE-6e-SuF" id="qJW-kW-eLP"/>
-                                    <outlet property="dateTitle" destination="dyC-5M-7Q5" id="LR4-1X-pCx"/>
                                     <outlet property="empCreatedLabel" destination="wfC-wU-MaK" id="Is6-AS-VeJ"/>
-                                    <outlet property="empCreatedTitle" destination="ZzG-Ji-kvc" id="tKO-75-hk5"/>
                                     <outlet property="holderView" destination="8WF-RS-hrh" id="GlJ-k7-Q3c"/>
                                     <outlet property="idLabel" destination="m0R-6R-wxp" id="Hin-42-HFc"/>
-                                    <outlet property="idTitle" destination="Xos-yx-4MB" id="lFy-Js-xFU"/>
                                     <outlet property="itemsLabel" destination="or2-ch-yeG" id="4Co-6L-ORk"/>
-                                    <outlet property="itemsTitle" destination="5st-Nw-1Pj" id="hIP-kO-VHS"/>
                                     <outlet property="pendingByLabel" destination="s1z-qA-7vA" id="ZRv-ps-97o"/>
-                                    <outlet property="pendingByTitle" destination="5Hm-Cl-PgJ" id="9ui-Oe-Z5f"/>
                                     <outlet property="selectOutlet" destination="ik6-yv-3Zl" id="MWd-NV-BN9"/>
                                     <outlet property="statusLabel" destination="lf7-XZ-bdS" id="9bg-4g-Gm9"/>
-                                    <outlet property="statusTitle" destination="biG-IJ-XNF" id="fdP-KZ-3WZ"/>
                                 </connections>
                             </tableViewCell>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell_pageTransfer" rowHeight="60" id="6el-rY-L6Z" customClass="TransferPagesCell" customModule="rff" customModuleProvider="target">
@@ -3227,6 +3204,6 @@ WQAAAAAAAAAAAAAAAAABvBk
         <image name="signOut" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="1jN-Vo-COZ"/>
+        <segue reference="0ST-1l-ggi"/>
     </inferredMetricsTieBreakers>
 </document>
