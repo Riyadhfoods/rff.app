@@ -42,7 +42,10 @@ class ReturnOrderRequestsViewController: UIViewController {
     var customerPickerView = UIPickerView()
     var branchPickerView = UIPickerView()
     var pickerView = UIPickerView()
-    var row = 0
+    var companyRow = 0
+    var salesPersonRow = 0
+    var customerRow = 0
+    var branchRow = 0
     
     var datePicker = UIDatePicker()
     let currentDate = Date()
@@ -51,13 +54,13 @@ class ReturnOrderRequestsViewController: UIViewController {
     let webservice = Sales()
     var companyArray = [SalesModel]()
     var companyNamesArray = [String]()
+    var companyIdArray = [String]()
     var salespersonArray = [SalesModel]()
     var salesPersonNamesArray = [String]()
     var salesPersonIdArray = [String]()
     var customerArray = [SalesModel]()
     var customerNamesArray = [String]()
     var customerIdArray = [String]()
-    var companyIdArray = [String]()
     var branchArray = [SalesModel]()
     var branchNamesArray = [String]()
     var branchIdArray = [String]()
@@ -76,14 +79,24 @@ class ReturnOrderRequestsViewController: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
+    
     @objc func didTapView(gesture: UITapGestureRecognizer) {
         view.endEditing(true)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        returnOrderRequestDetails.itemsarrayFromWS.removeAll()
+        returnOrderRequestDetails.invoicesArray.removeAll()
         if companyArray.isEmpty && salespersonArray.isEmpty && branchArray.isEmpty{
             setupArrays()
+        }
+        
+        if returnOrderRequestDetails.isSendReturnSalesRequestCompleted{
+            initialValues()
+            returnDateTextField.text = ""
+            returnOrderRequestDetails.isSendReturnSalesRequestCompleted = false
         }
         activityIndicator.stopAnimating()
     }
@@ -105,13 +118,13 @@ class ReturnOrderRequestsViewController: UIViewController {
         showBranchPickerView.tintColor = .clear
         
         companyNamesArray = ["Select company"]
-        companyIdArray = [""]
+        companyIdArray = [" "]
         salesPersonNamesArray = ["Select sales person"]
-        salesPersonIdArray = [""]
+        salesPersonIdArray = [" "]
         customerNamesArray = ["Select customer"]
-        customerIdArray = [""]
+        customerIdArray = [" "]
         branchNamesArray = ["Select branch"]
-        branchIdArray = [""]
+        branchIdArray = [" "]
         
         setupPickerView()
         setupDatePicker()
@@ -120,8 +133,6 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     func setupArrays(){
         setUpSalesOrderData()
-        initialValues()
-        
         for company in companyArray{
             companyNamesArray.append(company.EName)
             companyIdArray.append(company.Comp_ID)
@@ -140,7 +151,11 @@ class ReturnOrderRequestsViewController: UIViewController {
     }
     
     func initialValues(){
-        companyTextField.text = companyNamesArray[0]
+        if !companyArray.isEmpty {
+            companyTextField.text = companyNamesArray[1]
+            returnOrderRequestDetails.company = companyNamesArray[1]
+            returnOrderRequestDetails.companyId = companyIdArray[1]
+        } else { companyTextField.text = companyNamesArray[0] }
         salesPersonTextField.text = salesPersonNamesArray[0]
         customerTextField.text = customerNamesArray[0]
         branchTextField.text = branchNamesArray[0]
@@ -183,7 +198,6 @@ class ReturnOrderRequestsViewController: UIViewController {
         if let userId = AuthServices.currentUserId{
             returnOrderRequestDetails.emp_id = userId
         }
-        
         if companyTextField.text == companyNamesArray[0] ||
             returnDateTextField.text == "" ||
             salesPersonTextField.text == salesPersonNamesArray[0] ||
@@ -216,28 +230,28 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
     
     @objc func doneClick(){
         if pickerView == companyPickerView{
-            returnOrderRequestDetails.company = companyNamesArray[row]
-            returnOrderRequestDetails.companyId = companyIdArray[row]
+            returnOrderRequestDetails.company = companyNamesArray[companyRow]
+            returnOrderRequestDetails.companyId = companyIdArray[companyRow]
             
-            companyTextField.text = companyNamesArray[row]
+            companyTextField.text = companyNamesArray[companyRow]
             showCompanyPickerView.resignFirstResponder()
         } else if pickerView == salesPersonPickerView{
-            returnOrderRequestDetails.salesperson = salesPersonNamesArray[row]
-            returnOrderRequestDetails.salespersonId = salesPersonIdArray[row]
+            returnOrderRequestDetails.salesperson = salesPersonNamesArray[salesPersonRow]
+            returnOrderRequestDetails.salespersonId = salesPersonIdArray[salesPersonRow]
             
-            salesPersonTextField.text = salesPersonNamesArray[row]
+            salesPersonTextField.text = salesPersonNamesArray[salesPersonRow]
             showSalesPersonPickerView.resignFirstResponder()
         } else if pickerView == customerPickerView{
-            returnOrderRequestDetails.customer = customerNamesArray[row]
-            returnOrderRequestDetails.customerId = customerIdArray[row]
+            returnOrderRequestDetails.customer = customerNamesArray[customerRow]
+            returnOrderRequestDetails.customerId = customerIdArray[customerRow]
             
-            customerTextField.text = customerNamesArray[row]
+            customerTextField.text = customerNamesArray[customerRow]
             showCustomerPickerView.resignFirstResponder()
         } else {
-            returnOrderRequestDetails.branch = branchNamesArray[row]
-            returnOrderRequestDetails.branchId = branchIdArray[row]
+            returnOrderRequestDetails.branch = branchNamesArray[branchRow]
+            returnOrderRequestDetails.branchId = branchIdArray[branchRow]
             
-            branchTextField.text = branchNamesArray[row]
+            branchTextField.text = branchNamesArray[branchRow]
             showBranchPickerView.resignFirstResponder()
         }
     }
@@ -257,11 +271,13 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
     @objc func handleDatePicker(sender: UIDatePicker){
         date = getStringDate(date: sender.date)
         returnDateTextField.text = getStringDate(date: sender.date)
+        returnOrderRequestDetails.returnDate = getStringDate(date: sender.date)
     }
     
     @objc func datePickerDoneClick(){
         if date.isEmpty{
             returnDateTextField.text = getStringDate(date: currentDate)
+            returnOrderRequestDetails.returnDate = getStringDate(date: currentDate)
         }
         returnDateTextField.resignFirstResponder()
     }
@@ -278,6 +294,7 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
             customerNamesArray = ["Select customer".localize()]
         } else {
             customerNamesArray = ["Select customer".localize()]
+            customerIdArray = [""]
             for customer in customerArray{
                 customerNamesArray.append(customer.CustomerName)
                 customerIdArray.append(customer.CustomerId)
@@ -317,11 +334,18 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.row = row
-        if pickerView == salesPersonPickerView{
-            print(salesPersonIdArray[row])
+        if pickerView == companyPickerView{
+            companyRow = row
+        } else if pickerView == salesPersonPickerView{
+            salesPersonRow  = row
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             getCustomers(salesperson: salesPersonIdArray[row])
             customerTextField.text = customerNamesArray[0]
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        } else if pickerView == customerPickerView{
+            customerRow = row
+        } else {
+            branchRow = row
         }
     }
     

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SalesReturnApprovalViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SalesReturnApprovalViewController: UIViewController {
 
     // -- MARK: IBOutlets
     
@@ -18,10 +18,9 @@ class SalesReturnApprovalViewController: UIViewController, UITableViewDataSource
     
     // -- MARK: Variables
     
-    let screenSize = AppDelegate().screenSize
     let cellId = "cell_salesReturnApproval"
+    let screenSize = AppDelegate().screenSize
     let webService = Sales()
-    
     var salesReturnDetails: [SalesReturn] = [SalesReturn]()
     var rowIndexSelected = 0
     
@@ -48,7 +47,14 @@ class SalesReturnApprovalViewController: UIViewController, UITableViewDataSource
         activityIndicator.stopAnimating()
     }
     
+    // -- MARK: IBActions
     
+    @IBAction func signOutBuuttonTapped(_ sender: Any) {
+        AuthServices().logout(self)
+    }
+}
+
+extension SalesReturnApprovalViewController: UITableViewDataSource, UITableViewDelegate{
     // -- MARK: Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -97,13 +103,8 @@ class SalesReturnApprovalViewController: UIViewController, UITableViewDataSource
             }
         }
     }
-    
-    // -- MARK: IBActions
-    
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        AuthServices().logout(self)
-    }
 }
+
 
 
 

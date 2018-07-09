@@ -25,6 +25,7 @@ class CustomerAgingViewController: UIViewController {
     // -- MARK: Variable
     
     let screenSize = AppDelegate().screenSize
+    var customerCreditDetailsArray = [SalesReturn]()
     
     // -- MARK: viewDidLoad
     

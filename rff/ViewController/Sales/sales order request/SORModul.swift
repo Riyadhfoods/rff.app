@@ -31,7 +31,7 @@ class SOR {
     var flag: Bool = false
     var itemsArray = [ItemsModul]()
     
-    func removeAll(){
+    func setDefaultValues(){
         orderId = ""
         company = ""
         companyId = ""

@@ -17,7 +17,7 @@ class AuthServices{
     static var currentUserName: String?
     let language = LoginViewController.languageChosen
     
-    func checkUserId(id: String, password: String, onSeccuss: @escaping () -> Void, onError: @escaping (_ ErrorMessage: String) -> Void, activityIndicator: UIActivityIndicatorView){
+    func checkUserId(id: String, password: String, onSeccuss: @escaping () -> Void, onError: @escaping (_ ErrorMessage: String) -> Void, activityIndicator: UIActivityIndicatorView, viewController: UIViewController){
         arrayOfResult = login.CheckLogin(username: id, password: password, error: "", langid: language, activityIndicator: activityIndicator)
             
         if !arrayOfResult.isEmpty{
@@ -31,6 +31,7 @@ class AuthServices{
                 }
             }
         } else {
+            AlertMessage().showAlertMessage(alertTitle: "Oops!", alertMessage: "Something went wrong", actionTitle: nil, onAction: nil, cancelAction: "Dismiss", viewController)
             print("Oops, something went wrong!")
         }
     }

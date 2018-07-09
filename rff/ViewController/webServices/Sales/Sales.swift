@@ -1569,9 +1569,10 @@
                     let elem1: XMLElement? =  xmlResult1?.element
                     strVal = ""
                     if elem1?.children.first is TextElement {
-                        let elemText:TextElement = elem1?.children.first as! TextElement
-                        strVal = elemText.text
-                        
+                        for elem in (elem1?.children)!{
+                            let elemText:TextElement = elem as! TextElement
+                            strVal += elemText.text
+                        }
                     }
                     elemName = elem1!.name
                     // Array Propert of returnValue subProperty for rItem1
@@ -1794,6 +1795,50 @@
                     else if elemName == "SRR_INVOICEDATE" {
                         rItem1.SRR_INVOICEDATE =  strVal
                     }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN1" {
+                        rItem1.SRR_ITEMGRID_COLUMN1 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN2" {
+                        rItem1.SRR_ITEMGRID_COLUMN2 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN3" {
+                        rItem1.SRR_ITEMGRID_COLUMN3 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN4" {
+                        rItem1.SRR_ITEMGRID_COLUMN4 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN5" {
+                        rItem1.SRR_ITEMGRID_COLUMN5 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN6" {
+                        rItem1.SRR_ITEMGRID_COLUMN6 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN7" {
+                        rItem1.SRR_ITEMGRID_COLUMN7 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN8" {
+                        rItem1.SRR_ITEMGRID_COLUMN8 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN9" {
+                        rItem1.SRR_ITEMGRID_COLUMN9 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN10" {
+                        rItem1.SRR_ITEMGRID_COLUMN10 =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRR_ITEMGRID_COLUMN11" {
+                        rItem1.SRR_ITEMGRID_COLUMN11 =  strVal
+                    }
                     
                 }
                 returnValue.append(rItem1)
@@ -1929,7 +1974,7 @@
         return returnValue
     }
     
-    public func SR_SaveAttachment(returnid:String, attachment_name:String)-> String{
+    public func SR_SaveAttachment(returnid:String, attachment_name:String, attachment_Content:String)-> String{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         
         soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
@@ -1943,6 +1988,9 @@
         soapReqXML += "<attachment_name>"
         soapReqXML += attachment_name
         soapReqXML += "</attachment_name>"
+        soapReqXML += "<attachment_Content>"
+        soapReqXML += attachment_Content
+        soapReqXML += "</attachment_Content>"
         soapReqXML += "</SR_SaveAttachment>"
         soapReqXML += "</soap:Body>"
         soapReqXML += "</soap:Envelope>"
@@ -2118,7 +2166,7 @@
         return returnValue
     }
     
-    public func SRR_AddItem(rownumber:Int, returnid:String, empno:String, qty:String, invoicenumber:String, item:String, table:String)-> [String?]{
+    public func SRR_AddItem(rownumber:Int, returnid:String, empno:String, qty:String, invoicenumber:String, item:String, table:String)-> [SalesReturn]{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         
         soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
@@ -2154,13 +2202,7 @@
         let soapAction :String = "http://tempuri.org/SRR_AddItem"
         
         let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
-        let strVals :[String?] = stringArrFromXML(data : responseData);
-        var vals = [String?]()
-        for i in 0  ..< strVals.count {
-            let xVal =  strVals[i]
-            vals.append(xVal)
-        }
-        let returnValue:[String?] = vals
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
         return returnValue
     }
     

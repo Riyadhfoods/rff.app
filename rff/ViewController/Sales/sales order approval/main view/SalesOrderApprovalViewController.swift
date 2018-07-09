@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SalesOrderApprovalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SalesOrderApprovalViewController: UIViewController {
 
     // -- MARK: IBOutlets
     
@@ -18,15 +18,11 @@ class SalesOrderApprovalViewController: UIViewController, UITableViewDelegate, U
     
     // -- MAKR: Variables
     
-    let screenSize = AppDelegate().screenSize
     let cellId = "cell_salesOrderApproval"
+    let screenSize = AppDelegate().screenSize
     let webService = Sales()
-    
     var salesOrderDetails: [SalesModel] = [SalesModel]()
     var buttonVisibilityArray: [SalesModel] = [SalesModel]()
-    
-    
-    var urlSrtingArray = [String]()
     var rowIndexSelected = 0
     
     // -- MARK: viewDidLoad
@@ -54,6 +50,15 @@ class SalesOrderApprovalViewController: UIViewController, UITableViewDelegate, U
         activityIndicator.stopAnimating()
     }
     
+    // -- MARK: IBActions
+    
+    @IBAction func signOutBuuttonTapped(_ sender: Any) {
+        AuthServices().logout(self)
+    }
+
+}
+
+extension SalesOrderApprovalViewController: UITableViewDelegate, UITableViewDataSource{
     // -- MARK: Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -102,11 +107,13 @@ class SalesOrderApprovalViewController: UIViewController, UITableViewDelegate, U
             vc.deliveryDate = salesOrderDetails[rowIndexSelected].DeliveryDate
         }
     }
-    
-    // -- MARK: IBActions
-    
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        AuthServices().logout(self)
-    }
-
 }
+
+
+
+
+
+
+
+
+

@@ -169,7 +169,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 self.performSegue(withIdentifier: "showHomePage", sender: nil)
             }, onError: { (error) in
                 AlertMessage().showAlertMessage(alertTitle: "Alert!", alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "Dismiss", self)
-            }, activityIndicator: activityIndicator)
+            }, activityIndicator: activityIndicator, viewController: self)
         }
         activityIndicator.stopAnimating()
     }

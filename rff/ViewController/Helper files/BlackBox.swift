@@ -108,8 +108,15 @@ func moveTo(storyboard name: String, withIdentifier id: String, viewController: 
     }
 }
 
+// setUp the views
 
-
+func setUpCellHolderViewAndCellBackground(holderView: UIView, contentView: UIView?){
+    holderView.layer.cornerRadius = 5.0
+    holderView.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
+    holderView.layer.borderWidth = 1
+    contentView?.backgroundColor =  UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
+    
+}
 
 
 

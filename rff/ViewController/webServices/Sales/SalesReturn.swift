@@ -55,4 +55,16 @@ public class SalesReturn{
     public var SRR_TOTALPRICE : String = ""
     public var SRR_UNITPRICE : String = ""
     public var SRR_INVOICEDATE : String = ""
+    
+    public var SRR_ITEMGRID_COLUMN1 : String = ""
+    public var SRR_ITEMGRID_COLUMN2 : String = ""
+    public var SRR_ITEMGRID_COLUMN3 : String = ""
+    public var SRR_ITEMGRID_COLUMN4 : String = ""
+    public var SRR_ITEMGRID_COLUMN5 : String = ""
+    public var SRR_ITEMGRID_COLUMN6 : String = ""
+    public var SRR_ITEMGRID_COLUMN7 : String = ""
+    public var SRR_ITEMGRID_COLUMN8 : String = ""
+    public var SRR_ITEMGRID_COLUMN9 : String = ""
+    public var SRR_ITEMGRID_COLUMN10 : String = ""
+    public var SRR_ITEMGRID_COLUMN11 : String = ""
 }

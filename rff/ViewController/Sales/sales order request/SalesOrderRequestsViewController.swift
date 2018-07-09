@@ -144,7 +144,6 @@ class SalesOrderRequestsViewController: UIViewController, UIPickerViewDelegate, 
             salesOrderRequestDetails.company = companyNamesArray[1]
             salesOrderRequestDetails.companyId = companyIdArray[0]
         }
-        
         branchTextfield.text = branchNamesArray[0]
         docIdTextfield.text = docIdArray[0]
         LocCodeTextfield.text = locCodeNumsArray[0]

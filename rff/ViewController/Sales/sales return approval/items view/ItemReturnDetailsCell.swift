@@ -21,13 +21,15 @@ class ItemReturnDetailsCell: UITableViewCell {
     @IBOutlet weak var qty: UILabel!
     @IBOutlet weak var uofm: UILabel!
     @IBOutlet weak var returnType: UILabel!
+    @IBOutlet weak var checkBoxBtn: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        holderView.layer.cornerRadius = 5.0
-        holderView.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
-        holderView.layer.borderWidth = 1
+        setUpCellHolderViewAndCellBackground(holderView: holderView, contentView: contentView)
         
+        checkBoxBtn.layer.cornerRadius = 39/2
+        checkBoxBtn.layer.borderWidth = 1
+        checkBoxBtn.layer.borderColor = AppDelegate().mainBackgroundColor.cgColor
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

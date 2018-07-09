@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		27DA64642BC167D62C683D54 /* Pods_rff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7DAE11DCEC3CD241D66426 /* Pods_rff.framework */; };
+		C00478F220F2088E002CAA44 /* FilePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00478F120F2088E002CAA44 /* FilePreviewViewController.swift */; };
 		C005CB7320B40B7600875740 /* ListType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005CB6F20B40B7500875740 /* ListType.swift */; };
 		C005CB7420B40B7600875740 /* InboxGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005CB7020B40B7600875740 /* InboxGrid.swift */; };
 		C005CB7520B40B7600875740 /* ArrayOfInboxGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005CB7120B40B7600875740 /* ArrayOfInboxGrid.swift */; };
@@ -29,6 +30,8 @@
 		C008655820C94455006CD88E /* ItemsSelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008655720C94455006CD88E /* ItemsSelectedViewController.swift */; };
 		C008655A20C94472006CD88E /* ItemsSelectedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008655920C94472006CD88E /* ItemsSelectedCell.swift */; };
 		C00BB06F20DFA72400D95532 /* SORModul.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BB06E20DFA72400D95532 /* SORModul.swift */; };
+		C00BF62A20EB4E6C00EA32D0 /* AttachmentReturnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BF62920EB4E6C00EA32D0 /* AttachmentReturnViewController.swift */; };
+		C00BF62C20EB4E9200EA32D0 /* AttachmentReturnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BF62B20EB4E9200EA32D0 /* AttachmentReturnCell.swift */; };
 		C013CC4620BEAE3200B08289 /* DepVacTicket.swift in Sources */ = {isa = PBXBuildFile; fileRef = C013CC4520BEAE3100B08289 /* DepVacTicket.swift */; };
 		C0234D3A20C5237E008BB55B /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0234D3920C5237E008BB55B /* extensions.swift */; };
 		C035313E20B183A100E0DBD9 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C035313D20B183A100E0DBD9 /* AuthServices.swift */; };
@@ -104,6 +107,7 @@
 		C078EBD220A85C1600E0B812 /* SalesPersonAreaSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBD120A85C1600E0B812 /* SalesPersonAreaSetup.storyboard */; };
 		C078EBD420A85C3300E0B812 /* SalesStoreUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBD320A85C3300E0B812 /* SalesStoreUpdate.storyboard */; };
 		C078EBD820A85CC800E0B812 /* Report.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBD720A85CC800E0B812 /* Report.storyboard */; };
+		C07C54CD20ECD78100834044 /* AttachmentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C54CC20ECD78100834044 /* AttachmentHandler.swift */; };
 		C08A267D20A6E2AB0028052C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A267C20A6E2AB0028052C /* HomeViewController.swift */; };
 		C08A267F20A6E2CA0028052C /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A267E20A6E2CA0028052C /* ChangePasswordViewController.swift */; };
 		C08A268120A6E2DE0028052C /* TrackingInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A268020A6E2DE0028052C /* TrackingInboxViewController.swift */; };
@@ -170,6 +174,8 @@
 		C0A9E72620DE423C000C7A0D /* DetailsSalesReturnApprovalCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9E72520DE423C000C7A0D /* DetailsSalesReturnApprovalCell.swift */; };
 		C0A9E72820DE42B9000C7A0D /* ItemReturnDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9E72720DE42B9000C7A0D /* ItemReturnDetailsCell.swift */; };
 		C0A9E72A20DE42DD000C7A0D /* WorkFlowReturnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A9E72920DE42DD000C7A0D /* WorkFlowReturnCell.swift */; };
+		C0AD50DF20F0B154007808C6 /* UplaodedFileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD50DE20F0B154007808C6 /* UplaodedFileTableViewController.swift */; };
+		C0AD50E120F0B2A6007808C6 /* UploadedFileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0AD50E020F0B2A6007808C6 /* UploadedFileCell.swift */; };
 		C0B1EBCA20DB92F600E5E4C5 /* ItemAddedModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B1EBC920DB92F600E5E4C5 /* ItemAddedModel.swift */; };
 		C0B3A31B20A2F71800A03211 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B3A31A20A2F71800A03211 /* ListTableViewCell.swift */; };
 		C0B5359320B2B565007EF65F /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5359220B2B565007EF65F /* AlertMessage.swift */; };
@@ -183,6 +189,7 @@
 		C0BBF4A020E8E17B0051D3E2 /* ReturnStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF49F20E8E17B0051D3E2 /* ReturnStoreViewController.swift */; };
 		C0BBF4A220E8EE6B0051D3E2 /* ReturnCreditDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF4A120E8EE6B0051D3E2 /* ReturnCreditDetailsViewController.swift */; };
 		C0BBF4A420E8F3D30051D3E2 /* StoreAndCreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF4A320E8F3D30051D3E2 /* StoreAndCreditCell.swift */; };
+		C0BC474B20EE024200D0ACD0 /* ArrayOfAnyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BC474A20EE024200D0ACD0 /* ArrayOfAnyType.swift */; };
 		C0BE2E4420CDD540005F8B4A /* TransferPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE2E4320CDD540005F8B4A /* TransferPagesCell.swift */; };
 		C0BE2E4620CDD553005F8B4A /* ReturnPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE2E4520CDD553005F8B4A /* ReturnPagesCell.swift */; };
 		C0CE40C820BC14C600A06CB4 /* EmpVac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE40C420BC14C400A06CB4 /* EmpVac.swift */; };
@@ -206,6 +213,7 @@
 /* Begin PBXFileReference section */
 		3EC8D7ADA73DE9FF7FE35C01 /* Pods-rff.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rff.release.xcconfig"; path = "Pods/Target Support Files/Pods-rff/Pods-rff.release.xcconfig"; sourceTree = "<group>"; };
 		BF7DAE11DCEC3CD241D66426 /* Pods_rff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C00478F120F2088E002CAA44 /* FilePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewViewController.swift; sourceTree = "<group>"; };
 		C005CB6F20B40B7500875740 /* ListType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListType.swift; sourceTree = "<group>"; };
 		C005CB7020B40B7600875740 /* InboxGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InboxGrid.swift; sourceTree = "<group>"; };
 		C005CB7120B40B7600875740 /* ArrayOfInboxGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfInboxGrid.swift; sourceTree = "<group>"; };
@@ -229,6 +237,8 @@
 		C008655720C94455006CD88E /* ItemsSelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsSelectedViewController.swift; sourceTree = "<group>"; };
 		C008655920C94472006CD88E /* ItemsSelectedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsSelectedCell.swift; sourceTree = "<group>"; };
 		C00BB06E20DFA72400D95532 /* SORModul.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SORModul.swift; sourceTree = "<group>"; };
+		C00BF62920EB4E6C00EA32D0 /* AttachmentReturnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentReturnViewController.swift; sourceTree = "<group>"; };
+		C00BF62B20EB4E9200EA32D0 /* AttachmentReturnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentReturnCell.swift; sourceTree = "<group>"; };
 		C013CC4520BEAE3100B08289 /* DepVacTicket.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DepVacTicket.swift; sourceTree = "<group>"; };
 		C0234D3920C5237E008BB55B /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
 		C035313D20B183A100E0DBD9 /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
@@ -307,6 +317,7 @@
 		C078EBD120A85C1600E0B812 /* SalesPersonAreaSetup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesPersonAreaSetup.storyboard; sourceTree = "<group>"; };
 		C078EBD320A85C3300E0B812 /* SalesStoreUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesStoreUpdate.storyboard; sourceTree = "<group>"; };
 		C078EBD720A85CC800E0B812 /* Report.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Report.storyboard; sourceTree = "<group>"; };
+		C07C54CC20ECD78100834044 /* AttachmentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentHandler.swift; sourceTree = "<group>"; };
 		C08A267C20A6E2AB0028052C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C08A267E20A6E2CA0028052C /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		C08A268020A6E2DE0028052C /* TrackingInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInboxViewController.swift; sourceTree = "<group>"; };
@@ -373,6 +384,9 @@
 		C0A9E72520DE423C000C7A0D /* DetailsSalesReturnApprovalCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsSalesReturnApprovalCell.swift; sourceTree = "<group>"; };
 		C0A9E72720DE42B9000C7A0D /* ItemReturnDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemReturnDetailsCell.swift; sourceTree = "<group>"; };
 		C0A9E72920DE42DD000C7A0D /* WorkFlowReturnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFlowReturnCell.swift; sourceTree = "<group>"; };
+		C0AD50DD20F09CEB007808C6 /* rff.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = rff.entitlements; sourceTree = "<group>"; };
+		C0AD50DE20F0B154007808C6 /* UplaodedFileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UplaodedFileTableViewController.swift; sourceTree = "<group>"; };
+		C0AD50E020F0B2A6007808C6 /* UploadedFileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadedFileCell.swift; sourceTree = "<group>"; };
 		C0B1EBC920DB92F600E5E4C5 /* ItemAddedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemAddedModel.swift; sourceTree = "<group>"; };
 		C0B3A31A20A2F71800A03211 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		C0B5359220B2B565007EF65F /* AlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
@@ -386,6 +400,7 @@
 		C0BBF49F20E8E17B0051D3E2 /* ReturnStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnStoreViewController.swift; sourceTree = "<group>"; };
 		C0BBF4A120E8EE6B0051D3E2 /* ReturnCreditDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnCreditDetailsViewController.swift; sourceTree = "<group>"; };
 		C0BBF4A320E8F3D30051D3E2 /* StoreAndCreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAndCreditCell.swift; sourceTree = "<group>"; };
+		C0BC474A20EE024200D0ACD0 /* ArrayOfAnyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfAnyType.swift; sourceTree = "<group>"; };
 		C0BE2E4320CDD540005F8B4A /* TransferPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferPagesCell.swift; sourceTree = "<group>"; };
 		C0BE2E4520CDD553005F8B4A /* ReturnPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnPagesCell.swift; sourceTree = "<group>"; };
 		C0CE40C420BC14C400A06CB4 /* EmpVac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmpVac.swift; sourceTree = "<group>"; };
@@ -522,6 +537,124 @@
 			path = "sales order request";
 			sourceTree = "<group>";
 		};
+		C00BF62D20EB4F9500EA32D0 /* main view */ = {
+			isa = PBXGroup;
+			children = (
+				C08A26D620A6E7EC0028052C /* SalesOrderApprovalViewController.swift */,
+				C05777AA20CE79CB00423FE7 /* SalesOrderApprovalCell.swift */,
+			);
+			path = "main view";
+			sourceTree = "<group>";
+		};
+		C00BF62E20EB4F9F00EA32D0 /* details view */ = {
+			isa = PBXGroup;
+			children = (
+				C0A8446520E769E70042F2AA /* CheckSalesApprovalModel.swift */,
+				C05777AF20CE944D00423FE7 /* DetailsSalesOrderApprovalViewController.swift */,
+				C0A9E70B20DE11C4000C7A0D /* DetailsSalesOrderApprovalCell.swift */,
+			);
+			path = "details view";
+			sourceTree = "<group>";
+		};
+		C00BF62F20EB4FBB00EA32D0 /* items view */ = {
+			isa = PBXGroup;
+			children = (
+				C0A9E70D20DE197D000C7A0D /* ItemsDetailsViewController.swift */,
+				C0A9E71520DE201B000C7A0D /* ItemDetailsCell.swift */,
+				C0A8446320E7444E0042F2AA /* SalesOrderItemsDetailsModel.swift */,
+			);
+			path = "items view";
+			sourceTree = "<group>";
+		};
+		C00BF63020EB4FE500EA32D0 /* customerCredit view */ = {
+			isa = PBXGroup;
+			children = (
+				C0A9E70F20DE1995000C7A0D /* CustomerCreditDetailsViewController.swift */,
+			);
+			path = "customerCredit view";
+			sourceTree = "<group>";
+		};
+		C00BF63120EB4FFD00EA32D0 /* userComment view */ = {
+			isa = PBXGroup;
+			children = (
+				C0A9E71120DE19A6000C7A0D /* UserCommentViewController.swift */,
+				C0A9E71920DE2162000C7A0D /* UserCommentCell.swift */,
+			);
+			path = "userComment view";
+			sourceTree = "<group>";
+		};
+		C00BF63220EB500F00EA32D0 /* workFlow view */ = {
+			isa = PBXGroup;
+			children = (
+				C0A9E71320DE19B9000C7A0D /* WorkFlowViewController.swift */,
+				C0A9E71B20DE217A000C7A0D /* WorkFlowCell.swift */,
+			);
+			path = "workFlow view";
+			sourceTree = "<group>";
+		};
+		C00BF63320EB501D00EA32D0 /* attachment view */ = {
+			isa = PBXGroup;
+			children = (
+				C00BF62920EB4E6C00EA32D0 /* AttachmentReturnViewController.swift */,
+				C00BF62B20EB4E9200EA32D0 /* AttachmentReturnCell.swift */,
+			);
+			path = "attachment view";
+			sourceTree = "<group>";
+		};
+		C00BF63420EB504700EA32D0 /* main view */ = {
+			isa = PBXGroup;
+			children = (
+				C08A26D820A6E7FC0028052C /* SalesReturnApprovalViewController.swift */,
+				C05777AD20CE90B200423FE7 /* SalesReturnApprovalCellCell.swift */,
+			);
+			path = "main view";
+			sourceTree = "<group>";
+		};
+		C00BF63520EB505200EA32D0 /* details view */ = {
+			isa = PBXGroup;
+			children = (
+				C0A9E71D20DE410F000C7A0D /* DetailsSalesReturnApprovalViewController.swift */,
+				C0A9E72520DE423C000C7A0D /* DetailsSalesReturnApprovalCell.swift */,
+			);
+			path = "details view";
+			sourceTree = "<group>";
+		};
+		C00BF63620EB505F00EA32D0 /* items view */ = {
+			isa = PBXGroup;
+			children = (
+				C0A9E71F20DE4202000C7A0D /* ItemReturnDetailsViewController.swift */,
+				C0A9E72720DE42B9000C7A0D /* ItemReturnDetailsCell.swift */,
+				C00851D520EA1142009673C5 /* SalesReturnItemsDetailsModel.swift */,
+			);
+			path = "items view";
+			sourceTree = "<group>";
+		};
+		C00BF63720EB506600EA32D0 /* customerCredit view */ = {
+			isa = PBXGroup;
+			children = (
+				C0A9E72120DE4222000C7A0D /* CustomerAgingViewController.swift */,
+			);
+			path = "customerCredit view";
+			sourceTree = "<group>";
+		};
+		C00BF63820EB507700EA32D0 /* userComment view */ = {
+			isa = PBXGroup;
+			children = (
+				C00851D920EA1D37009673C5 /* UserCommentReturnViewController.swift */,
+				C00851D720EA1D13009673C5 /* UserCommentReturnCell.swift */,
+			);
+			path = "userComment view";
+			sourceTree = "<group>";
+		};
+		C00BF63920EB508600EA32D0 /* workFlow view */ = {
+			isa = PBXGroup;
+			children = (
+				C0A9E72320DE4231000C7A0D /* WorkFlowReturnViewController.swift */,
+				C0A9E72920DE42DD000C7A0D /* WorkFlowReturnCell.swift */,
+			);
+			path = "workFlow view";
+			sourceTree = "<group>";
+		};
 		C035314020B183C300E0DBD9 /* Helper files */ = {
 			isa = PBXGroup;
 			children = (
@@ -530,6 +663,7 @@
 				C0B5359220B2B565007EF65F /* AlertMessage.swift */,
 				C0B90AD720B6C75300760FD0 /* BlackBox.swift */,
 				C0234D3920C5237E008BB55B /* extensions.swift */,
+				C07C54CC20ECD78100834044 /* AttachmentHandler.swift */,
 			);
 			path = "Helper files";
 			sourceTree = "<group>";
@@ -584,6 +718,7 @@
 			isa = PBXGroup;
 			children = (
 				C03C7C1720C7F75100D8248C /* ArrayOfSales.swift */,
+				C0BC474A20EE024200D0ACD0 /* ArrayOfAnyType.swift */,
 				C0BBF49D20E8C6AD0051D3E2 /* ArrayOfSalesReturn.swift */,
 				C0489E9920E4EAA900CF6167 /* ArrayOfSaveToGp.swift */,
 				C03C7C1620C7F75100D8248C /* Sales.swift */,
@@ -599,19 +734,12 @@
 		C05777A920CE799F00423FE7 /* sales order approval */ = {
 			isa = PBXGroup;
 			children = (
-				C08A26D620A6E7EC0028052C /* SalesOrderApprovalViewController.swift */,
-				C05777AA20CE79CB00423FE7 /* SalesOrderApprovalCell.swift */,
-				C05777AF20CE944D00423FE7 /* DetailsSalesOrderApprovalViewController.swift */,
-				C0A9E70B20DE11C4000C7A0D /* DetailsSalesOrderApprovalCell.swift */,
-				C0A8446520E769E70042F2AA /* CheckSalesApprovalModel.swift */,
-				C0A9E70D20DE197D000C7A0D /* ItemsDetailsViewController.swift */,
-				C0A9E71520DE201B000C7A0D /* ItemDetailsCell.swift */,
-				C0A8446320E7444E0042F2AA /* SalesOrderItemsDetailsModel.swift */,
-				C0A9E70F20DE1995000C7A0D /* CustomerCreditDetailsViewController.swift */,
-				C0A9E71120DE19A6000C7A0D /* UserCommentViewController.swift */,
-				C0A9E71920DE2162000C7A0D /* UserCommentCell.swift */,
-				C0A9E71320DE19B9000C7A0D /* WorkFlowViewController.swift */,
-				C0A9E71B20DE217A000C7A0D /* WorkFlowCell.swift */,
+				C00BF62D20EB4F9500EA32D0 /* main view */,
+				C00BF62E20EB4F9F00EA32D0 /* details view */,
+				C00BF62F20EB4FBB00EA32D0 /* items view */,
+				C00BF63020EB4FE500EA32D0 /* customerCredit view */,
+				C00BF63120EB4FFD00EA32D0 /* userComment view */,
+				C00BF63220EB500F00EA32D0 /* workFlow view */,
 			);
 			path = "sales order approval";
 			sourceTree = "<group>";
@@ -619,18 +747,13 @@
 		C05777AC20CE908700423FE7 /* sales return approval */ = {
 			isa = PBXGroup;
 			children = (
-				C08A26D820A6E7FC0028052C /* SalesReturnApprovalViewController.swift */,
-				C05777AD20CE90B200423FE7 /* SalesReturnApprovalCellCell.swift */,
-				C00851D520EA1142009673C5 /* SalesReturnItemsDetailsModel.swift */,
-				C0A9E71D20DE410F000C7A0D /* DetailsSalesReturnApprovalViewController.swift */,
-				C0A9E72520DE423C000C7A0D /* DetailsSalesReturnApprovalCell.swift */,
-				C0A9E71F20DE4202000C7A0D /* ItemReturnDetailsViewController.swift */,
-				C0A9E72720DE42B9000C7A0D /* ItemReturnDetailsCell.swift */,
-				C0A9E72120DE4222000C7A0D /* CustomerAgingViewController.swift */,
-				C00851D920EA1D37009673C5 /* UserCommentReturnViewController.swift */,
-				C00851D720EA1D13009673C5 /* UserCommentReturnCell.swift */,
-				C0A9E72320DE4231000C7A0D /* WorkFlowReturnViewController.swift */,
-				C0A9E72920DE42DD000C7A0D /* WorkFlowReturnCell.swift */,
+				C00BF63420EB504700EA32D0 /* main view */,
+				C00BF63520EB505200EA32D0 /* details view */,
+				C00BF63620EB505F00EA32D0 /* items view */,
+				C00BF63720EB506600EA32D0 /* customerCredit view */,
+				C00BF63820EB507700EA32D0 /* userComment view */,
+				C00BF63920EB508600EA32D0 /* workFlow view */,
+				C00BF63320EB501D00EA32D0 /* attachment view */,
 			);
 			path = "sales return approval";
 			sourceTree = "<group>";
@@ -656,6 +779,7 @@
 		C061756B209EF792007F8E59 /* rff */ = {
 			isa = PBXGroup;
 			children = (
+				C0AD50DD20F09CEB007808C6 /* rff.entitlements */,
 				C00707EE20A0114400320ED4 /* Storyboard */,
 				C00707EC20A0110600320ED4 /* ViewController */,
 				C00707ED20A0111800320ED4 /* Supported files */,
@@ -947,10 +1071,13 @@
 				C08A26DE20A6E8340028052C /* ReturnOrderRequestsViewController.swift */,
 				C0B8828320CFAB2800237010 /* AddReturnInvoiceViewController.swift */,
 				C0BBF4A320E8F3D30051D3E2 /* StoreAndCreditCell.swift */,
-				C0489E9520E4CE4900CF6167 /* ReturnItemSelectedViewController.swift */,
-				C0489E9720E4CE6800CF6167 /* ReturnItemSelectedCell.swift */,
 				C0BBF49F20E8E17B0051D3E2 /* ReturnStoreViewController.swift */,
 				C0BBF4A120E8EE6B0051D3E2 /* ReturnCreditDetailsViewController.swift */,
+				C0489E9520E4CE4900CF6167 /* ReturnItemSelectedViewController.swift */,
+				C0489E9720E4CE6800CF6167 /* ReturnItemSelectedCell.swift */,
+				C0AD50DE20F0B154007808C6 /* UplaodedFileTableViewController.swift */,
+				C0AD50E020F0B2A6007808C6 /* UploadedFileCell.swift */,
+				C00478F120F2088E002CAA44 /* FilePreviewViewController.swift */,
 				C0BBF49920E8C3710051D3E2 /* RORModul.swift */,
 			);
 			path = "return order request";
@@ -1048,6 +1175,11 @@
 					C0617568209EF792007F8E59 = {
 						CreatedOnToolsVersion = 9.3;
 						LastSwiftMigration = 0930;
+						SystemCapabilities = {
+							com.apple.Keychain = {
+								enabled = 1;
+							};
+						};
 					};
 				};
 			};
@@ -1198,6 +1330,7 @@
 				C08A26D320A6E7C60028052C /* MyComplainViewController.swift in Sources */,
 				C08A26DD20A6E8200028052C /* SalesOrderRequestsViewController.swift in Sources */,
 				C08A269520A6E3C10028052C /* EmployeeInfoViewController.swift in Sources */,
+				C0AD50E120F0B2A6007808C6 /* UploadedFileCell.swift in Sources */,
 				C00707FE20A0617000320ED4 /* SlideMenuViewController.swift in Sources */,
 				C08A26C920A6E7710028052C /* TrackPaymentReqViewController.swift in Sources */,
 				C005CB7320B40B7600875740 /* ListType.swift in Sources */,
@@ -1233,6 +1366,7 @@
 				C08A26A720A6E48D0028052C /* SettleCalcViewController.swift in Sources */,
 				C0CE40CA20BC14C600A06CB4 /* Task_Inbox.swift in Sources */,
 				C0B90AD620B6C10000760FD0 /* VacationsDetailsViewController.swift in Sources */,
+				C00BF62A20EB4E6C00EA32D0 /* AttachmentReturnViewController.swift in Sources */,
 				C03C7C1820C7F75100D8248C /* Sales.swift in Sources */,
 				C007080020A0619500320ED4 /* HeaderTableViewCell.swift in Sources */,
 				C035314B20B1875700E0DBD9 /* SWXMLHash+TypeConversion.swift in Sources */,
@@ -1246,6 +1380,7 @@
 				C08A26A320A6E4700028052C /* AttendanceDetailsViewController.swift in Sources */,
 				C08A268F20A6E35D0028052C /* ReturnFromVacationViewController.swift in Sources */,
 				C005CB7520B40B7600875740 /* ArrayOfInboxGrid.swift in Sources */,
+				C07C54CD20ECD78100834044 /* AttachmentHandler.swift in Sources */,
 				C08A26DB20A6E80B0028052C /* SalesPromotionApprovalViewController.swift in Sources */,
 				C0BBF49C20E8C68E0051D3E2 /* SalesReturn.swift in Sources */,
 				C0B3A31B20A2F71800A03211 /* ListTableViewCell.swift in Sources */,
@@ -1273,6 +1408,7 @@
 				C005CB7620B40B7600875740 /* ArrayOfListType.swift in Sources */,
 				C0A9E71E20DE410F000C7A0D /* DetailsSalesReturnApprovalViewController.swift in Sources */,
 				C008655820C94455006CD88E /* ItemsSelectedViewController.swift in Sources */,
+				C00478F220F2088E002CAA44 /* FilePreviewViewController.swift in Sources */,
 				C035313E20B183A100E0DBD9 /* AuthServices.swift in Sources */,
 				C08A26C120A6E72F0028052C /* AddCategoryViewController.swift in Sources */,
 				C0F6A7EF20BAD2820021EA2E /* TicketDetailsViewController.swift in Sources */,
@@ -1284,6 +1420,7 @@
 				C08A26A920A6E4A00028052C /* AttendanceClearanceViewController.swift in Sources */,
 				C0BBF49E20E8C6AD0051D3E2 /* ArrayOfSalesReturn.swift in Sources */,
 				C08A269920A6E3F70028052C /* VacationDaysUpdateViewController.swift in Sources */,
+				C0BC474B20EE024200D0ACD0 /* ArrayOfAnyType.swift in Sources */,
 				C008655020C9440C006CD88E /* SalesPersonViewController.swift in Sources */,
 				C08A268720A6E3140028052C /* LoanViewController.swift in Sources */,
 				C0A9E72020DE4202000C7A0D /* ItemReturnDetailsViewController.swift in Sources */,
@@ -1294,12 +1431,14 @@
 				C00851D620EA1142009673C5 /* SalesReturnItemsDetailsModel.swift in Sources */,
 				C0B5359320B2B565007EF65F /* AlertMessage.swift in Sources */,
 				C0FFEE2D20A45FDE00712531 /* MenuImage.swift in Sources */,
+				C0AD50DF20F0B154007808C6 /* UplaodedFileTableViewController.swift in Sources */,
 				C005D5DD20CD331300E1740A /* OrderPagesCell.swift in Sources */,
 				C0A9E71620DE201B000C7A0D /* ItemDetailsCell.swift in Sources */,
 				C09F1E8320A984E4005F4C23 /* EmployeeInfoTableViewCell.swift in Sources */,
 				C08A26D920A6E7FC0028052C /* SalesReturnApprovalViewController.swift in Sources */,
 				C08A269F20A6E4310028052C /* BusinessTripViewController.swift in Sources */,
 				C03C7C1B20C7F7E000D8248C /* SalesModel.swift in Sources */,
+				C00BF62C20EB4E9200EA32D0 /* AttachmentReturnCell.swift in Sources */,
 				C03C7C0A20C7D98000D8248C /* ReturnStyleCell.swift in Sources */,
 				C03C7C0F20C7DA0B00D8248C /* OrderStyleCell.swift in Sources */,
 				C0A9E70C20DE11C4000C7A0D /* DetailsSalesOrderApprovalCell.swift in Sources */,
@@ -1475,6 +1614,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = rff/rff.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3TR82ZN3B8;
@@ -1500,6 +1640,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = rff/rff.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3TR82ZN3B8;

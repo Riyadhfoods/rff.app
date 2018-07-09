@@ -158,7 +158,34 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 44
+        switch section {
+        case 0:
+            return 44
+        case 1:
+            return 44
+        case 2:
+            return 44
+        case 3:
+            return 0
+        case 4:
+            return 0
+        case 5:
+            return 0
+        case 6:
+            return 0
+        case 7:
+            return 0
+        case 8:
+            return 0
+        case 9:
+            return 0
+        case 10:
+            return 44
+        case 11:
+            return 0
+        default:
+            return 44
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -167,6 +194,21 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section].isExpanded{
+            if indexPath.section == 10{
+                if indexPath.row == 3 {
+                    return 0
+                } else if indexPath.row == 6{
+                    return 0
+                } else if indexPath.row == 7{
+                    return 0
+                } else if indexPath.row == 8{
+                    return 0
+                } else if indexPath.row == 9{
+                    return 0
+                } else if indexPath.row == 10{
+                    return 0
+                }
+            }
             return 44
         }
         return 0

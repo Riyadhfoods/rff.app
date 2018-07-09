@@ -16,10 +16,7 @@ class UserCommentReturnCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        holderViewReturn.layer.cornerRadius = 5.0
-        holderViewReturn.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
-        holderViewReturn.layer.borderWidth = 1
-        
+        setUpCellHolderViewAndCellBackground(holderView: holderViewReturn, contentView: contentView)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

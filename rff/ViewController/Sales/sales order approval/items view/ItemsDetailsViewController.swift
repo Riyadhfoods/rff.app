@@ -20,7 +20,6 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
     let cellId = "cell_itemsDetails"
     var orderId = ""
     var userId = ""
-    //var itemsDetailsArray = [SalesOrderItemsDetailsModel]()
     var isChecked: Bool = true
     
     // -- MARK: viewDidLoad

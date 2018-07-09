@@ -149,7 +149,7 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
                 }, cancelAction: nil, self)
             } else {
                 AlertMessage().showAlertMessage(alertTitle: "Success".localize(), alertMessage: "Order request sent successfully".localize(), actionTitle: "Ok", onAction: {
-                    salesOrderRequestDetails.removeAll()
+                    salesOrderRequestDetails.setDefaultValues()
                     self.navigationController?.popToRootViewController(animated: true)
                 }, cancelAction: nil, self)
             }

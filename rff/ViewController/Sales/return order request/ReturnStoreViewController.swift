@@ -66,6 +66,7 @@ class ReturnStoreViewController: UIViewController, UIPickerViewDelegate, UIPicke
         showSalesPersonPickerViewTextfield.tintColor = .clear
         showMerchandiserPickerViewTextfield.tintColor = .clear
         
+        setUpInitials()
         setupArrays()
         setUpWidth()
         setUpPickerView()
@@ -81,6 +82,15 @@ class ReturnStoreViewController: UIViewController, UIPickerViewDelegate, UIPicke
     }
     
     // -- MARK: Set ups
+    
+    func setUpInitials(){
+        if !returnOrderRequestDetails.isStoreArrayNotEmptyAndStoreSelectionEmpty{
+            storeTextfield.text = returnOrderRequestDetails.store
+            cityTextfield.text = returnOrderRequestDetails.city
+            salesPersonTextfield.text = returnOrderRequestDetails.salespersonstore
+            merchandiserTextfield.text = returnOrderRequestDetails.merchandiser
+        }
+    }
     
     func setupArrays(){
         storeIdArray = ["Select store id".localize()]
@@ -233,6 +243,7 @@ class ReturnStoreViewController: UIViewController, UIPickerViewDelegate, UIPicke
             returnOrderRequestDetails.city = cityTxt
             returnOrderRequestDetails.salespersonstore = salespersonTxt
             returnOrderRequestDetails.merchandiser = merTxt
+            returnOrderRequestDetails.isStoreArrayNotEmptyAndStoreSelectionEmpty = false
         }
         navigationController?.popViewController(animated: true)
         print(returnOrderRequestDetails)
