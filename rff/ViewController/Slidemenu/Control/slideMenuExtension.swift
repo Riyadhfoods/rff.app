@@ -18,6 +18,8 @@ extension SlideMenuViewController {
         if tappedSection == 0 || tappedSection == 11{
             guard let identifier =  getSectionidentifierWithNoChild(tappedSection) else {return}
             performSegue(withIdentifier: identifier, sender: nil)
+        } else if tappedSection == 12 {
+            AuthServices().logout(self)
         } else {
             guard let isExpanded = sections[tappedSection].isExpanded else { return }
             sections[tappedSection].isExpanded = !isExpanded

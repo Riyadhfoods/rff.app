@@ -28,7 +28,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         
         print(LanguageManger.isArabicLanguage)
-        
         if let userId = AuthServices.currentUserId {
             taskInbox = webservice.Task_InboxM(langid: LoginViewController.languageChosen, emp_id: userId)
         }

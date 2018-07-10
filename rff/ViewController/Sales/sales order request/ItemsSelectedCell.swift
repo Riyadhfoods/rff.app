@@ -58,12 +58,12 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         PCSTextfield.text = unoits.isEmpty ? "" : unoits[selectedRow].UnitofMeasure
         
         if let itemText = desc.text, let qtyText = qtyTextfield.text, let unoitText = PCSTextfield.text{
-            itemAddedReceived = webservice.BindPurchaseGridData(quantity: qtyText, quantityrequired: 0.0, ItemId: itemText, unitofmeasure: unoitText, customerid: salesOrderRequestDetails.customer, loccode: salesOrderRequestDetails.customer)
+            itemAddedReceived = webservice.BindPurchaseGridData(quantity: qtyText, quantityrequired: 0.0, ItemId: itemText, unitofmeasure: unoitText, customerid: customerGlobal, loccode: locCodeGlobal)
             
             for item in itemAddedReceived{
                 if item.grid_error == "" {
                     unitPriceTextfield.text = item.Grid_UnitPrice
-                    salesOrderRequestDetails.itemsArray[indexpathRow].Grid_UnitPrice = item.Grid_UnitPrice
+                    itemAddedArray[indexpathRow].Grid_UnitPrice = item.Grid_UnitPrice
                 }
             }
         }
@@ -113,15 +113,15 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         if let qtyTxt = qtyTextfield.text, let qtyDouble = Double(qtyTxt), let unitPriceTxt = unitPriceTextfield.text, let unitPriceDouble = Double(unitPriceTxt){
             if qtyTxt == qtyOldText && unitPriceTxt == unitPriceOldText{ return }
             let result = qtyDouble * unitPriceDouble
-            let resultFormatted = String(format: "%.5f", result)
+            let resultFormatted = String(format: "%.2f", result)
             totalPrice.text = resultFormatted
             
             if textField == qtyTextfield{
-                salesOrderRequestDetails.itemsArray[textField.tag].Grid_Qty = qtyTxt
+                itemAddedArray[textField.tag].Grid_Qty = qtyTxt
             } else {
-                salesOrderRequestDetails.itemsArray[textField.tag].Grid_UnitPrice = unitPriceTxt
+                itemAddedArray[textField.tag].Grid_UnitPrice = unitPriceTxt
             }
-            salesOrderRequestDetails.itemsArray[textField.tag].Grid_TotalPrice = resultFormatted
+            itemAddedArray[textField.tag].Grid_TotalPrice = resultFormatted
         }
     }
     

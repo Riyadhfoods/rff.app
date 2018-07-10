@@ -138,3 +138,8 @@ extension UIView{
     }
 }
 
+extension UIScrollView {
+    func scrollTo(direction: ScrollDirection, animated: Bool = true) {
+        self.setContentOffset(direction.contentOffsetWith(scrollView: self), animated: animated)
+    }
+}

@@ -116,7 +116,8 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
                     "Sales Person Area Setup",
                     "Sales Store Update"
                 ]),
-            Section(name: "REPORT", items: [], isExpanded: false)
+            Section(name: "REPORT", items: [], isExpanded: false),
+            Section(name: "SignOut", items: [], isExpanded: false)
         ]
     }
     
@@ -134,6 +135,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             MenuImage(headerTitleImage: #imageLiteral(resourceName: "complain"), listImage: [#imageLiteral(resourceName: "AddForms"), #imageLiteral(resourceName: "details")]),
             MenuImage(headerTitleImage: #imageLiteral(resourceName: "sales"), listImage: [#imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon"), #imageLiteral(resourceName: "salesIcon")]),
             MenuImage(headerTitleImage: #imageLiteral(resourceName: "report"), listImage: []),
+            MenuImage(headerTitleImage: #imageLiteral(resourceName: "logout"), listImage: [])
         ]
     }
     
@@ -183,6 +185,8 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             return 44
         case 11:
             return 0
+        case 12:
+            return 44
         default:
             return 44
         }
@@ -222,7 +226,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             header.expandButton.tag = section
             header.expandButton.addTarget(self, action: #selector(toggleSection(sender:)), for: .touchUpInside)
             
-            if (section == 0 || section == 11){
+            if (section == 0 || section == 11 || section == 12){
                 header.expandedIcon.isHidden = true
             }
             

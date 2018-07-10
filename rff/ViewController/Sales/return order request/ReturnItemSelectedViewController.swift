@@ -119,25 +119,15 @@ class ReturnItemSelectedViewController: UIViewController, UIImagePickerControlle
     var alertTitle = ""
     var alertMessage = ""
     @IBAction func sendButtonTapped(_ sender: Any) {
-        
-        checkIfStoreId()
-        checkReturnType()
-        runBeforeSending()
-        runSend()
-        //runSaveAttachmentAndValidate()
-        handleSendAction()
-        
-        AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: "OK", onAction: action, cancelAction: nil, self)
+        checkRequirementsAndProccess()
     }
     
-    func checkIfStoreId(){
+    func checkRequirementsAndProccess(){
         if returnOrderRequestDetails.isStoreArrayNotEmptyAndStoreSelectionEmpty == true {
             AlertMessage().showAlertMessage(alertTitle: "Alert", alertMessage: "You did not select store id", actionTitle: nil, onAction: nil, cancelAction: "Cancel", self)
             return
         }
-    }
-    
-    func checkReturnType(){
+        
         for item in returnOrderRequestDetails.itemsarrayFromWS{
             if item.returnType == "Select Type"{
                 AlertMessage().showAlertMessage(
@@ -149,6 +139,13 @@ class ReturnItemSelectedViewController: UIViewController, UIImagePickerControlle
                 return
             }
         }
+        
+        runBeforeSending()
+        runSend()
+        //runSaveAttachmentAndValidate()
+        handleSendAction()
+        
+        AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: "OK", onAction: action, cancelAction: nil, self)
     }
     
     func runBeforeSending(){

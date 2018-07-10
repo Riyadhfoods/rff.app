@@ -33,14 +33,14 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        title = "Summary".localize()
+        title = "Items".localize()
         setViewAlignment()
         setDelegate()
     }
     
     func setDelegate(){
         if delegate != nil{
-            delegate?.setCount(count: salesOrderRequestDetails.itemsArray.count)
+            delegate?.setCount(count: itemAddedArray.count)
         }
     }
     
@@ -52,22 +52,23 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if salesOrderRequestDetails.itemsArray.count == 0 {
+        if itemAddedArray.count == 0 {
             emptyMessage(message: "No data".localize(), viewController: self, tableView: itemsTableView)
         }
-        return salesOrderRequestDetails.itemsArray.count
+        return itemAddedArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ItemsSelectedCell{
-            cell.unoits = webservice.BindSalesOrderUnitofMeasure(itemid: salesOrderRequestDetails.itemsArray[indexPath.row].Grid_Desc)
+            cell.unoits = webservice.BindSalesOrderUnitofMeasure(itemid: itemAddedArray[indexPath.row].Grid_Desc)
             
             cell.num.text = "\(indexPath.row + 1)"
-            cell.desc.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_Desc
-            cell.PCSTextfield.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_UOM
-            cell.qtyTextfield.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_Qty
-            cell.unitPriceTextfield.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_UnitPrice
-            cell.totalPrice.text = salesOrderRequestDetails.itemsArray[indexPath.row].Grid_TotalPrice
+            cell.desc.text = itemAddedArray[indexPath.row].Grid_Desc
+            cell.PCSTextfield.text = itemAddedArray[indexPath.row].Grid_UOM
+            cell.qtyTextfield.text = itemAddedArray[indexPath.row].Grid_Qty
+            cell.unitPriceTextfield.text = itemAddedArray[indexPath.row].Grid_UnitPrice
+            cell.totalPrice.text = itemAddedArray[indexPath.row].Grid_TotalPrice
+            
             cell.deleteButton.tag = indexPath.row
             cell.deleteButton.addTarget(self, action: #selector(handleDeleteAction(sender:)), for: .touchUpInside)
             cell.indexpathRow = indexPath.row
@@ -81,81 +82,13 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     @objc func handleDeleteAction(sender: UIButton){
-        salesOrderRequestDetails.itemsArray.remove(at: sender.tag)
+        itemAddedArray.remove(at: sender.tag)
         itemsTableView.reloadData()
         setDelegate()
     }
     
     // -- MARK: IBOutlets
     
-    @IBAction func sendButtonTapped(_ sender: Any) {
-        var count = 0
-        salesOrderRequestDetails.table = !salesOrderRequestDetails.itemsArray.isEmpty
-        if salesOrderRequestDetails.table{
-            for item in salesOrderRequestDetails.itemsArray{
-                itemSentStatus = webservice.SendItemGrid(orderid: salesOrderRequestDetails.orderId, serialno: count, customerid: salesOrderRequestDetails.customer, Grid_ItemId: item.Grid_ItemId, Grid_Desc: item.Grid_Desc, Grid_UnitPrice: item.Grid_UnitPrice, Grid_Qty: item.Grid_Qty, Grid_TotalPrice: item.Grid_TotalPrice, Grid_UOM: item.Grid_UOM)
-                for status in itemSentStatus{
-                    if status.grid_error != ""{
-                        let alertTitle = "Alert".localize()
-                        let alertMessage = status.grid_error
-                        AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: "Ok", onAction: {
-                            return
-                        }, cancelAction: nil, self)
-                    } else {
-                        if salesOrderRequestDetails.orderId == ""{
-                            salesOrderRequestDetails.orderId = status.OrderID
-                        }
-                        if status.Flag == true {
-                            salesOrderRequestDetails.flag = true
-                        } else { salesOrderRequestDetails.flag = false }
-                        count += 1
-                        print("It sent successfully")
-                    }
-                }
-            }
-            
-            print(salesOrderRequestDetails)
-            sentStatus = webservice.Senditem(
-                orderid: salesOrderRequestDetails.orderId,
-                branchid: salesOrderRequestDetails.branchId,
-                customerid: salesOrderRequestDetails.customer,
-                branch: salesOrderRequestDetails.branch,
-                table: salesOrderRequestDetails.table,
-                salesperson: salesOrderRequestDetails.salesperson,
-                company: salesOrderRequestDetails.companyId,
-                emp_id: salesOrderRequestDetails.emp_id,
-                comment: salesOrderRequestDetails.comment,
-                city: salesOrderRequestDetails.city,
-                store: salesOrderRequestDetails.store,
-                salespersonstore: salesOrderRequestDetails.salespersonstore,
-                merchandiser: salesOrderRequestDetails.merchandiser,
-                offer: salesOrderRequestDetails.offer,
-                deliverydate: salesOrderRequestDetails.deliverydate,
-                loccode: salesOrderRequestDetails.loccode,
-                docid: salesOrderRequestDetails.docid,
-                purchasegrid: salesOrderRequestDetails.purchasegrid,
-                supermarket: salesOrderRequestDetails.supermarket,
-                flag: salesOrderRequestDetails.flag)
-            
-            for status in sentStatus{
-                if status.grid_error != ""{
-                    error = status.grid_error
-                }
-            }
-            
-            if error != ""{
-                AlertMessage().showAlertMessage(alertTitle: "Alert!".localize(), alertMessage: error, actionTitle: "Ok", onAction: {
-                    return
-                }, cancelAction: nil, self)
-            } else {
-                AlertMessage().showAlertMessage(alertTitle: "Success".localize(), alertMessage: "Order request sent successfully".localize(), actionTitle: "Ok", onAction: {
-                    salesOrderRequestDetails.setDefaultValues()
-                    self.navigationController?.popToRootViewController(animated: true)
-                }, cancelAction: nil, self)
-            }
-            
-        }
-    }
 }
 
 extension ItemsSelectedViewController{
