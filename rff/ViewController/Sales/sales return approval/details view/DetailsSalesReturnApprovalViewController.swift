@@ -8,8 +8,12 @@
 
 import UIKit
 
-var itemReturnDetails = [SalesReturnItemsDetailsModel]()
-class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDelegate {
+protocol ApprovalConfomationDelegate{
+    func returnRequestStatus(isApproved: Bool)
+    func returnRequestStatus(isRejected: Bool)
+}
+
+class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDelegate, ItemUpdatedValuesDelegate {
 
     // -- MARK: IBOutlet
     
@@ -32,7 +36,13 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     let webService = Sales()
     let screenSize = AppDelegate().screenSize
     let cellId = "cell_detailsSalesReturnRequest"
-    let cellTitleArray = ["Item(s) Details", "Cutomer Aging", "User Comment", "Work Flow"]
+    
+    let cellTitleArray = [
+        "Item(s) Details".localize(),
+        "Cutomer Aging".localize(),
+        "User Comment".localize(),
+        "Work Flow".localize()]
+    
     var itemsDetailsArray = [SalesReturn]()
     var customerCreditDetailsArray = [SalesReturn]()
     var userCommentArray = [SalesReturn]()
@@ -40,6 +50,7 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     var loadCompleteArray = [SalesReturn]()
     var loadCompleteArrayWithComment = [SalesReturn]()
     var attachmentArray = [SalesReturn]()
+    var itemReturnDetails = [SalesReturnItemsDetailsModel]()
     var isItemsChecked = [Bool]()
     var userId = ""
     var returnId = ""
@@ -50,6 +61,12 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     var emptyArrayElementCheck = [Bool]()
     var emptyArrayCount: CGFloat = 0
     
+    var delegate: ApprovalConfomationDelegate?
+    
+    func updateItemArray(itemReturnDetails: [SalesReturnItemsDetailsModel]) {
+        self.itemReturnDetails = itemReturnDetails
+    }
+    
     // -- MARK: viewDidLoad
     
     override func viewDidLoad() {
@@ -59,8 +76,13 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
         if let currentUserId = AuthServices.currentUserId{
             userId = currentUserId
         }
+        title = "Return ID".localize() + ": \(returnId)"
         stackviewWidth.constant = screenSize.width - 32
         comment.delegate = self
+        
+        for item in itemReturnDetails{
+            item.isItemChecked = true
+        }
         
         activityIndicator.startAnimating()
         setViewAlignment()
@@ -90,11 +112,12 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
         comment.layer.borderWidth = 1
     }
     
+    var count = 1
     func setupData(){
         itemsDetailsArray = webService.SRA_BindItemGrid(empno: userId, returnid: returnId)
         for itemDetail in itemsDetailsArray{
             itemReturnDetails.append(SalesReturnItemsDetailsModel(
-                serialNumber: "0",
+                serialNumber: itemDetail.SRA_SerialNumber,
                 InvoiceNumber: itemDetail.SRA_InvoiceNumber,
                 LOTNumber: itemDetail.SRA_LotNumber,
                 ItemNumber: itemDetail.SRA_ItemNumber,
@@ -110,15 +133,13 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
             setUpLabelText(label: salesPerson, text: itemDetail.SRA_SalesPerson, isArrayEmpty: itemsDetailsArray.isEmpty)
             setUpLabelText(label: requestDate, text: itemDetail.SRA_ReqDate, isArrayEmpty: itemsDetailsArray.isEmpty)
             setUpLabelText(label: ReturnDate, text: itemDetail.SRA_ReturnDate, isArrayEmpty: itemsDetailsArray.isEmpty)
-            
-            print(itemDetail.SRA_CustomerName)
-            print(itemDetail.SRA_SalesPerson)
-            print(itemDetail.SRA_ReqDate)
+            customerCreditDetailsArray = webService.SRR_BindCustomerAging(customer_no: itemDetail.SRA_CustomerName)
+            count += 1
         }
         userCommentArray = webService.SRA_BindUserGrid(empno: userId, returnid: returnId)
         workFlowArray = webService.SRA_BindApproverGrid(empno: userId, returnid: returnId)
         
-        loadCompleteArray = webService.SRA_ONLOADCOMPLETE(empnumber: "106", returnid: returnId, comment: "")
+        loadCompleteArray = webService.SRA_ONLOADCOMPLETE(empnumber: userId, returnid: returnId, comment: "")
         for loadComplete in loadCompleteArray{
             approveButtonOutlet.isHidden = !loadComplete.SRA_APPROVE_BTN
             rejectAllButtonOutlet.isHidden = !loadComplete.SRA_REJECT_BTN
@@ -171,29 +192,60 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     var beforeApproveResault = ""
     var approveResault = ""
     @IBAction func approveButtonTapped(_ sender: Any) {
-        
-        re_call_onLoadComplete()
-        for itemDetail in itemReturnDetails{
-            beforeApproveResault = webService.SRA_BEFOREAPPROVE(empno: userId, returnid: returnId, gridcheckbox: itemDetail.isItemChecked, serialnumber: itemDetail.serialNumber)
-            
-            if beforeApproveResault != "" {
-                return
+        AlertMessage().showAlertMessage(alertTitle: "Conformation".localize(), alertMessage: "Do you want to approve the order", actionTitle: "OK".localize(), onAction: {
+            self.re_call_onLoadComplete()
+            for itemDetail in self.itemReturnDetails{
+                // serial number start with 1
+                self.beforeApproveResault = self.webService.SRA_BEFOREAPPROVE(empno: self.userId, returnid: self.returnId, gridcheckbox: itemDetail.isItemChecked, serialnumber: itemDetail.serialNumber)
+                print("before approve result \"\(self.beforeApproveResault)\" ")
+                if self.beforeApproveResault != "" {
+                    return
+                }
             }
-            print("before approve result \"\(beforeApproveResault)\" ")
-        }
+            
+            if let commentText = self.comment.text{
+                self.approveResault = self.webService.SRA_APPROVE(empnumber: self.userId, returnid: self.returnId, approver: self.approver, comment: commentText)
+                print("After approval result \(self.approveResault)")
+                if self.approveResault != "" {
+                    AlertMessage().showAlertMessage(alertTitle: "Error".localize(), alertMessage: self.approveResault, actionTitle: nil, onAction: nil, cancelAction: "OK", self)
+                    if self.delegate != nil {
+                        self.delegate?.returnRequestStatus(isApproved: false)
+                    }
+                } else {
+                    AlertMessage().showAlertMessage(alertTitle: "Saved".localize(), alertMessage: "Order Id".localize() + " \(self.returnId) " + "approved successfully".localize(), actionTitle: "OK", onAction: {
+                        self.navigationController?.popToRootViewController(animated: true)
+                        if let delegate = self.delegate {
+                            delegate.returnRequestStatus(isApproved: true)
+                        }
+                    }, cancelAction: nil, self)
+                }
+            }
+        }, cancelAction: "Cancel".localize(), self)
         
-//        if let commentText = comment.text{
-//            approveResault = webService.SRA_APPROVE(empnumber: userId, returnid: returnId, approver: approver, comment: commentText)
-//        }
+        
     }
     
     var rejectResault = ""
     @IBAction func rejectAllButtonTapped(_ sender: Any) {
-        
-        re_call_onLoadComplete()
-        if let commentText = comment.text{
-            rejectResault = webService.SRA_REJECT(returnid: returnId, empnumber: userId, comment: commentText, approver: approver)
-        }
+        AlertMessage().showAlertMessage(alertTitle: "Conformation".localize(), alertMessage: "Do you want to reject the order".localize(), actionTitle: "OK", onAction: {
+            self.re_call_onLoadComplete()
+            if let commentText = self.comment.text{
+                self.rejectResault = self.webService.SRA_REJECT(returnid: self.returnId, empnumber: self.userId, comment: commentText, approver: self.approver)
+                print("reject result \"\(self.approveResault)\"")
+                if self.rejectResault != ""{
+                    if let delegate = self.delegate {
+                        delegate.returnRequestStatus(isRejected: false)
+                    }
+                } else {
+                    AlertMessage().showAlertMessage(alertTitle: "Saved".localize(), alertMessage: "Order Id".localize() + " \(self.returnId) " + "rejected successfully".localize(), actionTitle: "OK", onAction: {
+                        self.navigationController?.popToRootViewController(animated: true)
+                        if let delegate = self.delegate {
+                            delegate.returnRequestStatus(isRejected: true)
+                        }
+                    }, cancelAction: nil, self)
+                }
+            }
+        }, cancelAction: "Cancel", self)
     }
     
     @IBAction func attachmentButtonTapped(_ sender: Any) {
@@ -212,6 +264,7 @@ extension DetailsSalesReturnApprovalViewController: UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? DetailsSalesReturnApprovalCell{
             cell.textLabel?.text = cellTitleArray[indexPath.row]
+            cell.textLabel?.textAlignment = LanguageManger.isArabicLanguage ? .right : .left
             
             return cell
         }
@@ -249,7 +302,8 @@ extension DetailsSalesReturnApprovalViewController: UITableViewDelegate, UITable
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showItemReturnApproval"{
             if let vc = segue.destination as? ItemReturnDetailsViewController{
-                vc.itemsDetailsArray = self.itemsDetailsArray
+                vc.itemReturnDetails = self.itemReturnDetails
+                vc.delegate = self
             }
         } else if segue.identifier == "showCustomerAgingReturnApproval" {
             if let vc = segue.destination as? CustomerAgingViewController{

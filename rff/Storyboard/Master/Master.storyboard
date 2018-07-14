@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Erk-oN-dp2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Erk-oN-dp2">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -144,20 +142,12 @@
                         <barButtonItem key="leftBarButtonItem" image="menu" landscapeImage="barButtonItem:uib-BV-FE2:landscapeImage" id="uib-BV-FE2">
                             <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         </barButtonItem>
-                        <rightBarButtonItems>
-                            <barButtonItem id="Lzp-rc-ybv">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="signOutBuuttonTapped:" destination="pRC-4t-TLV" id="LyS-Er-3nj"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="signOut" id="5Q9-6n-hkk">
-                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="signOutBuuttonTapped:" destination="pRC-4t-TLV" id="GdL-1i-Ils"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
+                        <barButtonItem key="rightBarButtonItem" id="Lzp-rc-ybv">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="signOutBuuttonTapped:" destination="pRC-4t-TLV" id="LyS-Er-3nj"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="changeButtonOutlet" destination="qej-4O-XN6" id="Htn-SY-m4N"/>
@@ -2100,6 +2090,5 @@ WQAAAAAAAAAAAAAAAAABvBk
 </mutableData>
         </image>
         <image name="menu" width="25" height="25"/>
-        <image name="signOut" width="25" height="25"/>
     </resources>
 </document>

@@ -1168,7 +1168,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="nextButtonTapped:" destination="f0G-PN-08G" eventType="touchUpInside" id="bN0-d3-o0G"/>
+                                    <action selector="sendButtonTapped:" destination="f0G-PN-08G" eventType="touchUpInside" id="bN0-d3-o0G"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="JyT-a2-ruZ">
@@ -1198,6 +1198,7 @@
                             <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="ITEMS (0)" id="jWM-AD-Nvg">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="itemButtonTapped:" destination="f0G-PN-08G" id="hrI-Dl-oGV"/>
                             </connections>
@@ -1557,7 +1558,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gqw-7m-2S1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-9450" y="3259"/>
+            <point key="canvasLocation" x="-9546" y="3259"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="s4k-oV-xIr">
@@ -1576,7 +1577,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jS5-h3-rls" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-11398" y="3259"/>
+            <point key="canvasLocation" x="-11297" y="3259"/>
         </scene>
     </scenes>
     <resources>

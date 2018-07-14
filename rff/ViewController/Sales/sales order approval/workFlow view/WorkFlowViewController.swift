@@ -38,9 +38,7 @@ class WorkFlowViewController: UIViewController, UITableViewDataSource, UITableVi
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if workFlowArray.count == 0{
-            emptyMessage(message: "No Data".localize(), viewController: self, tableView: workFlowTableView)
-        }
+        emptyMessage(viewController: self, tableView: workFlowTableView, isEmpty: workFlowArray.count == 0)
         return workFlowArray.count
     }
     

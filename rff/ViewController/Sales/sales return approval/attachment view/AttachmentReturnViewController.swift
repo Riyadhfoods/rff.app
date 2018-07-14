@@ -25,6 +25,8 @@ class AttachmentReturnViewController: UIViewController, UITableViewDataSource, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Attachment Files".localize()
         docController?.delegate = self
     }
 
@@ -35,7 +37,8 @@ class AttachmentReturnViewController: UIViewController, UITableViewDataSource, U
     // -- MARK: TableView data source
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return attachmentArray.count
+        emptyMessage(viewController: self, tableView: attachmentTableView, isEmpty: true)
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

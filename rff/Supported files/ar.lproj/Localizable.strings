@@ -77,7 +77,7 @@
 "English Description:" = "الوصف بالانجليزي:";
 "Arabic Description:" = "الوصف بالعربي:";
 "Count:" = "العدد:";
-"CLICK TO VIEW" = "اضغط للعرض";
+"CLICK TO VIEW" = "عرض";
 
 // Change Password
 "Old password" = "الرقم السري القديم";
@@ -85,6 +85,7 @@
 "CHANGE" = "تغيير";
 "Password Change Successfully" = "تم تغيير الرقم السري بنجاح";
 "Error!" = "خطأ";
+"Error" = "خطأ";
 
 // Tracking inbox
 "Select list" = "اختر من القائمة";
@@ -216,27 +217,37 @@
 "Total Price" = "اجمالي المبلغ";
 "SEND" = "إرسال";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Return Order Request
+"Return" = "رجوع";
+"Return ID" = "رقم الارتجاع";
+"SELECT" = "اختر";
+"Item(s) Details" = "تفاصيل الصنف";
+"Cutomer Aging" = "عمر الدين للعميل";
+"User Comment" = "ملاحظات المستخدم";
+"Work Flow" = "سلسلة الاعتمادات";
+"Attachment Files" = "الملفات المرفقة";
+"Approve" = "موافق";
+"Reject" = "مرفوض";
+"Invoice No." = "رقم الفاتورة";
+"LOT No." = "رقم LOT";
+"Item No." = "رقم الصنف";
+"Description" = "الوصف";
+"Total Cost" = "اجمالي المبلغ";
+"UOFM" = "وحدة القياس";
+"Return Type" = "نوع الارتجاع";
+"Comment:" = "ملاحظات:";
+"Emp ID" = "رقم الموظف";ة
+"Emp Name" = "اسم الموظف";
+"Trans. Date" = "تاريخ العملية";
+"Emp. Role" = "وظيفة الموظف";
+"Do you want to approve the order" = "هل تريد الموافقة على الطلب";
+"OK" = "نعم";
+"Saved" = "تمت الموافقة";
+"Approved successfully" = "تمت الموافقة عليه بنجاح";
+"Order Id" = "رقم الطلب";
+"Conformation" = "تأكيد";
+"Do you want to reject the order" = "هل تريد رفض الطلب";
+"rejected successfully" = "تم الرفض بنجاح";
 
 
 

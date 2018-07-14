@@ -27,7 +27,7 @@ class WorkFlowReturnViewController: UIViewController, UITableViewDataSource, UIT
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "Work Flow"
+        title = "Work Flow".localize()
         setViewAlignment()
     }
 
@@ -38,9 +38,7 @@ class WorkFlowReturnViewController: UIViewController, UITableViewDataSource, UIT
     // -- MARK: Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if workFlowArray.count == 0{
-            emptyMessage(message: "No Data".localize(), viewController: self, tableView: workFlowReturnTableview)
-        }
+        emptyMessage(viewController: self, tableView: workFlowReturnTableview, isEmpty: workFlowArray.count == 0)
         return workFlowArray.count
     }
     

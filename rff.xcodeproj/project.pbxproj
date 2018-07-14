@@ -94,14 +94,8 @@
 		C078EBC020A85A8500E0B812 /* SalesInbox.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBBF20A85A8500E0B812 /* SalesInbox.storyboard */; };
 		C078EBC220A85AB800E0B812 /* SalesOrderApproval.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBC120A85AB800E0B812 /* SalesOrderApproval.storyboard */; };
 		C078EBC420A85B1900E0B812 /* SalesReturnApproval.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBC320A85B1900E0B812 /* SalesReturnApproval.storyboard */; };
-		C078EBC620A85B3900E0B812 /* SalesPromotionApproval.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBC520A85B3900E0B812 /* SalesPromotionApproval.storyboard */; };
 		C078EBC820A85B5D00E0B812 /* SalesOrderRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBC720A85B5D00E0B812 /* SalesOrderRequest.storyboard */; };
 		C078EBCA20A85B8200E0B812 /* ReturnOrderRequests.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBC920A85B8200E0B812 /* ReturnOrderRequests.storyboard */; };
-		C078EBCC20A85B9F00E0B812 /* PromotionRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBCB20A85B9F00E0B812 /* PromotionRequest.storyboard */; };
-		C078EBCE20A85BDB00E0B812 /* OthaimSalesStatus.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBCD20A85BDB00E0B812 /* OthaimSalesStatus.storyboard */; };
-		C078EBD020A85BF700E0B812 /* SalesPlanSummay.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBCF20A85BF700E0B812 /* SalesPlanSummay.storyboard */; };
-		C078EBD220A85C1600E0B812 /* SalesPersonAreaSetup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBD120A85C1600E0B812 /* SalesPersonAreaSetup.storyboard */; };
-		C078EBD420A85C3300E0B812 /* SalesStoreUpdate.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBD320A85C3300E0B812 /* SalesStoreUpdate.storyboard */; };
 		C078EBD820A85CC800E0B812 /* Report.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBD720A85CC800E0B812 /* Report.storyboard */; };
 		C07C54CD20ECD78100834044 /* AttachmentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C54CC20ECD78100834044 /* AttachmentHandler.swift */; };
 		C08A267D20A6E2AB0028052C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A267C20A6E2AB0028052C /* HomeViewController.swift */; };
@@ -143,14 +137,8 @@
 		C08A26D520A6E7DB0028052C /* SalesInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26D420A6E7DB0028052C /* SalesInboxViewController.swift */; };
 		C08A26D720A6E7EC0028052C /* SalesOrderApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26D620A6E7EC0028052C /* SalesOrderApprovalViewController.swift */; };
 		C08A26D920A6E7FC0028052C /* SalesReturnApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26D820A6E7FC0028052C /* SalesReturnApprovalViewController.swift */; };
-		C08A26DB20A6E80B0028052C /* SalesPromotionApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26DA20A6E80B0028052C /* SalesPromotionApprovalViewController.swift */; };
 		C08A26DD20A6E8200028052C /* SalesOrderRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26DC20A6E8200028052C /* SalesOrderRequestsViewController.swift */; };
 		C08A26DF20A6E8340028052C /* ReturnOrderRequestsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26DE20A6E8340028052C /* ReturnOrderRequestsViewController.swift */; };
-		C08A26E120A6E8510028052C /* PromotionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26E020A6E8510028052C /* PromotionRequestViewController.swift */; };
-		C08A26E320A6E8660028052C /* OthaimSalesStatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26E220A6E8660028052C /* OthaimSalesStatusViewController.swift */; };
-		C08A26E520A6E8760028052C /* SalesPlanSummaryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26E420A6E8760028052C /* SalesPlanSummaryViewController.swift */; };
-		C08A26E720A6E88D0028052C /* SalesPersonAreaSetupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26E620A6E88D0028052C /* SalesPersonAreaSetupViewController.swift */; };
-		C08A26E920A6E8A10028052C /* SalesStoreUpdateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26E820A6E8A10028052C /* SalesStoreUpdateViewController.swift */; };
 		C08A26ED20A6E8B50028052C /* ReportViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A26EC20A6E8B50028052C /* ReportViewController.swift */; };
 		C09F1E8320A984E4005F4C23 /* EmployeeInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C09F1E8220A984E4005F4C23 /* EmployeeInfoTableViewCell.swift */; };
 		C0A8446420E7444E0042F2AA /* SalesOrderItemsDetailsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0A8446320E7444E0042F2AA /* SalesOrderItemsDetailsModel.swift */; };
@@ -176,19 +164,15 @@
 		C0B3A31B20A2F71800A03211 /* ListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B3A31A20A2F71800A03211 /* ListTableViewCell.swift */; };
 		C0B5359320B2B565007EF65F /* AlertMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B5359220B2B565007EF65F /* AlertMessage.swift */; };
 		C0B7F4BE20A1A89F007D1F67 /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B7F4BD20A1A89F007D1F67 /* Section.swift */; };
-		C0B8828420CFAB2800237010 /* AddReturnInvoiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B8828320CFAB2800237010 /* AddReturnInvoiceViewController.swift */; };
 		C0B90AD620B6C10000760FD0 /* VacationsDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B90AD520B6C10000760FD0 /* VacationsDetailsViewController.swift */; };
 		C0B90AD820B6C75300760FD0 /* BlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0B90AD720B6C75300760FD0 /* BlackBox.swift */; };
-		C0BBF49A20E8C3710051D3E2 /* RORModul.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF49920E8C3710051D3E2 /* RORModul.swift */; };
 		C0BBF49C20E8C68E0051D3E2 /* SalesReturn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF49B20E8C68E0051D3E2 /* SalesReturn.swift */; };
 		C0BBF49E20E8C6AD0051D3E2 /* ArrayOfSalesReturn.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF49D20E8C6AD0051D3E2 /* ArrayOfSalesReturn.swift */; };
-		C0BBF4A020E8E17B0051D3E2 /* ReturnStoreViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF49F20E8E17B0051D3E2 /* ReturnStoreViewController.swift */; };
-		C0BBF4A220E8EE6B0051D3E2 /* ReturnCreditDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF4A120E8EE6B0051D3E2 /* ReturnCreditDetailsViewController.swift */; };
-		C0BBF4A420E8F3D30051D3E2 /* StoreAndCreditCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BBF4A320E8F3D30051D3E2 /* StoreAndCreditCell.swift */; };
 		C0BC474B20EE024200D0ACD0 /* ArrayOfAnyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BC474A20EE024200D0ACD0 /* ArrayOfAnyType.swift */; };
 		C0BE2E4420CDD540005F8B4A /* TransferPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE2E4320CDD540005F8B4A /* TransferPagesCell.swift */; };
 		C0BE2E4620CDD553005F8B4A /* ReturnPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE2E4520CDD553005F8B4A /* ReturnPagesCell.swift */; };
-		C0C2C50D20F33C7000016C08 /* PromotionDerailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C2C50C20F33C7000016C08 /* PromotionDerailsViewController.swift */; };
+		C0CB9CFF20F5F0EB001502E7 /* ROActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB9CFE20F5F0EB001502E7 /* ROActions.swift */; };
+		C0CB9D0120F5FAF3001502E7 /* ExtensionOfReturnOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB9D0020F5FAF3001502E7 /* ExtensionOfReturnOrder.swift */; };
 		C0CE40C820BC14C600A06CB4 /* EmpVac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE40C420BC14C400A06CB4 /* EmpVac.swift */; };
 		C0CE40C920BC14C600A06CB4 /* ArrayOfEmpVac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE40C520BC14C400A06CB4 /* ArrayOfEmpVac.swift */; };
 		C0CE40CA20BC14C600A06CB4 /* Task_Inbox.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE40C620BC14C500A06CB4 /* Task_Inbox.swift */; };
@@ -301,14 +285,8 @@
 		C078EBBF20A85A8500E0B812 /* SalesInbox.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesInbox.storyboard; sourceTree = "<group>"; };
 		C078EBC120A85AB800E0B812 /* SalesOrderApproval.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesOrderApproval.storyboard; sourceTree = "<group>"; };
 		C078EBC320A85B1900E0B812 /* SalesReturnApproval.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesReturnApproval.storyboard; sourceTree = "<group>"; };
-		C078EBC520A85B3900E0B812 /* SalesPromotionApproval.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesPromotionApproval.storyboard; sourceTree = "<group>"; };
 		C078EBC720A85B5D00E0B812 /* SalesOrderRequest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesOrderRequest.storyboard; sourceTree = "<group>"; };
 		C078EBC920A85B8200E0B812 /* ReturnOrderRequests.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ReturnOrderRequests.storyboard; sourceTree = "<group>"; };
-		C078EBCB20A85B9F00E0B812 /* PromotionRequest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PromotionRequest.storyboard; sourceTree = "<group>"; };
-		C078EBCD20A85BDB00E0B812 /* OthaimSalesStatus.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = OthaimSalesStatus.storyboard; sourceTree = "<group>"; };
-		C078EBCF20A85BF700E0B812 /* SalesPlanSummay.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesPlanSummay.storyboard; sourceTree = "<group>"; };
-		C078EBD120A85C1600E0B812 /* SalesPersonAreaSetup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesPersonAreaSetup.storyboard; sourceTree = "<group>"; };
-		C078EBD320A85C3300E0B812 /* SalesStoreUpdate.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesStoreUpdate.storyboard; sourceTree = "<group>"; };
 		C078EBD720A85CC800E0B812 /* Report.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Report.storyboard; sourceTree = "<group>"; };
 		C07C54CC20ECD78100834044 /* AttachmentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentHandler.swift; sourceTree = "<group>"; };
 		C08A267C20A6E2AB0028052C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -350,14 +328,8 @@
 		C08A26D420A6E7DB0028052C /* SalesInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesInboxViewController.swift; sourceTree = "<group>"; };
 		C08A26D620A6E7EC0028052C /* SalesOrderApprovalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesOrderApprovalViewController.swift; sourceTree = "<group>"; };
 		C08A26D820A6E7FC0028052C /* SalesReturnApprovalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReturnApprovalViewController.swift; sourceTree = "<group>"; };
-		C08A26DA20A6E80B0028052C /* SalesPromotionApprovalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesPromotionApprovalViewController.swift; sourceTree = "<group>"; };
 		C08A26DC20A6E8200028052C /* SalesOrderRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesOrderRequestsViewController.swift; sourceTree = "<group>"; };
 		C08A26DE20A6E8340028052C /* ReturnOrderRequestsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnOrderRequestsViewController.swift; sourceTree = "<group>"; };
-		C08A26E020A6E8510028052C /* PromotionRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionRequestViewController.swift; sourceTree = "<group>"; };
-		C08A26E220A6E8660028052C /* OthaimSalesStatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OthaimSalesStatusViewController.swift; sourceTree = "<group>"; };
-		C08A26E420A6E8760028052C /* SalesPlanSummaryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesPlanSummaryViewController.swift; sourceTree = "<group>"; };
-		C08A26E620A6E88D0028052C /* SalesPersonAreaSetupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesPersonAreaSetupViewController.swift; sourceTree = "<group>"; };
-		C08A26E820A6E8A10028052C /* SalesStoreUpdateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesStoreUpdateViewController.swift; sourceTree = "<group>"; };
 		C08A26EC20A6E8B50028052C /* ReportViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReportViewController.swift; sourceTree = "<group>"; };
 		C09F1E8220A984E4005F4C23 /* EmployeeInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeInfoTableViewCell.swift; sourceTree = "<group>"; };
 		C0A8446320E7444E0042F2AA /* SalesOrderItemsDetailsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesOrderItemsDetailsModel.swift; sourceTree = "<group>"; };
@@ -384,19 +356,15 @@
 		C0B3A31A20A2F71800A03211 /* ListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListTableViewCell.swift; sourceTree = "<group>"; };
 		C0B5359220B2B565007EF65F /* AlertMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessage.swift; sourceTree = "<group>"; };
 		C0B7F4BD20A1A89F007D1F67 /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
-		C0B8828320CFAB2800237010 /* AddReturnInvoiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddReturnInvoiceViewController.swift; sourceTree = "<group>"; };
 		C0B90AD520B6C10000760FD0 /* VacationsDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationsDetailsViewController.swift; sourceTree = "<group>"; };
 		C0B90AD720B6C75300760FD0 /* BlackBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlackBox.swift; sourceTree = "<group>"; };
-		C0BBF49920E8C3710051D3E2 /* RORModul.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RORModul.swift; sourceTree = "<group>"; };
 		C0BBF49B20E8C68E0051D3E2 /* SalesReturn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesReturn.swift; sourceTree = "<group>"; };
 		C0BBF49D20E8C6AD0051D3E2 /* ArrayOfSalesReturn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfSalesReturn.swift; sourceTree = "<group>"; };
-		C0BBF49F20E8E17B0051D3E2 /* ReturnStoreViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnStoreViewController.swift; sourceTree = "<group>"; };
-		C0BBF4A120E8EE6B0051D3E2 /* ReturnCreditDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnCreditDetailsViewController.swift; sourceTree = "<group>"; };
-		C0BBF4A320E8F3D30051D3E2 /* StoreAndCreditCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoreAndCreditCell.swift; sourceTree = "<group>"; };
 		C0BC474A20EE024200D0ACD0 /* ArrayOfAnyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfAnyType.swift; sourceTree = "<group>"; };
 		C0BE2E4320CDD540005F8B4A /* TransferPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferPagesCell.swift; sourceTree = "<group>"; };
 		C0BE2E4520CDD553005F8B4A /* ReturnPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnPagesCell.swift; sourceTree = "<group>"; };
-		C0C2C50C20F33C7000016C08 /* PromotionDerailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromotionDerailsViewController.swift; sourceTree = "<group>"; };
+		C0CB9CFE20F5F0EB001502E7 /* ROActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ROActions.swift; sourceTree = "<group>"; };
+		C0CB9D0020F5FAF3001502E7 /* ExtensionOfReturnOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOfReturnOrder.swift; sourceTree = "<group>"; };
 		C0CE40C420BC14C400A06CB4 /* EmpVac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmpVac.swift; sourceTree = "<group>"; };
 		C0CE40C520BC14C400A06CB4 /* ArrayOfEmpVac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfEmpVac.swift; sourceTree = "<group>"; };
 		C0CE40C620BC14C500A06CB4 /* Task_Inbox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task_Inbox.swift; sourceTree = "<group>"; };
@@ -789,14 +757,8 @@
 		C078EB5D20A84E6300E0B812 /* Sales */ = {
 			isa = PBXGroup;
 			children = (
-				C078EBD320A85C3300E0B812 /* SalesStoreUpdate.storyboard */,
-				C078EBD120A85C1600E0B812 /* SalesPersonAreaSetup.storyboard */,
-				C078EBCF20A85BF700E0B812 /* SalesPlanSummay.storyboard */,
-				C078EBCD20A85BDB00E0B812 /* OthaimSalesStatus.storyboard */,
-				C078EBCB20A85B9F00E0B812 /* PromotionRequest.storyboard */,
 				C078EBC920A85B8200E0B812 /* ReturnOrderRequests.storyboard */,
 				C078EBC720A85B5D00E0B812 /* SalesOrderRequest.storyboard */,
-				C078EBC520A85B3900E0B812 /* SalesPromotionApproval.storyboard */,
 				C078EBC320A85B1900E0B812 /* SalesReturnApproval.storyboard */,
 				C078EBC120A85AB800E0B812 /* SalesOrderApproval.storyboard */,
 				C078EBBF20A85A8500E0B812 /* SalesInbox.storyboard */,
@@ -932,14 +894,8 @@
 				C03C7C0B20C7D98900D8248C /* Sales Inbox */,
 				C05777A920CE799F00423FE7 /* sales order approval */,
 				C05777AC20CE908700423FE7 /* sales return approval */,
-				C0C2C50A20F3269400016C08 /* sales promotions approval */,
 				C008654E20C943DC006CD88E /* sales order request */,
 				C0B8828220CFAAFC00237010 /* return order request */,
-				C0C2C50B20F32A5000016C08 /* sales promotions request */,
-				C08A26E220A6E8660028052C /* OthaimSalesStatusViewController.swift */,
-				C08A26E420A6E8760028052C /* SalesPlanSummaryViewController.swift */,
-				C08A26E620A6E88D0028052C /* SalesPersonAreaSetupViewController.swift */,
-				C08A26E820A6E8A10028052C /* SalesStoreUpdateViewController.swift */,
 			);
 			path = Sales;
 			sourceTree = "<group>";
@@ -1059,35 +1015,13 @@
 			isa = PBXGroup;
 			children = (
 				C08A26DE20A6E8340028052C /* ReturnOrderRequestsViewController.swift */,
-				C0B8828320CFAB2800237010 /* AddReturnInvoiceViewController.swift */,
-				C0BBF4A320E8F3D30051D3E2 /* StoreAndCreditCell.swift */,
-				C0BBF49F20E8E17B0051D3E2 /* ReturnStoreViewController.swift */,
-				C0BBF4A120E8EE6B0051D3E2 /* ReturnCreditDetailsViewController.swift */,
+				C0CB9D0020F5FAF3001502E7 /* ExtensionOfReturnOrder.swift */,
 				C0489E9520E4CE4900CF6167 /* ReturnItemSelectedViewController.swift */,
 				C0489E9720E4CE6800CF6167 /* ReturnItemSelectedCell.swift */,
-				C0AD50DE20F0B154007808C6 /* UplaodedFileTableViewController.swift */,
-				C0AD50E020F0B2A6007808C6 /* UploadedFileCell.swift */,
-				C00478F120F2088E002CAA44 /* FilePreviewViewController.swift */,
-				C0BBF49920E8C3710051D3E2 /* RORModul.swift */,
+				C0CB9CFE20F5F0EB001502E7 /* ROActions.swift */,
+				C0F2A64A20F7406D005A2984 /* attachments */,
 			);
 			path = "return order request";
-			sourceTree = "<group>";
-		};
-		C0C2C50A20F3269400016C08 /* sales promotions approval */ = {
-			isa = PBXGroup;
-			children = (
-				C08A26DA20A6E80B0028052C /* SalesPromotionApprovalViewController.swift */,
-			);
-			path = "sales promotions approval";
-			sourceTree = "<group>";
-		};
-		C0C2C50B20F32A5000016C08 /* sales promotions request */ = {
-			isa = PBXGroup;
-			children = (
-				C08A26E020A6E8510028052C /* PromotionRequestViewController.swift */,
-				C0C2C50C20F33C7000016C08 /* PromotionDerailsViewController.swift */,
-			);
-			path = "sales promotions request";
 			sourceTree = "<group>";
 		};
 		C0E6E26520D7F6F000E7E3C0 /* supportedFilesws */ = {
@@ -1100,6 +1034,16 @@
 				C035314620B1875700E0DBD9 /* SWXMLHash+TypeConversion.swift */,
 			);
 			path = supportedFilesws;
+			sourceTree = "<group>";
+		};
+		C0F2A64A20F7406D005A2984 /* attachments */ = {
+			isa = PBXGroup;
+			children = (
+				C0AD50DE20F0B154007808C6 /* UplaodedFileTableViewController.swift */,
+				C0AD50E020F0B2A6007808C6 /* UploadedFileCell.swift */,
+				C00478F120F2088E002CAA44 /* FilePreviewViewController.swift */,
+			);
+			path = attachments;
 			sourceTree = "<group>";
 		};
 		C0FA5C7720B56C0F00FF94E8 /* EmployeeVacation */ = {
@@ -1215,7 +1159,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C078EB8220A8522700E0B812 /* SalaryChange.storyboard in Resources */,
-				C078EBCC20A85B9F00E0B812 /* PromotionRequest.storyboard in Resources */,
 				C078EBBA20A8596900E0B812 /* TaskDetails.storyboard in Resources */,
 				C078EB9020A8540500E0B812 /* OverTimeCalculation.storyboard in Resources */,
 				C078EBB420A858E300E0B812 /* TrackPaymentReq.storyboard in Resources */,
@@ -1225,16 +1168,12 @@
 				C078EB8C20A852EB00E0B812 /* InOutDeduction.storyboard in Resources */,
 				C078EBB220A858C000E0B812 /* NewPaymentReq.storyboard in Resources */,
 				C078EBA820A856BB00E0B812 /* ITRequest.storyboard in Resources */,
-				C078EBC620A85B3900E0B812 /* SalesPromotionApproval.storyboard in Resources */,
 				C078EBAC20A8581D00E0B812 /* AddCategory.storyboard in Resources */,
 				C078EBA620A8560200E0B812 /* Purchase SystemRFF.storyboard in Resources */,
-				C078EBD420A85C3300E0B812 /* SalesStoreUpdate.storyboard in Resources */,
 				C078EBC020A85A8500E0B812 /* SalesInbox.storyboard in Resources */,
 				C0617577209EF793007F8E59 /* LaunchScreen.storyboard in Resources */,
 				C078EB8820A8529A00E0B812 /* JobTitleChange.storyboard in Resources */,
 				C078EBA220A855B500E0B812 /* PurchaseInbox.storyboard in Resources */,
-				C078EBCE20A85BDB00E0B812 /* OthaimSalesStatus.storyboard in Resources */,
-				C078EBD220A85C1600E0B812 /* SalesPersonAreaSetup.storyboard in Resources */,
 				C078EB7820A8512D00E0B812 /* Resign.storyboard in Resources */,
 				C078EBC820A85B5D00E0B812 /* SalesOrderRequest.storyboard in Resources */,
 				C078EBBC20A859BA00E0B812 /* NewComplain.storyboard in Resources */,
@@ -1251,7 +1190,6 @@
 				C0E6E26A20D7F78800E7E3C0 /* Localizable.strings in Resources */,
 				C078EBC420A85B1900E0B812 /* SalesReturnApproval.storyboard in Resources */,
 				C078EBB020A8586400E0B812 /* DeviceDetails.storyboard in Resources */,
-				C078EBD020A85BF700E0B812 /* SalesPlanSummay.storyboard in Resources */,
 				C078EBB820A8594500E0B812 /* NewTask.storyboard in Resources */,
 				C078EB8020A8520600E0B812 /* EmployeeInfo.storyboard in Resources */,
 				C0617572209EF792007F8E59 /* Main.storyboard in Resources */,
@@ -1319,14 +1257,12 @@
 				C035314D20B1875700E0DBD9 /* SWXMLHash.swift in Sources */,
 				C08A269120A6E38C0028052C /* LoanListViewController.swift in Sources */,
 				C08A269B20A6E4090028052C /* TicketChangeViewController.swift in Sources */,
-				C08A26E920A6E8A10028052C /* SalesStoreUpdateViewController.swift in Sources */,
-				C08A26E320A6E8660028052C /* OthaimSalesStatusViewController.swift in Sources */,
 				C05777AE20CE90B200423FE7 /* SalesReturnApprovalCellCell.swift in Sources */,
 				C0D2ABA520A805EE001AE4FD /* InboxTableViewController.swift in Sources */,
 				C03C7C1320C7DA3D00D8248C /* TransferStyleCell.swift in Sources */,
+				C0CB9CFF20F5F0EB001502E7 /* ROActions.swift in Sources */,
 				C00851DA20EA1D37009673C5 /* UserCommentReturnViewController.swift in Sources */,
 				C08A26D720A6E7EC0028052C /* SalesOrderApprovalViewController.swift in Sources */,
-				C0BBF4A020E8E17B0051D3E2 /* ReturnStoreViewController.swift in Sources */,
 				C0BE2E4420CDD540005F8B4A /* TransferPagesCell.swift in Sources */,
 				C0CE40CB20BC14C600A06CB4 /* ArrayOfTask_Inbox.swift in Sources */,
 				C0B90AD820B6C75300760FD0 /* BlackBox.swift in Sources */,
@@ -1334,6 +1270,7 @@
 				C05777AB20CE79CB00423FE7 /* SalesOrderApprovalCell.swift in Sources */,
 				C08A26D320A6E7C60028052C /* MyComplainViewController.swift in Sources */,
 				C08A26DD20A6E8200028052C /* SalesOrderRequestsViewController.swift in Sources */,
+				C0CB9D0120F5FAF3001502E7 /* ExtensionOfReturnOrder.swift in Sources */,
 				C08A269520A6E3C10028052C /* EmployeeInfoViewController.swift in Sources */,
 				C0AD50E120F0B2A6007808C6 /* UploadedFileCell.swift in Sources */,
 				C00707FE20A0617000320ED4 /* SlideMenuViewController.swift in Sources */,
@@ -1345,7 +1282,6 @@
 				C05777B020CE944D00423FE7 /* DetailsSalesOrderApprovalViewController.swift in Sources */,
 				C08A268B20A6E32B0028052C /* ResignViewController.swift in Sources */,
 				C008654D20C84E93006CD88E /* SalesInboxWebPageViewController.swift in Sources */,
-				C08A26E520A6E8760028052C /* SalesPlanSummaryViewController.swift in Sources */,
 				C08A269D20A6E41E0028052C /* JobTitleChangeViewController.swift in Sources */,
 				C0D2ABA720A80606001AE4FD /* InboxTableViewCell.swift in Sources */,
 				C035314A20B1875700E0DBD9 /* Login.swift in Sources */,
@@ -1386,14 +1322,11 @@
 				C08A268F20A6E35D0028052C /* ReturnFromVacationViewController.swift in Sources */,
 				C005CB7520B40B7600875740 /* ArrayOfInboxGrid.swift in Sources */,
 				C07C54CD20ECD78100834044 /* AttachmentHandler.swift in Sources */,
-				C08A26DB20A6E80B0028052C /* SalesPromotionApprovalViewController.swift in Sources */,
 				C0BBF49C20E8C68E0051D3E2 /* SalesReturn.swift in Sources */,
 				C0B3A31B20A2F71800A03211 /* ListTableViewCell.swift in Sources */,
 				C0FFEE2B20A4412C00712531 /* slideMenuExtension.swift in Sources */,
-				C0BBF49A20E8C3710051D3E2 /* RORModul.swift in Sources */,
 				C0A9E71A20DE2162000C7A0D /* UserCommentCell.swift in Sources */,
 				C0489E9820E4CE6800CF6167 /* ReturnItemSelectedCell.swift in Sources */,
-				C0BBF4A220E8EE6B0051D3E2 /* ReturnCreditDetailsViewController.swift in Sources */,
 				C08A26B920A6E6E80028052C /* PurchaseViewController.swift in Sources */,
 				C0D2ABA920A829A3001AE4FD /* WebFormViewController.swift in Sources */,
 				C0A9E70E20DE197D000C7A0D /* ItemsDetailsViewController.swift in Sources */,
@@ -1406,7 +1339,6 @@
 				C0B7F4BE20A1A89F007D1F67 /* Section.swift in Sources */,
 				C08A26BF20A6E71D0028052C /* ITMasterFileViewController.swift in Sources */,
 				C08A26BB20A6E6FF0028052C /* PurchaseSystemRiyadhFoodViewController.swift in Sources */,
-				C08A26E720A6E88D0028052C /* SalesPersonAreaSetupViewController.swift in Sources */,
 				C0F4275B20AD9E4200FD7CDB /* PickerviewAction.swift in Sources */,
 				C0E6E26920D7F75600E7E3C0 /* LanguageManger.swift in Sources */,
 				C005CB7620B40B7600875740 /* ArrayOfListType.swift in Sources */,
@@ -1427,7 +1359,6 @@
 				C0BC474B20EE024200D0ACD0 /* ArrayOfAnyType.swift in Sources */,
 				C08A268720A6E3140028052C /* LoanViewController.swift in Sources */,
 				C0A9E72020DE4202000C7A0D /* ItemReturnDetailsViewController.swift in Sources */,
-				C08A26E120A6E8510028052C /* PromotionRequestViewController.swift in Sources */,
 				C0B1EBCA20DB92F600E5E4C5 /* ItemAddedModel.swift in Sources */,
 				C08A26CF20A6E7A10028052C /* TaskDetailsViewController.swift in Sources */,
 				C08A267F20A6E2CA0028052C /* ChangePasswordViewController.swift in Sources */,
@@ -1446,14 +1377,11 @@
 				C03C7C0F20C7DA0B00D8248C /* OrderStyleCell.swift in Sources */,
 				C0A9E70C20DE11C4000C7A0D /* DetailsSalesOrderApprovalCell.swift in Sources */,
 				C0A9E72A20DE42DD000C7A0D /* WorkFlowReturnCell.swift in Sources */,
-				C0B8828420CFAB2800237010 /* AddReturnInvoiceViewController.swift in Sources */,
 				C08A26C320A6E73B0028052C /* MyRequestsViewController.swift in Sources */,
 				C03C7C0D20C7D9FF00D8248C /* OrderStyleTableViewController.swift in Sources */,
 				C0A9E72420DE4231000C7A0D /* WorkFlowReturnViewController.swift in Sources */,
-				C0BBF4A420E8F3D30051D3E2 /* StoreAndCreditCell.swift in Sources */,
 				C0489E9620E4CE4900CF6167 /* ReturnItemSelectedViewController.swift in Sources */,
 				C08A269320A6E3AC0028052C /* SalaryPreviewViewController.swift in Sources */,
-				C0C2C50D20F33C7000016C08 /* PromotionDerailsViewController.swift in Sources */,
 				C035314920B1875700E0DBD9 /* SoapHttpClientExtension.swift in Sources */,
 				C061756D209EF792007F8E59 /* AppDelegate.swift in Sources */,
 				C08A26CD20A6E7970028052C /* NewTaskViewController.swift in Sources */,

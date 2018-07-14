@@ -38,9 +38,7 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if userCommentArray.count == 0{
-            emptyMessage(message: "No Data".localize(), viewController: self, tableView: userCommentTableView)
-        }
+        emptyMessage(viewController: self, tableView: userCommentTableView, isEmpty: userCommentArray.count == 0)
         return userCommentArray.count
     }
     

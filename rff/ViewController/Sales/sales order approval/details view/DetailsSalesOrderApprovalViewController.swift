@@ -188,6 +188,8 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? DetailsSalesOrderApprovalCell{
             cell.textLabel?.text = cellTitleArray[indexPath.row]
+            cell.textLabel?.textAlignment = LanguageManger.isArabicLanguage ? .right : .left
+            
             return cell
         }
         return UITableViewCell()

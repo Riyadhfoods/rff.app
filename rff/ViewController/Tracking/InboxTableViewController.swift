@@ -51,9 +51,7 @@ class InboxTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if arrayOfInboxGrid.count == 0 {
-            emptyMessage(message: "No data".localize(), viewController: self, tableView: self.tableView)
-        }
+        emptyMessage(viewController: self, tableView: self.tableView, isEmpty: arrayOfInboxGrid.count == 0)
         return arrayOfInboxGrid.count
     }
 

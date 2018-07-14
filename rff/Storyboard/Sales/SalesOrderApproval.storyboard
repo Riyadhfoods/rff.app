@@ -239,12 +239,6 @@
                         <barButtonItem key="leftBarButtonItem" image="menu" landscapeImage="barButtonItem:1g8-EQ-Z9p:landscapeImage" id="1g8-EQ-Z9p">
                             <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="signOut" id="n9i-SD-tTd">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="signOutBuuttonTapped:" destination="J1q-dH-lsW" id="Cbd-hb-2u0"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="tCU-86-HhO" id="VAI-Oj-wh0"/>
@@ -3255,6 +3249,5 @@ WQAAAAAAAAAAAAAAAAABvBk
         </image>
         <image name="checkBox" width="25" height="25"/>
         <image name="menu" width="25" height="25"/>
-        <image name="signOut" width="25" height="25"/>
     </resources>
 </document>

@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ItemUpdatedValuesDelegate {
+    func updateItemArray(itemReturnDetails: [SalesReturnItemsDetailsModel])
+}
+
 class ItemReturnDetailsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     // -- MARK: IBOutlet
@@ -20,11 +24,15 @@ class ItemReturnDetailsViewController: UIViewController, UITableViewDelegate, UI
     let cellId = "cell_itemReturnDetails"
     var itemsDetailsArray = [SalesReturn]()
     var isChecked: Bool = true
+    var itemReturnDetails = [SalesReturnItemsDetailsModel]()
+    var delegate: ItemUpdatedValuesDelegate?
     
     // -- MARK: viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Item(s) Details".localize()
         setViewAlignment()
     }
 
@@ -35,15 +43,15 @@ class ItemReturnDetailsViewController: UIViewController, UITableViewDelegate, UI
     // -- MARK: Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return itemsDetailsArray.count
+        return itemReturnDetails.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ItemReturnDetailsCell{
             let itemDetail = itemReturnDetails[indexPath.row]
-            itemReturnDetails[indexPath.row].serialNumber = "\(indexPath.row + 1)"
+            //itemReturnDetails[indexPath.row].serialNumber = "\(indexPath.row + 1)"
             
-            cell.num.text = itemDetail.serialNumber
+            cell.num.text = "\(indexPath.row + 1)"
             cell.invoiceNo.text = itemDetail.InvoiceNumber
             cell.lotNo.text =  itemDetail.LOTNumber
             cell.itemNo.text = itemDetail.ItemNumber
@@ -77,10 +85,12 @@ class ItemReturnDetailsViewController: UIViewController, UITableViewDelegate, UI
         }
         
         itemReturnDetails[sender.tag].isItemChecked = isChecked
-        itemReturnDetailsTableview.reloadData()
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        itemReturnDetailsTableview.reloadRows(at: [indexPath], with: .none)
+        if delegate != nil{
+            delegate?.updateItemArray(itemReturnDetails: itemReturnDetails)
+        }
     }
-    
-
 }
 
 

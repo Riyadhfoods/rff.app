@@ -85,6 +85,7 @@
 "CHANGE" = "CHANGE";
 "Password Change Successfully" = "Password Change Successfully";
 "Error!" = "Error!";
+"Error" = "Error";
 
 // Tracking inbox
 "Select list" = "Select list";
@@ -221,52 +222,37 @@
 "Total Price" = "Total Price";
 "SEND" = "SEND";
 
-//
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-//"Company" = "Company";
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+// Return Order Request
+"Return" = "Return";
+"Return ID" = "Return ID";
+"SELECT" = "SELECT";
+"Item(s) Details" = "Item(s) Details";
+"Cutomer Aging" = "Cutomer Aging";
+"User Comment" = "User Comment";
+"Work Flow" = "Work Flow";
+"Attachment Files" = "Attachment Files";
+"Approve" = "Approve";
+"Reject" = "Reject";
+"Invoice No." = "Invoice No.";
+"LOT No." = "LOT No.";
+"Item No." = "Item No.";
+"Description" = "Description";
+"Total Cast" = "Total Cast";
+"UOFM" = "UOFM";
+"Return Type" = "Return Type";
+"Comment:" = "Comment:";
+"Emp ID" = "Emp ID";
+"Emp Name" = "Emp Name";
+"Trans. Date" = "Trans. Date";
+"Emp. Role" = "Emp. Role";
+"Do you want to approve the order" = "Do you want to approve the order";
+"OK" = "OK";
+"Saved" = "Saved";
+"Approved successfully" = "Approved successfully";
+"Order Id" = "Order Id";
+"Conformation" = "Conformation";
+"Do you want to reject the order" = "Do you want to reject the order";
+"rejected successfully" = "rejected successfully";
 
 
 

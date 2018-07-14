@@ -86,10 +86,6 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedListIndex = row
     }
-    
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        AuthServices().logout(self)
-    }
 
     @IBAction func searchButtonTapped(_ sender: Any) {
         view.bringSubview(toFront: activityIndicator)

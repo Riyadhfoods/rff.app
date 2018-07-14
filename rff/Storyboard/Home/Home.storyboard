@@ -160,12 +160,6 @@
                         <barButtonItem key="leftBarButtonItem" image="menu" landscapeImage="barButtonItem:BaD-Ai-KDA:landscapeImage" style="plain" id="BaD-Ai-KDA">
                             <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="signOut" id="0SW-Rd-ONL">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="signOutBuuttonTapped:" destination="ZTh-AK-jko" id="TM0-Tf-G4A"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="menuBtn" destination="BaD-Ai-KDA" id="rv3-Ca-bdu"/>
@@ -2110,6 +2104,5 @@ WQAAAAAAAAAAAAAAAAABvBk
 </mutableData>
         </image>
         <image name="menu" width="25" height="25"/>
-        <image name="signOut" width="25" height="25"/>
     </resources>
 </document>

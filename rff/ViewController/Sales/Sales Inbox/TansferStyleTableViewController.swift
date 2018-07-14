@@ -68,10 +68,7 @@ class TansferStyleTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if isSalesArrayEmpty{
-            emptyMessage(message: "No Data".localize(), viewController: self, tableView: tableView)
-            return salesArray.count
-        }
+        emptyMessage(viewController: self, tableView: tableView, isEmpty: isSalesArrayEmpty)
         return salesArray.count + 1
     }
 

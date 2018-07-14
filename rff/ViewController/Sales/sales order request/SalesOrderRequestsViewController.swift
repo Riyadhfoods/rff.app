@@ -347,7 +347,7 @@ class SalesOrderRequestsViewController: UIViewController {
     }
     
     func setCountLabel(c: Int){
-        itemButtonOutlet.title = "Items (".localize() + "\(c))"
+        itemButtonOutlet.title = "ITEMS (".localize() + "\(c))"
     }
     
     func setUpCommentDisplay(){
@@ -452,18 +452,8 @@ class SalesOrderRequestsViewController: UIViewController {
         performSegue(withIdentifier: "showItemAddedList", sender: nil)
     }
     
-    struct oldValue {
-        var name = ""
-        var uofm = ""
-        var qty = ""
-    }
-    
-    var oldItemName = ""
-    var oldItemUofm = ""
-    var oldItemQty = ""
-    var oldValuesArray = [oldValue]()
+   
     var isItemExist = false
-    
     @IBAction func addItemButtonTapped(_ sender: Any) {
         if let itemText = itemsTextfield.text, let unoitText = unoitTextfield.text, let qtyText = qtyTextfield.text{
             itemAddedReceived = webservice.BindPurchaseGridData(quantity: qtyText, quantityrequired: 0.0, ItemId: itemText, unitofmeasure: unoitText, customerid: customerNamesArray[selectedRowForCustomer], loccode: locCodeNumsArray[selectedRowForLocCode])
@@ -473,11 +463,11 @@ class SalesOrderRequestsViewController: UIViewController {
                 return
             }
             
-            if oldValuesArray.isEmpty {
-                addItemAndUpdateOldValues(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
+            if itemAddedArray.isEmpty {
+                addItem(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
             } else {
-                for value in oldValuesArray{
-                    if value.name == itemText && value.uofm == unoitText && value.qty == qtyText{
+                for item in itemAddedArray{
+                    if item.Grid_Desc == itemText && item.Grid_UOM == unoitText && item.Grid_Qty == qtyText{
                         isItemExist = true
                         break
                     }
@@ -488,7 +478,7 @@ class SalesOrderRequestsViewController: UIViewController {
                     }, cancelAction: "No".localize(), self)
                     isItemExist = false
                 } else {
-                    addItemAndUpdateOldValues(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
+                    addItem(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
                 }
             }
         }
@@ -517,12 +507,7 @@ class SalesOrderRequestsViewController: UIViewController {
         AlertMessage().showAlertForXTime(alertTitle: "Item has been Added".localize(), time: 0.5, tagert: self)
     }
     
-    func addItemAndUpdateOldValues(itemText: String, unoitText: String, qtyText: String){
-        addItem(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
-        oldValuesArray.append(oldValue(name: itemText, uofm: unoitText, qty: qtyText))
-    }
-    
-    @IBAction func nextButtonTapped(_ sender: Any) {
+    @IBAction func sendButtonTapped(_ sender: Any) {
         if let companyText = companyTextfield.text,
             let branchText = branchTextfield.text,
             let locCodeText = LocCodeTextfield.text,
@@ -642,6 +627,8 @@ class SalesOrderRequestsViewController: UIViewController {
         setUpDefaultValueFromStoreToQty()
         commentTextview.text = ""
         itemAddedArray.removeAll()
+        storeStackView.isHidden = true
+        viewHolder.isHidden = true
         setCountLabel(c: itemAddedArray.count)
         scrollView.scrollTo(direction: .Top, animated: true)
     }

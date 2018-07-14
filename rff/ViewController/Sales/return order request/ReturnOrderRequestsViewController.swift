@@ -8,7 +8,8 @@
 
 import UIKit
 
-var returnOrderRequestDetails = ROR()
+var fileInfo = [FileModul]()
+var itemsArrayFromWS = [InvoiceItemModel]()
 
 class ReturnOrderRequestsViewController: UIViewController {
 
@@ -25,7 +26,6 @@ class ReturnOrderRequestsViewController: UIViewController {
     @IBOutlet weak var branchTextField: UITextField!
     @IBOutlet weak var showBranchPickerView: UITextField!
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var selectorSuperMarketYes: UIView!
     @IBOutlet weak var selectorSuperMarketNo: UIView!
     @IBOutlet weak var innerSelectorSuperMarketYes: UIView!
@@ -34,7 +34,42 @@ class ReturnOrderRequestsViewController: UIViewController {
     @IBOutlet weak var superMarketNoButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var invoiceDateTextField: UITextField!
+    @IBOutlet weak var invoiceTextField: UITextField!
+    @IBOutlet weak var showInvoicePickerView: UITextField!
+    @IBOutlet weak var itemTextField: UITextField!
+    @IBOutlet weak var showItemPickerView: UITextField!
+    @IBOutlet weak var commentTextView: UITextView!
+    
+    @IBOutlet weak var storeTextfield: UITextField!
+    @IBOutlet weak var showStorePickerViewTextfield: UITextField!
+    @IBOutlet weak var cityTextfield: UITextField!
+    @IBOutlet weak var showCityPickerViewTextfield: UITextField!
+    @IBOutlet weak var salesPersonStoreTextfield: UITextField!
+    @IBOutlet weak var showSalesPersonPickerViewTextfield: UITextField!
+    @IBOutlet weak var merchandiserTextfield: UITextField!
+    @IBOutlet weak var showMerchandiserPickerViewTextfield: UITextField!
+    
+    @IBOutlet weak var creditLimitRight: UILabel!
+    @IBOutlet weak var totalDueRight: UILabel!
+    @IBOutlet weak var upTo31Right: UILabel!
+    @IBOutlet weak var upTo60Right: UILabel!
+    @IBOutlet weak var upTo90Right: UILabel!
+    @IBOutlet weak var upTo120Right: UILabel!
+    @IBOutlet weak var moreThan90Right: UILabel!
+    @IBOutlet weak var statusRight: UILabel!
+    @IBOutlet weak var viewHolder: UIView!
+    
+    @IBOutlet weak var uploadFileOutlet: UIButton!
+    @IBOutlet weak var showFilesOutlet: UIButton!
+    @IBOutlet weak var itemOutlet: UIBarButtonItem!
+    
+    @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var storeStackView: UIStackView!
+    
     // -- MARK: Variables
+    
+    let takeAction = ROActions.shared
     
     let screenSize = AppDelegate().screenSize
     var companyPickerView = UIPickerView()
@@ -42,12 +77,17 @@ class ReturnOrderRequestsViewController: UIViewController {
     var customerPickerView = UIPickerView()
     var branchPickerView = UIPickerView()
     var pickerView = UIPickerView()
-    var companyRow = 0
-    var salesPersonRow = 0
-    var customerRow = 0
-    var branchRow = 0
+    
+    var invoicePickerView: UIPickerView = UIPickerView()
+    var itemPickerView: UIPickerView = UIPickerView()
+    
+    let storePickerView: UIPickerView = UIPickerView()
+    let cityPickerView: UIPickerView = UIPickerView()
+    let salesPersonStorePickerView: UIPickerView = UIPickerView()
+    let merchandiserPickerView: UIPickerView = UIPickerView()
     
     var datePicker = UIDatePicker()
+    var invoiceDatePicker: UIDatePicker = UIDatePicker()
     let currentDate = Date()
     var date: String = ""
     
@@ -64,11 +104,54 @@ class ReturnOrderRequestsViewController: UIViewController {
     var branchArray = [SalesModel]()
     var branchNamesArray = [String]()
     var branchIdArray = [String]()
-
+    
+    var invoiceNameArray: [String] = [String]()
+    var itemNameArray: [String] = [String]()
+    var invoices: [InvoicesModel] = [InvoicesModel]()
+    
+    var invoiceArray = [SalesReturn]()
+    var itemArray = [SalesReturn]()
+    
+    var creditDetailsArray = [SalesReturn]()
+    var creditDetailsArrayReceived = [SalesReturn]()
+    
+    var storeArrayReceived = [SalesModel]()
+    var storeArray = [SalesModel]()
+    var storeIdArray = [String]()
+    var cityArray = [SalesModel]()
+    var salesPersonStoreArray = [SalesModel]()
+    var merchandiserArray = [SalesModel]()
+    
+    var salesSelecteedRow: Int = 0
+    var citySelectedRow: Int = 0
+    var salesperosnSelectedRow: Int = 0
+    var merSelectedRow: Int = 0
+    var isThereStoreId: Bool = true
+    
+    var companyRow = 0
+    var salesPersonRow = 0
+    var customerRow = 0
+    var branchRow = 0
+    
+    var invoiceSelectedRow = 0
+    var itemSelectedRow = 0
+    
+    var count = 0
+    var textField = UITextField()
+    
+    var emp_id = ""
+    var returnId = ""
+    var supermarket = false
+    
+    
     // -- MARK: viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if let userId = AuthServices.currentUserId{
+            emp_id = userId
+        }
         
         setUpViews()
         setViewAlignment()
@@ -86,18 +169,11 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        returnOrderRequestDetails.itemsarrayFromWS.removeAll()
-        returnOrderRequestDetails.invoicesArray.removeAll()
         if companyArray.isEmpty && salespersonArray.isEmpty && branchArray.isEmpty{
             setupArrays()
         }
+        takeAction.setCountForItem(c: itemsArrayFromWS.count, button: itemOutlet)
         
-        if returnOrderRequestDetails.isSendReturnSalesRequestCompleted{
-            initialValues()
-            returnDateTextField.text = ""
-            returnOrderRequestDetails.isSendReturnSalesRequestCompleted = false
-        }
         activityIndicator.stopAnimating()
     }
     
@@ -110,12 +186,32 @@ class ReturnOrderRequestsViewController: UIViewController {
     }
     
     func setUpViews(){
+        setCustomDefaultNav(navItem: navigationItem)
+        
         stackViewWidth.constant = AppDelegate().screenSize.width - 32
         showCompanyPickerView.tintColor = .clear
         returnDateTextField.tintColor = .clear
         showSalesPersonPickerView.tintColor = .clear
         showCustomerPickerView.tintColor = .clear
         showBranchPickerView.tintColor = .clear
+        showInvoicePickerView.tintColor = .clear
+        showInvoicePickerView.tintColor = .clear
+        showItemPickerView.tintColor = .clear
+        showStorePickerViewTextfield.tintColor = .clear
+        showCityPickerViewTextfield.tintColor = .clear
+        showSalesPersonPickerViewTextfield.tintColor = .clear
+        showMerchandiserPickerViewTextfield.tintColor = .clear
+        
+        viewHolder.layer.cornerRadius = 5.0
+        viewHolder.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
+        viewHolder.layer.borderWidth = 1
+        
+        storeStackView.isHidden = true
+        viewHolder.isHidden = true
+        
+        returnDateTextField.delegate = self
+        invoiceDateTextField.delegate = self
+        commentTextView.delegate = self
         
         companyNamesArray = ["Select company"]
         companyIdArray = [" "]
@@ -125,10 +221,15 @@ class ReturnOrderRequestsViewController: UIViewController {
         customerIdArray = [" "]
         branchNamesArray = ["Select branch"]
         branchIdArray = [" "]
+        invoiceNameArray = ["Select invoce"]
+        itemNameArray = [" "]
+        storeIdArray = ["Select store id".localize()]
         
         setupPickerView()
         setupDatePicker()
         setUpSelectors()
+        setUpCommentDisplay()
+        setUpButtonBorderView()
     }
     
     func setupArrays(){
@@ -153,153 +254,410 @@ class ReturnOrderRequestsViewController: UIViewController {
     func initialValues(){
         if !companyArray.isEmpty {
             companyTextField.text = companyNamesArray[1]
-            returnOrderRequestDetails.company = companyNamesArray[1]
-            returnOrderRequestDetails.companyId = companyIdArray[1]
+            companyRow = 1
         } else { companyTextField.text = companyNamesArray[0] }
-        salesPersonTextField.text = salesPersonNamesArray[0]
         customerTextField.text = customerNamesArray[0]
         branchTextField.text = branchNamesArray[0]
-    }
-    
-    func setupPickerView(){
-        PickerviewAction().showPickView(txtfield: showCompanyPickerView, pickerview: companyPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
-        PickerviewAction().showPickView(txtfield: showSalesPersonPickerView, pickerview: salesPersonPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
-        PickerviewAction().showPickView(txtfield: showCustomerPickerView, pickerview: customerPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
-        PickerviewAction().showPickView(txtfield: showBranchPickerView, pickerview: branchPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
-    }
-    
-    func setupDatePicker(){
-        PickerviewAction().showDatePicker(txtfield: returnDateTextField, datePicker: datePicker, title: "Return Date", viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
-    }
-    
-    func setUpSelectors(){
-        let cornerRadiusValueHolder: CGFloat = 12
-        let cornerRadiusValueInner: CGFloat = 11
-        let cornerRadiusValueView: CGFloat = 9
         
+        if salespersonArray.isEmpty{
+            salesPersonTextField.text = salesPersonNamesArray[0]
+        } else {
+            salesPersonTextField.text = salesPersonNamesArray[1]
+            salesPersonRow = 1
+            getCustomers(salesperson: salesPersonIdArray[1])
+        }
+    }
+    
+    let cornerRadiusValueHolder: CGFloat = 12
+    let cornerRadiusValueInner: CGFloat = 11
+    let cornerRadiusValueView: CGFloat = 9
+    func setUpSelectors(){
         selectorSuperMarketYes.layer.cornerRadius = cornerRadiusValueHolder
         selectorSuperMarketNo.layer.cornerRadius = cornerRadiusValueHolder
         innerSelectorSuperMarketYes.layer.cornerRadius = cornerRadiusValueInner
         innerSelectorSuperMarketNo.layer.cornerRadius = cornerRadiusValueInner
-        
+        setDefaultSelectorSelection()
+    }
+    
+    func setDefaultSelectorSelection(){
         superMarketYesButton.layer.cornerRadius = cornerRadiusValueView
         superMarketYesButton.backgroundColor = .white
         superMarketNoButton.layer.cornerRadius = cornerRadiusValueView
         superMarketNoButton.backgroundColor = mainBackgroundColor
     }
     
-    // -- MARK: IBActions
-    
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        AuthServices().logout(self)
+    func setUpCommentDisplay(){
+        commentTextView.text = ""
+        commentTextView.layer.cornerRadius = 5.0
+        commentTextView.layer.borderColor = mainBackgroundColor.cgColor
+        commentTextView.layer.borderWidth = 1
     }
     
-    @IBAction func nextButtonTapped(_ sender: Any) {
-        if let userId = AuthServices.currentUserId{
-            returnOrderRequestDetails.emp_id = userId
+    func setUpButtonBorderView(){
+        setupButtonBorder(button: uploadFileOutlet)
+        setupButtonBorder(button: showFilesOutlet)
+    }
+    
+    func setupButtonBorder(button: UIButton){
+        button.layer.borderWidth = 1
+        button.layer.borderColor = AppDelegate().mainBackgroundColor.cgColor
+    }
+    
+    // -- MARK: IBActions
+    
+    @IBAction func itemButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "showItemSelected", sender: nil)
+    }
+    
+    var eachItemAddedCount = 0
+    func addItem(itemArrayFromWS: [SalesReturn]){
+        for item in itemArrayFromWS{
+            eachItemAddedCount += 1
+            itemsArrayFromWS.append(InvoiceItemModel(
+                serialNumberFromWS: eachItemAddedCount,
+                itemNumberFromWS: item.SRR_ITEMGRID_COLUMN2,
+                invoiceNumberFromWS: item.SRR_ITEMGRID_COLUMN3,
+                desc: item.SRR_ITEMGRID_COLUMN4,
+                unof: item.SRR_ITEMGRID_COLUMN5,
+                qty: item.SRR_ITEMGRID_COLUMN6,
+                avgPrice: item.SRR_ITEMGRID_COLUMN8,
+                totalPrice: item.SRR_ITEMGRID_COLUMN7,
+                expiredDate: item.SRR_ITEMGRID_COLUMN9,
+                invoiceDateFromWS: item.SRR_ITEMGRID_COLUMN10,
+                returnType: "Select Type"))
+            self.takeAction.setCountForItem(c: eachItemAddedCount, button: itemOutlet)
+            AlertMessage().showAlertForXTime(alertTitle: "Invoice has been Added".localize(), time: 0.5, tagert: self)
         }
-        if companyTextField.text == companyNamesArray[0] ||
-            returnDateTextField.text == "" ||
-            salesPersonTextField.text == salesPersonNamesArray[0] ||
-            customerTextField.text == customerNamesArray[0] ||
-            branchTextField.text == branchNamesArray[0]
-            {
-            AlertMessage().showAlertMessage(alertTitle: "Alert", alertMessage: "You did not fill the fields", actionTitle: nil, onAction: nil, cancelAction: "OK", self)
-        } else {
-            performSegue(withIdentifier: "showInvoice", sender: nil)
+        addItemCount += 1
+    }
+    
+    var addItemCount = 0
+    var isItemExist = false
+    @IBAction func addItemButtonTapped(_ sender: Any) {
+        if let invoiceDateText = invoiceDateTextField.text,
+            let invoiceText = invoiceTextField.text,
+            let itemText = itemTextField.text{
+            
+            if invoiceDateText.isEmpty || invoiceText == invoiceNameArray[0] || itemText == itemNameArray[0]{
+                AlertMessage().showAlertMessage(alertTitle: "Alert", alertMessage: "You did not fill invoice date or did not select invoice or item", actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
+            } else {
+                let itemDetailsFromWS = webservice.SRR_AddItem(
+                    rownumber: addItemCount,
+                    returnid: "",
+                    empno: emp_id,
+                    qty: "",
+                    invoicenumber: invoiceNameArray[invoiceSelectedRow],
+                    item: itemNameArray[itemSelectedRow],
+                    table: "")
+                
+                if itemsArrayFromWS.isEmpty{
+                    self.addItem(itemArrayFromWS: itemDetailsFromWS)
+                } else {
+                    for value in itemsArrayFromWS{
+                        if value.invoiceDateFromWS == invoiceDateText &&
+                            value.invoiceNumberFromWS == invoiceText &&
+                            value.itemNumberFromWS == itemText{
+                            isItemExist = true
+                            break
+                        }
+                    }
+                    
+                    if isItemExist{
+                        AlertMessage().showAlertMessage(alertTitle: "Invoice has been Added".localize(), alertMessage: "You have already added this invoice. Do you wnat to add it again".localize(), actionTitle: "Yes".localize(), onAction: {
+                            self.addItem(itemArrayFromWS: itemDetailsFromWS)
+                        }, cancelAction: "No".localize(), self)
+                        isItemExist = false
+                    } else {
+                        self.addItem(itemArrayFromWS: itemDetailsFromWS)
+                    }
+                }
+            }
         }
+    }
+    
+    @IBAction func uplaodFileButtonTapped(_ sender: Any) {
+        takeAction.handleFilesToShow(target: self)
+    }
+    
+    @IBAction func showFilesButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "showFile", sender: nil)
+    }
+    
+    @IBAction func sendButtonTapped(_ sender: Any) {
+//        returnId = "1111"
+//        setViewToDefault()
+        checkRequirementsAndThenProccess()
+    }
+    
+    func alertMessageForEmptyField(alertMessage: String){
+        AlertMessage().showAlertMessage(
+            alertTitle: "Alert",
+            alertMessage: alertMessage,
+            actionTitle: nil,
+            onAction: nil,
+            cancelAction: "OK", self)
+        return
+    }
+    
+    var shouldProcess = false
+    func checkRequirementsAndThenProccess(){
+        if let companyText = companyTextField.text,
+            let returnDateText = returnDateTextField.text,
+            let salesPerosnText = salesPersonTextField.text,
+            let customerText = customerTextField.text,
+            let branchText = branchTextField.text,
+            let storeText = storeTextfield.text,
+            let cityText = cityTextfield.text,
+            let salesPersonStoreText = salesPersonStoreTextfield.text,
+            let merText = merchandiserTextfield.text,
+            let comment = commentTextView.text
+        {
+            if companyText == companyNamesArray[0] ||
+                returnDateText == "" ||
+                salesPerosnText == salesPersonNamesArray[0] ||
+                customerText == customerNamesArray[0] ||
+                branchText == branchNamesArray[0]{
+                    self.alertMessageForEmptyField(alertMessage: "You did not fill the fields")
+                    self.shouldProcess = false
+            } else if !storeArray.isEmpty && storeText == storeIdArray[0] {
+                self.alertMessageForEmptyField(alertMessage: "You did not select store id")
+                self.shouldProcess = false
+            } else if itemsArrayFromWS.isEmpty{
+                self.alertMessageForEmptyField(alertMessage: "You did not add any items")
+                self.shouldProcess = false
+            } else { self.shouldProcess = true }
+            
+            for item in itemsArrayFromWS{
+                if item.returnType == "Select Type"{
+                    self.alertMessageForEmptyField(alertMessage: "You did not select return item for each item")
+                    self.shouldProcess = false
+                } else { shouldProcess = true }
+            }
+            
+            if shouldProcess{
+                runBeforeSending()
+                runSend(returnDate: returnDateText, comment: comment, city: cityText, salesPersonStore: salesPersonStoreText, merchandiser: merText)
+            }
+        }
+    }
+    
+    func runBeforeSending(){
+        for item in itemsArrayFromWS{
+            let beforeSendResultArray = webservice.SRR_BEFORESEND_SRR(
+                itemid: item.itemNumberFromWS,
+                invoicenumber: item.invoiceNumberFromWS,
+                quantity: item.qty,
+                returnid: returnId,
+                rownumber: item.serialNumberFromWS,
+                Item_Desc: item.desc,
+                unitofmeasure: item.uofm,
+                totalcost: item.totalPrice,
+                unitprice: item.avgPrice,
+                lotnumber: item.expiredDate,
+                invoicedate: item.invoiceDateFromWS,
+                returntype_grid: item.returnType)
+            
+            validateBeforeSending(beforeSendResultArray: beforeSendResultArray)
+        }
+    }
+    
+    func validateBeforeSending(beforeSendResultArray: [String?]){
+        if !beforeSendResultArray.isEmpty{
+            if beforeSendResultArray[1] != ""{
+                if let alertMessage = beforeSendResultArray[1]{
+                    AlertMessage().showAlertMessage(
+                        alertTitle: "Alert!",
+                        alertMessage: alertMessage ,
+                        actionTitle: "OK",
+                        onAction: nil,
+                        cancelAction: nil,
+                        self)
+                    return
+                }
+            } else {
+                if let returnIdFromBeforeSendResultArray = beforeSendResultArray[0]{
+                    if returnId == ""{
+                        returnId = returnIdFromBeforeSendResultArray
+                    }
+                }
+            }
+        }
+    }
+    
+    func runSend(returnDate: String, comment: String, city: String, salesPersonStore: String, merchandiser: String){
+        let sendResultArray = webservice.SRR_SEND_SRR(
+            supermarket: supermarket,
+            itemtable: !itemsArrayFromWS.isEmpty,
+            returnid: returnId,
+            customervalue: customerIdArray[customerRow],
+            customertext: customerNamesArray[customerRow],
+            salespersonvalue: salesPersonIdArray[salesPersonRow],
+            salespersontext: salesPersonNamesArray[salesPersonRow],
+            returndate: returnDate,
+            emp_no: emp_id,
+            comment: comment,
+            branchtext: branchNamesArray[branchRow],
+            companyid: companyIdArray[companyRow],
+            branchvalue: branchIdArray[branchRow],
+            storevalue: storeIdArray[salesSelecteedRow],
+            cityvalue: city,
+            storesalespersonvalue: salesPersonStore,
+            merchandiser: merchandiser)
+        
+        if !sendResultArray.isEmpty{
+            if sendResultArray[1] != ""{
+                if let error = sendResultArray[1]{
+                    AlertMessage().showAlertMessage(
+                        alertTitle: "Sending Error",
+                        alertMessage: "\(error)",
+                        actionTitle: "OK",
+                        onAction: nil,
+                        cancelAction: nil,
+                        self)
+                    return
+                }
+            } else {
+                AlertMessage().showAlertMessage(
+                    alertTitle: "Success".localize(),
+                    alertMessage: "Return request sent successfully with return no.".localize() + " \(returnId)",
+                    actionTitle: "OK",
+                    onAction: {
+                        self.setViewToDefault()
+                },
+                    cancelAction: nil,
+                    self)
+            }
+        }
+    }
+    
+    func setViewToDefault(){
+        view.setNeedsDisplay()
+        eachItemAddedCount = 0
+        addItemCount = 0
+        isItemExist = false
+        shouldProcess = false
+        returnId = ""
+        count = 0
+        initialValues()
+
+        setDependentValuesToDefault()
+        setDefaultSelectorSelection()
+        returnDateTextField.text = ""
+        commentTextView.text = ""
+        storeStackView.isHidden = true
+        viewHolder.isHidden = true
+        itemsArrayFromWS.removeAll()
+        takeAction.setCountForItem(c: itemsArrayFromWS.count, button: itemOutlet)
+        scrollView.scrollTo(direction: .Top, animated: false)
+    }
+    
+    func setUpDefaultValueForStore(){
+        storeTextfield.text = storeIdArray[0]
+        cityTextfield.text = "Select city"
+        salesPersonStoreTextfield.text = "Select sales person"
+        merchandiserTextfield.text = "Select merchandiser"
+    }
+    
+    func setDependentValuesToDefault(){
+        date = ""
+        setUpDefaultValueForStore()
+        invoiceDateTextField.text = ""
+        invoiceTextField.text = invoiceNameArray[0]
+        itemTextField.text = itemNameArray[0]
     }
     
     @IBAction func superMarketYesButtonTapped(_ sender: Any) {
         superMarketYesButton.backgroundColor = mainBackgroundColor
         superMarketNoButton.backgroundColor = .white
         
-        returnOrderRequestDetails.supermarket = true
+        supermarket = true
     }
     
     @IBAction func superMarketNoButtonTapped(_ sender: Any) {
         superMarketYesButton.backgroundColor = .white
         superMarketNoButton.backgroundColor = mainBackgroundColor
         
-        returnOrderRequestDetails.supermarket = false
+        supermarket = false
     }
 }
 
+// -- MARK: Handle Picker View
+
 extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDataSource{
+    func setupPickerView(){
+        PickerviewAction().showPickView(txtfield: showCompanyPickerView, pickerview: companyPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showSalesPersonPickerView, pickerview: salesPersonPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showCustomerPickerView, pickerview: customerPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showBranchPickerView, pickerview: branchPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showInvoicePickerView, pickerview: invoicePickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showItemPickerView, pickerview: itemPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showStorePickerViewTextfield, pickerview: storePickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showCityPickerViewTextfield, pickerview: cityPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showSalesPersonPickerViewTextfield, pickerview: salesPersonStorePickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+        PickerviewAction().showPickView(txtfield: showMerchandiserPickerViewTextfield, pickerview: merchandiserPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
+    }
+    
     // -- MARK: objc functions
     
     @objc func doneClick(){
         if pickerView == companyPickerView{
-            returnOrderRequestDetails.company = companyNamesArray[companyRow]
-            returnOrderRequestDetails.companyId = companyIdArray[companyRow]
-            
             companyTextField.text = companyNamesArray[companyRow]
             showCompanyPickerView.resignFirstResponder()
+            
         } else if pickerView == salesPersonPickerView{
-            returnOrderRequestDetails.salesperson = salesPersonNamesArray[salesPersonRow]
-            returnOrderRequestDetails.salespersonId = salesPersonIdArray[salesPersonRow]
+            HandleValuesForSalesPerson(
+                name: salesPersonNamesArray[salesPersonRow],
+                id: salesPersonIdArray[salesPersonRow])
             
             salesPersonTextField.text = salesPersonNamesArray[salesPersonRow]
             showSalesPersonPickerView.resignFirstResponder()
+            
         } else if pickerView == customerPickerView{
-            returnOrderRequestDetails.customer = customerNamesArray[customerRow]
-            returnOrderRequestDetails.customerId = customerIdArray[customerRow]
+            HandleValuesForCustomer(
+                name: customerNamesArray[customerRow],
+                id: customerIdArray[customerRow])
             
             customerTextField.text = customerNamesArray[customerRow]
             showCustomerPickerView.resignFirstResponder()
-        } else {
-            returnOrderRequestDetails.branch = branchNamesArray[branchRow]
-            returnOrderRequestDetails.branchId = branchIdArray[branchRow]
+        } else if pickerView == branchPickerView{
             
             branchTextField.text = branchNamesArray[branchRow]
             showBranchPickerView.resignFirstResponder()
+        }else if pickerView == invoicePickerView{
+            HandleValuesForInvoiceNo(name: invoiceNameArray[invoiceSelectedRow])
+            
+        } else if pickerView == itemPickerView{
+            itemTextField.text = itemNameArray[itemSelectedRow]
+            showItemPickerView.resignFirstResponder()
+            
+        } else if pickerView == storePickerView{
+            HandleValuesForStore(name: storeIdArray[salesSelecteedRow])
+            
+            storeTextfield.text = storeIdArray[salesSelecteedRow]
+            showStorePickerViewTextfield.resignFirstResponder()
+        } else if pickerView == cityPickerView{
+            HandleValuesForCity(name: cityArray[citySelectedRow].City)
+            
+        } else if pickerView == salesPersonStorePickerView{
+            HandleValuesForSalesPersonStore(name: salesPersonStoreArray[salesperosnSelectedRow].SalesPersonStore)
+            
+        } else if pickerView == merchandiserPickerView{
+            HandleValuesForMerchandiser(name: merchandiserArray[merSelectedRow].Merchandiser)
+            
         }
     }
     
     @objc func cancelClick(){
-        if pickerView == companyPickerView{
-            showCompanyPickerView.resignFirstResponder()
-        } else if pickerView == salesPersonPickerView{
-            showSalesPersonPickerView.resignFirstResponder()
-        } else if pickerView == customerPickerView{
-            showCustomerPickerView.resignFirstResponder()
-        } else {
-            showBranchPickerView.resignFirstResponder()
-        }
-    }
-
-    @objc func handleDatePicker(sender: UIDatePicker){
-        date = getStringDate(date: sender.date)
-        returnDateTextField.text = getStringDate(date: sender.date)
-        returnOrderRequestDetails.returnDate = getStringDate(date: sender.date)
-    }
-    
-    @objc func datePickerDoneClick(){
-        if date.isEmpty{
-            returnDateTextField.text = getStringDate(date: currentDate)
-            returnOrderRequestDetails.returnDate = getStringDate(date: currentDate)
-        }
-        returnDateTextField.resignFirstResponder()
-    }
-    
-    func getStringDate(date: Date) -> String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: date)
-    }
-    
-    func getCustomers(salesperson: String){
-        customerArray = webservice.BindSalesReturnCustomers(salesperson: salesperson)
-        if customerArray.isEmpty {
-            customerNamesArray = ["Select customer".localize()]
-        } else {
-            customerNamesArray = ["Select customer".localize()]
-            customerIdArray = [""]
-            for customer in customerArray{
-                customerNamesArray.append(customer.CustomerName)
-                customerIdArray.append(customer.CustomerId)
-            }
-        }
+        if pickerView == companyPickerView { showCompanyPickerView.resignFirstResponder() }
+        else if pickerView == salesPersonPickerView { showSalesPersonPickerView.resignFirstResponder() }
+        else if pickerView == customerPickerView { showCustomerPickerView.resignFirstResponder() }
+        else if pickerView == branchPickerView { showBranchPickerView.resignFirstResponder() }
+        else if pickerView == invoicePickerView { showInvoicePickerView.resignFirstResponder() }
+        else if pickerView == itemPickerView { showItemPickerView.resignFirstResponder() }
+        else if pickerView == storePickerView { showStorePickerViewTextfield.resignFirstResponder() }
+        else if pickerView == cityPickerView { showCityPickerViewTextfield.resignFirstResponder() }
+        else if pickerView == salesPersonStorePickerView { showSalesPersonPickerViewTextfield.resignFirstResponder() }
+        else if pickerView == merchandiserPickerView { showMerchandiserPickerViewTextfield.resignFirstResponder() }
     }
     
     // -- Mark: Picker view data source
@@ -315,9 +673,22 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
             return salesPersonNamesArray.count
         } else if pickerView == customerPickerView{
             return customerNamesArray.count
-        } else {
+        } else if pickerView == branchPickerView{
             return branchNamesArray.count
+        } else if pickerView == invoicePickerView{
+            return invoiceNameArray.count
+        } else if pickerView == itemPickerView{
+            return itemNameArray.count
+        } else if pickerView == storePickerView{
+            return storeArray.count
+        } else if pickerView == cityPickerView{
+            return cityArray.count
+        } else if pickerView == salesPersonStorePickerView{
+            return salesPersonStoreArray.count
+        } else if pickerView == merchandiserPickerView{
+            return merchandiserArray.count
         }
+        return 0
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -328,9 +699,22 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
             return salesPersonNamesArray[row]
         } else if pickerView == customerPickerView{
             return customerNamesArray[row]
-        } else {
+        } else if pickerView == branchPickerView {
             return branchNamesArray[row]
+        } else if pickerView == invoicePickerView{
+            return invoiceNameArray[row]
+        } else if pickerView == itemPickerView{
+            return itemNameArray[row]
+        } else if pickerView == storePickerView{
+            return storeIdArray[row].localize()
+        } else if pickerView == cityPickerView{
+            return cityArray[row].City
+        } else if pickerView == salesPersonStorePickerView{
+            return salesPersonStoreArray[row].SalesPersonStore
+        } else if pickerView == merchandiserPickerView{
+            return merchandiserArray[row].Merchandiser
         }
+        return ""
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -338,18 +722,97 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
             companyRow = row
         } else if pickerView == salesPersonPickerView{
             salesPersonRow  = row
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            getCustomers(salesperson: salesPersonIdArray[row])
-            customerTextField.text = customerNamesArray[0]
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
         } else if pickerView == customerPickerView{
             customerRow = row
-        } else {
+        } else if pickerView == branchPickerView{
             branchRow = row
+        } else if pickerView == invoicePickerView{
+            invoiceSelectedRow = row
+            itemSelectedRow = 0
+        } else if pickerView == itemPickerView{
+            itemSelectedRow = row
+        } else if pickerView == storePickerView{
+            salesSelecteedRow = row
+        } else if pickerView == cityPickerView{
+            citySelectedRow = row
+        } else if pickerView == salesPersonStorePickerView {
+            salesperosnSelectedRow = row
+        } else {
+            merSelectedRow = row
+        }
+    }
+}
+
+// -- MARK: Handle Date Picker
+
+extension ReturnOrderRequestsViewController{
+    func setupDatePicker(){
+        PickerviewAction().showDatePicker(txtfield: returnDateTextField, datePicker: datePicker, title: "Return Date", viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
+        PickerviewAction().showDatePicker(txtfield: invoiceDateTextField, datePicker: datePicker, title: "Return Date", viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
+    }
+    
+    @objc func handleDatePicker(sender: UIDatePicker){
+        date = takeAction.getStringDate(date: sender.date)
+        
+        if textField == returnDateTextField{
+            returnDateTextField.text = takeAction.getStringDate(date: sender.date)
+        } else if textField == invoiceDateTextField{
+            invoiceDateTextField.text = takeAction.getStringDate(date: sender.date)
+            setUpDefaultValueForStore()
         }
     }
     
+    @objc func datePickerDoneClick(){
+        var selectedDate = ""
+        if date.isEmpty{
+            if textField == returnDateTextField{
+                returnDateTextField.text = takeAction.getStringDate(date: currentDate)
+            } else if textField == invoiceDateTextField{
+                selectedDate = takeAction.getStringDate(date: currentDate)
+                invoiceDateTextField.text = takeAction.getStringDate(date: currentDate)
+            }
+        } else {
+            selectedDate = date
+        }
+        
+        if textField == invoiceDateTextField{
+            getInvoiceNumber(
+                salesperson_id: salesPersonIdArray[salesPersonRow],
+                customernumber: customerIdArray[customerRow],
+                invoice_date: selectedDate)
+            invoiceTextField.text = invoiceNameArray[0]
+            itemTextField.text = itemNameArray[0]
+            
+            if selectedDate != date{
+                setUpDefaultValueForStore()
+            }
+            
+            storeStackView.isHidden = storeArray.isEmpty
+            viewHolder.isHidden = creditDetailsArray.isEmpty
+        }
+        
+        invoiceDateTextField.resignFirstResponder()
+        returnDateTextField.resignFirstResponder()
+    }
 }
+
+// -- MARK: Handle Text View and Text Field
+
+extension ReturnOrderRequestsViewController: UITextViewDelegate, UITextFieldDelegate{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            commentTextView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        self.textField = textField
+    }
+}
+
+// -- MARK: Handle Keyboard Appearance
 
 extension ReturnOrderRequestsViewController{
     override func viewWillAppear(_ animated: Bool) {

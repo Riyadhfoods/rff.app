@@ -41,9 +41,6 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     }
     
     // -- MARK: IBActions
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        AuthServices().logout(self)
-    }
     
     @IBAction func changeButtonTapped(_ sender: Any) {
         successfulAlertTitle = "Password Change Successfully".localize()

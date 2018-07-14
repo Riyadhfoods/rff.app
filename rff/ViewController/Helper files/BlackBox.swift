@@ -34,10 +34,10 @@ func setbackNavTitle(navItem: UINavigationItem){
     navItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 }
 
-func emptyMessage(message: String, viewController: UIViewController, tableView: UITableView) {
+func emptyMessage(viewController: UIViewController, tableView: UITableView, isEmpty: Bool) {
     let rect = CGRect(origin: CGPoint(x: 16,y :16), size: CGSize(width: viewController.view.bounds.size.width - 16, height: viewController.view.bounds.size.height - 16))
     let messageLabel = UILabel(frame: rect)
-    messageLabel.text = message
+    messageLabel.text = isEmpty ? "No Data".localize() : ""
     messageLabel.textColor = mainBackgroundColor
     messageLabel.backgroundColor = .clear
     messageLabel.numberOfLines = 0
@@ -45,8 +45,8 @@ func emptyMessage(message: String, viewController: UIViewController, tableView: 
     messageLabel.font = UIFont.systemFont(ofSize: 20)
     messageLabel.sizeToFit()
     
-    tableView.backgroundView = messageLabel;
-    tableView.separatorStyle = .none;
+    tableView.backgroundView = messageLabel
+    tableView.separatorStyle = .none
 }
 
 let tb: UIToolbar = {

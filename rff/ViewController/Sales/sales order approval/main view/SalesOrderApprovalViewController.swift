@@ -49,12 +49,6 @@ class SalesOrderApprovalViewController: UIViewController {
         }
         activityIndicator.stopAnimating()
     }
-    
-    // -- MARK: IBActions
-    
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        AuthServices().logout(self)
-    }
 
 }
 
@@ -62,9 +56,7 @@ extension SalesOrderApprovalViewController: UITableViewDelegate, UITableViewData
     // -- MARK: Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if salesOrderDetails.count == 0{
-            emptyMessage(message: "No Data".localize(), viewController: self, tableView: salesOrdertableview)
-        }
+        emptyMessage(viewController: self, tableView: salesOrdertableview, isEmpty: salesOrderDetails.count == 0)
         return salesOrderDetails.count
     }
     

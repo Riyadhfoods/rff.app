@@ -145,12 +145,6 @@
                         <barButtonItem key="leftBarButtonItem" image="menu" landscapeImage="barButtonItem:BEt-In-878:landscapeImage" id="BEt-In-878">
                             <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="signOut" id="SDb-aq-NRr">
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <connections>
-                                <action selector="signOutBuuttonTapped:" destination="Pcb-3f-UUw" id="zEk-f2-T8A"/>
-                            </connections>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="ListTextfield" destination="Sf0-LM-uw2" id="ysf-ek-xeP"/>
@@ -3201,7 +3195,6 @@ WQAAAAAAAAAAAAAAAAABvBk
         </image>
         <image name="dropDownIcon" width="170" height="170"/>
         <image name="menu" width="25" height="25"/>
-        <image name="signOut" width="25" height="25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="0ST-1l-ggi"/>

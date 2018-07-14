@@ -65,10 +65,7 @@ class ReturnStyleTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if isSalesArrayEmpty{
-            emptyMessage(message: "No Data".localize(), viewController: self, tableView: tableView)
-            return salesArray.count
-        }
+        emptyMessage(viewController: self, tableView: tableView, isEmpty: isSalesArrayEmpty)
         return salesArray.count + 1
     }
 

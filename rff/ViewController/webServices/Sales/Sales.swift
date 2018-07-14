@@ -47,16 +47,20 @@
             let xmlResult: XMLIndexer?  = xmlResponse?.children.last
             
             let xmlElement = xmlResult?.element
-            let str = xmlElement?.text
-            let xmlElementFirst = xmlElement?.children[0] as!TextElement
-            return xmlElementFirst.text
+            let str = xmlElement?.text as? String
+            if let child = xmlElement?.children{
+                if !child.isEmpty{
+                    if let xmlElementFirst = xmlElement?.children[0] as? TextElement{
+                        return xmlElementFirst.text
+                    }
+                }
+            }
         }
         catch
         {
         }
         //NOT IMPLETEMENTED!
-        var returnValue:String!
-        return returnValue
+        return ""
     }
     func stringFromXML(data:Data)-> String
     {
@@ -2385,7 +2389,6 @@
         let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         let strVal :String? = stringFromXML(data : responseData);
         if strVal == nil {
-            
             return  ""
         }
         let returnValue:String = strVal!

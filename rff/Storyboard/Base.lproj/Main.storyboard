@@ -475,14 +475,8 @@
                         <segue destination="XEK-EU-mWP" kind="custom" identifier="showSalesInbox" customClass="SWRevealViewControllerSeguePushController" id="xmj-ri-mua"/>
                         <segue destination="lGv-rJ-nOE" kind="custom" identifier="showSalesOrderApproval" customClass="SWRevealViewControllerSeguePushController" id="hAw-iq-iat"/>
                         <segue destination="fxj-k0-Vdy" kind="custom" identifier="showSalesReturnApproval" customClass="SWRevealViewControllerSeguePushController" id="4kF-Ur-BPf"/>
-                        <segue destination="Kyk-6h-GLH" kind="custom" identifier="showSalesPromotionApproval" customClass="SWRevealViewControllerSeguePushController" id="GIl-tY-7xc"/>
                         <segue destination="h3q-lA-bsw" kind="custom" identifier="showSalesOrderRequest" customClass="SWRevealViewControllerSeguePushController" id="Q47-I8-dd4"/>
                         <segue destination="eCT-yE-I59" kind="custom" identifier="showReturnOrderRequests" customClass="SWRevealViewControllerSeguePushController" id="ULo-Np-0hQ"/>
-                        <segue destination="LkS-QK-REs" kind="custom" identifier="showPromotionRequest" customClass="SWRevealViewControllerSeguePushController" id="uDd-hK-tAP"/>
-                        <segue destination="NKQ-BL-Qah" kind="custom" identifier="showOthaimSalesStatus" customClass="SWRevealViewControllerSeguePushController" id="bLw-pR-mtt"/>
-                        <segue destination="XYw-qH-Srs" kind="custom" identifier="showSalesPlanSummay" customClass="SWRevealViewControllerSeguePushController" id="iHD-9e-Wvj"/>
-                        <segue destination="zGc-0D-vRf" kind="custom" identifier="showSalesPersonAreaSetup" customClass="SWRevealViewControllerSeguePushController" id="yOt-vV-QfN"/>
-                        <segue destination="Vcr-8t-gHJ" kind="custom" identifier="showSalesStoreUpdate" customClass="SWRevealViewControllerSeguePushController" id="Guu-8w-Gcl"/>
                         <segue destination="wRJ-sM-osd" kind="custom" identifier="showReport" customClass="SWRevealViewControllerSeguePushController" id="SAK-om-aVt"/>
                     </connections>
                 </viewController>
@@ -794,21 +788,13 @@
             </objects>
             <point key="canvasLocation" x="-976" y="2486"/>
         </scene>
-        <!--SalesPromotionApproval-->
-        <scene sceneID="boA-sA-KdV">
-            <objects>
-                <viewControllerPlaceholder storyboardName="SalesPromotionApproval" id="Kyk-6h-GLH" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="TmG-hj-Zdt" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1291" y="2486"/>
-        </scene>
         <!--SalesOrderRequest-->
         <scene sceneID="Nxc-GJ-PNQ">
             <objects>
                 <viewControllerPlaceholder storyboardName="SalesOrderRequest" id="h3q-lA-bsw" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s05-EY-crx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1574" y="2486"/>
+            <point key="canvasLocation" x="-697" y="2565"/>
         </scene>
         <!--ReturnOrderRequests-->
         <scene sceneID="oah-fj-rrB">
@@ -817,46 +803,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xcx-r3-1ci" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-400" y="2565"/>
-        </scene>
-        <!--PromotionRequest-->
-        <scene sceneID="iWk-Zl-74B">
-            <objects>
-                <viewControllerPlaceholder storyboardName="PromotionRequest" id="LkS-QK-REs" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Zbs-Ao-MVR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-652" y="2565"/>
-        </scene>
-        <!--OthaimSalesStatus-->
-        <scene sceneID="g0f-GI-rrP">
-            <objects>
-                <viewControllerPlaceholder storyboardName="OthaimSalesStatus" id="NKQ-BL-Qah" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="uBh-oP-Mxu" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-966" y="2565"/>
-        </scene>
-        <!--SalesPlanSummay-->
-        <scene sceneID="zmS-EX-m2E">
-            <objects>
-                <viewControllerPlaceholder storyboardName="SalesPlanSummay" id="XYw-qH-Srs" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6Cz-FP-fEl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1260" y="2565"/>
-        </scene>
-        <!--SalesPersonAreaSetup-->
-        <scene sceneID="j30-wv-ozb">
-            <objects>
-                <viewControllerPlaceholder storyboardName="SalesPersonAreaSetup" id="zGc-0D-vRf" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fZW-uG-iSq" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1556" y="2565"/>
-        </scene>
-        <!--SalesStoreUpdate-->
-        <scene sceneID="oxw-fE-HXt">
-            <objects>
-                <viewControllerPlaceholder storyboardName="SalesStoreUpdate" id="Vcr-8t-gHJ" sceneMemberID="viewController"/>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="e2H-MO-Ojg" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1846" y="2565"/>
         </scene>
         <!--Report-->
         <scene sceneID="FJS-HE-ehL">

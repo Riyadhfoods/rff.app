@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SalesReturnApprovalViewController: UIViewController {
-
+class SalesReturnApprovalViewController: UIViewController, ApprovalConfomationDelegate {
+    
     // -- MARK: IBOutlets
     
     @IBOutlet weak var menuBtn: UIBarButtonItem!
@@ -23,41 +23,55 @@ class SalesReturnApprovalViewController: UIViewController {
     let webService = Sales()
     var salesReturnDetails: [SalesReturn] = [SalesReturn]()
     var rowIndexSelected = 0
+    var isApproved = false
+    var isRejected = false
+    
+    func returnRequestStatus(isApproved: Bool) {
+        self.isApproved = isApproved
+    }
+    func returnRequestStatus(isRejected: Bool) {
+        self.isRejected = isRejected
+    }
     
     // -- MARK: viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setCustomNavAndBackButton(navItem: navigationItem, title: "Sales Order Approval".localize(), backTitle: "Return")
-        
-        activityIndicator.startAnimating()
+        setCustomNavAndBackButton(navItem: navigationItem, title: "Sales Return Approval".localize(), backTitle: "Return".localize())
         setViewAlignment()
         setSlideMenu(controller: self, menuButton: menuBtn)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        activityIndicator.startAnimating()
         if salesReturnDetails.isEmpty{
-            if let userId = AuthServices.currentUserId{
-                salesReturnDetails = webService.SRO_BindOrder(empno: userId)
-                salesReturnTableview.reloadData()
-            }
+            getSalesReturnDetails()
+        }
+        
+        if isApproved || isRejected{
+            getSalesReturnDetails()
         }
         activityIndicator.stopAnimating()
     }
     
+    func getSalesReturnDetails(){
+        if let userId = AuthServices.currentUserId{
+            salesReturnDetails = webService.SRO_BindOrder(empno: userId)
+            salesReturnTableview.reloadData()
+        }
+    }
+    
     // -- MARK: IBActions
     
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        AuthServices().logout(self)
-    }
 }
 
 extension SalesReturnApprovalViewController: UITableViewDataSource, UITableViewDelegate{
     // -- MARK: Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        emptyMessage(viewController: self, tableView: salesReturnTableview, isEmpty: salesReturnDetails.count == 0)
         return salesReturnDetails.count
     }
     
@@ -100,6 +114,7 @@ extension SalesReturnApprovalViewController: UITableViewDataSource, UITableViewD
                 vc.returnId = salesReturnDetails[rowIndexSelected].ReturnID
                 vc.requestDateString = salesReturnDetails[rowIndexSelected].ReqDate
                 vc.returnDateString = salesReturnDetails[rowIndexSelected].RetDate
+                vc.delegate = self
             }
         }
     }

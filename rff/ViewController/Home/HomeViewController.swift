@@ -41,9 +41,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     // -- MARK: - Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if taskInbox.count == 0 {
-            emptyMessage(message: "No data".localize(), viewController: self, tableView: pendingInboxTableview)
-        }
+        emptyMessage(viewController: self, tableView: pendingInboxTableview, isEmpty: taskInbox.count == 0)
         return taskInbox.count
     }
     
@@ -85,9 +83,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // -- MARK: IBActions
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        AuthServices().logout(self)
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)

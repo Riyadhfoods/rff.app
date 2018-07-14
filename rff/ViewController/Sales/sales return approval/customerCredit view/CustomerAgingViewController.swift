@@ -31,6 +31,9 @@ class CustomerAgingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Cutomer Aging".localize()
+        setUpData()
         setViewAlignment()
         holderView.layer.cornerRadius = 5.0
         holderView.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
@@ -42,8 +45,18 @@ class CustomerAgingViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    // -- MARK: Table view data source
-    
+    func setUpData(){
+        for customerCredit in customerCreditDetailsArray{
+            creditLimitRight.text = customerCredit.CreditLimit
+            totalDueRight.text = customerCredit.TotalDue
+            upTo31Right.text = customerCredit.ZeroTo31Days
+            upTo60Right.text = customerCredit.ThirtyOneto60Days
+            upTo90Right.text = customerCredit.SixtyOneTo90Days
+            upTo120Right.text = customerCredit.Nineoneto120Days
+            moreThan90Right.text = customerCredit.Above120Days
+            statusRight.text = customerCredit.Status
+        }
+    }
     
     
 }

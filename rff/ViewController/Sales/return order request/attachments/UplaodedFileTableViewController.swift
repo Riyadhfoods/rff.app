@@ -25,9 +25,7 @@ class UplaodedFileTableViewController: UITableViewController{
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if fileInfo.count == 0 {
-            emptyMessage(message: "No Data", viewController: self, tableView: tableView)
-        }
+        emptyMessage(viewController: self, tableView: tableView, isEmpty: fileInfo.count == 0)
         return fileInfo.count
     }
 

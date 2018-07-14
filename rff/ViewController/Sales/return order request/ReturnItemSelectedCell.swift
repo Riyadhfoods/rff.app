@@ -63,7 +63,7 @@ class ReturnItemSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerVie
     
     @objc func doneClick(){
         returnType.text = typeArray[selectedRow]
-        returnOrderRequestDetails.itemsarrayFromWS[cellIndex].returnType = typeArray[selectedRow]
+        itemsArrayFromWS[cellIndex].returnType = typeArray[selectedRow]
         showReturnType.resignFirstResponder()
     }
     
@@ -79,8 +79,7 @@ class ReturnItemSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerVie
     
     func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
         if let qytText = qty.text{
-            returnOrderRequestDetails.itemsarrayFromWS[cellIndex].qty = qytText
-            print(returnOrderRequestDetails)
+            itemsArrayFromWS[cellIndex].qty = qytText
         }
     }
     

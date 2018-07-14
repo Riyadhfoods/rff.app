@@ -52,9 +52,7 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if itemAddedArray.count == 0 {
-            emptyMessage(message: "No data".localize(), viewController: self, tableView: itemsTableView)
-        }
+        emptyMessage(viewController: self, tableView: itemsTableView, isEmpty: itemAddedArray.count == 0)
         return itemAddedArray.count
     }
     

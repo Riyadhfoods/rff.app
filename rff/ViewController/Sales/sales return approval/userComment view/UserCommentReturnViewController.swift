@@ -20,13 +20,20 @@ class UserCommentReturnViewController: UIViewController, UITableViewDelegate, UI
     let cellId = "cell_returnUserComment"
     var orderId = ""
     var userCommentArray = [SalesReturn]()
+    var userWithNotEmptyCommentArray = [SalesReturn]()
     
     // -- MARK: viewDidLoad
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "User Comment"
+        title = "User Comment".localize()
+        for comment in userCommentArray{
+            if comment.SRA_User_EmpComment != ""{
+                userWithNotEmptyCommentArray.append(comment)
+            }
+        }
+        
         setViewAlignment()
     }
     
@@ -37,21 +44,18 @@ class UserCommentReturnViewController: UIViewController, UITableViewDelegate, UI
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if userCommentArray.count == 0 {
-            emptyMessage(message: "No Data".localize(), viewController: self, tableView: userCommentReturnTableView)
-        }
-        return userCommentArray.count
+        emptyMessage(viewController: self, tableView: userCommentReturnTableView, isEmpty: userWithNotEmptyCommentArray.count == 0)
+        return userWithNotEmptyCommentArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? UserCommentReturnCell{
             
-            let userComment = userCommentArray[indexPath.row]
-            
+            let userComment = userWithNotEmptyCommentArray[indexPath.row]
             cell.empNameReturn.text = userComment.SRA_User_EmpName
-            cell.commentReturn.text = userComment.SRA_User_EmpComment == "" ? AppDelegate.noComment : userComment.SRA_User_EmpComment
-            
+            cell.commentReturn.text = userComment.SRA_User_EmpComment
             return cell
+            
         }
         return UITableViewCell()
     }

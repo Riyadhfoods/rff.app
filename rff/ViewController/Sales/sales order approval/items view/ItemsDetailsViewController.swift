@@ -38,9 +38,7 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if itemsDetails.count == 0{
-            emptyMessage(message: "No Data".localize(), viewController: self, tableView: itemDetailsTableView)
-        }
+        emptyMessage(viewController: self, tableView: itemDetailsTableView, isEmpty: itemsDetails.count == 0)
         return itemsDetails.count
     }
     
@@ -81,7 +79,8 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         itemsDetails[sender.tag].isItemChecked = isChecked
-        itemDetailsTableView.reloadData()
+        let indexPath = IndexPath(row: sender.tag, section: 0)
+        itemDetailsTableView.reloadRows(at: [indexPath], with: .none)
     }
     
 }

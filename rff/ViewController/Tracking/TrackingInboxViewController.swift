@@ -189,9 +189,6 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     // -- MARK: IBActions
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        AuthServices().logout(self)
-    }
     
     @IBAction func searchButtonTapped(_ sender: Any) {
         if listRowIndex == 0
