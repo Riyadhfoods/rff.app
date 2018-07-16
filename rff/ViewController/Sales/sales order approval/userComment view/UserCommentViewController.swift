@@ -21,6 +21,7 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
     let cellId = "cell_userComment"
     var orderId = ""
     var userCommentArray = [SalesModel]()
+    var userCommentWithNoEmptyValue = [SalesModel]()
     
     // -- MARK: viewDidLoad
     
@@ -28,6 +29,15 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         title = "User Comment"
+        
+        for index in 0..<userCommentArray.count where index != 0{
+            if userCommentArray[index].SOA_EMPNAME != ""{
+                if userCommentArray[index].SOA_COMMENT != ""{
+                    userCommentWithNoEmptyValue.append(userCommentArray[index])
+                }
+            }
+        }
+        
         setViewAlignment()
     }
 
@@ -38,17 +48,17 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
     // -- MARK: Tableview data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        emptyMessage(viewController: self, tableView: userCommentTableView, isEmpty: userCommentArray.count == 0)
-        return userCommentArray.count
+        emptyMessage(viewController: self, tableView: userCommentTableView, isEmpty: userCommentWithNoEmptyValue.count == 0)
+        return userCommentWithNoEmptyValue.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? UserCommentCell{
             
-            let userComment = userCommentArray[indexPath.row]
+            let userComment = userCommentWithNoEmptyValue[indexPath.row]
             
             cell.empName.text = userComment.SOA_EMPNAME
-            cell.comment.text = userComment.SOA_COMMENT == "" ? AppDelegate.noComment : userComment.SOA_COMMENT
+            cell.comment.text = userComment.SOA_COMMENT
             
             return cell
         }

@@ -384,9 +384,14 @@ class ReturnOrderRequestsViewController: UIViewController {
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
-//        returnId = "1111"
-//        setViewToDefault()
-        checkRequirementsAndThenProccess()
+        AlertMessage().showAlertMessage(
+            alertTitle: "Conformation",
+            alertMessage: "Do you want to send the request",
+            actionTitle: "Ok",
+            onAction: {
+                self.checkRequirementsAndThenProccess()
+        }, cancelAction: "Cancel",
+           self)
     }
     
     func alertMessageForEmptyField(alertMessage: String){

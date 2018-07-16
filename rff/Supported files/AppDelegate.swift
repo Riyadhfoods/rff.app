@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     let screenSize = UIScreen.main.bounds
     let mainBackgroundColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0)
-    static let noComment = LanguageManger.isArabicLanguage ? "لا توجد ملاحظات ..." : "No comment ..."
+    static let noComment = "No comment ...".localize()
     
     //UIApplication.shared.isNetworkActivityIndicatorVisible
 

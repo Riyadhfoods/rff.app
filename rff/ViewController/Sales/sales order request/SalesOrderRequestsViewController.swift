@@ -347,7 +347,7 @@ class SalesOrderRequestsViewController: UIViewController {
     }
     
     func setCountLabel(c: Int){
-        itemButtonOutlet.title = "ITEMS (".localize() + "\(c))"
+        itemButtonOutlet.title = "ITEMS".localize() + " (\(c))"
     }
     
     func setUpCommentDisplay(){
@@ -535,83 +535,99 @@ class SalesOrderRequestsViewController: UIViewController {
                 }
                 return
             } else {
-                var countForItemStatus = 0
-                table = !itemAddedArray.isEmpty
-                if table{
-                    for item in itemAddedArray{
-                        itemSentStatus = webservice.SendItemGrid(
-                            orderid: orderId,
-                            serialno: countForItemStatus,
-                            customerid: customerNamesArray[selectedRowForCustomer],
-                            Grid_ItemId: item.Grid_ItemId,
-                            Grid_Desc: item.Grid_Desc,
-                            Grid_UnitPrice: item.Grid_UnitPrice,
-                            Grid_Qty: item.Grid_Qty,
-                            Grid_TotalPrice: item.Grid_TotalPrice,
-                            Grid_UOM: item.Grid_UOM)
-                        for status in itemSentStatus{
-                            if status.grid_error != ""{
-                                let alertTitle = "Alert".localize()
-                                let alertMessage = status.grid_error
-                                AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: "Ok", onAction: {
-                                    return
-                                }, cancelAction: nil, self)
-                            } else {
-                                if orderId == ""{
-                                    orderId = status.OrderID
-                                }
-                                if status.Flag == true {
-                                    flag = true
-                                } else { flag = false }
-                                countForItemStatus += 1
-                                print("Item sent successfully")
-                            }
-                        }
-                    }
-                    
-                    let branchId = selectedRowForBranch != 0 ? branchIdArray[selectedRowForBranch - 1] : ""
-                    let companyId = selectedRowForCompany != 0 ? companyIdArray[selectedRowForCompany - 1] : companyIdArray[0]
-                    let store = storeArray.isEmpty ? "" : storeIdArray[salesSelecteedRow]
-                    let city = cityArray.isEmpty ? "" : cityArray[citySelectedRow].City
-                    let salespersonstore = salesPersonArray.isEmpty ? "" : salesPersonArray[salesperosnSelectedRow].SalesPersonStore
-                    let merchandiser = merchandiserArray.isEmpty ? "" :merchandiserArray[merSelectedRow].Merchandiser
-                    
-                    sentStatus = webservice.Senditem(
-                        orderid: orderId,
-                        branchid: branchId,
-                        customerid: customerText,
-                        branch: branchText,
-                        table: table,
-                        salesperson: salespersonText,
-                        company: companyId,
-                        emp_id: emp_id,
-                        comment: comment,
-                        city: city,
-                        store: store,
-                        salespersonstore: salespersonstore,
-                        merchandiser: merchandiser,
-                        offer: offer,
-                        deliverydate: deliveryDate,
-                        loccode: locCodeText,
-                        docid: docIdArray[0],
-                        purchasegrid: "",
-                        supermarket: supermarket,
-                        flag: flag)
-                    
-                    for status in sentStatus{
-                        if status.grid_error != ""{
-                            error = status.grid_error
-                        }
-                    }
-                    if error != ""{
-                        AlertMessage().showAlertMessage(alertTitle: "Alert!".localize(), alertMessage: error, actionTitle: "Ok", onAction: nil, cancelAction: nil, self)
-                        return
-                    } else {
-                        AlertMessage().showAlertMessage(alertTitle: "Success".localize(), alertMessage: "Order request sent successfully".localize(), actionTitle: "Ok", onAction: {
-                            self.setViewToDefault()
+                AlertMessage().showAlertMessage(
+                    alertTitle: "Conformation",
+                    alertMessage: "Do you want to send the request",
+                    actionTitle: "Ok",
+                    onAction: {
+                        self.runSend(comment: comment,
+                                     customerText: customerText,
+                                     branchText: branchText,
+                                     salespersonText: salespersonText,
+                                     deliveryDate: deliveryDate,
+                                     locCodeText: locCodeText)
+                }, cancelAction: "Cancel",
+                   self)
+            }
+        }
+    }
+    
+    func runSend(comment: String, customerText: String, branchText: String, salespersonText: String, deliveryDate: String, locCodeText: String){
+        var countForItemStatus = 0
+        table = !itemAddedArray.isEmpty
+        if table{
+            for item in itemAddedArray{
+                itemSentStatus = webservice.SendItemGrid(
+                    orderid: orderId,
+                    serialno: countForItemStatus,
+                    customerid: customerNamesArray[selectedRowForCustomer],
+                    Grid_ItemId: item.Grid_ItemId,
+                    Grid_Desc: item.Grid_Desc,
+                    Grid_UnitPrice: item.Grid_UnitPrice,
+                    Grid_Qty: item.Grid_Qty,
+                    Grid_TotalPrice: item.Grid_TotalPrice,
+                    Grid_UOM: item.Grid_UOM)
+                for status in itemSentStatus{
+                    if status.grid_error != ""{
+                        let alertTitle = "Alert".localize()
+                        let alertMessage = status.grid_error
+                        AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: "Ok", onAction: {
+                            return
                         }, cancelAction: nil, self)
+                    } else {
+                        if orderId == ""{
+                            orderId = status.OrderID
+                        }
+                        if status.Flag == true {
+                            flag = true
+                        } else { flag = false }
+                        countForItemStatus += 1
+                        print("Item sent successfully")
                     }
                 }
+            }
+            
+            let branchId = selectedRowForBranch != 0 ? branchIdArray[selectedRowForBranch - 1] : ""
+            let companyId = selectedRowForCompany != 0 ? companyIdArray[selectedRowForCompany - 1] : companyIdArray[0]
+            let store = storeArray.isEmpty ? "" : storeIdArray[salesSelecteedRow]
+            let city = cityArray.isEmpty ? "" : cityArray[citySelectedRow].City
+            let salespersonstore = salesPersonArray.isEmpty ? "" : salesPersonArray[salesperosnSelectedRow].SalesPersonStore
+            let merchandiser = merchandiserArray.isEmpty ? "" :merchandiserArray[merSelectedRow].Merchandiser
+            
+            sentStatus = webservice.Senditem(
+                orderid: orderId,
+                branchid: branchId,
+                customerid: customerText,
+                branch: branchText,
+                table: table,
+                salesperson: salespersonText,
+                company: companyId,
+                emp_id: emp_id,
+                comment: comment,
+                city: city,
+                store: store,
+                salespersonstore: salespersonstore,
+                merchandiser: merchandiser,
+                offer: offer,
+                deliverydate: deliveryDate,
+                loccode: locCodeText,
+                docid: docIdArray[0],
+                purchasegrid: "",
+                supermarket: supermarket,
+                flag: flag)
+            
+            for status in sentStatus{
+                if status.grid_error != ""{
+                    error = status.grid_error
+                }
+            }
+            if error != ""{
+                AlertMessage().showAlertMessage(alertTitle: "Alert!".localize(), alertMessage: error, actionTitle: "Ok", onAction: nil, cancelAction: nil, self)
+                return
+            } else {
+                AlertMessage().showAlertMessage(alertTitle: "Success".localize(), alertMessage: "Order request sent successfully with order no." + " \(orderId)", actionTitle: "Ok", onAction: {
+                    self.setViewToDefault()
+                }, cancelAction: nil, self)
             }
         }
     }
@@ -630,7 +646,7 @@ class SalesOrderRequestsViewController: UIViewController {
         storeStackView.isHidden = true
         viewHolder.isHidden = true
         setCountLabel(c: itemAddedArray.count)
-        scrollView.scrollTo(direction: .Top, animated: true)
+        scrollView.scrollTo(direction: .Top, animated: false)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -905,6 +921,7 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
         } else if pickerView == itemsPickerView{
             unoits = webservice.BindSalesOrderUnitofMeasure(itemid: itemsName[row])
             itemSelectedRow = row
+            uofmSelectedRow = 0
         } else if pickerView == unoitPickerView{
             uofmSelectedRow = row
         }

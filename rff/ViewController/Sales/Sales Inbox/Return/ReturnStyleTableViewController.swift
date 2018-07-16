@@ -41,10 +41,14 @@ class ReturnStyleTableViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setViewAlignment()
-        setCustomNav(navItem: navigationItem, title: "Return List")
+        setCustomNav(navItem: navigationItem, title: "RFC Return List")
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
-
+        
+        if let userId = AuthServices.currentUserId{
+            currentUserId = userId
+        }
         preSalesArray = salesArray
         
         if salesArray.count != 0 {
@@ -118,7 +122,7 @@ class ReturnStyleTableViewController: UITableViewController {
  
     @objc func viewButtonTapped(sender: UIButton){
         rowIndexSelected = sender.tag
-        performSegue(withIdentifier: "showReturnWeb", sender: nil)
+        performSegue(withIdentifier: "showDetails", sender: nil)
     }
     
     @objc func firstButtonTapped(){
@@ -165,8 +169,12 @@ class ReturnStyleTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? SalesInboxWebPageViewController{
-            vc.urlString = self.urlString[rowIndexSelected]
+        if segue.identifier == "showDetails"{
+            if let vc = segue.destination as? SalesDetailsViewController{
+                vc.empId = salesArray[rowIndexSelected].EmpCreated
+                vc.returnId = "\(salesArray[rowIndexSelected].ID)"
+                vc.barTitle = "Sales Return Order"
+            }
         }
     }
 }

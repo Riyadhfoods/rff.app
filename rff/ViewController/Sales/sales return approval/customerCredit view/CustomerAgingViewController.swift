@@ -57,6 +57,4 @@ class CustomerAgingViewController: UIViewController {
             statusRight.text = customerCredit.Status
         }
     }
-    
-    
 }

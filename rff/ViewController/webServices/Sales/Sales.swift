@@ -39,15 +39,14 @@
         data!.copyBytes(to: &bytes, count: dataCount)
         return bytes
     }
-    func stringFromXMLString(xmlToParse:String)->String {
-        do
-        {
+    func stringFromXMLString(xmlToParse:String) -> String {
+        do{
             let xml = SWXMLHash.lazy(xmlToParse)
             let xmlResponse : XMLIndexer? = xml.children.first?.children.first?.children.first
             let xmlResult: XMLIndexer?  = xmlResponse?.children.last
             
             let xmlElement = xmlResult?.element
-            let str = xmlElement?.text as? String
+            let _ = xmlElement?.text
             if let child = xmlElement?.children{
                 if !child.isEmpty{
                     if let xmlElementFirst = xmlElement?.children[0] as? TextElement{
@@ -56,10 +55,6 @@
                 }
             }
         }
-        catch
-        {
-        }
-        //NOT IMPLETEMENTED!
         return ""
     }
     func stringFromXML(data:Data)-> String
@@ -126,7 +121,7 @@
         
         let xml = SWXMLHash.lazy(xmlToParse)
         let xmlRoot = xml.children.first
-        let xmlBody = xmlRoot?.children.last
+        let _ = xmlRoot?.children.last
         let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
         let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
         var strVal = ""
@@ -1640,6 +1635,54 @@
                         rItem1.Comment =  strVal
                     }
                         // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRI_CustomerID" {
+                        rItem1.SRI_CustomerID =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRI_CustomerName" {
+                        rItem1.SRI_CustomerName =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRI_CreditLimit" {
+                        rItem1.SRI_CreditLimit =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRI_TotalDue" {
+                        rItem1.SRI_TotalDue =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRI_Status" {
+                        rItem1.SRI_Status =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_Comment" {
+                        rItem1.SRA_Comment =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_SLSPersonId" {
+                        rItem1.SRA_SLSPersonId =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_SLSPersonName" {
+                        rItem1.SRA_SLSPersonName =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_ExtPrice" {
+                        rItem1.SRA_ExtPrice =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_ItemDesc" {
+                        rItem1.SRA_ItemDesc =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_ReturnId" {
+                        rItem1.SRA_ReturnId =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SRA_InvoiceDate" {
+                        rItem1.SRA_InvoiceDate =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "SRA_EmpCreated" {
                         rItem1.SRA_EmpCreated =  strVal
                     }
@@ -2457,6 +2500,53 @@
         
         let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         let returnValue:[SalesModel] = SalesArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SRI_BindItemGrid(returnid:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRI_BindItemGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "</SRI_BindItemGrid>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRI_BindItemGrid"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
+        return returnValue
+    }
+    
+    public func SRI_BindCustomerCreditLimit(returnid:String, company:String)-> [SalesReturn]{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<SRI_BindCustomerCreditLimit xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<returnid>"
+        soapReqXML += returnid
+        soapReqXML += "</returnid>"
+        soapReqXML += "<company>"
+        soapReqXML += company
+        soapReqXML += "</company>"
+        soapReqXML += "</SRI_BindCustomerCreditLimit>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/SRI_BindCustomerCreditLimit"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let returnValue:[SalesReturn]=SalesReturnArrFromXML(data : responseData)
         return returnValue
     }
     

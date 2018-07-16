@@ -7,6 +7,9 @@
 //
 
 import UIKit
+protocol ItemDetailsDelegate{
+    func updateItemDeatails(itemsDetails: [SalesOrderItemsDetailsModel])
+}
 
 class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -21,6 +24,8 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
     var orderId = ""
     var userId = ""
     var isChecked: Bool = true
+    var itemsDetails = [SalesOrderItemsDetailsModel]()
+    var delegate: ItemDetailsDelegate?
     
     // -- MARK: viewDidLoad
     
@@ -81,6 +86,9 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
         itemsDetails[sender.tag].isItemChecked = isChecked
         let indexPath = IndexPath(row: sender.tag, section: 0)
         itemDetailsTableView.reloadRows(at: [indexPath], with: .none)
+        if let delegate = delegate{
+            delegate.updateItemDeatails(itemsDetails: itemsDetails)
+        }
     }
     
 }

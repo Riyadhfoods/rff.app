@@ -9,8 +9,7 @@
 import UIKit
 import WebKit
 
-var itemsDetails = [SalesOrderItemsDetailsModel]()
-class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextViewDelegate {
+class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDelegate, ItemDetailsDelegate {
     
     // -- MARK: IBOutlets
     
@@ -39,7 +38,13 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     
     let webservice = Sales()
     let cellId = "cell_detailsSalesOrderRequest"
-    let cellTitleArray = ["Item(s) Details", "Cutomer Credit Details", "User Comment", "Work Flow"]
+    
+    let cellTitleArray = [
+        "Item(s) Details".localize(),
+        "Cutomer Credit Details".localize(),
+        "User Comment".localize(),
+        "Work Flow".localize()]
+    
     var checkSalesApprovalArray: [SalesModel] = [SalesModel]()
     var itemsDetailsArray = [SalesModel]()
     
@@ -55,14 +60,13 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     var docIdReceived = ""
     var locCodeReveived = ""
     var checkSalasApproveInfo = CheckSalesApprovalModel()
+    var itemsDetails = [SalesOrderItemsDetailsModel]()
     
-    var isThereItems = false
-    var isThereCustomerCredit = false
-    var isThereUserComment = false
-    var isThereWorkFlow = false
+    var emptyArrayElementCheck = [Bool]()
+    var emptyArrayCount: CGFloat = 0
     
-    func setItemDetailsArray(itemDetailsArray: [SalesOrderItemsDetailsModel]) {
-        itemsDetails = itemDetailsArray
+    func updateItemDeatails(itemsDetails: [SalesOrderItemsDetailsModel]) {
+        self.itemsDetails = itemsDetails
     }
     
     // -- MARK: viewDidLoad
@@ -70,7 +74,8 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setCustomNavAndBackButton(navItem: navigationItem, title: "Approval Form", backTitle: nil)
+        setbackNavTitle(navItem: navigationItem)
+        title = "Approval Form".localize()
         stackViewWidth.constant = AppDelegate().screenSize.width - 32
         activityIndicator.startAnimating()
         if let currentUserId = AuthServices.currentUserId{
@@ -94,7 +99,6 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
         if itemsDetailsArray.isEmpty && customerCreditDetailsArray.isEmpty && userCommentArray.isEmpty && workFlowArray.isEmpty{
             
             itemsDetailsArray = webservice.BindOrderItemGridFor_SalesApprovalForm(emp_id: userId, ordernumber: orderId)
-            isThereItems = !itemsDetailsArray.isEmpty
             for item in itemsDetailsArray{
                 
                 itemsDetails.append(SalesOrderItemsDetailsModel(
@@ -114,8 +118,8 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
             }
             
             customerCreditDetailsArray = webservice.BindCustomerCreditGridView_SalesApprovalForm(ordernumber: orderId)
-            isThereCustomerCredit = !customerCreditDetailsArray.isEmpty
             setUserCommentAndSetWorkFlow()
+            handleTheHeightOfTableView()
             handleVisibilityOfButtons()
             detailsTableView.reloadData()
             activityIndicator.stopAnimating()
@@ -124,7 +128,6 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // -- MARK: Setups
@@ -169,6 +172,26 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
         commentTextView.layer.borderWidth = 1
     }
     
+    func handleTheHeightOfTableView(){
+        emptyArrayElementCheck.append(itemsDetailsArray.isEmpty)
+        emptyArrayElementCheck.append(customerCreditDetailsArray.isEmpty)
+        emptyArrayElementCheck.append(userCommentArray.isEmpty)
+        emptyArrayElementCheck.append(workFlowArray.isEmpty)
+        
+        for isEmpty in emptyArrayElementCheck{
+            if isEmpty{
+                emptyArrayCount += 1
+            }
+        }
+        
+        let rowHeight: CGFloat = 44 * (4 - emptyArrayCount)
+        setTableViewHeight(height: rowHeight)
+    }
+    
+    func setTableViewHeight(height: CGFloat){
+        tableViewHeight.constant = height
+    }
+    
     // -- MARK: TextView handle
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -177,87 +200,6 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
             return false
         }
         return true
-    }
-    
-    // -- MARK: Tableview data source
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellTitleArray.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? DetailsSalesOrderApprovalCell{
-            cell.textLabel?.text = cellTitleArray[indexPath.row]
-            cell.textLabel?.textAlignment = LanguageManger.isArabicLanguage ? .right : .left
-            
-            return cell
-        }
-        return UITableViewCell()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rowDetailsArray = getArray(row: indexPath.row)
-        let performId = getId(row: indexPath.row)
-        
-        if !rowDetailsArray.isEmpty{
-            performSegue(withIdentifier: performId, sender: nil)}
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
-    
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        let rowHeight: CGFloat = 44
-//
-//        if !isThereItems{
-//            if indexPath.row == 0 {
-//                setTableViewHeight(height: rowHeight * 3)
-//                return 0
-//            }
-//        } else if !isThereCustomerCredit{
-//            if indexPath.row == 1 {
-//                setTableViewHeight(height: rowHeight * 3)
-//                return 0
-//            }
-//        } else if !isThereUserComment{
-//            if indexPath.row == 2 {
-//                setTableViewHeight(height: rowHeight * 3)
-//                return 0
-//            }
-//        } else if !isThereWorkFlow{
-//            if indexPath.row == 3 {
-//                setTableViewHeight(height: rowHeight * 3)
-//                return 0
-//            }
-//        } else {
-//            setTableViewHeight(height: rowHeight * 4)
-//        }
-//
-//        if  !isThereItems && !isThereCustomerCredit && !isThereUserComment && !isThereWorkFlow { detailsTableView.isHidden = true }
-//        else { detailsTableView.isHidden = false }
-//        return 44
-//    }
-    
-    func setTableViewHeight(height: CGFloat){
-        tableViewHeight.constant = height
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "showItemsDetails"{
-            if let vc = segue.destination as? ItemsDetailsViewController{
-                vc.orderId = self.orderId
-            }
-        } else if segue.identifier == "showCustomerCreditDetails" {
-            if let vc = segue.destination as? CustomerCreditDetailsViewController{
-                vc.customerCreditDetailsArray = self.customerCreditDetailsArray
-            }
-        } else if segue.identifier == "showUserComment" {
-            if let vc = segue.destination as? UserCommentViewController{
-                vc.userCommentArray = self.userCommentArray
-            }
-        } else {
-            if let vc = segue.destination as?WorkFlowViewController{
-                vc.workFlowArray = self.workFlowArray
-            }
-        }
     }
     
     // -- MARK: Helper functions
@@ -286,9 +228,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
     
     func setUserCommentAndSetWorkFlow(){
         userCommentArray = webservice.BindUserComment_SalesApprovalForm(orderid: orderId)
-        isThereUserComment = !userCommentArray.isEmpty
         workFlowArray = webservice.BindApprovalGrid_SalesApprovalForm(orderid: orderId)
-        isThereWorkFlow = !workFlowArray.isEmpty
     }
     
     func runBeforeApproveFinalOrderService(){
@@ -386,8 +326,75 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITableViewDele
         }
         
     }
+}
+
+
+extension DetailsSalesOrderApprovalViewController: UITableViewDelegate, UITableViewDataSource{
+    // -- MARK: Tableview data source
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return cellTitleArray.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? DetailsSalesOrderApprovalCell{
+            cell.textLabel?.text = cellTitleArray[indexPath.row]
+            cell.textLabel?.textAlignment = LanguageManger.isArabicLanguage ? .right : .left
+            
+            return cell
+        }
+        return UITableViewCell()
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let rowDetailsArray = getArray(row: indexPath.row)
+        let performId = getId(row: indexPath.row)
+        
+        if !rowDetailsArray.isEmpty{
+            performSegue(withIdentifier: performId, sender: nil)}
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            if itemsDetailsArray.isEmpty{ return 0 }
+        } else if indexPath.row == 1 {
+            if customerCreditDetailsArray.isEmpty{ return 0 }
+        } else if indexPath.row == 2 {
+            if userCommentArray.isEmpty{ return 0 }
+        } else if indexPath.row == 3 {
+            if workFlowArray.isEmpty{ return 0 }
+        }
+        
+        if  itemsDetailsArray.isEmpty &&
+            customerCreditDetailsArray.isEmpty &&
+            userCommentArray.isEmpty &&
+            workFlowArray.isEmpty
+        { detailsTableView.isHidden = true }
+        else { detailsTableView.isHidden = false }
+        return 44
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showItemsDetails"{
+            if let vc = segue.destination as? ItemsDetailsViewController{
+                vc.orderId = self.orderId
+                vc.itemsDetails = self.itemsDetails
+            }
+        } else if segue.identifier == "showCustomerCreditDetails" {
+            if let vc = segue.destination as? CustomerCreditDetailsViewController{
+                vc.customerCreditDetailsArray = self.customerCreditDetailsArray
+            }
+        } else if segue.identifier == "showUserComment" {
+            if let vc = segue.destination as? UserCommentViewController{
+                vc.userCommentArray = self.userCommentArray
+            }
+        } else {
+            if let vc = segue.destination as?WorkFlowViewController{
+                vc.workFlowArray = self.workFlowArray
+            }
+        }
+    }
 }
 
 

@@ -223,6 +223,7 @@
 "SELECT" = "اختر";
 "Item(s) Details" = "تفاصيل الصنف";
 "Cutomer Aging" = "عمر الدين للعميل";
+"Cutomer Credit Details" = "عمر الدين للعميل";
 "User Comment" = "ملاحظات المستخدم";
 "Work Flow" = "سلسلة الاعتمادات";
 "Attachment Files" = "الملفات المرفقة";
@@ -248,7 +249,6 @@
 "Conformation" = "تأكيد";
 "Do you want to reject the order" = "هل تريد رفض الطلب";
 "rejected successfully" = "تم الرفض بنجاح";
-
-
-
-
+"No comment ..." = "لا توجد ملاحظات ...";
+"Order ID" = "رقم الطلب";
+"Approval Form" = "نموذج الموافقة";

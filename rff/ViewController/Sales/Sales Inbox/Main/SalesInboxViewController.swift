@@ -89,6 +89,7 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
 
     @IBAction func searchButtonTapped(_ sender: Any) {
         view.bringSubview(toFront: activityIndicator)
+        activityIndicator.startAnimating()
         if ListTextfield.text == selectListArray[0].localize(){
             let alertTitle = "Alert".localize()
             let alertMessage = "You did not select a list".localize()
@@ -96,22 +97,15 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
         }
         
         if let userId = AuthServices.currentUserId, let searchText = seachTextfield.text{
-            activityIndicator.startAnimating()
             salesArray = salesWebservice.GetSalesInbox(id: selectedListIndex, emp_id: userId, searchtext: searchText, index: 0)
-            activityIndicator.stopAnimating()
-        } else {
-            return
-        }
+        } else { return }
+        activityIndicator.stopAnimating()
         
         switch selectedListIndex {
-        case 1:
-            performSegue(withIdentifier: segueId_orderStyle, sender: nil)
-        case 2:
-            performSegue(withIdentifier: segueId_transferStyle, sender: nil)
-        case 3:
-            performSegue(withIdentifier: segueId_returnStyle, sender: nil)
-        default:
-            break
+        case 1: performSegue(withIdentifier: segueId_orderStyle, sender: nil)
+        case 2: performSegue(withIdentifier: segueId_transferStyle, sender: nil)
+        case 3: performSegue(withIdentifier: segueId_returnStyle, sender: nil)
+        default: break
         }
     }
     

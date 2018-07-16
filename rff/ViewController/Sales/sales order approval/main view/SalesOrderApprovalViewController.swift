@@ -30,7 +30,7 @@ class SalesOrderApprovalViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setCustomNavAndBackButton(navItem: navigationItem, title: "Sales Order Approval".localize(), backTitle: "Return")
+        setCustomNavAndBackButton(navItem: navigationItem, title: "Sales Order Approval".localize(), backTitle: "Return".localize())
         activityIndicator.startAnimating()
         setViewAlignment()
         
@@ -63,21 +63,14 @@ extension SalesOrderApprovalViewController: UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SalesOrderApprovalCell{
             
-            let orderId = salesOrderDetails[indexPath.row].OrderID
-            let empCreate = salesOrderDetails[indexPath.row].SO_EmpCreated
-            let customerName = salesOrderDetails[indexPath.row].SO_CustomerName
-            let item = salesOrderDetails[indexPath.row].SO_Items
-            let date = salesOrderDetails[indexPath.row].DeliveryDate
-            let status = salesOrderDetails[indexPath.row].SO_Status
-            let comment = salesOrderDetails[indexPath.row].SO_Comment
-            
-            cell.orderId.text = orderId
-            cell.empCreated.text = empCreate
-            cell.customerName.text = customerName
-            cell.items.text = item
-            cell.date.text = date
-            cell.status.text = status
-            cell.comment.text = comment  == "" ? AppDelegate.noComment : comment
+            let salesOrder = salesOrderDetails[indexPath.row]
+            cell.orderId.text = salesOrder.OrderID
+            cell.empCreated.text = salesOrder.SO_EmpCreated
+            cell.customerName.text = salesOrder.SO_CustomerName
+            cell.items.text = salesOrder.SO_Items
+            cell.date.text = salesOrder.DeliveryDate
+            cell.status.text = salesOrder.SO_Status
+            cell.comment.text = salesOrder.SO_Comment  == "" ? AppDelegate.noComment : salesOrder.SO_Comment
             cell.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
             cell.selectButton.tag = indexPath.row
             return cell

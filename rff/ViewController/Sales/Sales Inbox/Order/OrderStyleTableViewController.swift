@@ -166,9 +166,7 @@ class OrderStyleTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? SalesInboxWebPageViewController{
-            vc.urlString = self.urlString[rowIndexSelected]
-        }
+        
     }
 }
 

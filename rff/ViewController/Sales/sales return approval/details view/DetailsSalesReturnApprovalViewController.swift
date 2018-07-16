@@ -72,11 +72,11 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setCustomNavAndBackButton(navItem: navigationItem, title: "Approval Form", backTitle: nil)
+        setbackNavTitle(navItem: navigationItem)
+        title = "Approval Form".localize()
         if let currentUserId = AuthServices.currentUserId{
             userId = currentUserId
         }
-        title = "Return ID".localize() + ": \(returnId)"
         stackviewWidth.constant = screenSize.width - 32
         comment.delegate = self
         
@@ -292,10 +292,12 @@ extension DetailsSalesReturnApprovalViewController: UITableViewDelegate, UITable
             if workFlowArray.isEmpty { return 0 }
         }
         
-        if  itemsDetailsArray.isEmpty && customerCreditDetailsArray.isEmpty && userCommentArray.isEmpty && workFlowArray.isEmpty
+        if  itemsDetailsArray.isEmpty &&
+            customerCreditDetailsArray.isEmpty &&
+            userCommentArray.isEmpty &&
+            workFlowArray.isEmpty
         { DetailsSalesReturnTableview.isHidden = true }
         else { DetailsSalesReturnTableview.isHidden = false }
-        
         return 44
     }
     
