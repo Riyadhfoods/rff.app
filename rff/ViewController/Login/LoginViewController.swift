@@ -49,18 +49,16 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     let screenHeight = AppDelegate().screenSize.height
     let pickerViewAction = PickerviewAction()
-    
     let pickViewCompay: UIPickerView = UIPickerView()
     let pickViewLanguage: UIPickerView = UIPickerView()
-    
     var pickview: UIPickerView = UIPickerView()
     
     let companyArray = ["RiyadhFoods - شركة الرياض لصناعات التغذية"]
     let languageArray = ["English - إنجليزي" , "Arabic - عربي"]
+    let userDefault = UserDefaults.standard
     
     // 1 --> English, 2 --> Arabic
     static var languageChosen: Int = 1
-    
     let screenSize = AppDelegate().screenSize
 
     // -- MARK: viewDidLoad
@@ -87,10 +85,21 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        usernameTextfield.text = ""
+        if let usernameText = userDefault.object(forKey: "username") as? String,
+            let companyText = userDefault.object(forKey: "company") as? String,
+            let languageText = userDefault.object(forKey: "language") as? String
+        {
+            usernameTextfield.text = usernameText
+            if !companyText.isEmpty{ companyTextfield.text = companyText }
+            if languageText.isEmpty{
+                languangeTextfield.text = languageArray[0]
+            } else {
+                languangeTextfield.text = languageText
+            }
+        }
+        
         passwordTextfield.text = ""
         setupDefaultLanguage()
-        languangeTextfield.text = languageArray[0]
     }
     
     func setupDefaultLanguage(){
@@ -152,7 +161,6 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     // -- MARK: IBActions
     
     @IBAction func loginButton(_ sender: Any) {
-        activityIndicator.startAnimating()
         guard let usernametext = usernameTextfield.text, let passwordText = passwordTextfield.text else {
             return
         }
@@ -162,16 +170,20 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         } else {
             if let language = languangeTextfield.text{
                 LoginViewController.languageChosen = setLanguageChosen(languagetextfield: language)
+                userDefault.set(setLanguageChosen(languagetextfield: language), forKey: "langIndex")
             }
             
-            AuthServices().checkUserId(id: usernametext, password: passwordText, onSeccuss: {
-                self.setLanguage()
-                self.performSegue(withIdentifier: "showHomePage", sender: nil)
-            }, onError: { (error) in
-                AlertMessage().showAlertMessage(alertTitle: "Alert!", alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "Dismiss", self)
-            }, activityIndicator: activityIndicator, viewController: self)
+            activityIndicator.startAnimating()
+            DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.01) {
+                AuthServices().checkUserId(id: usernametext, password: passwordText, onSeccuss: {
+                    self.setLanguage()
+                    self.performSegue(withIdentifier: "showHomePage", sender: nil)
+                }, onError: { (error) in
+                    AlertMessage().showAlertMessage(alertTitle: "Alert!", alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "Dismiss", self)
+                }, viewController: self)
+                self.activityIndicator.stopAnimating()
+            }
         }
-        activityIndicator.stopAnimating()
     }
     
     // -- MARK: Pivker view delegate
@@ -199,9 +211,11 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if pickerView == pickViewCompay{
             companyTextfield.text = companyArray[row]
+            userDefault.set(companyArray[row], forKey: "company")
             cancelClick()
         } else {
             languangeTextfield.text =  languageArray[row]
+            userDefault.set(languageArray[row], forKey: "language")
             cancelClick()
         }
     }
@@ -221,7 +235,13 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         return true
     }
     
-    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == self.usernameTextfield{
+            if let username = usernameTextfield.text{
+                userDefault.set(username, forKey: "username")
+            }
+        }
+    }
     
     // -- MARK: helper function
     func setLanguageChosen(languagetextfield: String) -> Int{

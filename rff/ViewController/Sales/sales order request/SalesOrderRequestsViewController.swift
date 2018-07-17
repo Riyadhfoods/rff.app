@@ -203,7 +203,6 @@ class SalesOrderRequestsViewController: UIViewController {
         if let userId = AuthServices.currentUserId{
             emp_id = userId
         }
-        
         setupView()
         setUpPickerView()
         setupDatePicker()
@@ -270,7 +269,7 @@ class SalesOrderRequestsViewController: UIViewController {
         salespersonNamesArray = ["Select salesperson".localize()]
         storeIdArray = ["Select store id".localize()]
         
-        setUpKeyboardToolBar(textfield: qtyTextfield, viewController: self, cancelTitle: nil, cancelSelector: nil, doneTitle: "Done", doneSelector: #selector(doneButtonClick))
+        setUpKeyboardToolBar(textfield: qtyTextfield, viewController: self, cancelTitle: nil, cancelSelector: nil, doneTitle: "Done".localize(), doneSelector: #selector(doneButtonClick))
         
         setUpSelectors()
         setUpCommentDisplay()
@@ -358,11 +357,11 @@ class SalesOrderRequestsViewController: UIViewController {
     
     func setUpDefaultValueFromStoreToQty(){
         storeTextfield.text = storeIdArray[0]
-        cityTextfield.text = "Select city"
-        salesPersonTextfield.text = "Select sales person"
-        merchandiserTextfield.text = "Select merchandiser"
-        itemsTextfield.text = "Select item"
-        unoitTextfield.text = "Select unoit of measure"
+        cityTextfield.text = "Select city".localize()
+        salesPersonTextfield.text = "Select sales person".localize()
+        merchandiserTextfield.text = "Select merchandiser".localize()
+        itemsTextfield.text = "Select item".localize()
+        unoitTextfield.text = "Select unoit of measure".localize()
         qtyTextfield.text = "1"
     }
     
@@ -495,9 +494,9 @@ class SalesOrderRequestsViewController: UIViewController {
                 ItemsModul(
                     grid_error: item.grid_error,
                     Grid_ItemId: item.Grid_ItemId,
-                    Grid_Desc: itemText,
-                    Grid_UOM: unoitText,
-                    Grid_Qty: qtyText,
+                    Grid_Desc: item.Grid_Desc,
+                    Grid_UOM: item.Grid_UOM,
+                    Grid_Qty: item.Grid_Qty,
                     Grid_UnitPrice: item.Grid_UnitPrice,
                     Grid_TotalPrice: item.Grid_TotalPrice))
         }
@@ -540,12 +539,17 @@ class SalesOrderRequestsViewController: UIViewController {
                     alertMessage: "Do you want to send the request",
                     actionTitle: "Ok",
                     onAction: {
-                        self.runSend(comment: comment,
-                                     customerText: customerText,
-                                     branchText: branchText,
-                                     salespersonText: salespersonText,
-                                     deliveryDate: deliveryDate,
-                                     locCodeText: locCodeText)
+                        self.activityIndicator.startAnimating()
+                        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.01, execute: {
+                            self.runSend(comment: comment,
+                                         customerText: customerText,
+                                         branchText: branchText,
+                                         salespersonText: salespersonText,
+                                         deliveryDate: deliveryDate,
+                                         locCodeText: locCodeText)
+                            self.activityIndicator.stopAnimating()
+                        })
+                        
                 }, cancelAction: "Cancel",
                    self)
             }
@@ -757,29 +761,29 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
     }
     
     @objc func cancelClick(){
-        if pickerview == companyPickerView{
+        if textField == showCompanyPickerViewTextfield{
             showCompanyPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == branchPickerView{
+        } else if textField == showBranchPickerViewTextfield{
             showBranchPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == docIdPickerView{
+        } else if textField == showDocIdPickerViewTextfield{
             showDocIdPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == LocCodePickerView{
+        } else if textField == showLocCodePickerViewTextfield{
             showLocCodePickerViewTextfield.resignFirstResponder()
-        } else if pickerview == salespersonPickerView{
+        } else if textField == showsalespersonPickerViewTextfield{
             showsalespersonPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == customerPickerView{
+        } else if textField == showcustomerPickerViewTextfield{
             showcustomerPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == storePickerView{
+        } else if textField == showStorePickerViewTextfield{
             showStorePickerViewTextfield.resignFirstResponder()
-        } else if pickerview == cityPickerView{
+        } else if textField == showCityPickerViewTextfield{
             showCityPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == salesPersonStorePickerView{
+        } else if textField == showSalesPersonPickerViewTextfield{
             showSalesPersonPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == merchandiserPickerView{
+        } else if textField == showMerchandiserPickerViewTextfield{
             showMerchandiserPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == itemsPickerView{
+        } else if textField == showItemsPickerViewTextfield{
             showItemsPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == unoitPickerView{
+        } else if textField == showUnoitPickerViewTextfield{
             showUnoitPickerViewTextfield.resignFirstResponder()
         }
     }
@@ -919,7 +923,9 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
         } else if pickerView == merchandiserPickerView{
             merSelectedRow = row
         } else if pickerView == itemsPickerView{
-            unoits = webservice.BindSalesOrderUnitofMeasure(itemid: itemsName[row])
+            if itemsName.isEmpty{
+                unoits = webservice.BindSalesOrderUnitofMeasure(itemid: itemsName[row])
+            }
             itemSelectedRow = row
             uofmSelectedRow = 0
         } else if pickerView == unoitPickerView{

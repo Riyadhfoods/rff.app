@@ -46,6 +46,7 @@ public class SalesModel{
     public var NINETYOneTo120Days : String = ""
     public var Above120DAYS: String = ""
     public var CustomerAgying_Status : String = ""
+    public var DRP_ITEMNUMER : String = ""
     public var DrpItems : String = ""
     public var Customers : String = ""
     public var SalesPersonId : String = ""

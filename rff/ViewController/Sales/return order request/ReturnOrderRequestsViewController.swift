@@ -213,15 +213,15 @@ class ReturnOrderRequestsViewController: UIViewController {
         invoiceDateTextField.delegate = self
         commentTextView.delegate = self
         
-        companyNamesArray = ["Select company"]
+        companyNamesArray = ["Select company".localize()]
         companyIdArray = [" "]
-        salesPersonNamesArray = ["Select sales person"]
+        salesPersonNamesArray = ["Select sales person".localize()]
         salesPersonIdArray = [" "]
-        customerNamesArray = ["Select customer"]
+        customerNamesArray = ["Select customer".localize()]
         customerIdArray = [" "]
-        branchNamesArray = ["Select branch"]
+        branchNamesArray = ["Select branch".localize()]
         branchIdArray = [" "]
-        invoiceNameArray = ["Select invoce"]
+        invoiceNameArray = ["Select invoce".localize()]
         itemNameArray = [" "]
         storeIdArray = ["Select store id".localize()]
         
@@ -324,7 +324,7 @@ class ReturnOrderRequestsViewController: UIViewController {
                 totalPrice: item.SRR_ITEMGRID_COLUMN7,
                 expiredDate: item.SRR_ITEMGRID_COLUMN9,
                 invoiceDateFromWS: item.SRR_ITEMGRID_COLUMN10,
-                returnType: "Select Type"))
+                returnType: "Select Type".localize()))
             self.takeAction.setCountForItem(c: eachItemAddedCount, button: itemOutlet)
             AlertMessage().showAlertForXTime(alertTitle: "Invoice has been Added".localize(), time: 0.5, tagert: self)
         }
@@ -339,7 +339,7 @@ class ReturnOrderRequestsViewController: UIViewController {
             let itemText = itemTextField.text{
             
             if invoiceDateText.isEmpty || invoiceText == invoiceNameArray[0] || itemText == itemNameArray[0]{
-                AlertMessage().showAlertMessage(alertTitle: "Alert", alertMessage: "You did not fill invoice date or did not select invoice or item", actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
+                AlertMessage().showAlertMessage(alertTitle: "Alert".localize(), alertMessage: "You did not fill invoice date or did not select invoice or item".localize(), actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
             } else {
                 let itemDetailsFromWS = webservice.SRR_AddItem(
                     rownumber: addItemCount,
@@ -385,8 +385,8 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     @IBAction func sendButtonTapped(_ sender: Any) {
         AlertMessage().showAlertMessage(
-            alertTitle: "Conformation",
-            alertMessage: "Do you want to send the request",
+            alertTitle: "Conformation".localize(),
+            alertMessage: "Do you want to send the request".localize(),
             actionTitle: "Ok",
             onAction: {
                 self.checkRequirementsAndThenProccess()
@@ -396,7 +396,7 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     func alertMessageForEmptyField(alertMessage: String){
         AlertMessage().showAlertMessage(
-            alertTitle: "Alert",
+            alertTitle: "Alert".localize(),
             alertMessage: alertMessage,
             actionTitle: nil,
             onAction: nil,
@@ -422,19 +422,19 @@ class ReturnOrderRequestsViewController: UIViewController {
                 salesPerosnText == salesPersonNamesArray[0] ||
                 customerText == customerNamesArray[0] ||
                 branchText == branchNamesArray[0]{
-                    self.alertMessageForEmptyField(alertMessage: "You did not fill the fields")
+                    self.alertMessageForEmptyField(alertMessage: "You did not fill the fields".localize())
                     self.shouldProcess = false
             } else if !storeArray.isEmpty && storeText == storeIdArray[0] {
-                self.alertMessageForEmptyField(alertMessage: "You did not select store id")
+                self.alertMessageForEmptyField(alertMessage: "You did not select store id".localize())
                 self.shouldProcess = false
             } else if itemsArrayFromWS.isEmpty{
-                self.alertMessageForEmptyField(alertMessage: "You did not add any items")
+                self.alertMessageForEmptyField(alertMessage: "You did not add any items".localize())
                 self.shouldProcess = false
             } else { self.shouldProcess = true }
             
             for item in itemsArrayFromWS{
-                if item.returnType == "Select Type"{
-                    self.alertMessageForEmptyField(alertMessage: "You did not select return item for each item")
+                if item.returnType == "Select Type".localize(){
+                    self.alertMessageForEmptyField(alertMessage: "You did not select return item for each item".localize())
                     self.shouldProcess = false
                 } else { shouldProcess = true }
             }
@@ -471,7 +471,7 @@ class ReturnOrderRequestsViewController: UIViewController {
             if beforeSendResultArray[1] != ""{
                 if let alertMessage = beforeSendResultArray[1]{
                     AlertMessage().showAlertMessage(
-                        alertTitle: "Alert!",
+                        alertTitle: "Alert!".localize(),
                         alertMessage: alertMessage ,
                         actionTitle: "OK",
                         onAction: nil,
@@ -513,7 +513,7 @@ class ReturnOrderRequestsViewController: UIViewController {
             if sendResultArray[1] != ""{
                 if let error = sendResultArray[1]{
                     AlertMessage().showAlertMessage(
-                        alertTitle: "Sending Error",
+                        alertTitle: "Sending Error".localize(),
                         alertMessage: "\(error)",
                         actionTitle: "OK",
                         onAction: nil,
@@ -558,9 +558,9 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     func setUpDefaultValueForStore(){
         storeTextfield.text = storeIdArray[0]
-        cityTextfield.text = "Select city"
-        salesPersonStoreTextfield.text = "Select sales person"
-        merchandiserTextfield.text = "Select merchandiser"
+        cityTextfield.text = "Select city".localize()
+        salesPersonStoreTextfield.text = "Select sales person".localize()
+        merchandiserTextfield.text = "Select merchandiser".localize()
     }
     
     func setDependentValuesToDefault(){
@@ -752,8 +752,8 @@ extension ReturnOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewD
 
 extension ReturnOrderRequestsViewController{
     func setupDatePicker(){
-        PickerviewAction().showDatePicker(txtfield: returnDateTextField, datePicker: datePicker, title: "Return Date", viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
-        PickerviewAction().showDatePicker(txtfield: invoiceDateTextField, datePicker: datePicker, title: "Return Date", viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
+        PickerviewAction().showDatePicker(txtfield: returnDateTextField, datePicker: datePicker, title: "Return Date".localize(), viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
+        PickerviewAction().showDatePicker(txtfield: invoiceDateTextField, datePicker: datePicker, title: "Invoice Date".localize(), viewController: self, datePickerSelector: #selector(handleDatePicker(sender:)), doneSelector: #selector(datePickerDoneClick))
     }
     
     @objc func handleDatePicker(sender: UIDatePicker){

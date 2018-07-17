@@ -9,7 +9,7 @@
 import UIKit
 
 class OrderStyleTableViewController: UITableViewController {
-
+    
     // -- MARK: Variables
     
     let cellId = "cell_orderStyle"
@@ -42,11 +42,10 @@ class OrderStyleTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setViewAlignment()
-        setCustomNav(navItem: navigationItem, title: "Order List")
+        setCustomNav(navItem: navigationItem, title: "RFC Order List")
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
         
         preSalesArray = salesArray
-        
         if salesArray.count != 0 {
             isSalesArrayEmpty = false
             totalRow = salesArray[0].totalrows
@@ -119,7 +118,7 @@ class OrderStyleTableViewController: UITableViewController {
     
     @objc func viewButtonTapped(sender: UIButton){
         rowIndexSelected = sender.tag
-        performSegue(withIdentifier: "showOrderWeb", sender: nil)
+        performSegue(withIdentifier: "showOrderDetails", sender: nil)
     }
     
     @objc func firstButtonTapped(){
@@ -166,7 +165,11 @@ class OrderStyleTableViewController: UITableViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if segue.identifier == "showOrderDetails"{
+            if let vc = segue.destination as? SalesOrderDetailsViewController{
+                vc.orderId = "\(salesArray[rowIndexSelected].ID)"
+            }
+        }
     }
 }
 

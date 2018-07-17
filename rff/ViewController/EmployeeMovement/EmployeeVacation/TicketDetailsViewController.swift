@@ -37,7 +37,7 @@ class TicketDetailsViewController: UIViewController, UITableViewDelegate, UITabl
     @IBOutlet weak var comment: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-   // labels
+    // labels
     // Ticket Request
     @IBOutlet weak var ticketDetailsTitle: UILabel!
     @IBOutlet weak var ticketRequestTitle: UILabel!

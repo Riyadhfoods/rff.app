@@ -168,7 +168,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         case 2:
             return 44
         case 3:
-            return 0
+            return 44
         case 4:
             return 0
         case 5:
@@ -199,7 +199,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section].isExpanded{
             if indexPath.section == 10{
-                if indexPath.row == 3 {
+                if indexPath.row == 3{
                     return 0
                 } else if indexPath.row == 6{
                     return 0
@@ -210,6 +210,30 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
                 } else if indexPath.row == 9{
                     return 0
                 } else if indexPath.row == 10{
+                    return 0
+                }
+            } else if indexPath.section == 3{
+                if indexPath.row == 2{
+                    return 0
+                } else if indexPath.row == 3{
+                    return 0
+                } else if indexPath.row == 4{
+                    return 0
+                } else if indexPath.row == 5{
+                    return 0
+                } else if indexPath.row == 6{
+                    return 0
+                } else if indexPath.row == 7{
+                    return 0
+                } else if indexPath.row == 8{
+                    return 0
+                } else if indexPath.row == 9{
+                    return 0
+                } else if indexPath.row == 10{
+                    return 0
+                } else if indexPath.row == 11{
+                    return 0
+                } else if indexPath.row == 12{
                     return 0
                 }
             }

@@ -145,7 +145,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     }
     
     func handleVisibilityOfButtons(){
-        checkSalesApprovalArray = webservice.CheckSalesApproval(emp_number: orderId, order_number: orderId, comment: "")
+        checkSalesApprovalArray = webservice.CheckSalesApproval(emp_number: userId, order_number: orderId, comment: "")
         for checkSaleApproval in checkSalesApprovalArray{
             commentStackView.isHidden = !checkSaleApproval.U_Comment
             docIdStackView.isHidden = !checkSaleApproval.DocId_control_vis
@@ -273,33 +273,33 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     var saveToGPReturn = [SaveToGpModel]()
     var approveResult = ""
     @IBAction func approveAndSaveGBButtonTapped(_ sender: Any) {
-//        if locCodeReveived == "" || docIdReceived == "" {
-//            if docId.isHidden == true && loccode.isHidden == true {
-//                return
-//            }
-//
-//            let alertTitle = "Alert!"
-//            let messageTitle = "Please enter document Id or location code"
-//
-//            AlertMessage().showAlertMessage(alertTitle: alertTitle , alertMessage: messageTitle, actionTitle: "Ok", onAction: {
-//                return
-//            }, cancelAction: nil, self)
-//        }
-//
-//        saveToGPReturn = webservice.SaveToGp(orderno: orderId, combo_loc_code: locCodeReveived, combo_doc_id: docIdReceived, empnumber: userId)
-//
-//        runBeforeApproveFinalOrderService()
-//
-//        for saveReturn in saveToGPReturn{
-//            approveAndSaveGBBtn.isHidden = !saveReturn.Savetogp_btn_vis
-//            approveAndEnterManBtn.isHidden = !saveReturn.ApproveandEnterManually_btn
-//
-//            if saveReturn.GP_Error != ""{
-//                return
-//            }
-//        }
-//
-//        runApproveFinalOrderAndUpdateValues()
+        if locCodeReveived == "" || docIdReceived == "" {
+            if docId.isHidden == true && loccode.isHidden == true {
+                return
+            }
+
+            let alertTitle = "Alert!"
+            let messageTitle = "Please enter document Id or location code"
+
+            AlertMessage().showAlertMessage(alertTitle: alertTitle , alertMessage: messageTitle, actionTitle: "Ok", onAction: {
+                return
+            }, cancelAction: nil, self)
+        }
+
+        saveToGPReturn = webservice.SaveToGp(orderno: orderId, combo_loc_code: locCodeReveived, combo_doc_id: docIdReceived, empnumber: userId)
+
+        runBeforeApproveFinalOrderService()
+
+        for saveReturn in saveToGPReturn{
+            approveAndSaveGBBtn.isHidden = !saveReturn.Savetogp_btn_vis
+            approveAndEnterManBtn.isHidden = !saveReturn.ApproveandEnterManually_btn
+
+            if saveReturn.GP_Error != ""{
+                return
+            }
+        }
+
+        runApproveFinalOrderAndUpdateValues()
     }
     
     @IBAction func approveAndEnterManButtonTapped(_ sender: Any) {

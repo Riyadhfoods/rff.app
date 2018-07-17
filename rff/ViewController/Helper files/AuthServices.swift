@@ -17,8 +17,8 @@ class AuthServices{
     static var currentUserName: String?
     let language = LoginViewController.languageChosen
     
-    func checkUserId(id: String, password: String, onSeccuss: @escaping () -> Void, onError: @escaping (_ ErrorMessage: String) -> Void, activityIndicator: UIActivityIndicatorView, viewController: UIViewController){
-        arrayOfResult = login.CheckLogin(username: id, password: password, error: "", langid: language, activityIndicator: activityIndicator)
+    func checkUserId(id: String, password: String, onSeccuss: @escaping () -> Void, onError: @escaping (_ ErrorMessage: String) -> Void, viewController: UIViewController){
+        arrayOfResult = login.CheckLogin(username: id, password: password, error: "", langid: language)
             
         if !arrayOfResult.isEmpty{
             if arrayOfResult[0] == "0"{

@@ -48,8 +48,8 @@ class SalesDetailsViewController: UIViewController {
     let cellId = "cell_salesDetails"
     let cellTitleArray = [
         "Item(s) Details".localize(),
-        "Cutomer Aging".localize(),
-        "User Comment".localize(),
+        "Cutomer Credit Details".localize(),
+        "User(s) Comment".localize(),
         "Work Flow".localize()]
     var itemsDetailsArray = [SalesReturn]()
     var customerCreditDetailsArray = [SalesReturn]()
@@ -98,7 +98,7 @@ class SalesDetailsViewController: UIViewController {
     
     var count = 0
     func setupData(){
-        itemsDetailsArray = webService.SRI_BindItemGrid(returnid: returnId)
+        itemsDetailsArray = webService.SRI_BindItemGrid(returnid: returnId, querytype: "return")
         for itemDetail in itemsDetailsArray{
             salesItemDetails.append(SalesItemDetails(
                 serialNumber: "\(count)",

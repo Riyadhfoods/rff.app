@@ -181,47 +181,6 @@
         return returnValue
     }
     
-    public func CheckLogin(username:String, password:String, error:String, langid:Int, activityIndicator: UIActivityIndicatorView)-> [String?]{
-        activityIndicator.startAnimating()
-        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
-        
-        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
-        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
-        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
-        soapReqXML += " <soap:Body>"
-        soapReqXML += "<CheckLogin xmlns=\"http://tempuri.org/\">"
-        soapReqXML += "<username>"
-        soapReqXML += username
-        soapReqXML += "</username>"
-        soapReqXML += "<password>"
-        soapReqXML += password
-        soapReqXML += "</password>"
-        soapReqXML += "<error>"
-        soapReqXML += error
-        soapReqXML += "</error>"
-        soapReqXML += "<langid>"
-        soapReqXML += String(langid)
-        soapReqXML += "</langid>"
-        soapReqXML += "</CheckLogin>"
-        soapReqXML += "</soap:Body>"
-        soapReqXML += "</soap:Envelope>"
-        
-        let soapAction :String = "http://tempuri.org/CheckLogin"
-        
-        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML, activityIndicator: activityIndicator)
-        
-        let strVals :[String?] = stringArrFromXML(data : responseData);
-        var vals = [String?]()
-        for i in 0  ..< strVals.count {
-            let xVal =  strVals[i]
-            vals.append(xVal)
-        }
-        let returnValue:[String?] = vals
-        return returnValue
-    }
-    
-    
-    
     public func Task_InboxArrFromXMLString(xmlToParse:String)->[Task_Inbox] {
         
         let xml = SWXMLHash.lazy(xmlToParse)

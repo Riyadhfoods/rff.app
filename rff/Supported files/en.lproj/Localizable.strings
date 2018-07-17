@@ -256,13 +256,26 @@
 "No comment ..." = "No comment ...";
 "Order ID" = "Order ID";
 "Approval Form" = "Approval Form";
-
-
-
-
-
-
-
+"ITEMS" = "ITEMS";
+"Invoice Date" = "Invoice Date";
+"Invoice" = "Invoice";
+"Select invoice" = "Select invoice";
+"Item" = "Item";
+"ADD" = "ADD";
+"UPLOAD FILES" = "UPLOAD FILES";
+"SHOW FILES" = "SHOW FILES";
+"Select Type" = "Select Type";
+"Invoice has been Added" = "Invoice has been Added";
+"You did not fill invoice date or did not select invoice or item" = "You did not fill invoice date or did not select invoice or item";
+"You have already added this invoice. Do you wnat to add it again" = "You have already added this invoice. Do you wnat to add it again";
+"Conformation" = "Conformation";
+"Do you want to send the request" = "Do you want to send the request";
+"You did not fill the fields" = "You did not fill the fields";
+"You did not select store id" = "You did not select store id";
+"You did not add any items" = "You did not add any items";
+"You did not select return item for each item" = "You did not select return item for each item";
+"Sending Error" = "Sending Error";
+"Return request sent successfully with return no." = "Return request sent successfully with return no.";
 
 
 

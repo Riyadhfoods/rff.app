@@ -1,0 +1,12 @@
+
+/* Class = "UILabel"; text = "New Password"; ObjectID = "83c-xO-oXB"; */
+"83c-xO-oXB.text" = "New Password";
+
+/* Class = "UILabel"; text = "Old password"; ObjectID = "Ev9-RJ-Xce"; */
+"Ev9-RJ-Xce.text" = "Old password";
+
+/* Class = "UINavigationItem"; title = "Change Password"; ObjectID = "Iz4-J6-U5M"; */
+"Iz4-J6-U5M.title" = "Change Password";
+
+/* Class = "UIButton"; normalTitle = "CHANGE"; ObjectID = "qej-4O-XN6"; */
+"qej-4O-XN6.normalTitle" = "CHANGE";

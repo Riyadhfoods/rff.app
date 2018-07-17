@@ -172,8 +172,7 @@
 "Doc ID" = "رقم الوثيقة";
 "Loc Code" = "رمز الموقع";
 "Select location code" = "اختر رمز الموقع";
-"You did not select a company, branch or location code" = "You did not select a company, branch or location code";
-
+"You did not select a company, branch or location code" = "لم يتم اختيار الشركة او الفرع او رمز الموقع";
 "salesperson" = "مندوب المبيعات";
 "Select salesperson" = "اختر مندوب المبيعات";
 "Customer" = "العميل";
@@ -183,7 +182,6 @@
 "Offer?" = "عرض؟";
 "yes" = "نعم";
 "no" = "لا";
-
 "Store" = "المستودع";
 "Select store id" = "اختر رقم المستودع";
 "City" = "المدينة";
@@ -192,8 +190,7 @@
 "Select sales person" = "اختر رجل البيع";
 "Merchandiser" = "المصفف";
 "Select merchandiser" = "اختر المصفف";
-"You did not select a store id" = "You did not select a store id";
-
+"You did not select a store id" = "لم يتم اختيار رقم المستودع";
 "Credit Limit:" = "Credit Limit";
 "Total Due:" = "Total Due";
 "0 to 31 Days:" = "0 to 31 Days";
@@ -202,7 +199,6 @@
 "91 to 120 Days:" = "91 to 120 Days";
 "above 120 Days:" = "above 120 Days";
 "Status:" = "Status:";
-
 "Select item" = "اختر الصنف";
 "Unoit of Measure" = "وحدة القياس";
 "Select unoit of measure" = "اختر وحدة القياس";
@@ -210,12 +206,12 @@
 "ADD ITEM" = "اضافة صنف";
 "Items added is " = "الاصناف المضافه ";
 "SHOW ITEMS" = "عرض الاصناف المضافة";
-
 "Description" = "الوصف";
 "QTY" = "الكمية";
 "Unit Price" = "سعر الوحدة";
 "Total Price" = "اجمالي المبلغ";
 "SEND" = "إرسال";
+"You have already added this item. Do you wnat to add it again" = "تم اضافة هذا الصنف من قبل. هل تود اضافة مره اخرى؟";
 
 // Return Order Request
 "Return" = "رجوع";
@@ -252,3 +248,36 @@
 "No comment ..." = "لا توجد ملاحظات ...";
 "Order ID" = "رقم الطلب";
 "Approval Form" = "نموذج الموافقة";
+"ITEMS" = "الاصناف";
+"Invoice Date" = "تاريخ الفاتوره";
+"Invoice" = "رقم الفانوره";
+"Select invoice" = "اختر رقم الفاتورة";
+"Item" = "الصنف";
+"ADD" = "اضافة";
+"UPLOAD FILES" = "تحميل الملفات";
+"SHOW FILES" = "عرض الملفات";
+"Select Type" = "اختر نوع الارجاع";
+"Invoice has been Added" = "تم اضافة الفاتورة";
+"You did not fill invoice date or did not select invoice or item" = "لم يتم اختيار تاريخ الفاتورة او رقم الفاتوره او الصنف";
+"You have already added this invoice. Do you wnat to add it again" = "تم اضافة الفاتورة من قبل. هل تود اضافتها مره اخرى؟ ";
+"Conformation" = "تأكيد";
+"Do you want to send the request" = "هل تود ارسال الطلب؟";
+"You did not fill the fields" = "لم يتم ادخال جميع الحقول";
+"You did not select store id" = "لم يتم ادخال رمز المستودع";
+"You did not add any items" = "لم يتم اضافة اني صنف";
+"You did not select return item for each item" = "لم يتم اختيار نوع الاسترجاع لجميع الاصناف";
+"Sending Error" = "خطاء في الارسال"
+"Return request sent successfully with return no." = "تم الارسال الطلب الارجاع بنجاح و رقم الطلب ";
+
+
+
+
+
+
+
+
+
+
+
+
+

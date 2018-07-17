@@ -88,24 +88,25 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
     }
 
     @IBAction func searchButtonTapped(_ sender: Any) {
-        view.bringSubview(toFront: activityIndicator)
-        activityIndicator.startAnimating()
         if ListTextfield.text == selectListArray[0].localize(){
             let alertTitle = "Alert".localize()
             let alertMessage = "You did not select a list".localize()
             AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
         }
         
-        if let userId = AuthServices.currentUserId, let searchText = seachTextfield.text{
-            salesArray = salesWebservice.GetSalesInbox(id: selectedListIndex, emp_id: userId, searchtext: searchText, index: 0)
-        } else { return }
-        activityIndicator.stopAnimating()
-        
-        switch selectedListIndex {
-        case 1: performSegue(withIdentifier: segueId_orderStyle, sender: nil)
-        case 2: performSegue(withIdentifier: segueId_transferStyle, sender: nil)
-        case 3: performSegue(withIdentifier: segueId_returnStyle, sender: nil)
-        default: break
+        activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.01) {
+            if let userId = AuthServices.currentUserId, let searchText = self.seachTextfield.text{
+                self.salesArray = self.salesWebservice.GetSalesInbox(id: self.selectedListIndex, emp_id: userId, searchtext: searchText, index: 0)
+            } else { return }
+            self.activityIndicator.stopAnimating()
+            
+            switch self.selectedListIndex {
+            case 1: self.performSegue(withIdentifier: self.segueId_orderStyle, sender: nil)
+            case 2: self.performSegue(withIdentifier: self.segueId_transferStyle, sender: nil)
+            case 3: self.performSegue(withIdentifier: self.segueId_returnStyle, sender: nil)
+            default: break
+            }
         }
     }
     

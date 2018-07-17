@@ -479,6 +479,10 @@
                         rItem1.CustomerAgying_Status =  strVal
                     }
                         // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "DRP_ITEMNUMER" {
+                        rItem1.DRP_ITEMNUMER =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "DrpItems" {
                         rItem1.DrpItems =  strVal
                     }
@@ -631,9 +635,10 @@
                     let elem1: XMLElement? =  xmlResult1?.element
                     strVal = ""
                     if elem1?.children.first is TextElement {
-                        let elemText:TextElement = elem1?.children.first as! TextElement
-                        strVal = elemText.text
-                        
+                        for elem in (elem1?.children)!{
+                            let elemText:TextElement = elem as! TextElement
+                            strVal += elemText.text
+                        }
                     }
                     elemName = elem1!.name
                     // Array Propert of returnValue subProperty for rItem1
@@ -1635,6 +1640,78 @@
                         rItem1.Comment =  strVal
                     }
                         // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_ORDERID" {
+                        rItem1.SOI_ORDERID =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_ITEMID" {
+                        rItem1.SOI_ITEMID =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_ITEMDESC" {
+                        rItem1.SOI_ITEMDESC =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_UNITCOST" {
+                        rItem1.SOI_UNITCOST =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_QTY" {
+                        rItem1.SOI_QTY =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_EXTCOST" {
+                        rItem1.SOI_EXTCOST =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_UOFM" {
+                        rItem1.SOI_UOFM =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_REQDATE" {
+                        rItem1.SOI_REQDATE =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_EMPCREATED" {
+                        rItem1.SOI_EMPCREATED =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_SLSPERSONID" {
+                        rItem1.SOI_SLSPERSONID =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_SLSPERSON" {
+                        rItem1.SOI_SLSPERSON =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_CUSTNAME" {
+                        rItem1.SOI_CUSTNAME =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_COMMENT" {
+                        rItem1.SOI_COMMENT =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_SERIALNUMBER" {
+                        rItem1.SOI_SERIALNUMBER =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_DELIVERYDATE" {
+                        rItem1.SOI_DELIVERYDATE =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_GPORDERID" {
+                        rItem1.SOI_GPORDERID =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_LASTYEAR" {
+                        rItem1.SOI_LASTYEAR =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
+                    else if elemName == "SOI_YEARTODATE" {
+                        rItem1.SOI_YEARTODATE =  strVal
+                    }
+                        // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "SRI_CustomerID" {
                         rItem1.SRI_CustomerID =  strVal
                     }
@@ -2503,7 +2580,7 @@
         return returnValue
     }
     
-    public func SRI_BindItemGrid(returnid:String)-> [SalesReturn]{
+    public func SRI_BindItemGrid(returnid:String, querytype:String)-> [SalesReturn]{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         
         soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
@@ -2514,6 +2591,9 @@
         soapReqXML += "<returnid>"
         soapReqXML += returnid
         soapReqXML += "</returnid>"
+        soapReqXML += "<querytype>"
+        soapReqXML += querytype
+        soapReqXML += "</querytype>"
         soapReqXML += "</SRI_BindItemGrid>"
         soapReqXML += "</soap:Body>"
         soapReqXML += "</soap:Envelope>"
