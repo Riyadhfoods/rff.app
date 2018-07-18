@@ -1719,14 +1719,14 @@
 				CODE_SIGN_ENTITLEMENTS = rff/rff.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3TR82ZN3B8;
+				DEVELOPMENT_TEAM = XF2FFBAJB4;
 				INFOPLIST_FILE = rff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.riyadhfoods.rff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.riyadhfoods.rffapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "rff/Supported files/rff-Bridging-Header.h";
@@ -1745,14 +1745,14 @@
 				CODE_SIGN_ENTITLEMENTS = rff/rff.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3TR82ZN3B8;
+				DEVELOPMENT_TEAM = XF2FFBAJB4;
 				INFOPLIST_FILE = rff/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.riyadhfoods.rff;
+				PRODUCT_BUNDLE_IDENTIFIER = com.riyadhfoods.rffapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "rff/Supported files/rff-Bridging-Header.h";
