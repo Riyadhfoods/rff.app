@@ -74,9 +74,9 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
         
         setbackNavTitle(navItem: navigationItem)
         title = "Approval Form".localize()
-        if let currentUserId = AuthServices.currentUserId{
-            userId = currentUserId
-        }
+        
+        userId = AuthServices.currentUserId
+        
         stackviewWidth.constant = screenSize.width - 32
         comment.delegate = self
         
@@ -145,8 +145,7 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
             rejectAllButtonOutlet.isHidden = !loadComplete.SRA_REJECT_BTN
             approver = loadComplete.SRA_APPROVER
         }
-        attachmentArray = webService.SRA_BindAttachmentGrid(empno: userId, returnid: "664")
-        
+        attachmentArray = webService.SRA_BindAttachmentGrid(empno: userId, returnid: returnId)
     }
     
     func handleTheHeightOfTableView(){
@@ -181,29 +180,30 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     
     // -- MARK: IBActions
     
-    func re_call_onLoadComplete(){
-        if let commentText = comment.text{
-            if !commentText.isEmpty{
-                loadCompleteArrayWithComment = webService.SRA_ONLOADCOMPLETE(empnumber: userId, returnid: returnId, comment: commentText)
-            }
+    func re_call_onLoadComplete(comment: String){
+        loadCompleteArrayWithComment = webService.SRA_ONLOADCOMPLETE(empnumber: userId, returnid: returnId, comment: comment)
+        for loadComplete in self.loadCompleteArrayWithComment{
+            self.approver = loadComplete.SRA_APPROVER
         }
     }
     
     var beforeApproveResault = ""
     var approveResault = ""
     @IBAction func approveButtonTapped(_ sender: Any) {
-        AlertMessage().showAlertMessage(alertTitle: "Conformation".localize(), alertMessage: "Do you want to approve the order", actionTitle: "OK".localize(), onAction: {
-            self.re_call_onLoadComplete()
-            for itemDetail in self.itemReturnDetails{
-                // serial number start with 1
-                self.beforeApproveResault = self.webService.SRA_BEFOREAPPROVE(empno: self.userId, returnid: self.returnId, gridcheckbox: itemDetail.isItemChecked, serialnumber: itemDetail.serialNumber)
-                print("before approve result \"\(self.beforeApproveResault)\" ")
-                if self.beforeApproveResault != "" {
-                    return
-                }
-            }
+        AlertMessage().showAlertMessage(alertTitle: "Confirmation".localize(), alertMessage: "Do you want to approve the order", actionTitle: "OK".localize(), onAction: {
             
             if let commentText = self.comment.text{
+                self.re_call_onLoadComplete(comment: commentText)
+                for itemDetail in self.itemReturnDetails{
+                    // serial number start with 1
+                    self.beforeApproveResault = self.webService.SRA_BEFOREAPPROVE(empno: self.userId, returnid: self.returnId, gridcheckbox: itemDetail.isItemChecked, serialnumber: itemDetail.serialNumber)
+                    print("before approve result \"\(self.beforeApproveResault)\" ")
+                    if self.beforeApproveResault != "" {
+                        AlertMessage().showAlertMessage(alertTitle: "Alert".localize(), alertMessage: self.beforeApproveResault, actionTitle: nil, onAction: nil, cancelAction: "OK", self)
+                        return
+                    }
+                }
+            
                 self.approveResault = self.webService.SRA_APPROVE(empnumber: self.userId, returnid: self.returnId, approver: self.approver, comment: commentText)
                 print("After approval result \(self.approveResault)")
                 if self.approveResault != "" {
@@ -213,10 +213,13 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
                     }
                 } else {
                     AlertMessage().showAlertMessage(alertTitle: "Saved".localize(), alertMessage: "Order Id".localize() + " \(self.returnId) " + "approved successfully".localize(), actionTitle: "OK", onAction: {
-                        self.navigationController?.popToRootViewController(animated: true)
-                        if let delegate = self.delegate {
-                            delegate.returnRequestStatus(isApproved: true)
+                        self.handleSuccessAction {
+                            self.navigationController?.popToRootViewController(animated: true)
+                            if let delegate = self.delegate {
+                                delegate.returnRequestStatus(isApproved: true)
+                            }
                         }
+                        
                     }, cancelAction: nil, self)
                 }
             }
@@ -227,9 +230,10 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     
     var rejectResault = ""
     @IBAction func rejectAllButtonTapped(_ sender: Any) {
-        AlertMessage().showAlertMessage(alertTitle: "Conformation".localize(), alertMessage: "Do you want to reject the order".localize(), actionTitle: "OK", onAction: {
-            self.re_call_onLoadComplete()
+        AlertMessage().showAlertMessage(alertTitle: "Confirmation".localize(), alertMessage: "Do you want to reject the order".localize(), actionTitle: "OK", onAction: {
+            
             if let commentText = self.comment.text{
+                self.re_call_onLoadComplete(comment: commentText)
                 self.rejectResault = self.webService.SRA_REJECT(returnid: self.returnId, empnumber: self.userId, comment: commentText, approver: self.approver)
                 print("reject result \"\(self.approveResault)\"")
                 if self.rejectResault != ""{
@@ -238,9 +242,11 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
                     }
                 } else {
                     AlertMessage().showAlertMessage(alertTitle: "Saved".localize(), alertMessage: "Order Id".localize() + " \(self.returnId) " + "rejected successfully".localize(), actionTitle: "OK", onAction: {
-                        self.navigationController?.popToRootViewController(animated: true)
-                        if let delegate = self.delegate {
-                            delegate.returnRequestStatus(isRejected: true)
+                        self.handleSuccessAction {
+                            self.navigationController?.popToRootViewController(animated: true)
+                            if let delegate = self.delegate {
+                                delegate.returnRequestStatus(isRejected: true)
+                            }
                         }
                     }, cancelAction: nil, self)
                 }
@@ -251,7 +257,14 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     @IBAction func attachmentButtonTapped(_ sender: Any) {
         performSegue(withIdentifier: "showAttchmentFiles", sender: nil)
     }
-    
+ 
+    func handleSuccessAction(action: @escaping () -> Void){
+        self.activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+            action()
+            self.activityIndicator.stopAnimating()
+        })
+    }
 }
 
 extension DetailsSalesReturnApprovalViewController: UITableViewDelegate, UITableViewDataSource{

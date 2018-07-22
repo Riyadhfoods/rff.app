@@ -727,7 +727,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="936"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="dBn-ES-9wK">
-                                        <rect key="frame" x="16" y="16" width="343" height="789.5"/>
+                                        <rect key="frame" x="16" y="16" width="343" height="741.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="zNf-3K-IFF">
                                                 <rect key="frame" x="0.0" y="0.0" width="343" height="493.5"/>
@@ -901,11 +901,14 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ezs-fR-SgQ">
-                                                <rect key="frame" x="0.0" y="509.5" width="343" height="280"/>
+                                                <rect key="frame" x="0.0" y="509.5" width="343" height="232"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Tby-o2-Y9O">
                                                         <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
                                                         <color key="backgroundColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="3a1-Wy-mcq"/>
+                                                        </constraints>
                                                         <state key="normal" title="APPROVE &amp; SAVE TO GP">
                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
@@ -916,6 +919,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LSy-0d-Fbz">
                                                         <rect key="frame" x="0.0" y="48" width="343" height="40"/>
                                                         <color key="backgroundColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="2lQ-CD-mxz"/>
+                                                        </constraints>
                                                         <state key="normal" title="APPROVE &amp; ENTER MANUALLY">
                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
@@ -926,6 +932,9 @@
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UaE-zc-q9g">
                                                         <rect key="frame" x="0.0" y="96" width="343" height="40"/>
                                                         <color key="backgroundColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="4tr-Mt-41t"/>
+                                                        </constraints>
                                                         <state key="normal" title="APPROVE">
                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
@@ -935,8 +944,11 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pp4-vh-3aF">
                                                         <rect key="frame" x="0.0" y="144" width="343" height="40"/>
-                                                        <color key="backgroundColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="REJECT ALL">
+                                                        <color key="backgroundColor" red="0.9882352941176471" green="0.050980392156862744" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="zKR-Sm-qgK"/>
+                                                        </constraints>
+                                                        <state key="normal" title="REJECT">
                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
@@ -945,25 +957,15 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ffa-ee-FrP">
                                                         <rect key="frame" x="0.0" y="192" width="343" height="40"/>
-                                                        <color key="backgroundColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.9882352941176471" green="0.050980392156862744" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="ipF-KH-IMM"/>
+                                                        </constraints>
                                                         <state key="normal" title="REPORT ISSUE">
                                                             <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="reportIssueButtonTapped:" destination="7x6-C8-1zn" eventType="touchUpInside" id="JGW-C4-tuY"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZeA-AI-wZW">
-                                                        <rect key="frame" x="0.0" y="240" width="343" height="40"/>
-                                                        <color key="backgroundColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="FxO-ke-sfQ"/>
-                                                        </constraints>
-                                                        <state key="normal" title="EXPORT">
-                                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="exportButtonTapped:" destination="7x6-C8-1zn" eventType="touchUpInside" id="Azc-u4-eQ1"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -1011,7 +1013,6 @@
                         <outlet property="detailsTableView" destination="U8p-x5-g0c" id="tge-Dc-xoH"/>
                         <outlet property="docId" destination="PHE-ts-NrG" id="HuT-pQ-DfT"/>
                         <outlet property="docIdStackView" destination="kex-MW-7fD" id="Qlu-Sc-3NT"/>
-                        <outlet property="exportBtn" destination="ZeA-AI-wZW" id="Lyy-Dk-qZA"/>
                         <outlet property="locCodeStackView" destination="M4N-f7-zgb" id="0r2-B7-hjl"/>
                         <outlet property="loccode" destination="tJD-QM-W7J" id="fJI-Nb-Xlq"/>
                         <outlet property="rejectAllBtn" destination="pp4-vh-3aF" id="tzK-RY-MR1"/>

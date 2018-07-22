@@ -96,8 +96,8 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
         
         activityIndicator.startAnimating()
         DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.01) {
-            if let userId = AuthServices.currentUserId, let searchText = self.seachTextfield.text{
-                self.salesArray = self.salesWebservice.GetSalesInbox(id: self.selectedListIndex, emp_id: userId, searchtext: searchText, index: 0)
+            if let searchText = self.seachTextfield.text{
+                self.salesArray = self.salesWebservice.GetSalesInbox(id: self.selectedListIndex, emp_id: AuthServices.currentUserId, searchtext: searchText, index: 0)
             } else { return }
             self.activityIndicator.stopAnimating()
             

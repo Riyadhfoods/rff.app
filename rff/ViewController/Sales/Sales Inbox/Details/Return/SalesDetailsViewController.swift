@@ -69,9 +69,8 @@ class SalesDetailsViewController: UIViewController {
         
         title = barTitle
         setbackNavTitle(navItem: navigationItem)
-        if let currentUserId = AuthServices.currentUserId{
-            userId = currentUserId
-        }
+        userId = AuthServices.currentUserId
+        
         stackViewWidth.constant = screenSize.width - 32
         holderView.layer.cornerRadius = 5.0
         holderView.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor

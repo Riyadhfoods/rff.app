@@ -65,22 +65,21 @@ class OrderStyleTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         emptyMessage(viewController: self, tableView: tableView, isEmpty: isSalesArrayEmpty)
+        if isSalesArrayEmpty{
+            return 0
+        }
         return salesArray.count + 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == salesArray.count {
             if let cell = tableView.dequeueReusableCell(withIdentifier: cellId_pages, for: indexPath) as? OrderPagesCell{
-                if isSalesArrayEmpty{
-                    return UITableViewCell()
-                }
                 cell.firstPage.addTarget(self, action: #selector(firstButtonTapped), for: .touchUpInside)
                 cell.previousPage.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
                 cell.nextPage.addTarget(self, action: #selector(forwardButtonTapped), for: .touchUpInside)
                 cell.lastPage.addTarget(self, action: #selector(lastButtonTapped), for: .touchUpInside)
                 
                 cell.pageNum.text = "\(currentRow) " + "out of".localize() + " \(totalRow)"
-                
                 return cell
             }
         } else if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? OrderStyleCell{
@@ -148,19 +147,17 @@ class OrderStyleTableViewController: UITableViewController {
     }
     
     func updateTableView(currentIndex: Int){
-        if let userId = AuthServices.currentUserId{
-            newSalesArray = salesWebservice.GetSalesInbox(id: listIndexSelected, emp_id: userId, searchtext: searchMessage, index: currentIndex)
-            if newSalesArray.count != 0{
-                currentRow = newSalesArray[0].currentrows
-                salesArray = newSalesArray
-                tableView.reloadData()
-                
-                let indexPath = IndexPath(row: 0, section: 0)
-                tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-            } else {
-                salesArray = preSalesArray
-                return
-            }
+        newSalesArray = salesWebservice.GetSalesInbox(id: listIndexSelected, emp_id: AuthServices.currentUserId, searchtext: searchMessage, index: currentIndex)
+        if newSalesArray.count != 0{
+            currentRow = newSalesArray[0].currentrows
+            salesArray = newSalesArray
+            tableView.reloadData()
+            
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        } else {
+            salesArray = preSalesArray
+            return
         }
     }
     

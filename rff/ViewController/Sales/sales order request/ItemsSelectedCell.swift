@@ -113,7 +113,7 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         if let qtyTxt = qtyTextfield.text, let qtyDouble = Double(qtyTxt), let unitPriceTxt = unitPriceTextfield.text, let unitPriceDouble = Double(unitPriceTxt){
             if qtyTxt == qtyOldText && unitPriceTxt == unitPriceOldText{ return }
             let result = qtyDouble * unitPriceDouble
-            let resultFormatted = String(format: "%.2f", result)
+            let resultFormatted = String(format: "%.5f", result)
             totalPrice.text = resultFormatted
             
             if textField == qtyTextfield{

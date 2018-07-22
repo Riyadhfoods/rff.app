@@ -42,6 +42,7 @@ class SalesOrderDetailsViewController: UIViewController {
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
     // -- MARK: Variables
     
@@ -64,6 +65,9 @@ class SalesOrderDetailsViewController: UIViewController {
     var orderId = ""
     var userId = ""
     
+    var emptyArrayElementCheck = [Bool]()
+    var emptyArrayCount: CGFloat = 0
+    
     // -- MARK: View life cycle
     
     override func viewDidLoad() {
@@ -82,8 +86,8 @@ class SalesOrderDetailsViewController: UIViewController {
         super.viewDidAppear(animated)
         if  itemsDetailsArray.isEmpty && customerCreditDetailsArray.isEmpty && userCommentArray.isEmpty && workFlowArray.isEmpty{
             setupData()
-//            handleTheHeightOfTableView()
-//            self.tableView.reloadData()
+            handleTheHeightOfTableView()
+            self.tableView.reloadData()
         }
         activityIndicator.stopAnimating()
     }
@@ -126,6 +130,26 @@ class SalesOrderDetailsViewController: UIViewController {
         customerCreditDetailsArray = webService.SRI_BindCustomerCreditLimit(returnid: orderId, company: "")
         userCommentArray = webService.BindUserComment_SalesApprovalForm(orderid: orderId)
         workFlowArray = webService.BindApprovalGrid_SalesApprovalForm(orderid: orderId)
+    }
+    
+    func handleTheHeightOfTableView(){
+        emptyArrayElementCheck.append(itemsDetailsArray.isEmpty)
+        emptyArrayElementCheck.append(customerCreditDetailsArray.isEmpty)
+        emptyArrayElementCheck.append(userCommentArray.isEmpty)
+        emptyArrayElementCheck.append(workFlowArray.isEmpty)
+        
+        for isEmpty in emptyArrayElementCheck{
+            if isEmpty{
+                emptyArrayCount += 1
+            }
+        }
+        
+        let rowHeight: CGFloat = 44 * (4 - emptyArrayCount)
+        setTableViewHeight(height: rowHeight)
+    }
+    
+    func setTableViewHeight(height: CGFloat){
+        tableViewHeight.constant = height
     }
 }
 
@@ -178,6 +202,26 @@ extension SalesOrderDetailsViewController: UITableViewDelegate, UITableViewDataS
                 vc.workFlowOrderArray = workFlowArray
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            if itemsDetailsArray.isEmpty { return 0 }
+        } else if indexPath.row == 1 {
+            if customerCreditDetailsArray.isEmpty { return 0 }
+        } else if indexPath.row == 2 {
+            if userCommentArray.isEmpty { return 0 }
+        } else if indexPath.row == 3 {
+            if workFlowArray.isEmpty { return 0 }
+        }
+        
+        if  itemsDetailsArray.isEmpty &&
+            customerCreditDetailsArray.isEmpty &&
+            userCommentArray.isEmpty &&
+            workFlowArray.isEmpty
+        { self.tableView.isHidden = true }
+        else { self.tableView.isHidden = false }
+        return 44
     }
 }
 

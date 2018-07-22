@@ -46,8 +46,8 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
         successfulAlertTitle = "Password Change Successfully".localize()
         errorAlertTitle = "Error!".localize()
         
-        if let currentUserId = AuthServices.currentUserId, let oldPassword = oldPasswordTextfield.text, let newPassword = newPasswordTextfield.text{
-            AuthServices().changePassword(id: currentUserId, oldPassword: oldPassword, newPassword: newPassword, onSeccuss: {
+        if let oldPassword = oldPasswordTextfield.text, let newPassword = newPasswordTextfield.text{
+            AuthServices().changePassword(id: AuthServices.currentUserId, oldPassword: oldPassword, newPassword: newPassword, onSeccuss: {
                 AlertMessage().showAlertMessage(alertTitle: self.successfulAlertTitle, alertMessage: "", actionTitle: "Ok", onAction: {
                     self.oldPasswordTextfield.text = ""
                     self.newPasswordTextfield.text = ""

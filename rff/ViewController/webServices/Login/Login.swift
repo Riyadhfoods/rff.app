@@ -1,6 +1,6 @@
  import Foundation
  public class Login {
-    public var Url:String = "http://82.118.166.164/ios_hrms/login.asmx"
+    public var Url:String = "http://82.118.166.164/ios_hrms/ios.asmx"
     public var Host:String = "82.118.166.164"
     public func dataToBase64(data:NSData)->String{
         
@@ -181,8 +181,7 @@
         return returnValue
     }
     
-    public func Task_InboxArrFromXMLString(xmlToParse:String)->[Task_Inbox] {
-        
+    public func Task_InboxArrFromXMLString(xmlToParse:String) -> [Task_Inbox] {
         let xml = SWXMLHash.lazy(xmlToParse)
         let xmlRoot = xml.children.first
         let xmlBody = xmlRoot?.children.last
@@ -230,10 +229,8 @@
                     else if elemName == "Count" {
                         rItem1.Count = strVal.toInt()!
                     }
-                    
                 }
                 returnValue.append(rItem1)
-                
             }
         }
         return returnValue

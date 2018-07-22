@@ -68,49 +68,51 @@ class TansferStyleTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        emptyMessage(viewController: self, tableView: tableView, isEmpty: isSalesArrayEmpty)
-        return salesArray.count + 1
+        emptyMessage(viewController: self, tableView: tableView, isEmpty: true)
+        return 0
+//        if isSalesArrayEmpty{
+//            return 0
+//        }
+//        return salesArray.count + 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == salesArray.count {
             if let cell = tableView.dequeueReusableCell(withIdentifier: cellId_page, for: indexPath) as? TransferPagesCell{
-                if isSalesArrayEmpty{
-                    return UITableViewCell()
-                }
                 cell.firstPage.addTarget(self, action: #selector(firstButtonTapped), for: .touchUpInside)
                 cell.previousPage.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
                 cell.nextPage.addTarget(self, action: #selector(forwardButtonTapped), for: .touchUpInside)
                 cell.lastPage.addTarget(self, action: #selector(lastButtonTapped), for: .touchUpInside)
                 
                 cell.pageNum.text = "\(currentRow) " + "out of".localize() + " \(totalRow)"
+                return cell
+            }
+        } else {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TransferStyleCell{
+                
+                let id = "\(salesArray[indexPath.row].ID)"
+                let empCreated = salesArray[indexPath.row].EmpCreated
+                let date = salesArray[indexPath.row].date
+                let items = salesArray[indexPath.row].Items
+                let status = salesArray[indexPath.row].Status
+                let pendingBy = salesArray[indexPath.row].PendingBy
+                let comment = salesArray[indexPath.row].Comment
+                
+                cell.idLabel.text = id
+                cell.empCreatedLabel.text = empCreated
+                cell.dateLabel.text = date
+                cell.itemsLabel.text = items
+                cell.statusLabel.text = status
+                cell.pendingByLabel.text = pendingBy
+                cell.commentLabel.text = comment == "" ? AppDelegate.noComment : comment
+                
+                cell.selectOutlet.addTarget(self, action: #selector(selectButtonTapped(sender:)), for: .touchUpInside)
+                cell.selectOutlet.tag = indexPath.row
+                
+                urlString.append(salesArray[indexPath.row].URL)
                 
                 return cell
             }
-        } else if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TransferStyleCell{
-            
-            let id = "\(salesArray[indexPath.row].ID)"
-            let empCreated = salesArray[indexPath.row].EmpCreated
-            let date = salesArray[indexPath.row].date
-            let items = salesArray[indexPath.row].Items
-            let status = salesArray[indexPath.row].Status
-            let pendingBy = salesArray[indexPath.row].PendingBy
-            let comment = salesArray[indexPath.row].Comment
-            
-            cell.idLabel.text = id
-            cell.empCreatedLabel.text = empCreated
-            cell.dateLabel.text = date
-            cell.itemsLabel.text = items
-            cell.statusLabel.text = status
-            cell.pendingByLabel.text = pendingBy
-            cell.commentLabel.text = comment == "" ? AppDelegate.noComment : comment
-            
-            cell.selectOutlet.addTarget(self, action: #selector(selectButtonTapped(sender:)), for: .touchUpInside)
-            cell.selectOutlet.tag = indexPath.row
-            
-            urlString.append(salesArray[indexPath.row].URL)
-            
-            return cell
         }
         return UITableViewCell()
     }
@@ -149,19 +151,17 @@ class TansferStyleTableViewController: UITableViewController {
     }
     
     func updateTableView(currentIndex: Int){
-        if let userId = AuthServices.currentUserId{
-            newSalesArray = salesWebservice.GetSalesInbox(id: listIndexSelected, emp_id: userId, searchtext: searchMessage, index: currentIndex)
-            if newSalesArray.count != 0{
-                currentRow = newSalesArray[0].currentrows
-                salesArray = newSalesArray
-                tableView.reloadData()
-                
-                let indexPath = IndexPath(row: 0, section: 0)
-                tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-            } else {
-                salesArray = preSalesArray
-                return
-            }
+        newSalesArray = salesWebservice.GetSalesInbox(id: listIndexSelected, emp_id: AuthServices.currentUserId, searchtext: searchMessage, index: currentIndex)
+        if newSalesArray.count != 0{
+            currentRow = newSalesArray[0].currentrows
+            salesArray = newSalesArray
+            tableView.reloadData()
+            
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        } else {
+            salesArray = preSalesArray
+            return
         }
     }
     

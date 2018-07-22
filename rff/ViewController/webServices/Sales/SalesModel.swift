@@ -55,6 +55,7 @@ public class SalesModel{
     public var Comp_ID: String = ""
     public var EName : String = ""
     public var Branch: String = ""
+    public var BranchEnglishName: String = ""
     public var AccountEmp: String = ""
     public var grid_error : String = ""
     public var Merchandiser : String = ""

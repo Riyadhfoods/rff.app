@@ -19,14 +19,9 @@ class VisaRequiresCell: UITableViewCell {
     
     @IBOutlet weak var holderView: UIView!
         
-    @IBOutlet weak var ticketNumberRight: UILabel!
+    @IBOutlet weak var ticketNumber: UILabel!
     @IBOutlet weak var dependentNameRight: UILabel!
-    @IBOutlet weak var ticketNumberLeft: UILabel!
-    @IBOutlet weak var dependentNameLeft: UILabel!
     
-    @IBOutlet weak var requireVisa: UILabel!
-    @IBOutlet weak var yesTitle: UILabel!
-    @IBOutlet weak var noTitle: UILabel!
     
     let langauge = LoginViewController.languageChosen
     

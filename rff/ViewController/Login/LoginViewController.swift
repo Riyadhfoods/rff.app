@@ -108,7 +108,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     }
     
     func isLoggedIn(){
-        if AuthServices.currentUserId != nil {
+        if AuthServices.currentUserId != "" {
             performSegue(withIdentifier: "showHomePage", sender: nil)
         }
     }

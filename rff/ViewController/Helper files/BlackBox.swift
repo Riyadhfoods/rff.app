@@ -94,7 +94,7 @@ func setSlideMenu(controller: UIViewController, menuButton: UIBarButtonItem){
         
         controller.revealViewController().rearViewRevealWidth = AppDelegate().screenSize.width * 0.75
         controller.revealViewController().rightViewRevealWidth = AppDelegate().screenSize.width * 0.75
-        controller.view.addGestureRecognizer(controller.revealViewController().panGestureRecognizer())
+        //controller.view.addGestureRecognizer(controller.revealViewController().panGestureRecognizer())
     }
 }
 

@@ -148,10 +148,7 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if let userId = AuthServices.currentUserId{
-            emp_id = userId
-        }
+        emp_id = AuthServices.currentUserId
         
         setUpViews()
         setViewAlignment()
@@ -255,7 +252,9 @@ class ReturnOrderRequestsViewController: UIViewController {
         if !companyArray.isEmpty {
             companyTextField.text = companyNamesArray[1]
             companyRow = 1
-        } else { companyTextField.text = companyNamesArray[0] }
+        } else {
+            companyTextField.text = companyNamesArray[0]
+        }
         customerTextField.text = customerNamesArray[0]
         branchTextField.text = branchNamesArray[0]
         
@@ -325,7 +324,7 @@ class ReturnOrderRequestsViewController: UIViewController {
                 expiredDate: item.SRR_ITEMGRID_COLUMN9,
                 invoiceDateFromWS: item.SRR_ITEMGRID_COLUMN10,
                 returnType: "Select Type".localize()))
-            self.takeAction.setCountForItem(c: eachItemAddedCount, button: itemOutlet)
+            self.takeAction.setCountForItem(c: itemsArrayFromWS.count, button: itemOutlet)
             AlertMessage().showAlertForXTime(alertTitle: "Invoice has been Added".localize(), time: 0.5, tagert: self)
         }
         addItemCount += 1
@@ -385,7 +384,7 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     @IBAction func sendButtonTapped(_ sender: Any) {
         AlertMessage().showAlertMessage(
-            alertTitle: "Conformation".localize(),
+            alertTitle: "Confirmation".localize(),
             alertMessage: "Do you want to send the request".localize(),
             actionTitle: "Ok",
             onAction: {
@@ -440,8 +439,13 @@ class ReturnOrderRequestsViewController: UIViewController {
             }
             
             if shouldProcess{
-                runBeforeSending()
-                runSend(returnDate: returnDateText, comment: comment, city: cityText, salesPersonStore: salesPersonStoreText, merchandiser: merText)
+                self.activityIndicator.startAnimating()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self.runBeforeSending()
+                    self.runSend(returnDate: returnDateText, comment: comment, city: cityText, salesPersonStore: salesPersonStoreText, merchandiser: merText)
+                    self.activityIndicator.stopAnimating()
+                }
+                
             }
         }
     }
@@ -477,6 +481,7 @@ class ReturnOrderRequestsViewController: UIViewController {
                         onAction: nil,
                         cancelAction: nil,
                         self)
+                    self.activityIndicator.stopAnimating()
                     return
                 }
             } else {
@@ -519,6 +524,7 @@ class ReturnOrderRequestsViewController: UIViewController {
                         onAction: nil,
                         cancelAction: nil,
                         self)
+                    self.activityIndicator.stopAnimating()
                     return
                 }
             } else {
@@ -527,7 +533,11 @@ class ReturnOrderRequestsViewController: UIViewController {
                     alertMessage: "Return request sent successfully with return no.".localize() + " \(returnId)",
                     actionTitle: "OK",
                     onAction: {
-                        self.setViewToDefault()
+                        self.activityIndicator.startAnimating()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+                            self.setViewToDefault()
+                            self.activityIndicator.stopAnimating()
+                        })
                 },
                     cancelAction: nil,
                     self)
@@ -537,6 +547,17 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     func setViewToDefault(){
         view.setNeedsDisplay()
+        
+        salesPersonPickerView.selectRow(0, inComponent: 0, animated: true)
+        customerPickerView.selectRow(0, inComponent: 0, animated: true)
+        branchPickerView.selectRow(0, inComponent: 0, animated: true)
+        invoicePickerView.selectRow(0, inComponent: 0, animated: true)
+        itemPickerView.selectRow(0, inComponent: 0, animated: true)
+        storePickerView.selectRow(0, inComponent: 0, animated: true)
+        cityPickerView.selectRow(0, inComponent: 0, animated: true)
+        salesPersonStorePickerView.selectRow(0, inComponent: 0, animated: true)
+        merchandiserPickerView.selectRow(0, inComponent: 0, animated: true)
+        
         eachItemAddedCount = 0
         addItemCount = 0
         isItemExist = false
@@ -557,6 +578,11 @@ class ReturnOrderRequestsViewController: UIViewController {
     }
     
     func setUpDefaultValueForStore(){
+        salesSelecteedRow = 0
+        citySelectedRow = 0
+        salesperosnSelectedRow = 0
+        merSelectedRow = 0
+        
         storeTextfield.text = storeIdArray[0]
         cityTextfield.text = "Select city".localize()
         salesPersonStoreTextfield.text = "Select sales person".localize()
@@ -567,6 +593,9 @@ class ReturnOrderRequestsViewController: UIViewController {
         date = ""
         setUpDefaultValueForStore()
         invoiceDateTextField.text = ""
+        
+        invoiceSelectedRow = 0
+        itemSelectedRow = 0
         invoiceTextField.text = invoiceNameArray[0]
         itemTextField.text = itemNameArray[0]
     }
@@ -786,7 +815,9 @@ extension ReturnOrderRequestsViewController{
                 customernumber: customerIdArray[customerRow],
                 invoice_date: selectedDate)
             invoiceTextField.text = invoiceNameArray[0]
+            invoicePickerView.selectRow(0, inComponent: 0, animated: true)
             itemTextField.text = itemNameArray[0]
+            itemPickerView.selectRow(0, inComponent: 0, animated: true)
             
             if selectedDate != date{
                 setUpDefaultValueForStore()

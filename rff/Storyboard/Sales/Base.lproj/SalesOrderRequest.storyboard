@@ -1474,16 +1474,16 @@
                                                                     <rect key="frame" x="0.0" y="196" width="335" height="40"/>
                                                                     <subviews>
                                                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="AC6-nL-FFp">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="295" height="40"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="260.5" height="40"/>
                                                                             <subviews>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Price" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UBw-jK-Ldu">
-                                                                                    <rect key="frame" x="0.0" y="0.0" width="295" height="20"/>
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="260.5" height="20"/>
                                                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
                                                                                 </label>
                                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="14400.00000" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIQ-de-8Xp">
-                                                                                    <rect key="frame" x="0.0" y="20" width="295" height="20"/>
+                                                                                    <rect key="frame" x="0.0" y="20" width="260.5" height="20"/>
                                                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                                     <nil key="textColor"/>
                                                                                     <nil key="highlightedColor"/>
@@ -1494,10 +1494,7 @@
                                                                             </constraints>
                                                                         </stackView>
                                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3d7-8y-eRm">
-                                                                            <rect key="frame" x="295" y="0.0" width="40" height="40"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="width" constant="40" id="sj7-MC-xcg"/>
-                                                                            </constraints>
+                                                                            <rect key="frame" x="260.5" y="0.0" width="74.5" height="40"/>
                                                                             <state key="normal" title="❌"/>
                                                                         </button>
                                                                     </subviews>

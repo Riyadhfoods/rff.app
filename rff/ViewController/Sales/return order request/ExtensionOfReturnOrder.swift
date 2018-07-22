@@ -48,6 +48,10 @@ extension ReturnOrderRequestsViewController{
             upTo120Right.text = creditDetailsArray[0].Nineoneto120Days
             moreThan90Right.text = creditDetailsArray[0].Above120Days
             statusRight.text = creditDetailsArray[0].Status
+            
+            if creditDetailsArray[0].Status == "Above Credit"{
+                statusRight.textColor = .red
+            } else { statusRight.textColor = mainBackgroundColor }
         }
     }
     
@@ -82,6 +86,7 @@ extension ReturnOrderRequestsViewController{
         UIApplication.shared.isNetworkActivityIndicatorVisible = true
         getCustomers(salesperson: id)
         customerTextField.text = customerNamesArray[0]
+        customerPickerView.selectRow(0, inComponent: 0, animated: false)
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
@@ -96,6 +101,7 @@ extension ReturnOrderRequestsViewController{
     
     func HandleValuesForInvoiceNo(name: String){
         itemTextField.text = itemNameArray[0]
+        itemPickerView.selectRow(0, inComponent: 0, animated: false)
         getItems(invoiceNumber: name)
         invoiceTextField.text = name
         

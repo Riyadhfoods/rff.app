@@ -242,7 +242,7 @@
 "Saved" = "تمت الموافقة";
 "Approved successfully" = "تمت الموافقة عليه بنجاح";
 "Order Id" = "رقم الطلب";
-"Conformation" = "تأكيد";
+"Confirmation" = "تأكيد";
 "Do you want to reject the order" = "هل تريد رفض الطلب";
 "rejected successfully" = "تم الرفض بنجاح";
 "No comment ..." = "لا توجد ملاحظات ...";
@@ -260,7 +260,7 @@
 "Invoice has been Added" = "تم اضافة الفاتورة";
 "You did not fill invoice date or did not select invoice or item" = "لم يتم اختيار تاريخ الفاتورة او رقم الفاتوره او الصنف";
 "You have already added this invoice. Do you wnat to add it again" = "تم اضافة الفاتورة من قبل. هل تود اضافتها مره اخرى؟ ";
-"Conformation" = "تأكيد";
+"Confirmation" = "تأكيد";
 "Do you want to send the request" = "هل تود ارسال الطلب؟";
 "You did not fill the fields" = "لم يتم ادخال جميع الحقول";
 "You did not select store id" = "لم يتم ادخال رمز المستودع";

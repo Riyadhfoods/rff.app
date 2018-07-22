@@ -13,7 +13,7 @@ class AuthServices{
     let login = Login()
     var arrayOfResult: [String?] = [String]()
     var result: String?
-    static var currentUserId: String?
+    static var currentUserId: String = ""
     static var currentUserName: String?
     let language = LoginViewController.languageChosen
     
@@ -31,7 +31,7 @@ class AuthServices{
                 }
             }
         } else {
-            AlertMessage().showAlertMessage(alertTitle: "Oops!", alertMessage: "Something went wrong", actionTitle: nil, onAction: nil, cancelAction: "Dismiss", viewController)
+            AlertMessage().showAlertMessage(alertTitle: "Oops!", alertMessage: "Something went wrong with connection", actionTitle: nil, onAction: nil, cancelAction: "Dismiss", viewController)
             print("Oops, something went wrong!")
         }
     }
@@ -43,7 +43,7 @@ class AuthServices{
         let cancelTitle: String = "Cancel".localize()
         
         AlertMessage().showAlertMessage(alertTitle: title, alertMessage: message, actionTitle: actionTitle, onAction: {
-            AuthServices.currentUserId = nil
+            AuthServices.currentUserId = ""
             UIViewController.dismiss(animated: true, completion: nil)
         }, cancelAction: cancelTitle, UIViewController)
     }

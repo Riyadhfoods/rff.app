@@ -51,7 +51,7 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ItemDetailsCell{
             
             let item = itemsDetails[indexPath.row]
-            cell.num.text = item.serialNumber
+            cell.num.text = "\(indexPath.row + 1)"
             cell.itemDesc.text = item.itemDesc
             cell.changePrice.text = item.changePrice
             cell.orgPrice.text = item.originalPrice

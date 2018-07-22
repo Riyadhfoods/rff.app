@@ -8,8 +8,8 @@
 
 import UIKit
 
-class SalesOrderApprovalViewController: UIViewController {
-
+class SalesOrderApprovalViewController: UIViewController, ApprovalOrderConfomationDelegate {
+    
     // -- MARK: IBOutlets
     
     @IBOutlet weak var menuBtn: UIBarButtonItem!
@@ -25,6 +25,17 @@ class SalesOrderApprovalViewController: UIViewController {
     var buttonVisibilityArray: [SalesModel] = [SalesModel]()
     var rowIndexSelected = 0
     
+    var isApproved = false
+    var isRejected = false
+    
+    func orderRequestStatus(isApproved: Bool) {
+        self.isApproved = isApproved
+    }
+    
+    func orderRequestStatus(isRejected: Bool) {
+        self.isRejected = isRejected
+    }
+    
     // -- MARK: viewDidLoad
     
     override func viewDidLoad() {
@@ -39,15 +50,17 @@ class SalesOrderApprovalViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if salesOrderDetails.isEmpty{
-            if let userId = AuthServices.currentUserId{
-                if let userIdInt = Int(userId){
-                    salesOrderDetails = webService.SalesOrderApprove(empno: userIdInt)
-                    salesOrdertableview.reloadData()
-                }
-            }
+        if salesOrderDetails.isEmpty || isApproved || isRejected{
+            getSalesOrderDetails()
         }
         activityIndicator.stopAnimating()
+    }
+    
+    func getSalesOrderDetails(){
+        if let userIdInt = Int(AuthServices.currentUserId){
+            salesOrderDetails = webService.SalesOrderApprove(empno: userIdInt)
+            salesOrdertableview.reloadData()
+        }
     }
 
 }
@@ -90,6 +103,7 @@ extension SalesOrderApprovalViewController: UITableViewDelegate, UITableViewData
             vc.orderId = salesOrderDetails[rowIndexSelected].OrderID
             vc.reqDate = salesOrderDetails[rowIndexSelected].ReqDate
             vc.deliveryDate = salesOrderDetails[rowIndexSelected].DeliveryDate
+            vc.delegate = self
         }
     }
 }

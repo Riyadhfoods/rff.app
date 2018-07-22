@@ -29,9 +29,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         print(LanguageManger.isArabicLanguage)
         print(LoginViewController.languageChosen)
-        if let userId = AuthServices.currentUserId {
-            taskInbox = webservice.Task_InboxM(langid: LoginViewController.languageChosen, emp_id: userId)
-        }
+        taskInbox = webservice.Task_InboxM(langid: LoginViewController.languageChosen, emp_id: AuthServices.currentUserId)
         navigationItem.title = "Home".localize()
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
         

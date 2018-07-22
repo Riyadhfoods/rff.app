@@ -46,21 +46,15 @@ class SalesReturnApprovalViewController: UIViewController, ApprovalConfomationDe
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         activityIndicator.startAnimating()
-        if salesReturnDetails.isEmpty{
-            getSalesReturnDetails()
-        }
-        
-        if isApproved || isRejected{
+        if salesReturnDetails.isEmpty || isApproved || isRejected{
             getSalesReturnDetails()
         }
         activityIndicator.stopAnimating()
     }
     
     func getSalesReturnDetails(){
-        if let userId = AuthServices.currentUserId{
-            salesReturnDetails = webService.SRO_BindOrder(empno: userId)
-            salesReturnTableview.reloadData()
-        }
+        salesReturnDetails = webService.SRO_BindOrder(empno: AuthServices.currentUserId)
+        salesReturnTableview.reloadData()
     }
     
     // -- MARK: IBActions
@@ -71,7 +65,7 @@ extension SalesReturnApprovalViewController: UITableViewDataSource, UITableViewD
     // -- MARK: Table view data source
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        emptyMessage(viewController: self, tableView: salesReturnTableview, isEmpty: salesReturnDetails.count == 0)
+        emptyMessage(viewController: self, tableView: salesReturnTableview, isEmpty: salesReturnDetails.isEmpty)
         return salesReturnDetails.count
     }
     

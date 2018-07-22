@@ -27,7 +27,6 @@ class AttachmentHandler: NSObject {
     var imagePickedBlock: ((UIImage, String, URL) -> Void)?
     var filePickedBlock: ((URL) -> Void)?
     
-    
     enum AttachmentType: String{
         case camera, video, photoLibrary
     }
@@ -81,7 +80,6 @@ class AttachmentHandler: NSObject {
     // if not show them alert to access from settings.
     func authorisationStatus(attachmentTypeEnum: AttachmentType, vc: UIViewController){
         currentVC = vc
-        
         let status = PHPhotoLibrary.authorizationStatus()
         switch status {
         case .authorized:
@@ -214,7 +212,6 @@ extension AttachmentHandler: UIDocumentPickerDelegate{
         documentPicker.delegate = self
         documentMenu.dismiss(animated: true, completion: nil)
     }
-    
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentAt url: URL) {
         print("url", url)

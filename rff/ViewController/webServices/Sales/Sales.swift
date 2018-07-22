@@ -125,6 +125,7 @@
         let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
         let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
         var strVal = ""
+        var strValOfst = ""
         var elemName = ""
         var returnValue:[SalesModel] = [SalesModel]()
         if elemName == "" {
@@ -139,9 +140,13 @@
                     let xmlResult1: XMLIndexer? =  xmlResult_Parent1?.children[j1]
                     let elem1: XMLElement? =  xmlResult1?.element
                     strVal = ""
+                    strValOfst = ""
                     if elem1?.children.first is TextElement {
                         for elem in (elem1?.children)!{
                             let elemText:TextElement = elem as! TextElement
+                            if strValOfst == ""{
+                                strValOfst = elemText.text
+                            }
                             strVal += elemText.text
                         }
                     }
@@ -513,6 +518,7 @@
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "Branch" {
                         rItem1.Branch =  strVal
+                        rItem1.BranchEnglishName = strValOfst
                     }
                         // Array Propert of returnValue subProperty for rItem1
                     else if elemName == "AccountEmp" {
@@ -1067,7 +1073,7 @@
         return returnValue
     }
     
-    public func Senditem(orderid:String, branchid:String, customerid:String, branch:String, table:Bool, salesperson:String, company:String, emp_id:String, comment:String, city:String, store:String, salespersonstore:String, merchandiser:String, offer:Bool, deliverydate:String, loccode:String, docid:String, purchasegrid:String, supermarket:Bool, flag:Bool)-> [SalesModel]{
+    public func Senditem(orderid:String, branchid:String, customerid:String, branch:String, table:Bool, salesperson:String, company:String, emp_id:String, comment:String, city:String, store:String, salespersonstore:String, merchandiser:String, offer:Bool, deliverydate:String, loccode:String, docid:String, purchasegrid:String, supermarket:Bool, flag:Bool, orderstatus:Int)-> [SalesModel]{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         
         soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
@@ -1135,6 +1141,9 @@
         soapReqXML += "<flag>"
         soapReqXML += String(flag)
         soapReqXML += "</flag>"
+        soapReqXML += "<orderstatus>"
+        soapReqXML += String(orderstatus)
+        soapReqXML += "</orderstatus>"
         soapReqXML += "</Senditem>"
         soapReqXML += "</soap:Body>"
         soapReqXML += "</soap:Envelope>"
@@ -1374,9 +1383,10 @@
                     let elem1: XMLElement? =  xmlResult1?.element
                     strVal = ""
                     if elem1?.children.first is TextElement {
-                        let elemText:TextElement = elem1?.children.first as! TextElement
-                        strVal = elemText.text
-                        
+                        for elem in (elem1?.children)!{
+                            let elemText:TextElement = elem as! TextElement
+                            strVal += elemText.text
+                        }
                     }
                     elemName = elem1!.name
                     // Array Propert of returnValue subProperty for rItem1

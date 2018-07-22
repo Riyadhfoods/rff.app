@@ -46,9 +46,8 @@ class ReturnStyleTableViewController: UITableViewController {
         setCustomNav(navItem: navigationItem, title: "RFC Return List")
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
         
-        if let userId = AuthServices.currentUserId{
-            currentUserId = userId
-        }
+        currentUserId = AuthServices.currentUserId
+        
         preSalesArray = salesArray
         
         if salesArray.count != 0 {
@@ -70,50 +69,51 @@ class ReturnStyleTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         emptyMessage(viewController: self, tableView: tableView, isEmpty: isSalesArrayEmpty)
+        if isSalesArrayEmpty{
+            return 0
+        }
         return salesArray.count + 1
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == salesArray.count {
             if let cell = tableView.dequeueReusableCell(withIdentifier: cellId_page, for: indexPath) as? ReturnPagesCell{
-                if isSalesArrayEmpty{
-                    return UITableViewCell()
-                }
                 cell.firstPage.addTarget(self, action: #selector(firstButtonTapped), for: .touchUpInside)
                 cell.previousPage.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
                 cell.nextPage.addTarget(self, action: #selector(forwardButtonTapped), for: .touchUpInside)
                 cell.lastPage.addTarget(self, action: #selector(lastButtonTapped), for: .touchUpInside)
                 
                 cell.pageNum.text = "\(currentRow) " + "out of".localize() + " \(totalRow)"
+                return cell
+            }
+        } else {
+            if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ReturnStyleCell{
+                
+                let id = "\(salesArray[indexPath.row].ID)"
+                let empCreated = salesArray[indexPath.row].EmpCreated
+                let items = salesArray[indexPath.row].Items
+                let reqDate = salesArray[indexPath.row].RequestDate
+                let rtnDate = salesArray[indexPath.row].ReturnDate
+                let status = salesArray[indexPath.row].Status
+                let pendingBy = salesArray[indexPath.row].PendingBy
+                let comment = salesArray[indexPath.row].Comment
+                
+                cell.idLabel.text = id
+                cell.empCreatedLabel.text = empCreated
+                cell.itemsLabel.text = items
+                cell.requestDateLabel.text = reqDate
+                cell.returnDateLabel.text = rtnDate
+                cell.statusLabel.text = status
+                cell.pendingByLabel.text = pendingBy
+                cell.commentLabel.text = comment == "" ? AppDelegate.noComment : comment
+                
+                cell.viewOutlet.addTarget(self, action: #selector(viewButtonTapped(sender:)), for: .touchUpInside)
+                cell.viewOutlet.tag = indexPath.row
+                
+                urlString.append(salesArray[indexPath.row].URL)
                 
                 return cell
             }
-        } else if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ReturnStyleCell{
-            
-            let id = "\(salesArray[indexPath.row].ID)"
-            let empCreated = salesArray[indexPath.row].EmpCreated
-            let items = salesArray[indexPath.row].Items
-            let reqDate = salesArray[indexPath.row].RequestDate
-            let rtnDate = salesArray[indexPath.row].ReturnDate
-            let status = salesArray[indexPath.row].Status
-            let pendingBy = salesArray[indexPath.row].PendingBy
-            let comment = salesArray[indexPath.row].Comment
-            
-            cell.idLabel.text = id
-            cell.empCreatedLabel.text = empCreated
-            cell.itemsLabel.text = items
-            cell.requestDateLabel.text = reqDate
-            cell.returnDateLabel.text = rtnDate
-            cell.statusLabel.text = status
-            cell.pendingByLabel.text = pendingBy
-            cell.commentLabel.text = comment == "" ? AppDelegate.noComment : comment
-            
-            cell.viewOutlet.addTarget(self, action: #selector(viewButtonTapped(sender:)), for: .touchUpInside)
-            cell.viewOutlet.tag = indexPath.row
-            
-            urlString.append(salesArray[indexPath.row].URL)
-            
-            return cell
         }
         return UITableViewCell()
     }
@@ -152,19 +152,17 @@ class ReturnStyleTableViewController: UITableViewController {
     }
     
     func updateTableView(currentIndex: Int){
-        if let userId = AuthServices.currentUserId{
-            newSalesArray = salesWebservice.GetSalesInbox(id: listIndexSelected, emp_id: userId, searchtext: searchMessage, index: currentIndex)
-            if newSalesArray.count != 0{
-                currentRow = newSalesArray[0].currentrows
-                salesArray = newSalesArray
-                tableView.reloadData()
-                
-                let indexPath = IndexPath(row: 0, section: 0)
-                tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-            } else {
-                salesArray = preSalesArray
-                return
-            }
+        newSalesArray = salesWebservice.GetSalesInbox(id: listIndexSelected, emp_id: AuthServices.currentUserId, searchtext: searchMessage, index: currentIndex)
+        if newSalesArray.count != 0{
+            currentRow = newSalesArray[0].currentrows
+            salesArray = newSalesArray
+            tableView.reloadData()
+            
+            let indexPath = IndexPath(row: 0, section: 0)
+            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
+        } else {
+            salesArray = preSalesArray
+            return
         }
     }
     

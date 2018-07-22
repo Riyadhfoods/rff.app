@@ -250,7 +250,7 @@
 "Saved" = "Saved";
 "Approved successfully" = "Approved successfully";
 "Order Id" = "Order Id";
-"Conformation" = "Conformation";
+"Confirmation" = "Confirmation";
 "Do you want to reject the order" = "Do you want to reject the order";
 "rejected successfully" = "rejected successfully";
 "No comment ..." = "No comment ...";
@@ -268,7 +268,7 @@
 "Invoice has been Added" = "Invoice has been Added";
 "You did not fill invoice date or did not select invoice or item" = "You did not fill invoice date or did not select invoice or item";
 "You have already added this invoice. Do you wnat to add it again" = "You have already added this invoice. Do you wnat to add it again";
-"Conformation" = "Conformation";
+"Confirmation" = "Confirmation";
 "Do you want to send the request" = "Do you want to send the request";
 "You did not fill the fields" = "You did not fill the fields";
 "You did not select store id" = "You did not select store id";

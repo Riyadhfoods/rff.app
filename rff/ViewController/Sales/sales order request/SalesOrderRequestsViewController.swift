@@ -200,9 +200,8 @@ class SalesOrderRequestsViewController: UIViewController {
         super.viewDidLoad()
         setViewAlignment()
         
-        if let userId = AuthServices.currentUserId{
-            emp_id = userId
-        }
+        emp_id = AuthServices.currentUserId
+        
         setupView()
         setUpPickerView()
         setupDatePicker()
@@ -263,6 +262,7 @@ class SalesOrderRequestsViewController: UIViewController {
         
         companyNamesArray = ["Select company".localize()]
         branchNamesArray = ["Select branch".localize()]
+        branchEnglishNames = [""]
         docIdArray = ["SRFC"]
         locCodeNumsArray = ["Select location code".localize()]
         customerNamesArray = ["Select customer".localize()]
@@ -276,6 +276,7 @@ class SalesOrderRequestsViewController: UIViewController {
         activityIndicator.startAnimating()
     }
     
+    var branchEnglishNames = [String]()
     func setupAarray(){
         setUpSalesOrderData()
         
@@ -286,6 +287,7 @@ class SalesOrderRequestsViewController: UIViewController {
         for branch in branchArray{
             branchNamesArray.append(branch.Branch)
             branchIdArray.append(branch.AccountEmp)
+            branchEnglishNames.append(branch.BranchEnglishName)
         }
         for locCode in locCodeArray{
             locCodeNumsArray.append(locCode.LocationCode)
@@ -300,16 +302,24 @@ class SalesOrderRequestsViewController: UIViewController {
     func initalvalue(){
         if !companyArray.isEmpty{
             companyTextfield.text = companyNamesArray[1]
-        } else  { companyTextfield.text = companyNamesArray[0] }
+            selectedRowForCompany = 1
+        } else  {
+            companyTextfield.text = companyNamesArray[0]
+        }
+        
         branchTextfield.text = branchNamesArray[0]
         docIdTextfield.text = docIdArray[0]
         LocCodeTextfield.text = locCodeNumsArray[0]
+        
         if salespersonArray.isEmpty{
             salespersonTextfield.text = salespersonNamesArray[0]
         } else {
             salespersonTextfield.text = salespersonNamesArray[1]
+            selectedRowForSalesPerson = 1
             getCustomers(salesperson: salespersonNamesArray[1])
         }
+        
+        customerTextfield.text = customerNamesArray[0]
     }
     
     func setUpSelectors(){
@@ -356,6 +366,13 @@ class SalesOrderRequestsViewController: UIViewController {
     }
     
     func setUpDefaultValueFromStoreToQty(){
+        salesSelecteedRow = 0
+        citySelectedRow = 0
+        salesperosnSelectedRow = 0
+        merSelectedRow = 0
+        itemSelectedRow = 0
+        uofmSelectedRow = 0
+        
         storeTextfield.text = storeIdArray[0]
         cityTextfield.text = "Select city".localize()
         salesPersonTextfield.text = "Select sales person".localize()
@@ -383,9 +400,7 @@ class SalesOrderRequestsViewController: UIViewController {
     }
     
     @objc func doneButtonClick(){
-        if textField == qtyTextfield{
-            qtyTextfield.resignFirstResponder()
-        }
+        qtyTextfield.resignFirstResponder()
     }
     
     // -- MARK: Helper Functions
@@ -430,6 +445,10 @@ class SalesOrderRequestsViewController: UIViewController {
             upTo120Right.text = creditDetailsArray[0].NINETYOneTo120Days
             moreThan90Right.text = creditDetailsArray[0].Above120DAYS
             statusRight.text = creditDetailsArray[0].CustomerAgying_Status
+            
+            if creditDetailsArray[0].CustomerAgying_Status == "Above Credit"{
+                statusRight.textColor = .red
+            } else { statusRight.textColor = mainBackgroundColor }
         }
     }
     
@@ -450,7 +469,6 @@ class SalesOrderRequestsViewController: UIViewController {
     @IBAction func itemButtonTapped(_ sender: Any) {
         performSegue(withIdentifier: "showItemAddedList", sender: nil)
     }
-    
    
     var isItemExist = false
     @IBAction func addItemButtonTapped(_ sender: Any) {
@@ -499,10 +517,12 @@ class SalesOrderRequestsViewController: UIViewController {
                     Grid_Qty: item.Grid_Qty,
                     Grid_UnitPrice: item.Grid_UnitPrice,
                     Grid_TotalPrice: item.Grid_TotalPrice))
+            
+            print("grid_error: \(item.grid_error)\nGrid_ItemId: \(item.Grid_ItemId)\nGrid_Desc: \(item.Grid_Desc)\nGrid_UOM: \(item.Grid_UOM)\nGrid_Qty: \(item.Grid_Qty)\nGrid_UnitPrice: \(item.Grid_UnitPrice)\nGrid_TotalPrice: \(item.Grid_TotalPrice))\n")
         }
         warningLabel.isHidden = true
         count += 1
-        setCountLabel(c: count)
+        setCountLabel(c: itemAddedArray.count)
         AlertMessage().showAlertForXTime(alertTitle: "Item has been Added".localize(), time: 0.5, tagert: self)
     }
     
@@ -535,7 +555,7 @@ class SalesOrderRequestsViewController: UIViewController {
                 return
             } else {
                 AlertMessage().showAlertMessage(
-                    alertTitle: "Conformation",
+                    alertTitle: "Confirmation",
                     alertMessage: "Do you want to send the request",
                     actionTitle: "Ok",
                     onAction: {
@@ -549,7 +569,6 @@ class SalesOrderRequestsViewController: UIViewController {
                                          locCodeText: locCodeText)
                             self.activityIndicator.stopAnimating()
                         })
-                        
                 }, cancelAction: "Cancel",
                    self)
             }
@@ -558,6 +577,7 @@ class SalesOrderRequestsViewController: UIViewController {
     
     func runSend(comment: String, customerText: String, branchText: String, salespersonText: String, deliveryDate: String, locCodeText: String){
         var countForItemStatus = 0
+        var orderStatus = 0
         table = !itemAddedArray.isEmpty
         if table{
             for item in itemAddedArray{
@@ -578,6 +598,7 @@ class SalesOrderRequestsViewController: UIViewController {
                         AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: "Ok", onAction: {
                             return
                         }, cancelAction: nil, self)
+                        self.activityIndicator.stopAnimating()
                     } else {
                         if orderId == ""{
                             orderId = status.OrderID
@@ -585,6 +606,10 @@ class SalesOrderRequestsViewController: UIViewController {
                         if status.Flag == true {
                             flag = true
                         } else { flag = false }
+                        
+                        if let so_status = Int(status.SO_Status), so_status == 1{
+                            orderStatus = so_status
+                        }
                         countForItemStatus += 1
                         print("Item sent successfully")
                     }
@@ -597,6 +622,7 @@ class SalesOrderRequestsViewController: UIViewController {
             let city = cityArray.isEmpty ? "" : cityArray[citySelectedRow].City
             let salespersonstore = salesPersonArray.isEmpty ? "" : salesPersonArray[salesperosnSelectedRow].SalesPersonStore
             let merchandiser = merchandiserArray.isEmpty ? "" :merchandiserArray[merSelectedRow].Merchandiser
+            
             
             sentStatus = webservice.Senditem(
                 orderid: orderId,
@@ -618,7 +644,8 @@ class SalesOrderRequestsViewController: UIViewController {
                 docid: docIdArray[0],
                 purchasegrid: "",
                 supermarket: supermarket,
-                flag: flag)
+                flag: flag,
+                orderstatus: orderStatus)
             
             for status in sentStatus{
                 if status.grid_error != ""{
@@ -627,21 +654,36 @@ class SalesOrderRequestsViewController: UIViewController {
             }
             if error != ""{
                 AlertMessage().showAlertMessage(alertTitle: "Alert!".localize(), alertMessage: error, actionTitle: "Ok", onAction: nil, cancelAction: nil, self)
+                self.activityIndicator.stopAnimating()
                 return
             } else {
                 AlertMessage().showAlertMessage(alertTitle: "Success".localize(), alertMessage: "Order request sent successfully with order no." + " \(orderId)", actionTitle: "Ok", onAction: {
-                    self.setViewToDefault()
+                    self.activityIndicator.startAnimating()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+                        self.setViewToDefault()
+                        self.activityIndicator.stopAnimating()
+                    })
                 }, cancelAction: nil, self)
             }
         }
     }
     
     func setViewToDefault(){
+        branchPickerView.selectRow(0, inComponent: 0, animated: false)
+        LocCodePickerView.selectRow(0, inComponent: 0, animated: false)
+        salespersonPickerView.selectRow(0, inComponent: 0, animated: false)
+        storePickerView.selectRow(0, inComponent: 0, animated: false)
+        cityPickerView.selectRow(0, inComponent: 0, animated: false)
+        salesPersonStorePickerView.selectRow(0, inComponent: 0, animated: false)
+        merchandiserPickerView.selectRow(0, inComponent: 0, animated: false)
+        itemsPickerView.selectRow(0, inComponent: 0, animated: false)
+        unoitPickerView.selectRow(0, inComponent: 0, animated: false)
+        
         initalvalue()
         error = ""
         orderId = ""
         count = 0
-        customerTextfield.text = companyNamesArray[0]
+        initalvalue()
         deliveryDateTextfield.text = ""
         setUpDefaultSelector()
         setUpDefaultValueFromStoreToQty()
@@ -649,6 +691,7 @@ class SalesOrderRequestsViewController: UIViewController {
         itemAddedArray.removeAll()
         storeStackView.isHidden = true
         viewHolder.isHidden = true
+        warningLabel.isHidden = true
         setCountLabel(c: itemAddedArray.count)
         scrollView.scrollTo(direction: .Top, animated: false)
     }
@@ -710,27 +753,27 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
     // -- MARK: objc functions
     
     @objc func doneClick(){
-        if pickerview == companyPickerView{
+        if textField == showCompanyPickerViewTextfield{
             companyTextfield.text = companyNamesArray[selectedRowForCompany].localize()
             showCompanyPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == branchPickerView{
+        } else if textField == showBranchPickerViewTextfield{
             branchTextfield.text = branchNamesArray[selectedRowForBranch].localize()
             showBranchPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == docIdPickerView{
+        } else if textField == showDocIdPickerViewTextfield{
             docIdTextfield.text = docIdArray[0]
             showDocIdPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == LocCodePickerView{
+        } else if textField == showLocCodePickerViewTextfield{
             LocCodeTextfield.text = locCodeNumsArray[selectedRowForLocCode].localize()
             locCodeGlobal = locCodeNumsArray[selectedRowForLocCode]
             showLocCodePickerViewTextfield.resignFirstResponder()
-        } else if pickerview == salespersonPickerView{
+        } else if textField == showsalespersonPickerViewTextfield{
             salespersonTextfield.text = salespersonNamesArray[selectedRowForSalesPerson].localize()
             showsalespersonPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == customerPickerView{
+        } else if textField == showcustomerPickerViewTextfield{
             customerTextfield.text = customerNamesArray[selectedRowForCustomer].localize()
             customerGlobal = customerNamesArray[selectedRowForCustomer]
             showcustomerPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == storePickerView{
+        } else if textField == showStorePickerViewTextfield{
             storeTextfield.text = storeIdArray[salesSelecteedRow]
             if salesSelecteedRow == 0 {
                 cityTextfield.text = "Select city".localize()
@@ -738,23 +781,23 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
                 merchandiserTextfield.text = "Select merchandiser".localize()
             }
             showStorePickerViewTextfield.resignFirstResponder()
-        } else if pickerview == cityPickerView{
+        } else if textField == showCityPickerViewTextfield{
             cityTextfield.text = cityArray.isEmpty ? "Select city".localize() : cityArray[citySelectedRow].City
             showCityPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == salesPersonStorePickerView{
+        } else if textField == showSalesPersonPickerViewTextfield{
             salesPersonTextfield.text = salesPersonArray.isEmpty ? "Select sales person".localize() : salesPersonArray[salesperosnSelectedRow].SalesPersonStore
             showSalesPersonPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == merchandiserPickerView {
+        } else if textField == showMerchandiserPickerViewTextfield {
             merchandiserTextfield.text = merchandiserArray.isEmpty ? "Select merchandiser".localize() : merchandiserArray[merSelectedRow].Merchandiser
             showMerchandiserPickerViewTextfield.resignFirstResponder()
-        } else if pickerview == itemsPickerView{
+        } else if textField == showItemsPickerViewTextfield{
             itemsTextfield.text = items.isEmpty ? "Select item".localize() : itemsName[itemSelectedRow]
             unoits = items.isEmpty ? [SalesModel]() : webservice.BindSalesOrderUnitofMeasure(itemid: itemsName[itemSelectedRow])
             unoitTextfield.text = "Select unoit of measure".localize()
             qtyTextfield.text = "1"
             showItemsPickerViewTextfield.resignFirstResponder()
             warningLabel.isHidden = true
-        } else if pickerview == unoitPickerView{
+        } else if textField == showUnoitPickerViewTextfield{
             unoitTextfield.text = unoits.isEmpty ? "Select unoit of measure".localize() : unoits[uofmSelectedRow].UnitofMeasure
             showUnoitPickerViewTextfield.resignFirstResponder()
         }
@@ -860,12 +903,15 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
             selectedRowForCompany = row
         } else if pickerView == branchPickerView{
             selectedRowForBranch = row
+            print("Brancn name \(branchNamesArray[row]) , English name \(branchEnglishNames[row])")
         } else if pickerView == LocCodePickerView{
             selectedRowForLocCode = row
         } else if pickerView == salespersonPickerView{
             selectedRowForSalesPerson = row
             getCustomers(salesperson: salespersonNamesArray[row])
             customerTextfield.text = customerNamesArray[0].localize()
+            selectedRowForCustomer = 0
+            customerPickerView.selectRow(0, inComponent: 0, animated: false)
         } else if pickerView == customerPickerView{
             selectedRowForCustomer = row
             
@@ -891,12 +937,15 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
             cityArray = webservice.BindCity(storevalue: storeIdArray[row], customer: customerNamesArray[selectedRowForCustomer])
             if !cityArray.isEmpty{
                 cityTextfield.text = cityArray[0].City
+                citySelectedRow = 0
                 salesPersonArray = webservice.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[0].City, store: storeIdArray[row])
                 if !salesPersonArray.isEmpty{
                     salesPersonTextfield.text = salesPersonArray[0].SalesPersonStore
+                    salesperosnSelectedRow = 0
                     merchandiserArray = webservice.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[0].City, store: storeIdArray[row], salesperson: salesPersonArray[0].SalesPersonStore)
                     if !merchandiserArray.isEmpty{
                         merchandiserTextfield.text = merchandiserArray[0].Merchandiser
+                        merSelectedRow = 0
                     }
                 }
             }
@@ -906,9 +955,11 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
                 salesPersonArray = webservice.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[row].City, store: storeIdArray[salesSelecteedRow])
                 if !salesPersonArray.isEmpty{
                     salesPersonTextfield.text = salesPersonArray[0].SalesPersonStore
+                    salesperosnSelectedRow = 0
                     merchandiserArray = webservice.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[row].City, store: storeIdArray[salesSelecteedRow], salesperson: salesPersonArray[0].SalesPersonStore)
                     if !merchandiserArray.isEmpty{
                         merchandiserTextfield.text = merchandiserArray[0].Merchandiser
+                        merSelectedRow = 0
                     }
                 }
             }
@@ -918,6 +969,7 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
                 merchandiserArray = webservice.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[citySelectedRow].City, store: storeIdArray[salesSelecteedRow], salesperson: salesPersonArray[row].SalesPersonStore)
                 if !merchandiserArray.isEmpty{
                     merchandiserTextfield.text = merchandiserArray[0].Merchandiser
+                    merSelectedRow = 0
                 }
             }
         } else if pickerView == merchandiserPickerView{
@@ -928,6 +980,7 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
             }
             itemSelectedRow = row
             uofmSelectedRow = 0
+            unoitPickerView.selectRow(0, inComponent: 0, animated: false)
         } else if pickerView == unoitPickerView{
             uofmSelectedRow = row
         }

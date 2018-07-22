@@ -40,11 +40,10 @@ class InboxTableViewController: UITableViewController {
     // -- MARK: set ups
     
     func setupArrayOfInboxGrid(){
-        if let currentUserId = AuthServices.currentUserId{
-            if let currentUserIdInt = Int(currentUserId){
-                arrayOfInboxGrid = Login().SearchInbox(empid: currentUserIdInt, formid: String(listIndexSelected), drpdwnvalue: String(categoryIndexSelected), search: "", langid: LoginViewController.languageChosen)
-            }
+        if let currentUserIdInt = Int(AuthServices.currentUserId){
+            arrayOfInboxGrid = Login().SearchInbox(empid: currentUserIdInt, formid: String(listIndexSelected), drpdwnvalue: String(categoryIndexSelected), search: "", langid: LoginViewController.languageChosen)
         }
+        
     }
 
     // -- MARK: - Table view data source

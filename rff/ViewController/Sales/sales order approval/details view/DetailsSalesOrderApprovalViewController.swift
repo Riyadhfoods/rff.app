@@ -7,7 +7,10 @@
 //
 
 import UIKit
-import WebKit
+protocol ApprovalOrderConfomationDelegate{
+    func orderRequestStatus(isApproved: Bool)
+    func orderRequestStatus(isRejected: Bool)
+}
 
 class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDelegate, ItemDetailsDelegate {
     
@@ -25,7 +28,6 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     @IBOutlet weak var approveBtn: UIButton!
     @IBOutlet weak var rejectAllBtn: UIButton!
     @IBOutlet weak var reportIssueBtn: UIButton!
-    @IBOutlet weak var exportBtn: UIButton!
     @IBOutlet weak var stackView: UIStackView!
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var docIdStackView: UIStackView!
@@ -65,6 +67,8 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     var emptyArrayElementCheck = [Bool]()
     var emptyArrayCount: CGFloat = 0
     
+    var delegate: ApprovalOrderConfomationDelegate?
+    
     func updateItemDeatails(itemsDetails: [SalesOrderItemsDetailsModel]) {
         self.itemsDetails = itemsDetails
     }
@@ -78,9 +82,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         title = "Approval Form".localize()
         stackViewWidth.constant = AppDelegate().screenSize.width - 32
         activityIndicator.startAnimating()
-        if let currentUserId = AuthServices.currentUserId{
-            userId = currentUserId
-        }
+        userId = AuthServices.currentUserId
         
         setupComboBox()
         
@@ -97,33 +99,13 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         if itemsDetailsArray.isEmpty && customerCreditDetailsArray.isEmpty && userCommentArray.isEmpty && workFlowArray.isEmpty{
-            
-            itemsDetailsArray = webservice.BindOrderItemGridFor_SalesApprovalForm(emp_id: userId, ordernumber: orderId)
-            for item in itemsDetailsArray{
-                
-                itemsDetails.append(SalesOrderItemsDetailsModel(
-                    orderId: item.OrderID,
-                    serialNumber: item.SOA_SERIALNUMBER,
-                    itemNumber: item.SOA_ITEMNUMBER,
-                    itemDesc: item.SOA_ITEMDESC,
-                    changePrice: item.SOA_CHANGEDPRICE,
-                    originalPrice: item.SOA_ORIGINALPRICE,
-                    qty: item.SOA_QTY,
-                    unitOfMeasurement: item.SOA_UNITOFMEASUREMENT,
-                    lastYearOrderQty: item.SOA_LASTYEARORDERQTY,
-                    yearToDateOrderQty: item.SOA_YEARTODATEORDERQTY,
-                    total: item.SOA_TOTAL,
-                    requestDate: item.SOA_REQUESTDATE,
-                    deliveryDate: item.SOA_DELIVERYDATE))
-            }
-            
-            customerCreditDetailsArray = webservice.BindCustomerCreditGridView_SalesApprovalForm(ordernumber: orderId)
+            setUpData()
             setUserCommentAndSetWorkFlow()
             handleTheHeightOfTableView()
-            handleVisibilityOfButtons()
+            handleVisibilityOfButtons(comment: "")
             detailsTableView.reloadData()
-            activityIndicator.stopAnimating()
         }
+        activityIndicator.stopAnimating()
     }
 
     override func didReceiveMemoryWarning() {
@@ -131,6 +113,29 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     }
     
     // -- MARK: Setups
+    
+    func setUpData(){
+        itemsDetailsArray = webservice.BindOrderItemGridFor_SalesApprovalForm(emp_id: userId, ordernumber: orderId)
+        for item in itemsDetailsArray{
+            
+            itemsDetails.append(SalesOrderItemsDetailsModel(
+                orderId: item.OrderID,
+                serialNumber: item.SOA_SERIALNUMBER,
+                itemNumber: item.SOA_ITEMNUMBER,
+                itemDesc: item.SOA_ITEMDESC,
+                changePrice: item.SOA_CHANGEDPRICE,
+                originalPrice: item.SOA_ORIGINALPRICE,
+                qty: item.SOA_QTY,
+                unitOfMeasurement: item.SOA_UNITOFMEASUREMENT,
+                lastYearOrderQty: item.SOA_LASTYEARORDERQTY,
+                yearToDateOrderQty: item.SOA_YEARTODATEORDERQTY,
+                total: item.SOA_TOTAL,
+                requestDate: item.SOA_REQUESTDATE,
+                deliveryDate: item.SOA_DELIVERYDATE))
+        }
+        
+        customerCreditDetailsArray = webservice.BindCustomerCreditGridView_SalesApprovalForm(ordernumber: orderId)
+    }
     
     func setupComboBox(){
         comboBoxArray = webservice.BindCombobox(ordernumber: orderId)
@@ -144,8 +149,8 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         }
     }
     
-    func handleVisibilityOfButtons(){
-        checkSalesApprovalArray = webservice.CheckSalesApproval(emp_number: userId, order_number: orderId, comment: "")
+    func handleVisibilityOfButtons(comment: String){
+        checkSalesApprovalArray = webservice.CheckSalesApproval(emp_number: userId, order_number: orderId, comment: comment)
         for checkSaleApproval in checkSalesApprovalArray{
             commentStackView.isHidden = !checkSaleApproval.U_Comment
             docIdStackView.isHidden = !checkSaleApproval.DocId_control_vis
@@ -231,17 +236,31 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         workFlowArray = webservice.BindApprovalGrid_SalesApprovalForm(orderid: orderId)
     }
     
+    func handleSuccessAction(action: @escaping () -> Void){
+        self.activityIndicator.startAnimating()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+            action()
+            self.activityIndicator.stopAnimating()
+        })
+    }
+    
     func runBeforeApproveFinalOrderService(){
         for itemDetail in itemsDetails{
             webservice.BeforeApproveFinalOrder(serialnumber: itemDetail.serialNumber, ordernumber: orderId, checkbox: itemDetail.isItemChecked)
         }
     }
     
-    func runApproveFinalOrderAndUpdateValues(){
-        guard let commentText = commentTextView.text else { return }
-        approveResult = webservice.ApproveFinalOrder(orderno: orderId, approver: checkSalasApproveInfo.approver, empno: userId, comment: commentText)
-        AlertMessage().showAlertMessage(alertTitle: approveResult, alertMessage: "", actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
-        updateValues()
+    func runApproveFinalOrderAndUpdateValues(comment: String){
+        approveResult = webservice.ApproveFinalOrder(orderno: orderId, approver: checkSalasApproveInfo.approver, empno: userId, comment: comment)
+        AlertMessage().showAlertMessage(alertTitle: approveResult, alertMessage: "", actionTitle: "Ok", onAction: {
+            self.handleSuccessAction {
+                self.updateValues()
+                self.navigationController?.popToRootViewController(animated: true)
+                if let delegate = self.delegate{
+                    delegate.orderRequestStatus(isApproved: true)
+                }
+            }
+        }, cancelAction: nil, self)
     }
     
     func updateValues(){
@@ -249,8 +268,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     }
     
     var rejectOrReportIssueResault = ""
-    func handleRejectAndReportIssue(){
-        guard let commentText = commentTextView.text else { return }
+    func handleRejectAndReportIssue(comment: String){
         rejectOrReportIssueResault = webservice.Reject_SalesOrderApproval(
             ordernumber: orderId,
             empnumber: userId,
@@ -260,11 +278,16 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
             export: checkSalasApproveInfo.appExport,
             approval1: checkSalasApproveInfo.approver1,
             approver: checkSalasApproveInfo.approver,
-            comment: commentText)
+            comment: comment)
 
         AlertMessage().showAlertMessage(alertTitle: rejectOrReportIssueResault, alertMessage: "", actionTitle: "Ok", onAction: {
             self.updateValues()
-            self.navigationController?.popToRootViewController(animated: true)
+            self.handleSuccessAction {
+                self.navigationController?.popToRootViewController(animated: true)
+                if let delegate = self.delegate{
+                    delegate.orderRequestStatus(isRejected: true)
+                }
+            }
         }, cancelAction: nil, self)
     }
     
@@ -273,6 +296,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     var saveToGPReturn = [SaveToGpModel]()
     var approveResult = ""
     @IBAction func approveAndSaveGBButtonTapped(_ sender: Any) {
+        var error = ""
         if locCodeReveived == "" || docIdReceived == "" {
             if docId.isHidden == true && loccode.isHidden == true {
                 return
@@ -282,49 +306,112 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
             let messageTitle = "Please enter document Id or location code"
 
             AlertMessage().showAlertMessage(alertTitle: alertTitle , alertMessage: messageTitle, actionTitle: "Ok", onAction: {
+                if let delegate = self.delegate{
+                    delegate.orderRequestStatus(isApproved: false)
+                }
                 return
             }, cancelAction: nil, self)
-        }
-
-        saveToGPReturn = webservice.SaveToGp(orderno: orderId, combo_loc_code: locCodeReveived, combo_doc_id: docIdReceived, empnumber: userId)
-
-        runBeforeApproveFinalOrderService()
-
-        for saveReturn in saveToGPReturn{
-            approveAndSaveGBBtn.isHidden = !saveReturn.Savetogp_btn_vis
-            approveAndEnterManBtn.isHidden = !saveReturn.ApproveandEnterManually_btn
-
-            if saveReturn.GP_Error != ""{
-                return
+        } else {
+            if let comment = commentTextView.text{
+                AlertMessage().showAlertMessage(
+                    alertTitle: "Confirmation",
+                    alertMessage: "Do you want to approve the order and save it to gp?",
+                    actionTitle: "OK",
+                    onAction: {
+                        self.handleSuccessAction {
+                            self.handleVisibilityOfButtons(comment: comment)
+                            self.saveToGPReturn = self.webservice.SaveToGp(orderno: self.orderId, combo_loc_code: self.locCodeReveived, combo_doc_id: self.docIdReceived, empnumber: self.userId)
+                            self.runBeforeApproveFinalOrderService()
+                            
+                            for saveReturn in self.saveToGPReturn{
+                                self.approveAndSaveGBBtn.isHidden = !saveReturn.Savetogp_btn_vis
+                                self.approveAndEnterManBtn.isHidden = !saveReturn.ApproveandEnterManually_btn
+                                
+                                if saveReturn.GP_Error != ""{
+                                    error = saveReturn.GP_Error
+                                    self.docIdStackView.isHidden = true
+                                    AlertMessage().showAlertMessage(
+                                        alertTitle: "Alert".localize(),
+                                        alertMessage: saveReturn.GP_Error,
+                                        actionTitle: nil,
+                                        onAction: nil,
+                                        cancelAction: "OK",
+                                        self)
+                                    if let delegate = self.delegate{
+                                        delegate.orderRequestStatus(isApproved: false)
+                                    }
+                                    return
+                                }
+                            }
+                            if error == "" {
+                                self.runApproveFinalOrderAndUpdateValues(comment: comment)
+                            }
+                        }
+                }, cancelAction: "Cancel", self)
             }
         }
-
-        runApproveFinalOrderAndUpdateValues()
     }
     
     @IBAction func approveAndEnterManButtonTapped(_ sender: Any) {
-        runBeforeApproveFinalOrderService()
-        runApproveFinalOrderAndUpdateValues()
+        if let comment = commentTextView.text{
+            AlertMessage().showAlertMessage(
+                alertTitle: "Confirmation",
+                alertMessage: "Do you want to approve the order?",
+                actionTitle: "OK",
+                onAction: {
+                     self.handleSuccessAction {
+                        self.handleVisibilityOfButtons(comment: comment)
+                        self.runBeforeApproveFinalOrderService()
+                        self.runApproveFinalOrderAndUpdateValues(comment: comment)
+                    }
+            }, cancelAction: "Cancel", self)
+        }
     }
     
     @IBAction func approveButtonTapped(_ sender: Any) {
-        runBeforeApproveFinalOrderService()
-        runApproveFinalOrderAndUpdateValues()
+        if let comment = commentTextView.text{
+            AlertMessage().showAlertMessage(
+                alertTitle: "Confirmation",
+                alertMessage: "Do you want to approve the order?",
+                actionTitle: "OK",
+                onAction: {
+                    self.handleSuccessAction {
+                        self.handleVisibilityOfButtons(comment: comment)
+                        self.runBeforeApproveFinalOrderService()
+                        self.runApproveFinalOrderAndUpdateValues(comment: comment)
+                    }
+            }, cancelAction: "Cancel", self)
+        }
     }
     
     @IBAction func rejectAllButtonTapped(_ sender: Any) {
-        handleRejectAndReportIssue()
+        if let comment = commentTextView.text{
+            AlertMessage().showAlertMessage(
+                alertTitle: "Confirmation",
+                alertMessage: "Do you want to reject the order?",
+                actionTitle: "OK",
+                onAction: {
+                    self.handleSuccessAction {
+                        self.handleVisibilityOfButtons(comment: comment)
+                        self.handleRejectAndReportIssue(comment: comment)
+                    }
+            }, cancelAction: "Cancel", self)
+        }
     }
     
     @IBAction func reportIssueButtonTapped(_ sender: Any) {
-        handleRejectAndReportIssue()
-    }
-    
-    @IBAction func exportButtonTapped(_ sender: Any) {
-        for item in itemsDetails{
-            print(item)
+        if let comment = commentTextView.text{
+            AlertMessage().showAlertMessage(
+                alertTitle: "Confirmation",
+                alertMessage: "Do you want to report an issue with order?",
+                actionTitle: "OK",
+                onAction: {
+                    self.handleSuccessAction {
+                        self.handleVisibilityOfButtons(comment: comment)
+                        self.handleRejectAndReportIssue(comment: comment)
+                    }
+            }, cancelAction: "Cancel", self)
         }
-        
     }
 }
 
