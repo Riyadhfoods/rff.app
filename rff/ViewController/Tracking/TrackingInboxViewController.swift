@@ -8,6 +8,8 @@
 
 import UIKit
 
+var formId: String = ""
+
 class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
     
     // -- MARK: IBOutlets
@@ -21,7 +23,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     // TextField Action
     @IBOutlet weak var showListPickerTextField: UITextField!
     @IBOutlet weak var showCategoryPickerTextField: UITextField!
-    
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let pickerViewAction = PickerviewAction()
     
@@ -50,6 +52,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     var arrayOfListReceived = [ListType]()
     var arrayOfList = [ListType]()
     var list = ListType()
+    var arrayOfInboxGrid = [InboxGrid]()
     let languageChosen = LoginViewController.languageChosen
     
     var listIndexSelected: Int = 0
@@ -60,15 +63,6 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set up Arrays for picker views
-        setUpArrays()
-        
-        // Set an initialized value
-        listTextfield.text = arrayOfList[0].listname
-        categoryTextfield.text = categoryArray[0]
-        
-        // Changing the back button of the navigation contoller
-        //navigationItem.backBarButtonItem = backButtonItem
         setCustomDefaultNav(navItem: navigationItem)
         listTextfield.tintColor = .clear
         categoryTextfield.tintColor = .clear
@@ -79,6 +73,24 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         setUpPickerView()
         setupLanguagChange()
         setSlideMenu(controller: self, menuButton: menuBtn)
+        activityIndicator.startAnimating()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if arrayOfListReceived.isEmpty{
+            self.setUpArrays()
+        }
+        activityIndicator.stopAnimating()
+        
+        if formId != ""{
+            runViewIfComeFromHome()
+        }
+        
+        listTextfield.text = arrayOfList[0].listname
+        pickViewList.selectRow(0, inComponent: 0, animated: false)
+        categoryTextfield.text = categoryArray[0]
+        pickViewCategory.selectRow(0, inComponent: 0, animated: false)
     }
     
     // -- MARK: Setups
@@ -200,24 +212,56 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
                 onAction: {
                 return
             }, cancelAction: nil, self)
+        } else {
+            activityIndicator.startAnimating()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                self.showArrayOfInboxGrid(fromId: String(self.listIndexSelected), drpdwnvalue: String(self.categoryIndexSelected))
+            }
         }
-        performSegue(withIdentifier: "showInboxTable", sender: nil)
+    }
+    
+    // -- MARK: Helper functions
+    
+    func runViewIfComeFromHome(){
+        var count = 0
+        for list in arrayOfListReceived{
+            if list.listtype == formId{
+                listTextfield.text = list.listname
+                categoryTextfield.text = categoryArray[1]
+                
+                activityIndicator.startAnimating()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self.showArrayOfInboxGrid(fromId: formId, drpdwnvalue: String(0))
+                }
+                break
+            }
+            count += 1
+        }
+    }
+    
+    func showArrayOfInboxGrid(fromId: String, drpdwnvalue: String){
+        if let currentUserIdInt = Int(AuthServices.currentUserId), let searchText = searchContectTextfield.text{
+            self.arrayOfInboxGrid = Login().SearchInbox(
+                empid: currentUserIdInt,
+                formid: fromId,
+                drpdwnvalue: drpdwnvalue,
+                search: searchText,
+                langid: LoginViewController.languageChosen)
+            formId = ""
+            self.performSegue(withIdentifier: "showInboxTable", sender: nil)
+            self.activityIndicator.stopAnimating()
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showInboxTable" {
             if let viewController = segue.destination as? InboxTableViewController{
-                viewController.listIndexSelected = self.listIndexSelected
-                viewController.categoryIndexSelected = self.categoryIndexSelected
+                viewController.arrayOfInboxGrid = self.arrayOfInboxGrid
                 if let title = self.listTextfield.text{
                     viewController.navTitle = title
                 }
             }
         }
-    }
-    
-    @IBAction func returnButtonTapped(_ sender: Any) {
-        moveTo(storyboard: "Home", withIdentifier: "homeViewControllerNav", viewController: self)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

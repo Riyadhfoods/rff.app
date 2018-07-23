@@ -260,6 +260,21 @@ class VacationsDetailsViewController: UIViewController {
         }
         
         setUpEmployeeDetails()
+        setInitDate()
+    }
+    
+    func setInitDate(){
+        let currentDate = Date()
+        var dateComponents = DateComponents()
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        if let balanceVacInt = Int(empVacationDetails.Balance_Vacation){
+            dateComponents.day = balanceVacInt
+            if let date = Calendar(identifier: Calendar.Identifier.gregorian).date(byAdding: dateComponents, to: currentDate){
+                returnDatePickerDatePicker.setDate(date, animated: false)
+            }
+        }
     }
     
     // -- MARK: IBAction
@@ -271,7 +286,6 @@ class VacationsDetailsViewController: UIViewController {
         ticketRequest = 1
         
         changeSettlementAmount(ticket: ticketRequest)
-        print(empVacationDetails.TotalSettlementAmount)
     }
     
     @IBAction func cashButtonTapped(_ sender: Any) {
@@ -280,7 +294,6 @@ class VacationsDetailsViewController: UIViewController {
         ticketRequest = 0
         
         changeSettlementAmount(ticket: ticketRequest)
-        print(empVacationDetails.TotalSettlementAmount)
     }
     
     func changeSettlementAmount(ticket: Int){
@@ -642,13 +655,16 @@ extension VacationsDetailsViewController{
             if let startReturnDate = calendar.date(byAdding: dateComponents, to: sender.date){
                 ReturnDatePickerView.text = dateFormatter.string(from: startReturnDate)
                 self.returnDatePickerDatePicker.minimumDate = startReturnDate
+                self.returnDatePickerDatePicker.setDate(startReturnDate, animated: false)
                 getDifferance(fromDate: sender.date, toDate: startReturnDate)
                 
                 changeSettlementAmount(startDate: dateFormatter.string(from: sender.date))
+                empVacationDetails.Leave_Start_Dt = dateFormatter.string(from: sender.date)
             }
         } else {
             ReturnDatePickerView.text = dateFormatter.string(from: sender.date)
             getDifferance(fromDate: leaveMinDate, toDate: sender.date)
+            empVacationDetails.Leave_Return_Dt = dateFormatter.string(from: sender.date)
         }
     }
     

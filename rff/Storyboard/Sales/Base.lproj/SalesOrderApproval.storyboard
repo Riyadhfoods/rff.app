@@ -12,7 +12,7 @@
         <!--Sales Order Approval-->
         <scene sceneID="xMD-Ut-eXe">
             <objects>
-                <viewController id="J1q-dH-lsW" customClass="SalesOrderApprovalViewController" customModule="rff" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="salesOderApprovalViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="J1q-dH-lsW" customClass="SalesOrderApprovalViewController" customModule="rff" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="v8H-tu-My3">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -944,7 +944,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pp4-vh-3aF">
                                                         <rect key="frame" x="0.0" y="144" width="343" height="40"/>
-                                                        <color key="backgroundColor" red="0.9882352941176471" green="0.050980392156862744" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.79752304789999995" green="0.28114424139999999" blue="0.31000573300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="zKR-Sm-qgK"/>
                                                         </constraints>
@@ -957,7 +957,7 @@
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ffa-ee-FrP">
                                                         <rect key="frame" x="0.0" y="192" width="343" height="40"/>
-                                                        <color key="backgroundColor" red="0.9882352941176471" green="0.050980392156862744" blue="0.10980392156862745" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" red="0.79752304789999995" green="0.28114424139999999" blue="0.31000573300000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="40" id="ipF-KH-IMM"/>
                                                         </constraints>

@@ -106,6 +106,14 @@
 		C078EBBE20A859DB00E0B812 /* MyComplain.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBBD20A859DB00E0B812 /* MyComplain.storyboard */; };
 		C078EBD820A85CC800E0B812 /* Report.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C078EBD720A85CC800E0B812 /* Report.storyboard */; };
 		C07C54CD20ECD78100834044 /* AttachmentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C07C54CC20ECD78100834044 /* AttachmentHandler.swift */; };
+		C087AEA72105C2760090BC2E /* InboxApprovalFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AEA62105C2760090BC2E /* InboxApprovalFormViewController.swift */; };
+		C087AEA92105CDF70090BC2E /* EmployeeGeneralInformationInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AEA82105CDF70090BC2E /* EmployeeGeneralInformationInboxViewController.swift */; };
+		C087AEAB2105D3270090BC2E /* LeaveDetailsInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AEAA2105D3270090BC2E /* LeaveDetailsInboxViewController.swift */; };
+		C087AEAD2105DC790090BC2E /* AdministrativeUseInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AEAC2105DC790090BC2E /* AdministrativeUseInboxViewController.swift */; };
+		C087AEAF2105E12A0090BC2E /* CompanionsDetailsInboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AEAE2105E12A0090BC2E /* CompanionsDetailsInboxTableViewController.swift */; };
+		C087AEB12105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AEB02105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift */; };
+		C087AEB32105E7380090BC2E /* UserCommentInboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AEB22105E7380090BC2E /* UserCommentInboxTableViewController.swift */; };
+		C087AEB52105E9FA0090BC2E /* WorkFlowInboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C087AEB42105E9FA0090BC2E /* WorkFlowInboxTableViewController.swift */; };
 		C08A267D20A6E2AB0028052C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A267C20A6E2AB0028052C /* HomeViewController.swift */; };
 		C08A267F20A6E2CA0028052C /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A267E20A6E2CA0028052C /* ChangePasswordViewController.swift */; };
 		C08A268120A6E2DE0028052C /* TrackingInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C08A268020A6E2DE0028052C /* TrackingInboxViewController.swift */; };
@@ -188,7 +196,6 @@
 		C0D090B820B6D7ED0049226F /* ArrayOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D090B720B6D7ED0049226F /* ArrayOfString.swift */; };
 		C0D2ABA520A805EE001AE4FD /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */; };
 		C0D2ABA720A80606001AE4FD /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */; };
-		C0D2ABA920A829A3001AE4FD /* WebFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2ABA820A829A3001AE4FD /* WebFormViewController.swift */; };
 		C0E6140220FDB8AE00309A53 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140420FDB8AE00309A53 /* Home.storyboard */; };
 		C0E6140720FDB8CE00309A53 /* Master.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140920FDB8CE00309A53 /* Master.storyboard */; };
 		C0E6140C20FDB97700309A53 /* Loan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140E20FDB97700309A53 /* Loan.storyboard */; };
@@ -311,6 +318,14 @@
 		C078EBBD20A859DB00E0B812 /* MyComplain.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyComplain.storyboard; sourceTree = "<group>"; };
 		C078EBD720A85CC800E0B812 /* Report.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Report.storyboard; sourceTree = "<group>"; };
 		C07C54CC20ECD78100834044 /* AttachmentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentHandler.swift; sourceTree = "<group>"; };
+		C087AEA62105C2760090BC2E /* InboxApprovalFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxApprovalFormViewController.swift; sourceTree = "<group>"; };
+		C087AEA82105CDF70090BC2E /* EmployeeGeneralInformationInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeGeneralInformationInboxViewController.swift; sourceTree = "<group>"; };
+		C087AEAA2105D3270090BC2E /* LeaveDetailsInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LeaveDetailsInboxViewController.swift; sourceTree = "<group>"; };
+		C087AEAC2105DC790090BC2E /* AdministrativeUseInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdministrativeUseInboxViewController.swift; sourceTree = "<group>"; };
+		C087AEAE2105E12A0090BC2E /* CompanionsDetailsInboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanionsDetailsInboxTableViewController.swift; sourceTree = "<group>"; };
+		C087AEB02105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettlementandTicketDetailsViewController.swift; sourceTree = "<group>"; };
+		C087AEB22105E7380090BC2E /* UserCommentInboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCommentInboxTableViewController.swift; sourceTree = "<group>"; };
+		C087AEB42105E9FA0090BC2E /* WorkFlowInboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkFlowInboxTableViewController.swift; sourceTree = "<group>"; };
 		C08A267C20A6E2AB0028052C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		C08A267E20A6E2CA0028052C /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		C08A268020A6E2DE0028052C /* TrackingInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingInboxViewController.swift; sourceTree = "<group>"; };
@@ -394,7 +409,6 @@
 		C0D090B720B6D7ED0049226F /* ArrayOfString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfString.swift; sourceTree = "<group>"; };
 		C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
-		C0D2ABA820A829A3001AE4FD /* WebFormViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebFormViewController.swift; sourceTree = "<group>"; };
 		C0E6140520FDB8B100309A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 		C0E6140820FDB8CE00309A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Master.storyboard; sourceTree = "<group>"; };
 		C0E6140B20FDB8D000309A53 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Master.strings; sourceTree = "<group>"; };
@@ -1094,7 +1108,14 @@
 				C08A268020A6E2DE0028052C /* TrackingInboxViewController.swift */,
 				C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */,
 				C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */,
-				C0D2ABA820A829A3001AE4FD /* WebFormViewController.swift */,
+				C087AEA62105C2760090BC2E /* InboxApprovalFormViewController.swift */,
+				C087AEA82105CDF70090BC2E /* EmployeeGeneralInformationInboxViewController.swift */,
+				C087AEAA2105D3270090BC2E /* LeaveDetailsInboxViewController.swift */,
+				C087AEAC2105DC790090BC2E /* AdministrativeUseInboxViewController.swift */,
+				C087AEAE2105E12A0090BC2E /* CompanionsDetailsInboxTableViewController.swift */,
+				C087AEB02105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift */,
+				C087AEB22105E7380090BC2E /* UserCommentInboxTableViewController.swift */,
+				C087AEB42105E9FA0090BC2E /* WorkFlowInboxTableViewController.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -1388,6 +1409,7 @@
 				C08A26D320A6E7C60028052C /* MyComplainViewController.swift in Sources */,
 				C08A26DD20A6E8200028052C /* SalesOrderRequestsViewController.swift in Sources */,
 				C0CB9D0120F5FAF3001502E7 /* ExtensionOfReturnOrder.swift in Sources */,
+				C087AEB52105E9FA0090BC2E /* WorkFlowInboxTableViewController.swift in Sources */,
 				C08A269520A6E3C10028052C /* EmployeeInfoViewController.swift in Sources */,
 				C00D95CA20FB16BF00949ABE /* SalesWorkFlowCell.swift in Sources */,
 				C0AD50E120F0B2A6007808C6 /* UploadedFileCell.swift in Sources */,
@@ -1399,6 +1421,7 @@
 				C0CE40CD20BC281200A06CB4 /* PendingInboxCell.swift in Sources */,
 				C05777B020CE944D00423FE7 /* DetailsSalesOrderApprovalViewController.swift in Sources */,
 				C08A268B20A6E32B0028052C /* ResignViewController.swift in Sources */,
+				C087AEA92105CDF70090BC2E /* EmployeeGeneralInformationInboxViewController.swift in Sources */,
 				C08A269D20A6E41E0028052C /* JobTitleChangeViewController.swift in Sources */,
 				C0D2ABA720A80606001AE4FD /* InboxTableViewCell.swift in Sources */,
 				C035314A20B1875700E0DBD9 /* Login.swift in Sources */,
@@ -1411,6 +1434,7 @@
 				C0A9E72220DE4222000C7A0D /* CustomerAgingViewController.swift in Sources */,
 				C00D95D320FB765D00949ABE /* SalesOrderItemDetailsViewController.swift in Sources */,
 				C0A9E71220DE19A6000C7A0D /* UserCommentViewController.swift in Sources */,
+				C087AEB32105E7380090BC2E /* UserCommentInboxTableViewController.swift in Sources */,
 				C00BB06F20DFA72400D95532 /* SORModul.swift in Sources */,
 				C00D95C020FB147200949ABE /* SalesItemDetailsCell.swift in Sources */,
 				C08A26DF20A6E8340028052C /* ReturnOrderRequestsViewController.swift in Sources */,
@@ -1424,6 +1448,7 @@
 				C08A26C520A6E7480028052C /* DeviceDetailsViewController.swift in Sources */,
 				C03C7C0820C7D96E00D8248C /* ReturnStyleTableViewController.swift in Sources */,
 				C08A26A720A6E48D0028052C /* SettleCalcViewController.swift in Sources */,
+				C087AEB12105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift in Sources */,
 				C0CE40CA20BC14C600A06CB4 /* Task_Inbox.swift in Sources */,
 				C0B90AD620B6C10000760FD0 /* VacationsDetailsViewController.swift in Sources */,
 				C00BF62A20EB4E6C00EA32D0 /* AttachmentReturnViewController.swift in Sources */,
@@ -1440,6 +1465,7 @@
 				C0CE40C920BC14C600A06CB4 /* ArrayOfEmpVac.swift in Sources */,
 				C08A26A320A6E4700028052C /* AttendanceDetailsViewController.swift in Sources */,
 				C08A268F20A6E35D0028052C /* ReturnFromVacationViewController.swift in Sources */,
+				C087AEAB2105D3270090BC2E /* LeaveDetailsInboxViewController.swift in Sources */,
 				C005CB7520B40B7600875740 /* ArrayOfInboxGrid.swift in Sources */,
 				C07C54CD20ECD78100834044 /* AttachmentHandler.swift in Sources */,
 				C0BBF49C20E8C68E0051D3E2 /* SalesReturn.swift in Sources */,
@@ -1448,7 +1474,6 @@
 				C0A9E71A20DE2162000C7A0D /* UserCommentCell.swift in Sources */,
 				C0489E9820E4CE6800CF6167 /* ReturnItemSelectedCell.swift in Sources */,
 				C08A26B920A6E6E80028052C /* PurchaseViewController.swift in Sources */,
-				C0D2ABA920A829A3001AE4FD /* WebFormViewController.swift in Sources */,
 				C0A9E70E20DE197D000C7A0D /* ItemsDetailsViewController.swift in Sources */,
 				C00D95C820FB16AB00949ABE /* SalesWorkFlowViewController.swift in Sources */,
 				C03C7C1920C7F75100D8248C /* ArrayOfSales.swift in Sources */,
@@ -1458,6 +1483,7 @@
 				C0489E9E20E4F0A200CF6167 /* SaveToGp.swift in Sources */,
 				C009E1A0210312AD00CDC054 /* Loan.swift in Sources */,
 				C08A26C720A6E75B0028052C /* NewPaymentReqViewController.swift in Sources */,
+				C087AEAD2105DC790090BC2E /* AdministrativeUseInboxViewController.swift in Sources */,
 				C00D95CF20FB75C800949ABE /* SalesOrderDetailsViewController.swift in Sources */,
 				C0234D3A20C5237E008BB55B /* extensions.swift in Sources */,
 				C0B7F4BE20A1A89F007D1F67 /* Section.swift in Sources */,
@@ -1472,8 +1498,10 @@
 				C00478F220F2088E002CAA44 /* FilePreviewViewController.swift in Sources */,
 				C035313E20B183A100E0DBD9 /* AuthServices.swift in Sources */,
 				C08A26C120A6E72F0028052C /* AddCategoryViewController.swift in Sources */,
+				C087AEA72105C2760090BC2E /* InboxApprovalFormViewController.swift in Sources */,
 				C0A8446420E7444E0042F2AA /* SalesOrderItemsDetailsModel.swift in Sources */,
 				C0A9E71C20DE217A000C7A0D /* WorkFlowCell.swift in Sources */,
+				C087AEAF2105E12A0090BC2E /* CompanionsDetailsInboxTableViewController.swift in Sources */,
 				C0A8446620E769E70042F2AA /* CheckSalesApprovalModel.swift in Sources */,
 				C08A26D520A6E7DB0028052C /* SalesInboxViewController.swift in Sources */,
 				C0D090B820B6D7ED0049226F /* ArrayOfString.swift in Sources */,

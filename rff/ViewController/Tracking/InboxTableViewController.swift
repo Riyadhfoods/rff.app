@@ -25,9 +25,6 @@ class InboxTableViewController: UITableViewController {
         // Set title for nav bar
         setCustomNav(navItem: navigationItem, title: navTitle)
         
-        //Geting array of inbox elements
-        setupArrayOfInboxGrid()
-        
         setViewAlignment()
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
     }
@@ -39,12 +36,6 @@ class InboxTableViewController: UITableViewController {
     
     // -- MARK: set ups
     
-    func setupArrayOfInboxGrid(){
-        if let currentUserIdInt = Int(AuthServices.currentUserId){
-            arrayOfInboxGrid = Login().SearchInbox(empid: currentUserIdInt, formid: String(listIndexSelected), drpdwnvalue: String(categoryIndexSelected), search: "", langid: LoginViewController.languageChosen)
-        }
-        
-    }
 
     // -- MARK: - Table view data source
 
@@ -65,12 +56,19 @@ class InboxTableViewController: UITableViewController {
             cell.empIdEnglish.text = emp_id
             cell.empNameEnglish.text = emp_name
             cell.dateEnglish.text = date
+            cell.viewForm.addTarget(self, action: #selector(viewFormButtonTapped(sender:)), for: .touchUpInside)
+            cell.viewForm.tag = indexPath.row
+            
             return cell
         }
 
         // Configure the cell...
 
         return UITableViewCell()
+    }
+    
+    @objc func viewFormButtonTapped(sender: UIButton){
+        performSegue(withIdentifier: "showApprovalFormForInbox", sender: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

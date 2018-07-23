@@ -11,6 +11,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
+    static let shared = AppDelegate()
     var window: UIWindow?
     let screenSize = UIScreen.main.bounds
     let mainBackgroundColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0)

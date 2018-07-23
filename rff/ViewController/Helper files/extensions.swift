@@ -143,3 +143,7 @@ extension UIScrollView {
         self.setContentOffset(direction.contentOffsetWith(scrollView: self), animated: animated)
     }
 }
+
+extension Notification.Name{
+    static let myNotification = Notification.Name("myNotification")
+}

@@ -27,12 +27,12 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(LanguageManger.isArabicLanguage)
-        print(LoginViewController.languageChosen)
+        formId = ""
         taskInbox = webservice.Task_InboxM(langid: LoginViewController.languageChosen, emp_id: AuthServices.currentUserId)
         navigationItem.title = "Home".localize()
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
         
+        //addObserver()
         setViewAlignment()
         setSlideMenu(controller: self, menuButton: menuBtn)
     }
@@ -66,15 +66,22 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // -- MARK: objc Functions
     
-    var storyboardName = ""
-    var viewContollerId = ""
     @objc func clickViewButtonTapped(sender: UIButton){
-        if taskInbox[sender.tag].FormId == "2102"{
+        var storyboardName = ""
+        var viewContollerId = ""
+        switch taskInbox[sender.tag].FormId{
+        case "2102":
             storyboardName = "SalesOrderApproval"
             viewContollerId = "salesOrderApprovalViewControllerNav"
-        } else if taskInbox[sender.tag].FormId == "2081" {
+        case "2081":
             storyboardName = "SalesReturnApproval"
             viewContollerId = "salesReturnApprovalViewControllerNav"
+        case "10", "1001", "1002", "1003", "1004", "1005", "1006", "1008", "1009", "1010", "1011", "1012", "1013", "2079", "2083", "2093":
+            storyboardName = "Tracking"
+            viewContollerId = "trackingInboxViewControllerNav"
+            formId = taskInbox[sender.tag].FormId
+        default:
+            break
         }
         
         if storyboardName == "" || viewContollerId == "" {return}
