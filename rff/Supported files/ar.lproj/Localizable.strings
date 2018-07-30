@@ -99,8 +99,17 @@
 "You did not select a list or category" = "لم يتم اختيار قائمة او حاله";
 "Emp ID:" = "رقم الموظف:";
 "Emp Name:" = "اسم الموظف:";
-"Date:" = "التاديخ:";
+"Date:" = "التاريخ:";
 "VIEW FORM" = "عرض النموذج";
+"Employee General Information" = "المعاومات العامة للموظف";
+"Leave Details" = "تفاصيل المغادرة";
+"For Administrative Use Only" = "لاستخدام المدير";
+"Companions Details" = "تفاصيل المرافقين";
+"Settlement and Ticket Details" = "تفاصيل التصفية و التذكرة";
+"Employee Information" = "معلومات الموظف";
+"Previous/New Loan Details" = "تفاصيل القروض السابقة والحالية";
+"Loan Details" = "تفاصيل السلف";
+
 
 // Employee vacation
 "ADD VACATION" = "إضافة اجازه";
@@ -124,11 +133,57 @@
 "Dependent Ticket" = "إعتماد التذكرة";
 "Require Visa:" = "طلب التأشيرة";
 "Ticket:" = "بدل تذكرة:";
-"Name:" = "اسم الموظف:";
+"Name:" = "الاسم";
 "SUBMIT" = "تسليم";
 "You have already applied for vacation" = "لقد تقدمت بطلب عطله مسبقاً";
 "Vacation applied successfully" = "تم تسليم طلب الاجازة بنجاح";
 "Choose your delegate" = "اختر الموظف البديل";
+
+"Name" = "اسم الموظف";
+"Join Date" = "بداية الخدمة";
+"Start Date" = "تاريخ المباشرة";
+"Manager" = "المدير";
+"Job Description" = "الوصف الوظيفي";
+"Sub Job Description" = "الوظيفة الفرعية";
+"Department" = "الإدارة";
+"Nationality" = "الجنسية";
+"Job Desc" = "الوصف الوظيفي";
+"Sub Job" = "الوظيفة الفرعية";
+"Basic Salary" = "الراتب الاساسي";
+"Package" = "الاجمالي";
+"Company" = "الشركة";
+
+"Exit ReEntry" = "تاشيرة خروج وعودة";
+"Exit ReEntry Days" = "عدد ايام الخروج والعودة";
+"City/Country" = "المدينة/البلد";
+"Vacation Days" = "عدد ايام الاجازة";
+"Used" = "مستخدم";
+"Requested" = "الطلب";
+"Remaining" = "المتبقي";
+"City:" = "المدينة";
+"DOB:" = "تاريخ الميلاد";
+"Visa Request:" = "تاشيرة";
+"Settlement Amount" = "مبلغ التصفية";
+"Ticket request amount" = "مبلغ التذكرة";
+"Start Date:" = "تاريخ بداية السلفة:";
+"Guarantor:" = "الضامن:";
+"Loan Type:" = "نوع السلفة:";
+"Amount:" = "القيمة:";
+"Monthly Payment:" = "الدفعات الشهرية:";
+"Deducted Value:" = "قيمة الخصومات:";
+"Bal_Amount:" = "القيمة المتبقية:";
+"Loan Type" = "نوع السلفة";
+"AMT. Required" = "المبلغ المطلوب";
+"Guarantor" = "الضامن";
+"Payment Period" = "فترة السداد";
+"Emp Name" = "اسم الموظف";
+"Emp. Role" = "صلاحيات الموظف";
+"Status" = "الحالة";
+"Trans. Date" = "تاريخ التصفية";
+"Employee" = "الموظف";
+"Gaurantor" = "الضامن";
+"Deduction" = "الخصومات";
+"each month" = "كل شهر";
 
 // Sales Inbox
 "Sales Inbox" = "المبيعات";

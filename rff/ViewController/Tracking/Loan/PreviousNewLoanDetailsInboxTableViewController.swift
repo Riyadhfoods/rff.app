@@ -33,7 +33,7 @@ class PreviousNewLoanDetailsInboxTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return prevLoanForLoan.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -72,6 +72,9 @@ class PreviousNewLoanDetailsInbox: UITableViewCell{
         super.awakeFromNib()
         
         setViewAlignment()
+        holderView.layer.cornerRadius = 5.0
+        holderView.layer.borderColor = AppDelegate.shared.mainBackgroundColor.cgColor
+        holderView.layer.borderWidth = 1
     }
 }
 

@@ -33,8 +33,18 @@ class InboxApprovalFormViewController: UIViewController {
     var categorySelected = 0
     var pid = ""
     let cellId = "cell_inboxApprovalForm"
-    let cellTitleArrayForVac = ["Employee General Information", "Leave Details", "For Administrative Use Only", "Companions Details", "Settlement and Ticket Details", "User Comment", "Work Flow"]
-    let cellTitleArrayForLoan = ["Employee Information", "Previous/New Loan Details", "Loan Details", "User Comment", "Work Flow"]
+    let cellTitleArrayForVac = ["Employee General Information".localize(),
+                                "Leave Details".localize(),
+                                "For Administrative Use Only".localize(),
+                                "Companions Details".localize(),
+                                "Settlement and Ticket Details".localize(),
+                                "User Comment".localize(),
+                                "Work Flow".localize()]
+    let cellTitleArrayForLoan = ["Employee Information".localize(),
+                                 "Previous/New Loan Details".localize(),
+                                 "Loan Details".localize(),
+                                 "User Comment".localize(),
+                                 "Work Flow".localize()]
     
     var empVacDetails = [VacationApprovalModul]()
     var empGeneralInfoArrayForVac: EmployeeGeneralInfo?
@@ -66,7 +76,10 @@ class InboxApprovalFormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setCustomNav(navItem: navigationItem, title: "Approval Form")
+        if LanguageManger.isArabicLanguage{
+            title = "نموذج الموافقة"
+        } else {  title = "Approval Form" }
+        setbackNavTitle(navItem: navigationItem)
         buttonsStackView.isHidden = true
         
         setViewAlignment()
@@ -546,32 +559,39 @@ extension InboxApprovalFormViewController: UITableViewDelegate, UITableViewDataS
         if segue.identifier == "showInboxEmpDetails"{
             if let vc = segue.destination as? EmployeeGeneralInformationInboxViewController{
                 vc.empGeneralInfoArrayForVac = empGeneralInfoArrayForVac
+                vc.navigationItem.title = cellTitleArrayForVac[0].localize()
             }
         } else if segue.identifier == "showInboxLeaveDetails"{
             if let vc = segue.destination as? LeaveDetailsInboxViewController{
                 vc.leaveDetailsArrayForVac = leaveDetailsArrayForVac
+                vc.navigationItem.title = cellTitleArrayForVac[1].localize()
             }
         } else if segue.identifier == "showAdministrativeUseDetails"{
             if let vc = segue.destination as? AdministrativeUseInboxViewController{
                 vc.administrativeUseArrayForVac = administrativeUseArrayForVac
+                vc.navigationItem.title = cellTitleArrayForVac[2].localize()
             }
         } else if segue.identifier == "showCompanionsDetailsInbox"{
             if let vc = segue.destination as? CompanionsDetailsInboxTableViewController{
                 vc.companionsDetailsArrayForVac = companionsDetailsArrayForVac
+                vc.navigationItem.title = cellTitleArrayForVac[3].localize()
             }
         } else if segue.identifier == "showSettlementandTicketDetails"{
             if let vc = segue.destination as? SettlementandTicketDetailsViewController{
                 vc.settlementTicketDetailsArrayForVac = settlementTicketDetailsArrayForVac
+                vc.navigationItem.title = cellTitleArrayForVac[4].localize()
             }
         } else if segue.identifier == "showUserCommentInbox"{
             if let vc = segue.destination as? UserCommentInboxTableViewController{
                 vc.userComment = userCommentForVac
                 vc.empName = appliedEmpName
                 vc.workFlowNames = workFlowNamesForVac
+                vc.navigationItem.title = cellTitleArrayForVac[5].localize()
             }
         } else if segue.identifier == "showWorkFlowInbox"{
             if let vc = segue.destination as? WorkFlowInboxTableViewController{
                 vc.workFlow = editWorkFlowForVac
+                vc.navigationItem.title = cellTitleArrayForVac[6].localize()
             }
         }
     }
@@ -580,24 +600,29 @@ extension InboxApprovalFormViewController: UITableViewDelegate, UITableViewDataS
         if segue.identifier == "showEmpInfoInboxLoan"{
             if let vc = segue.destination as? EmployeeInfoInboxViewController{
                 vc.empInfoForLoan = empInfoForLoan
+                vc.navigationItem.title = cellTitleArrayForLoan[0]
             }
         } else if segue.identifier == "showPrevLoanDetailsInbox"{
             if let vc = segue.destination as? PreviousNewLoanDetailsInboxTableViewController{
                 vc.prevLoanForLoan = prevLoanForLoan
+                vc.navigationItem.title = cellTitleArrayForLoan[1]
             }
         } else if segue.identifier == "showLoanDetailsInbox"{
             if let vc = segue.destination as? LoanDetailsInboxViewController{
                 vc.loanDeatilsForLoan = loanDeatilsForLoan
+                vc.navigationItem.title = cellTitleArrayForLoan[2]
             }
         } else if segue.identifier == "showUserCommentInbox"{
             if let vc = segue.destination as? UserCommentInboxTableViewController{
                 vc.userComment = userCommentForLoan
                 vc.empName = appliedEmpName
                 vc.workFlowNames = workFlowNamesForLoan
+                vc.navigationItem.title = cellTitleArrayForLoan[3]
             }
         } else if segue.identifier == "showWorkFlowInbox"{
             if let vc = segue.destination as? WorkFlowInboxTableViewController{
                 vc.workFlow = editWorkFlowForLoan
+                vc.navigationItem.title = cellTitleArrayForLoan[4]
             }
         }
     }
@@ -635,7 +660,11 @@ extension InboxApprovalFormViewController{
 // -- MARK: Table View Cell
 
 class InboxApprovalFormCell: UITableViewCell{
-    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setViewAlignment()
+    }
 }
 
 

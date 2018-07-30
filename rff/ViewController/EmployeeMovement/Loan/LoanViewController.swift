@@ -105,6 +105,8 @@ class LoanViewController: UIViewController {
         showEmpPickerTextField.tintColor = .clear
         showGaurantorPickerTextField.tintColor = .clear
         
+        amyEachMonthLabel.text = "0.0 " + "each month".localize()
+        
         gaurantorsNamesArray = [""]
         gaurantorsIdsArray = [""]
         empNamesArray = ["Select employee"]
@@ -159,10 +161,10 @@ class LoanViewController: UIViewController {
     func setUpData(){
         gaurantorsArray = webservice.BindEmployees(
             emp_number: "992",
-            lang: langChosen)
+            lang: 1)
         empArray = webservice.BindEmployees(
             emp_number: AuthServices.currentUserId,
-            lang: langChosen)
+            lang: 1)
     }
     
     func initalValues(){
@@ -336,7 +338,7 @@ class LoanViewController: UIViewController {
         amtRequiredTextField.text = ""
         paymentOldText = ""
         paymnetPeriodTextField.text = ""
-        amyEachMonthLabel.text = "0.0 each month"
+        amyEachMonthLabel.text = "0.0 " + "each month".localize()
         commentTextView.text = ""
         
         gaurantorPickerview.selectRow(0, inComponent: 0, animated: false)
@@ -456,7 +458,7 @@ extension LoanViewController: UITextFieldDelegate, UITextViewDelegate{
             let result = amtDouble / paymentDouble
             let resultFormatted = String(format: "%.2f", result)
             
-            amyEachMonthLabel.text = "\(resultFormatted) " + "each month"
+            amyEachMonthLabel.text = "\(resultFormatted) " + "each month".localize()
             
         }
     }

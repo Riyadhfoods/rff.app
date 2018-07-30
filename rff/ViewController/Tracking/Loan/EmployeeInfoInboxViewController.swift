@@ -25,7 +25,6 @@ class EmployeeInfoInboxViewController: UIViewController {
     @IBOutlet weak var startDate: UILabel!
     @IBOutlet weak var holderView: UIView!
     
-    
     // -- MARK: Variables
     
     var empInfoForLoan: EmployeeDetails?
