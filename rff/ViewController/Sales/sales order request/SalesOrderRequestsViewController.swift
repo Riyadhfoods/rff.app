@@ -206,6 +206,7 @@ class SalesOrderRequestsViewController: UIViewController {
         setUpPickerView()
         setupDatePicker()
         setSlideMenu(controller: self, menuButton: menuBtn)
+        setViewAlignment()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
         view.addGestureRecognizer(tapGesture)

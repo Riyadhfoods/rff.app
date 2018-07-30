@@ -49,13 +49,13 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     var listTextChosen: String?
     var categoryTextChosen: String?
     let webservice = Login()
-    var arrayOfListReceived = [ListType]()
-    var arrayOfList = [ListType]()
-    var list = ListType()
-    var arrayOfInboxGrid = [InboxGrid]()
+    var arrayOfListReceived = [ListTypeModul]()
+    var arrayOfList = [ListTypeModul]()
+    var list = ListTypeModul()
+    var arrayOfInboxGrid = [InboxGridModul]()
     let languageChosen = LoginViewController.languageChosen
     
-    var listIndexSelected: Int = 0
+    var listFormId: Int = 0
     var categoryIndexSelected: Int = 0
     var listRowIndex: Int = 0
     var CategopryRowIndex: Int = 0
@@ -78,6 +78,8 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        listRowIndex = 0
+        CategopryRowIndex = 0
         if arrayOfListReceived.isEmpty{
             self.setUpArrays()
         }
@@ -116,7 +118,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     func setUpArrays(){
-        arrayOfListReceived = webservice.Bind_ddlReqType(langid: languageChosen)
+        arrayOfListReceived = TrackingService.shared.Bind_ddlReqType(langid: languageChosen)
         
         list.listname = "Select list".localize()
         categoryArray = [
@@ -190,7 +192,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         if pickerView == pickViewList{
             listTextChosen = arrayOfList[row].listname
             if let arraylistInt = Int(arrayOfList[row].listtype){
-                listIndexSelected = arraylistInt
+                listFormId = arraylistInt
             }
             listRowIndex = row
         } else {
@@ -215,7 +217,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         } else {
             activityIndicator.startAnimating()
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                self.showArrayOfInboxGrid(fromId: String(self.listIndexSelected), drpdwnvalue: String(self.categoryIndexSelected))
+                self.showArrayOfInboxGrid(fromId: String(self.listFormId), drpdwnvalue: String(self.categoryIndexSelected))
             }
         }
     }
@@ -228,9 +230,13 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
             if list.listtype == formId{
                 listTextfield.text = list.listname
                 categoryTextfield.text = categoryArray[1]
+                if let arraylistInt = Int(list.listtype){
+                    listFormId = arraylistInt
+                }
                 
                 activityIndicator.startAnimating()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                    self.CategopryRowIndex = 1
                     self.showArrayOfInboxGrid(fromId: formId, drpdwnvalue: String(0))
                 }
                 break
@@ -241,12 +247,12 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     func showArrayOfInboxGrid(fromId: String, drpdwnvalue: String){
         if let currentUserIdInt = Int(AuthServices.currentUserId), let searchText = searchContectTextfield.text{
-            self.arrayOfInboxGrid = Login().SearchInbox(
-                empid: currentUserIdInt,
-                formid: fromId,
-                drpdwnvalue: drpdwnvalue,
-                search: searchText,
-                langid: LoginViewController.languageChosen)
+            self.arrayOfInboxGrid = TrackingService.shared.SearchInbox(empid: currentUserIdInt,
+                                                                       formid: fromId,
+                                                                       drpdwnvalue: drpdwnvalue,
+                                                                       search: searchText,
+                                                                       langid: LoginViewController.languageChosen)
+
             formId = ""
             self.performSegue(withIdentifier: "showInboxTable", sender: nil)
             self.activityIndicator.stopAnimating()
@@ -257,6 +263,8 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         if segue.identifier == "showInboxTable" {
             if let viewController = segue.destination as? InboxTableViewController{
                 viewController.arrayOfInboxGrid = self.arrayOfInboxGrid
+                viewController.listFormId = listFormId
+                viewController.categorySelected = CategopryRowIndex
                 if let title = self.listTextfield.text{
                     viewController.navTitle = title
                 }

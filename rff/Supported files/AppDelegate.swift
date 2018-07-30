@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -21,6 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
+        // To get crashed report
+        logUser()
+        Fabric.with([Crashlytics.self])
+        
         // To set a default language
         LanguageManger.shared.defaultLanguage = .en
         
@@ -29,6 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = .white
         
         return true
+    }
+    
+    func logUser(){
+        Crashlytics.sharedInstance().setUserIdentifier(AuthServices.currentUserId)
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

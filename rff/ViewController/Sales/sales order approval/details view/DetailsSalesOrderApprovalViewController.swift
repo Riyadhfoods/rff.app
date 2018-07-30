@@ -105,6 +105,8 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
             handleVisibilityOfButtons(comment: "")
             detailsTableView.reloadData()
         }
+        
+        setViewAlignment()
         activityIndicator.stopAnimating()
     }
 
@@ -484,7 +486,21 @@ extension DetailsSalesOrderApprovalViewController: UITableViewDelegate, UITableV
     }
 }
 
-
+extension DetailsSalesOrderApprovalViewController{
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        addObservers(onShow: { frame in
+            let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+            self.scrollView.contentInset = contentInset
+        }, onHide: { _ in
+            self.scrollView.contentInset = UIEdgeInsets.zero
+        })
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        removeObservers()
+    }
+}
 
 
 

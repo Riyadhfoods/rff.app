@@ -29,6 +29,7 @@ class TransferStyleCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+        setViewAlignment()
         holderView.layer.cornerRadius = 5.0
         holderView.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
         holderView.layer.borderWidth = 1

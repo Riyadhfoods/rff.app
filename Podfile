@@ -7,5 +7,7 @@ target 'rff' do
 
   # Pods for rff
   pod 'ChameleonFramework'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
 end

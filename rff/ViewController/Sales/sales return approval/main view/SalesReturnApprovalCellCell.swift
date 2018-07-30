@@ -22,6 +22,7 @@ class SalesReturnApprovalCellCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setUpCellHolderViewAndCellBackground(holderView: holderView, contentView: contentView)
+        setViewAlignment()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

@@ -83,17 +83,21 @@ class VacationsDetailsViewController: UIViewController {
     let cell_Id = "cell_visaRequires"
     let mainBackgroundColor = AppDelegate().mainBackgroundColor
     let screenSize = AppDelegate().screenSize
-    let webservice = Login()
+    let webserviceForVacationDetails = VacationService.shared
     
-    var empVacationDetails = EmpVac()
-    var initEmpVacationDetails = EmpVac()
-    var vacationTypeArray = [EmpVac]()
-    var empVacArray = [EmpVac]()
-    var empDelegateArray = [EmpVac]()
-    var ticketdependentArray = [DepVacTicket]()
+    var empVacationDetails = EmpVacationDetailsModul()
+    var vacationTypeArray = [VacTypeInfoModul]()
+    
+    var empInfoArray = [EmpInfoModul]()
+    var empDelegateInfoArray = [EmpInfoModul]()
+    var ticketdependentArray = [EmpDepVacTicketInfoModul]()
+    var settlementDetails = settlmentDetailsModul()
     
     // To store vacation type id
+    var selectedEmpId: String = ""
     var vacationTypeId: String = ""
+    var leaveStartDate: String = ""
+    var leaveReturnDate: String = ""
     var empNametextChosen: String?
     var empDelegatetextChosen: String?
     var vacationTypetextChosen: String?
@@ -127,7 +131,6 @@ class VacationsDetailsViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
         view.addGestureRecognizer(tapGesture)
-        
         activityIndicator.startAnimating()
     }
     
@@ -140,7 +143,6 @@ class VacationsDetailsViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // -- MARK: Set ups
@@ -164,9 +166,6 @@ class VacationsDetailsViewController: UIViewController {
         setUpToolBar()
         setUpCommentDisplay()
         sutupSelectors()
-        
-        setTicketArray()
-        tableViewWidth.constant = CGFloat(120 * (ticketdependentArray.count))
     }
     
     func setUpCommentDisplay(){
@@ -205,31 +204,45 @@ class VacationsDetailsViewController: UIViewController {
         view.endEditing(true)
     }
     
-    func setTicketArray(){
-        ticketdependentArray = webservice.GetEmpVacationTickets(emp_id: AuthServices.currentUserId, langId: languangeChosen)
-    }
-    
     func setupArrays(){
-        empVacArray = webservice.BindEmpsVacationsDropDown(langid: languangeChosen, Emp_no: AuthServices.currentUserId)
-        empDelegateArray = webservice.BindDelegateVacationsDropDown(langid: languangeChosen, Emp_no: AuthServices.currentUserId)
-        vacationTypeArray = webservice.BindVacationType_DDL(langid: languangeChosen)
-        empVacationDetails = webservice.GetEmpVacationDetails(langid: languangeChosen, Emp_no: AuthServices.currentUserId)
-        initEmpVacationDetails = webservice.GetEmpVacationDetails(langid: languangeChosen, Emp_no: AuthServices.currentUserId)
-        setTicketArray()
+        empInfoArray = webserviceForVacationDetails.BindEmpsVacationsDropDown(langid: languangeChosen,
+                                                                              Emp_no: AuthServices.currentUserId)
+        vacationTypeArray = webserviceForVacationDetails.BindVacationType_DDL(langid: languangeChosen)
+        
+        if !empInfoArray.isEmpty && !vacationTypeArray.isEmpty{
+            setUpDataFromSelectedEmp(selectedEmpId: "\(empInfoArray[empNameIndex].Emp_Id)")
+        } else { print("No data available") }
         
         initialValues()
     }
     
+    func setUpDataFromSelectedEmp(selectedEmpId: String){
+        vacationTypeId = vacationTypeArray[2].Vac_Type
+        empDelegateInfoArray = webserviceForVacationDetails.BindDelegateVacationsDropDown(langid: languangeChosen,
+                                                                                          Emp_no: selectedEmpId)
+        empVacationDetails = webserviceForVacationDetails.GetEmpVacationDetails(langid: languangeChosen,
+                                                                                Emp_no: selectedEmpId)
+        ticketdependentArray = webserviceForVacationDetails.GetEmpVacationTickets(emp_id: selectedEmpId,
+                                                                                  langId: languangeChosen)
+        settlementDetails = webserviceForVacationDetails.get_settlement_details(vacationtype: vacationTypeId,
+                                                                                langid: languangeChosen,
+                                                                                emp_no: selectedEmpId,
+                                                                                startdate: empVacationDetails.Leave_Start_Dt,
+                                                                                ticket: 0)
+        tableViewWidth.constant = CGFloat(120 * (ticketdependentArray.count))
+        visaReuireTableView.reloadData()
+    }
+    
     func setUpEmployeeDetails(){
-        setValuesForEmployeeDetails(textField: numOfDays, text: initEmpVacationDetails.Number_Days)
+        setValuesForEmployeeDetails(textField: numOfDays, text: empVacationDetails.Number_Days)
         setValuesForEmployeeDetails(label: balanceVacation, text:
-            initEmpVacationDetails.Balance_Vacation)
-        setValuesForEmployeeDetails(textField: leaveStartDatePickerView, text: initEmpVacationDetails.Leave_Start_Dt)
-        setValuesForEmployeeDetails(textField: ReturnDatePickerView, text: initEmpVacationDetails.Leave_Return_Dt)
-        setValuesForEmployeeDetails(textField: exitReEntryDays, text: initEmpVacationDetails.ExitReEntry)
-        setValuesForEmployeeDetails(label: settlementAmount, text: initEmpVacationDetails.SettlementAmount)
-        setValuesForEmployeeDetails(label: extraDays, text: initEmpVacationDetails.ExtraDays)
-        setValuesForEmployeeDetails(textField: dependentTicket, text: initEmpVacationDetails.Dependent_Ticket)
+            empVacationDetails.Balance_Vacation)
+        setValuesForEmployeeDetails(textField: leaveStartDatePickerView, text: empVacationDetails.Leave_Start_Dt)
+        setValuesForEmployeeDetails(textField: ReturnDatePickerView, text: empVacationDetails.Leave_Return_Dt)
+        setValuesForEmployeeDetails(textField: exitReEntryDays, text: empVacationDetails.ExitReEntry)
+        setValuesForEmployeeDetails(label: settlementAmount, text: settlementDetails.TotalSettlementAmount)
+        setValuesForEmployeeDetails(label: extraDays, text: empVacationDetails.ExtraDays)
+        setValuesForEmployeeDetails(textField: dependentTicket, text: empVacationDetails.Dependent_Ticket)
     }
     
     func setValuesForEmployeeDetails(textField: UITextField, text: String){
@@ -241,10 +254,11 @@ class VacationsDetailsViewController: UIViewController {
     }
     
     func initialValues(){
-        if empVacArray.isEmpty{
+        if empInfoArray.isEmpty{
             self.empTextField.text = "No Employee name available"
         } else {
-            self.empTextField.text = empVacArray[0].Emp_Ename
+            self.empTextField.text = empInfoArray[empNameIndex].Emp_Ename
+            selectedEmpId = "\(empInfoArray[empNameIndex].Emp_Id)"
             pickViewEmpName.selectRow(0, inComponent: 0, animated: false)
         }
         
@@ -253,12 +267,15 @@ class VacationsDetailsViewController: UIViewController {
         
         if vacationTypeArray.isEmpty{
             self.vacationTypeTextField.text = "No Vacation Type available"
+            vacationTypeId = ""
         } else {
             self.vacationTypeTextField.text = vacationTypeArray[2].Vac_Desc
             vacationTypeId = vacationTypeArray[2].Vac_Type
             vacationTypePickerViewPikcer.selectRow(2, inComponent: 0, animated: false)
         }
         
+        leaveStartDate = empVacationDetails.Leave_Start_Dt
+        leaveReturnDate = empVacationDetails.Leave_Return_Dt
         setUpEmployeeDetails()
         setInitDate()
     }
@@ -285,7 +302,7 @@ class VacationsDetailsViewController: UIViewController {
         cashButton.backgroundColor = .white
         ticketRequest = 1
         
-        changeSettlementAmount(ticket: ticketRequest)
+        changeSettlementAmount()
     }
     
     @IBAction func cashButtonTapped(_ sender: Any) {
@@ -293,14 +310,17 @@ class VacationsDetailsViewController: UIViewController {
         cashButton.backgroundColor = mainBackgroundColor
         ticketRequest = 0
         
-        changeSettlementAmount(ticket: ticketRequest)
+        changeSettlementAmount()
     }
     
-    func changeSettlementAmount(ticket: Int){
-        let settlementAmountChange =  webservice.get_settlement_details(vacationtype: vacationTypeId, langid: languangeChosen, emp_no: AuthServices.currentUserId, startdate: empVacationDetails.Leave_Start_Dt, ticket: ticket)
-        
-        empVacationDetails.TotalSettlementAmount = settlementAmountChange.TotalSettlementAmount
-        settlementAmount.text =  empVacationDetails.TotalSettlementAmount
+    func changeSettlementAmount(){
+        settlementDetails = webserviceForVacationDetails.get_settlement_details(
+            vacationtype: vacationTypeId,
+            langid: languangeChosen,
+            emp_no: selectedEmpId,
+            startdate: leaveStartDate,
+            ticket: ticketRequest)
+        settlementAmount.text =  settlementDetails.TotalSettlementAmount
     }
     
     @IBAction func exitYesButtonTapped(_ sender: Any) {
@@ -323,16 +343,17 @@ class VacationsDetailsViewController: UIViewController {
         })
     }
     
-    func setUpValueToDefault(){
-        initialValues()
-        setupDefaultSelector()
-        empVacationDetails = initEmpVacationDetails
-        
+    func setUpValueToDefault(empNameIndex: Int){
         comment.text = ""
         delegateId = ""
         ticketRequest = 0
         requiredVisaSelected = 0
         exitReEntryVisaSelected = 0
+        
+        self.empNameIndex = empNameIndex
+        setupArrays()
+        initialValues()
+        setupDefaultSelector()
         scrollView.scrollTo(direction: .Top, animated: false)
     }
     
@@ -352,17 +373,15 @@ class VacationsDetailsViewController: UIViewController {
                     if let numOfDays = self.numOfDays.text,
                         let leaveStartDate = self.leaveStartDatePickerView.text,
                         let returnDate = self.ReturnDatePickerView.text,
-                        let vacationType = self.vacationTypeTextField.text, let exitReEntryDays = self.exitReEntryDays.text{
-                        
-                        self.empVacationDetails.Number_Days = numOfDays
-                        self.empVacationDetails.Leave_Start_Dt = leaveStartDate
-                        self.empVacationDetails.Leave_Return_Dt = returnDate
-                        self.empVacationDetails.Vac_Type = self.vacationTypeId
-                        self.empVacationDetails.Vac_Desc = vacationType
-                        self.empVacationDetails.ExitReEntry = exitReEntryDays
+                        let vacationType = self.vacationTypeTextField.text,
+                        let exitReEntryDays = self.exitReEntryDays.text{
                         
                         self.handleSuccessAction {
-                            self.submit()
+                            self.submit(numOfDays: numOfDays,
+                                        leaveStartDate: leaveStartDate,
+                                        returnDate: returnDate,
+                                        vacationType: vacationType,
+                                        exitReEntryDays: exitReEntryDays)
                         }
                     }
                 }
@@ -371,66 +390,64 @@ class VacationsDetailsViewController: UIViewController {
         
     }
     
-    func submit(){
-        let editSettlementAmountString = (empVacationDetails.TotalSettlementAmount).replacingOccurrences(of: ",", with: "")
+    func submit(numOfDays: String, leaveStartDate: String, returnDate: String, vacationType: String, exitReEntryDays: String){
+        let editSettlementAmountString = (settlementDetails.TotalSettlementAmount).replacingOccurrences(of: ",", with: "")
         let settlementAmountDouble = (editSettlementAmountString as NSString).doubleValue
         
-        let pid = webservice.SubmitEmpVacation(
-            emp_no: "\(empVacationDetails.Emp_Id)",
+        let pid = webserviceForVacationDetails.SubmitEmpVacation(
+            emp_no: selectedEmpId,
             delegateid: delegateId,
-            vacationtype: empVacationDetails.Vac_Type,
+            vacationtype: vacationTypeId,
             tickekreq: ticketRequest,
             settlementamt: settlementAmountDouble,
-            leavestartdate: empVacationDetails.Leave_Start_Dt,
-            leavertndate: empVacationDetails.Leave_Return_Dt,
-            numberofdays: empVacationDetails.Number_Days,
+            leavestartdate: leaveStartDate,
+            leavertndate: returnDate,
+            numberofdays: numOfDays,
             dependenttck: empVacationDetails.Dependent_Ticket,
             exitreentry: exitReEntryVisaSelected,
             comment: comment.text,
             error: "")
         
-        empVacationDetails.PID = pid.PID
-        empVacationDetails.Error = pid.Error
-        
         print(empVacationDetails)
         
-        if empVacationDetails.Error == ""{
+        if pid.Error == ""{
             let alertTitle = "Alert".localize()
             let messageTitle = "You have already applied for vacation".localize()
             AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: messageTitle, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
             
-        } else if empVacationDetails.Error == "1"{
-            for ticketdep in empVacationDetails.DependentVactionTicket{
-                _ = webservice.UpdateVisaReq(
-                    emp_id: "\(empVacationDetails.Emp_Id)",
+        } else if pid.Error == "1"{
+            for ticketdep in ticketdependentArray{
+                _ = webserviceForVacationDetails.UpdateVisaReq(
+                    emp_id: selectedEmpId,
                     dep_name: ticketdep.DependentName,
-                    value: requiredVisaSelected, error: "")
-            }
-            
-            if empVacationDetails.Vac_Type == "10" {
-                _ = webservice.save_settlement(
-                    emp_id: "\(empVacationDetails.Emp_Id)",
-                    pid: empVacationDetails.PID,
-                    sbasic: empVacationDetails.SBasic,
-                    sallowances: empVacationDetails.SAllowances,
-                    stotal: empVacationDetails.STotal,
-                    snet: empVacationDetails.SNet,
-                    vbasic: empVacationDetails.VBasic,
-                    vallowances: empVacationDetails.VAllowances,
-                    vtotal: empVacationDetails.VTotal,
-                    vnet: empVacationDetails.VNet,
-                    ticketprice: empVacationDetails.TicketPrice,
-                    ticketamount: empVacationDetails.TicketAmount,
-                    ticketpercent: empVacationDetails.TicketPercent,
-                    diffticketamount: empVacationDetails.DiffTicketAmount,
-                    netticketp: empVacationDetails.NetTicketPrice,
+                    value: requiredVisaSelected,
                     error: "")
             }
             
-            let alertTitle = "Vacation applied successfully".localize()
-            AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: "", actionTitle: "OK", onAction: {
+            if vacationTypeId == "10" {
+                _ = webserviceForVacationDetails.save_settlement(
+                    emp_id: selectedEmpId,
+                    pid: pid.PID,
+                    sbasic: settlementDetails.SBasic,
+                    sallowances: settlementDetails.SAllowances,
+                    stotal: settlementDetails.STotal,
+                    snet: settlementDetails.SNet,
+                    vbasic: settlementDetails.VBasic,
+                    vallowances: settlementDetails.VAllowances,
+                    vtotal: settlementDetails.VTotal,
+                    vnet: settlementDetails.VNet,
+                    ticketprice: settlementDetails.TicketPrice,
+                    ticketamount: settlementDetails.TicketAmount,
+                    ticketpercent: settlementDetails.TicketPercent,
+                    diffticketamount: settlementDetails.DiffTicketAmount,
+                    netticketp: settlementDetails.NetTicketPrice,
+                    error: "")
+            }
+            
+            let alertMessage = "Vacation request sent successfully".localize()
+            AlertMessage().showAlertMessage(alertTitle: "Success", alertMessage: alertMessage, actionTitle: "OK", onAction: {
                 self.handleSuccessAction {
-                    self.setUpValueToDefault()
+                    self.setUpValueToDefault(empNameIndex: 0)
                 }
             }, cancelAction: nil, self)
         }
@@ -472,10 +489,10 @@ extension VacationsDetailsViewController: UIPickerViewDelegate, UIPickerViewData
     
     @objc func pickerViewDoneClick(){
         if pickerView == pickViewEmpName{
-            if empNameIndex == 0 {
-                empTextField.text = empVacArray[0].Emp_Ename
-            }else {
-                empTextField.text = empNametextChosen
+            empTextField.text = empInfoArray[self.empNameIndex].Emp_Ename
+            handleSuccessAction {
+                self.setUpDataFromSelectedEmp(selectedEmpId: "\(self.empInfoArray[self.empNameIndex].Emp_Id)")
+                self.setUpValueToDefault(empNameIndex: self.empNameIndex)
             }
             showEmpPickerView.resignFirstResponder()
             return
@@ -483,8 +500,8 @@ extension VacationsDetailsViewController: UIPickerViewDelegate, UIPickerViewData
             
         else if pickerView == pickViewEmpDelegate{
             if empDelegateIndex == 0 {
-                delegateTextField.text = empDelegateArray[0].Emp_Ename
-                delegateId = "\(empDelegateArray[0].Emp_Id)"
+                delegateTextField.text = empDelegateInfoArray[0].Emp_Ename
+                delegateId = "\(empDelegateInfoArray[0].Emp_Id)"
             }else {
                 delegateTextField.text = empDelegatetextChosen
             }
@@ -516,9 +533,9 @@ extension VacationsDetailsViewController: UIPickerViewDelegate, UIPickerViewData
         if pickerView == vacationTypePickerViewPikcer{
             return vacationTypeArray.count
         } else if pickerView == pickViewEmpName {
-            return empVacArray.count
+            return empInfoArray.count
         }
-        return empDelegateArray.count
+        return empDelegateInfoArray.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -527,10 +544,10 @@ extension VacationsDetailsViewController: UIPickerViewDelegate, UIPickerViewData
             return vacationTypeArray[row].Vac_Desc
         } else if pickerView == pickViewEmpName{
             self.pickerView = pickViewEmpName
-            return empVacArray[row].Emp_Ename
+            return empInfoArray[row].Emp_Ename
         }
         self.pickerView = pickViewEmpDelegate
-        return empDelegateArray[row].Emp_Ename
+        return empDelegateInfoArray[row].Emp_Ename
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -539,11 +556,11 @@ extension VacationsDetailsViewController: UIPickerViewDelegate, UIPickerViewData
             vacationTypeId = vacationTypeArray[row].Vac_Type
             vacationTypeIndex = row
         } else if pickerView == pickViewEmpName {
-            empNametextChosen = empVacArray[row].Emp_Ename
+            empNametextChosen = empInfoArray[row].Emp_Ename
             empNameIndex = row
         } else {
-            empDelegatetextChosen =  empDelegateArray[row].Emp_Ename
-            delegateId = "\(empDelegateArray[row].Emp_Id)"
+            empDelegatetextChosen =  empDelegateInfoArray[row].Emp_Ename
+            delegateId = "\(empDelegateInfoArray[row].Emp_Id)"
             empDelegateIndex = row
             
             print(delegateId)
@@ -639,43 +656,33 @@ extension VacationsDetailsViewController{
         let currentDate = Date()
         let startDate = getStartDate()
         var dateComponents = DateComponents()
-        let leaveMinDate = calendar.date(byAdding: dateComponents, to: currentDate)
         
+        let leaveMinDate = calendar.date(byAdding: dateComponents, to: currentDate)
         dateComponents.day = 1
         let returnMinDate = calendar.date(byAdding: dateComponents, to: startDate)
         
         self.leaveDatePickerDatePicker.minimumDate = leaveMinDate
         self.returnDatePickerDatePicker.minimumDate = returnMinDate
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
         if sender == leaveDatePickerDatePicker {
-            leaveStartDatePickerView.text = dateFormatter.string(from: sender.date)
+            leaveStartDate = getStringDate(date: sender.date)
+            leaveStartDatePickerView.text = leaveStartDate
+            updateVacDetails(leaveDate: leaveStartDate)
+            changeSettlementAmount()
+            
             if let startReturnDate = calendar.date(byAdding: dateComponents, to: sender.date){
-                ReturnDatePickerView.text = dateFormatter.string(from: startReturnDate)
+                ReturnDatePickerView.text = getStringDate(date: startReturnDate)
                 self.returnDatePickerDatePicker.minimumDate = startReturnDate
                 self.returnDatePickerDatePicker.setDate(startReturnDate, animated: false)
                 getDifferance(fromDate: sender.date, toDate: startReturnDate)
-                
-                changeSettlementAmount(startDate: dateFormatter.string(from: sender.date))
-                empVacationDetails.Leave_Start_Dt = dateFormatter.string(from: sender.date)
             }
         } else {
-            ReturnDatePickerView.text = dateFormatter.string(from: sender.date)
-            getDifferance(fromDate: leaveMinDate, toDate: sender.date)
-            empVacationDetails.Leave_Return_Dt = dateFormatter.string(from: sender.date)
+            ReturnDatePickerView.text = getStringDate(date: sender.date)
+            getDifferance(fromDate: getStartDate(), toDate: sender.date)
         }
     }
     
     // -- MARK: objc function
-    
-    func changeSettlementAmount(startDate: String){
-        let settlementAmountChange =  webservice.get_settlement_details(vacationtype: vacationTypeId, langid: languangeChosen, emp_no: AuthServices.currentUserId, startdate: startDate, ticket: ticketRequestRecieved)
-        
-        empVacationDetails.TotalSettlementAmount = settlementAmountChange.TotalSettlementAmount
-        settlementAmount.text =  empVacationDetails.TotalSettlementAmount
-    }
     
     func getDifferance(fromDate: Date?, toDate: Date?){
         guard let balanceDaysString = balanceVacation.text else { return }
@@ -687,15 +694,23 @@ extension VacationsDetailsViewController{
             numOfDays.text = "\(differenceInDay)"
             
             if let balanceVacInt = Int(balanceDaysString){
-                if differenceInDay > balanceVacInt{
-                    let extraDayAdded = differenceInDay - balanceVacInt
-                    extraDays.text = "\(extraDayAdded)"
-                    empVacationDetails.ExtraDays = "\(extraDayAdded)"
-                } else {
-                    extraDays.text = "       "
-                }
-                exitReEntryDays.text = "\(15 + differenceInDay)"
+                updateExtraDaysAndReEntry(numOfDays: differenceInDay, balanceDays: balanceVacInt)
             }
+        }
+    }
+    
+    func updateVacDetails(leaveDate: String){
+        if let empolyeeId = Int(selectedEmpId){
+            let updateVacationValues = webserviceForVacationDetails.calculateActualVacatioDays(
+                employee_id: empolyeeId,
+                startdate: empVacationDetails.StartDate,
+                leavedate: leaveDate)
+            
+            empVacationDetails.Balance_Vacation = updateVacationValues.Balance_Vacation
+            empVacationDetails.ExitReEntry = updateVacationValues.ExitReEntry
+            
+            balanceVacation.text = empVacationDetails.Balance_Vacation
+            exitReEntryDays.text = empVacationDetails.ExitReEntry
         }
     }
     
@@ -708,6 +723,17 @@ extension VacationsDetailsViewController{
             }
         }
         return Date()
+    }
+    
+    func updateExtraDaysAndReEntry(numOfDays: Int, balanceDays: Int){
+        if numOfDays > balanceDays{
+            let extraDayAdded = numOfDays - balanceDays
+            extraDays.text = "\(extraDayAdded)"
+            empVacationDetails.ExtraDays = "\(extraDayAdded)"
+        } else {
+            extraDays.text = "       "
+        }
+        exitReEntryDays.text = "\(15 + numOfDays)"
     }
 }
 
@@ -728,9 +754,17 @@ extension VacationsDetailsViewController: UITextFieldDelegate, UITextViewDelegat
                 let balanceText = balanceVacation.text,
                 let balanceInt = Int(balanceText){
                 
-                if numOfDayInt > balanceInt {
-                    extraDays.text = "\(numOfDayInt - balanceInt)"
-                } else {extraDays.text = "     " }
+                updateExtraDaysAndReEntry(numOfDays: numOfDayInt, balanceDays: balanceInt)
+                
+                let calendar = Calendar(identifier: Calendar.Identifier.gregorian)
+                let startDate = getStartDate()
+                var dateComponents = DateComponents()
+                
+                dateComponents.day = numOfDayInt
+                if let newReturnDate = calendar.date(byAdding: dateComponents, to: startDate){
+                    ReturnDatePickerView.text = getStringDate(date: newReturnDate)
+                    returnDatePickerDatePicker.setDate(newReturnDate, animated: false)
+                }
             }
             
             numOfDays.resignFirstResponder()
@@ -748,7 +782,7 @@ extension VacationsDetailsViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         addObservers(onShow: { frame in
-            let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height, right: 0)
+            let contentInset = UIEdgeInsets(top: 0, left: 0, bottom: frame.height - 68, right: 0)
             self.scrollView.contentInset = contentInset
         }, onHide: { _ in
             self.scrollView.contentInset = UIEdgeInsets.zero

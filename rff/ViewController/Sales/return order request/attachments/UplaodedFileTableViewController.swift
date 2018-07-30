@@ -16,6 +16,8 @@ class UplaodedFileTableViewController: UITableViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setViewAlignment()
     }
 
     override func didReceiveMemoryWarning() {

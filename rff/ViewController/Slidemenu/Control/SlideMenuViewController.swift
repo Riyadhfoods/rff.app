@@ -47,7 +47,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
         
         setupListMenuData()
         setupListMenuImage()
-        
+        setViewAlignment()
         setupWidth()
     }
     
@@ -230,8 +230,6 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
                 } else if indexPath.row == 9{
                     return 0
                 } else if indexPath.row == 10{
-                    return 0
-                } else if indexPath.row == 11{
                     return 0
                 } else if indexPath.row == 12{
                     return 0

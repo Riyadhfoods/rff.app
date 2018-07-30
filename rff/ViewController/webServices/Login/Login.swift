@@ -743,6 +743,9 @@
         let returnValue:[EmpVac]=EmpVacArrFromXML(data : responseData)
         return returnValue
     }
+    
+    
+    
     public func EmpVacFromXMLString(xmlToParse:String)->EmpVac {
         
         let xml = SWXMLHash.lazy(xmlToParse)
@@ -758,7 +761,7 @@
             let itemCount1: Int = (xmlResult0?.children.count)!
             for i1 in 0 ..< itemCount1 {
                 let xmlResult1:XMLIndexer? = xmlResult0?.children[i1]
-                let elem1: XMLElement? =  xmlResult1!.element
+                let elem1: XMLElement? = xmlResult1!.element
                 strVal = ""
                 if elem1?.children.first is TextElement {
                     let elemText1:TextElement = elem1?.children.first as! TextElement
@@ -1244,4 +1247,5 @@
 //        let returnValue:String = strVal!
         return ""
     }
+    
  }

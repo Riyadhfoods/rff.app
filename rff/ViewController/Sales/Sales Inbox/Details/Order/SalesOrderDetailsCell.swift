@@ -12,6 +12,8 @@ class SalesOrderDetailsCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        setViewAlignment()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

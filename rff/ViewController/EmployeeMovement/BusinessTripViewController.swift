@@ -12,18 +12,13 @@ class BusinessTripViewController: UIViewController {
 
     @IBOutlet weak var menuBtn: UIBarButtonItem!
     
-    let screenSize = AppDelegate().screenSize
-    //let swrevealAction = SWRevealFunction()
+    let screenSize = AppDelegate.shared.screenSize
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setViewAlignment()
         setSlideMenu(controller: self, menuButton: menuBtn)
-    }
-    
-    @IBAction func signOutBuuttonTapped(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
     }
 
 }

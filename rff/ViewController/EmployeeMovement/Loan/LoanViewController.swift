@@ -316,7 +316,7 @@ class LoanViewController: UIViewController {
         } else {
             AlertMessage().showAlertMessage(
                 alertTitle: "Success",
-                alertMessage: "Laon request is sent successfully",
+                alertMessage: "Loan request is sent successfully",
                 actionTitle: "OK",
                 onAction: {
                     

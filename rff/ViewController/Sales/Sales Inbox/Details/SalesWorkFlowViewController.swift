@@ -28,6 +28,8 @@ class SalesWorkFlowViewController: UIViewController, UITableViewDataSource, UITa
                 workFlowOrderWithOutTheCreator.append(workFlowOrderArray[index])
             }
         }
+        
+        setViewAlignment()
     }
 
     override func didReceiveMemoryWarning() {

@@ -24,10 +24,18 @@
 		C00851DA20EA1D37009673C5 /* UserCommentReturnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00851D920EA1D37009673C5 /* UserCommentReturnViewController.swift */; };
 		C008655820C94455006CD88E /* ItemsSelectedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008655720C94455006CD88E /* ItemsSelectedViewController.swift */; };
 		C008655A20C94472006CD88E /* ItemsSelectedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C008655920C94472006CD88E /* ItemsSelectedCell.swift */; };
-		C009E19A2102FCC300CDC054 /* XMLString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C009E1992102FCC300CDC054 /* XMLString.swift */; };
 		C009E19F210312AD00CDC054 /* EmpLoan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C009E19C210312AD00CDC054 /* EmpLoan.swift */; };
 		C009E1A0210312AD00CDC054 /* Loan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C009E19D210312AD00CDC054 /* Loan.swift */; };
 		C009E1A1210312AD00CDC054 /* ArrayOfEmpLoan.swift in Sources */ = {isa = PBXBuildFile; fileRef = C009E19E210312AD00CDC054 /* ArrayOfEmpLoan.swift */; };
+		C00AF21B2109AD15008D1CD3 /* ArrayOfLoan_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00AF2192109AD14008D1CD3 /* ArrayOfLoan_App.swift */; };
+		C00AF21C2109AD15008D1CD3 /* Loan_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00AF21A2109AD15008D1CD3 /* Loan_App.swift */; };
+		C00AF21E2109AD36008D1CD3 /* LoanAppModul.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00AF21D2109AD36008D1CD3 /* LoanAppModul.swift */; };
+		C00AF2202109C1AC008D1CD3 /* XMLString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00AF21F2109C1AC008D1CD3 /* XMLString.swift */; };
+		C00AF2242109D11C008D1CD3 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00AF2232109D11C008D1CD3 /* LoginService.swift */; };
+		C00AF2262109D18B008D1CD3 /* CommonUserFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00AF2252109D18B008D1CD3 /* CommonUserFunctions.swift */; };
+		C00AF2292109D6F1008D1CD3 /* TrackingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00AF2282109D6F1008D1CD3 /* TrackingService.swift */; };
+		C00AF22C2109DE73008D1CD3 /* HomeService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00AF22B2109DE73008D1CD3 /* HomeService.swift */; };
+		C00AF22E2109E3FC008D1CD3 /* VacactionApprovalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00AF22D2109E3FC008D1CD3 /* VacactionApprovalService.swift */; };
 		C00BB06F20DFA72400D95532 /* SORModul.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BB06E20DFA72400D95532 /* SORModul.swift */; };
 		C00BF62A20EB4E6C00EA32D0 /* AttachmentReturnViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BF62920EB4E6C00EA32D0 /* AttachmentReturnViewController.swift */; };
 		C00BF62C20EB4E9200EA32D0 /* AttachmentReturnCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00BF62B20EB4E9200EA32D0 /* AttachmentReturnCell.swift */; };
@@ -186,6 +194,14 @@
 		C0BC474B20EE024200D0ACD0 /* ArrayOfAnyType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BC474A20EE024200D0ACD0 /* ArrayOfAnyType.swift */; };
 		C0BE2E4420CDD540005F8B4A /* TransferPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE2E4320CDD540005F8B4A /* TransferPagesCell.swift */; };
 		C0BE2E4620CDD553005F8B4A /* ReturnPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE2E4520CDD553005F8B4A /* ReturnPagesCell.swift */; };
+		C0C0158821085D52009B1861 /* VacData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C0158721085D52009B1861 /* VacData.swift */; };
+		C0C72B6E2106ECDB00C37656 /* EmployeeInfoInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B6D2106ECDB00C37656 /* EmployeeInfoInboxViewController.swift */; };
+		C0C72B702106ED3B00C37656 /* PreviousNewLoanDetailsInboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B6F2106ED3B00C37656 /* PreviousNewLoanDetailsInboxTableViewController.swift */; };
+		C0C72B722106ED9D00C37656 /* LoanDetailsInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B712106ED9D00C37656 /* LoanDetailsInboxViewController.swift */; };
+		C0C72B782107425400C37656 /* VacAppModul.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B772107425400C37656 /* VacAppModul.swift */; };
+		C0C72B7B210744EE00C37656 /* ArrayOfVac_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B79210744EE00C37656 /* ArrayOfVac_App.swift */; };
+		C0C72B7C210744EE00C37656 /* Vac_App.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B7A210744EE00C37656 /* Vac_App.swift */; };
+		C0C72B7E21074A0C00C37656 /* VacModul.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B7D21074A0C00C37656 /* VacModul.swift */; };
 		C0CB9CFF20F5F0EB001502E7 /* ROActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB9CFE20F5F0EB001502E7 /* ROActions.swift */; };
 		C0CB9D0120F5FAF3001502E7 /* ExtensionOfReturnOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB9D0020F5FAF3001502E7 /* ExtensionOfReturnOrder.swift */; };
 		C0CE40C820BC14C600A06CB4 /* EmpVac.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE40C420BC14C400A06CB4 /* EmpVac.swift */; };
@@ -196,6 +212,7 @@
 		C0D090B820B6D7ED0049226F /* ArrayOfString.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D090B720B6D7ED0049226F /* ArrayOfString.swift */; };
 		C0D2ABA520A805EE001AE4FD /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */; };
 		C0D2ABA720A80606001AE4FD /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */; };
+		C0E560C4210DB09300AAB272 /* VacationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E560C3210DB09300AAB272 /* VacationService.swift */; };
 		C0E6140220FDB8AE00309A53 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140420FDB8AE00309A53 /* Home.storyboard */; };
 		C0E6140720FDB8CE00309A53 /* Master.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140920FDB8CE00309A53 /* Master.storyboard */; };
 		C0E6140C20FDB97700309A53 /* Loan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140E20FDB97700309A53 /* Loan.storyboard */; };
@@ -207,6 +224,10 @@
 		C0E6E26920D7F75600E7E3C0 /* LanguageManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6E26820D7F75500E7E3C0 /* LanguageManger.swift */; };
 		C0E6E26A20D7F78800E7E3C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C0E6E26C20D7F78800E7E3C0 /* Localizable.strings */; };
 		C0F4275B20AD9E4200FD7CDB /* PickerviewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F4275A20AD9E4200FD7CDB /* PickerviewAction.swift */; };
+		C0F5D2A9210C2EAA00F49A41 /* LoanApprovalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5D2A8210C2EAA00F49A41 /* LoanApprovalService.swift */; };
+		C0F5D2AB210C340400F49A41 /* LoanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5D2AA210C340400F49A41 /* LoanData.swift */; };
+		C0F5D2AD210C357C00F49A41 /* LoanModul.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5D2AC210C357C00F49A41 /* LoanModul.swift */; };
+		C0F5D2AF210C655F00F49A41 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5D2AE210C655F00F49A41 /* Modules.swift */; };
 		C0F8BC9F20BD708300791A8C /* VisaRequiresCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F8BC9E20BD708300791A8C /* VisaRequiresCell.swift */; };
 		C0FFEE2B20A4412C00712531 /* slideMenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFEE2A20A4412C00712531 /* slideMenuExtension.swift */; };
 		C0FFEE2D20A45FDE00712531 /* MenuImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFEE2C20A45FDE00712531 /* MenuImage.swift */; };
@@ -233,10 +254,18 @@
 		C00851D920EA1D37009673C5 /* UserCommentReturnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCommentReturnViewController.swift; sourceTree = "<group>"; };
 		C008655720C94455006CD88E /* ItemsSelectedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsSelectedViewController.swift; sourceTree = "<group>"; };
 		C008655920C94472006CD88E /* ItemsSelectedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsSelectedCell.swift; sourceTree = "<group>"; };
-		C009E1992102FCC300CDC054 /* XMLString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLString.swift; sourceTree = "<group>"; };
 		C009E19C210312AD00CDC054 /* EmpLoan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmpLoan.swift; sourceTree = "<group>"; };
 		C009E19D210312AD00CDC054 /* Loan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loan.swift; sourceTree = "<group>"; };
 		C009E19E210312AD00CDC054 /* ArrayOfEmpLoan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfEmpLoan.swift; sourceTree = "<group>"; };
+		C00AF2192109AD14008D1CD3 /* ArrayOfLoan_App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfLoan_App.swift; sourceTree = "<group>"; };
+		C00AF21A2109AD15008D1CD3 /* Loan_App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Loan_App.swift; sourceTree = "<group>"; };
+		C00AF21D2109AD36008D1CD3 /* LoanAppModul.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanAppModul.swift; sourceTree = "<group>"; };
+		C00AF21F2109C1AC008D1CD3 /* XMLString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XMLString.swift; sourceTree = "<group>"; };
+		C00AF2232109D11C008D1CD3 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		C00AF2252109D18B008D1CD3 /* CommonUserFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonUserFunctions.swift; sourceTree = "<group>"; };
+		C00AF2282109D6F1008D1CD3 /* TrackingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrackingService.swift; sourceTree = "<group>"; };
+		C00AF22B2109DE73008D1CD3 /* HomeService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeService.swift; sourceTree = "<group>"; };
+		C00AF22D2109E3FC008D1CD3 /* VacactionApprovalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacactionApprovalService.swift; sourceTree = "<group>"; };
 		C00BB06E20DFA72400D95532 /* SORModul.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SORModul.swift; sourceTree = "<group>"; };
 		C00BF62920EB4E6C00EA32D0 /* AttachmentReturnViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentReturnViewController.swift; sourceTree = "<group>"; };
 		C00BF62B20EB4E9200EA32D0 /* AttachmentReturnCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentReturnCell.swift; sourceTree = "<group>"; };
@@ -399,6 +428,14 @@
 		C0BC474A20EE024200D0ACD0 /* ArrayOfAnyType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfAnyType.swift; sourceTree = "<group>"; };
 		C0BE2E4320CDD540005F8B4A /* TransferPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferPagesCell.swift; sourceTree = "<group>"; };
 		C0BE2E4520CDD553005F8B4A /* ReturnPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnPagesCell.swift; sourceTree = "<group>"; };
+		C0C0158721085D52009B1861 /* VacData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacData.swift; sourceTree = "<group>"; };
+		C0C72B6D2106ECDB00C37656 /* EmployeeInfoInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeInfoInboxViewController.swift; sourceTree = "<group>"; };
+		C0C72B6F2106ED3B00C37656 /* PreviousNewLoanDetailsInboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousNewLoanDetailsInboxTableViewController.swift; sourceTree = "<group>"; };
+		C0C72B712106ED9D00C37656 /* LoanDetailsInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetailsInboxViewController.swift; sourceTree = "<group>"; };
+		C0C72B772107425400C37656 /* VacAppModul.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacAppModul.swift; sourceTree = "<group>"; };
+		C0C72B79210744EE00C37656 /* ArrayOfVac_App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfVac_App.swift; sourceTree = "<group>"; };
+		C0C72B7A210744EE00C37656 /* Vac_App.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vac_App.swift; sourceTree = "<group>"; };
+		C0C72B7D21074A0C00C37656 /* VacModul.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacModul.swift; sourceTree = "<group>"; };
 		C0CB9CFE20F5F0EB001502E7 /* ROActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ROActions.swift; sourceTree = "<group>"; };
 		C0CB9D0020F5FAF3001502E7 /* ExtensionOfReturnOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOfReturnOrder.swift; sourceTree = "<group>"; };
 		C0CE40C420BC14C400A06CB4 /* EmpVac.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmpVac.swift; sourceTree = "<group>"; };
@@ -409,6 +446,7 @@
 		C0D090B720B6D7ED0049226F /* ArrayOfString.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayOfString.swift; sourceTree = "<group>"; };
 		C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
+		C0E560C3210DB09300AAB272 /* VacationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationService.swift; sourceTree = "<group>"; };
 		C0E6140520FDB8B100309A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 		C0E6140820FDB8CE00309A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Master.storyboard; sourceTree = "<group>"; };
 		C0E6140B20FDB8D000309A53 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Master.strings; sourceTree = "<group>"; };
@@ -424,6 +462,10 @@
 		C0E6E26F20D7F8DC00E7E3C0 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		C0E6E27020D7F8DC00E7E3C0 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		C0F4275A20AD9E4200FD7CDB /* PickerviewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerviewAction.swift; sourceTree = "<group>"; };
+		C0F5D2A8210C2EAA00F49A41 /* LoanApprovalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanApprovalService.swift; sourceTree = "<group>"; };
+		C0F5D2AA210C340400F49A41 /* LoanData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanData.swift; sourceTree = "<group>"; };
+		C0F5D2AC210C357C00F49A41 /* LoanModul.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanModul.swift; sourceTree = "<group>"; };
+		C0F5D2AE210C655F00F49A41 /* Modules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modules.swift; sourceTree = "<group>"; };
 		C0F8BC9E20BD708300791A8C /* VisaRequiresCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisaRequiresCell.swift; sourceTree = "<group>"; };
 		C0FFEE2A20A4412C00712531 /* slideMenuExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = slideMenuExtension.swift; sourceTree = "<group>"; };
 		C0FFEE2C20A45FDE00712531 /* MenuImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuImage.swift; sourceTree = "<group>"; };
@@ -454,6 +496,7 @@
 		C00707EC20A0110600320ED4 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
+				C00AF2212109D0BA008D1CD3 /* ws */,
 				C035314220B1873600E0DBD9 /* webServices */,
 				C035314020B183C300E0DBD9 /* Helper files */,
 				C00707F320A04E5F00320ED4 /* Login */,
@@ -554,6 +597,55 @@
 				C08A268620A6E3140028052C /* LoanViewController.swift */,
 			);
 			path = Loan;
+			sourceTree = "<group>";
+		};
+		C00AF2182109AD04008D1CD3 /* Loan Approvel */ = {
+			isa = PBXGroup;
+			children = (
+				C00AF2192109AD14008D1CD3 /* ArrayOfLoan_App.swift */,
+				C00AF21A2109AD15008D1CD3 /* Loan_App.swift */,
+				C00AF21D2109AD36008D1CD3 /* LoanAppModul.swift */,
+			);
+			path = "Loan Approvel";
+			sourceTree = "<group>";
+		};
+		C00AF2212109D0BA008D1CD3 /* ws */ = {
+			isa = PBXGroup;
+			children = (
+				C00AF2252109D18B008D1CD3 /* CommonUserFunctions.swift */,
+				C0F5D2AE210C655F00F49A41 /* Modules.swift */,
+				C00AF2222109D0C4008D1CD3 /* Login */,
+				C00AF22A2109DE2A008D1CD3 /* Home */,
+				C00AF2272109D6CD008D1CD3 /* Tracking */,
+				C0E560C2210DB06F00AAB272 /* Emp Vacation */,
+			);
+			path = ws;
+			sourceTree = "<group>";
+		};
+		C00AF2222109D0C4008D1CD3 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				C00AF2232109D11C008D1CD3 /* LoginService.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		C00AF2272109D6CD008D1CD3 /* Tracking */ = {
+			isa = PBXGroup;
+			children = (
+				C00AF2282109D6F1008D1CD3 /* TrackingService.swift */,
+				C00AF22D2109E3FC008D1CD3 /* VacactionApprovalService.swift */,
+				C0F5D2A8210C2EAA00F49A41 /* LoanApprovalService.swift */,
+			);
+			path = Tracking;
+			sourceTree = "<group>";
+		};
+		C00AF22A2109DE2A008D1CD3 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				C00AF22B2109DE73008D1CD3 /* HomeService.swift */,
+			);
+			path = Home;
 			sourceTree = "<group>";
 		};
 		C00BF62D20EB4F9500EA32D0 /* main view */ = {
@@ -753,8 +845,10 @@
 		C035314220B1873600E0DBD9 /* webServices */ = {
 			isa = PBXGroup;
 			children = (
+				C00AF2182109AD04008D1CD3 /* Loan Approvel */,
 				C009E19B2103129D00CDC054 /* Loan */,
 				C03C7C1520C7F73500D8248C /* Sales */,
+				C0C72B762107421300C37656 /* Vacation */,
 				C03C7C1420C7F72700D8248C /* Login */,
 				C0E6E26520D7F6F000E7E3C0 /* supportedFilesws */,
 			);
@@ -786,7 +880,7 @@
 				C005CB7020B40B7600875740 /* InboxGrid.swift */,
 				C005CB6F20B40B7500875740 /* ListType.swift */,
 				C035314420B1875700E0DBD9 /* Login.swift */,
-				C009E1992102FCC300CDC054 /* XMLString.swift */,
+				C00AF21F2109C1AC008D1CD3 /* XMLString.swift */,
 				C0CE40C620BC14C500A06CB4 /* Task_Inbox.swift */,
 			);
 			path = Login;
@@ -1109,13 +1203,13 @@
 				C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */,
 				C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */,
 				C087AEA62105C2760090BC2E /* InboxApprovalFormViewController.swift */,
-				C087AEA82105CDF70090BC2E /* EmployeeGeneralInformationInboxViewController.swift */,
-				C087AEAA2105D3270090BC2E /* LeaveDetailsInboxViewController.swift */,
-				C087AEAC2105DC790090BC2E /* AdministrativeUseInboxViewController.swift */,
-				C087AEAE2105E12A0090BC2E /* CompanionsDetailsInboxTableViewController.swift */,
-				C087AEB02105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift */,
-				C087AEB22105E7380090BC2E /* UserCommentInboxTableViewController.swift */,
-				C087AEB42105E9FA0090BC2E /* WorkFlowInboxTableViewController.swift */,
+				C0C0158721085D52009B1861 /* VacData.swift */,
+				C0C72B7D21074A0C00C37656 /* VacModul.swift */,
+				C0F5D2AA210C340400F49A41 /* LoanData.swift */,
+				C0F5D2AC210C357C00F49A41 /* LoanModul.swift */,
+				C0C72B742106EDC000C37656 /* Common Page Approval */,
+				C0C72B732106EDAF00C37656 /* Vac Approval */,
+				C0C72B752106EDDA00C37656 /* Loan */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -1160,6 +1254,55 @@
 				C0F2A64A20F7406D005A2984 /* attachments */,
 			);
 			path = "return order request";
+			sourceTree = "<group>";
+		};
+		C0C72B732106EDAF00C37656 /* Vac Approval */ = {
+			isa = PBXGroup;
+			children = (
+				C087AEA82105CDF70090BC2E /* EmployeeGeneralInformationInboxViewController.swift */,
+				C087AEAA2105D3270090BC2E /* LeaveDetailsInboxViewController.swift */,
+				C087AEAC2105DC790090BC2E /* AdministrativeUseInboxViewController.swift */,
+				C087AEAE2105E12A0090BC2E /* CompanionsDetailsInboxTableViewController.swift */,
+				C087AEB02105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift */,
+			);
+			path = "Vac Approval";
+			sourceTree = "<group>";
+		};
+		C0C72B742106EDC000C37656 /* Common Page Approval */ = {
+			isa = PBXGroup;
+			children = (
+				C087AEB22105E7380090BC2E /* UserCommentInboxTableViewController.swift */,
+				C087AEB42105E9FA0090BC2E /* WorkFlowInboxTableViewController.swift */,
+			);
+			path = "Common Page Approval";
+			sourceTree = "<group>";
+		};
+		C0C72B752106EDDA00C37656 /* Loan */ = {
+			isa = PBXGroup;
+			children = (
+				C0C72B6D2106ECDB00C37656 /* EmployeeInfoInboxViewController.swift */,
+				C0C72B6F2106ED3B00C37656 /* PreviousNewLoanDetailsInboxTableViewController.swift */,
+				C0C72B712106ED9D00C37656 /* LoanDetailsInboxViewController.swift */,
+			);
+			path = Loan;
+			sourceTree = "<group>";
+		};
+		C0C72B762107421300C37656 /* Vacation */ = {
+			isa = PBXGroup;
+			children = (
+				C0C72B772107425400C37656 /* VacAppModul.swift */,
+				C0C72B79210744EE00C37656 /* ArrayOfVac_App.swift */,
+				C0C72B7A210744EE00C37656 /* Vac_App.swift */,
+			);
+			path = Vacation;
+			sourceTree = "<group>";
+		};
+		C0E560C2210DB06F00AAB272 /* Emp Vacation */ = {
+			isa = PBXGroup;
+			children = (
+				C0E560C3210DB09300AAB272 /* VacationService.swift */,
+			);
+			path = "Emp Vacation";
 			sourceTree = "<group>";
 		};
 		C0E6E26520D7F6F000E7E3C0 /* supportedFilesws */ = {
@@ -1239,6 +1382,7 @@
 				C0617566209EF792007F8E59 /* Frameworks */,
 				C0617567209EF792007F8E59 /* Resources */,
 				C935C9816F3BA8E0B93EF4E6 /* [CP] Embed Pods Frameworks */,
+				C0E560C1210DA6FE00AAB272 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1363,6 +1507,19 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C0E560C1210DA6FE00AAB272 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 87754c7be3c18feca4541fcc13e101b3de861c2c ce94e9c6d47636481b338727be7321abe8630b4459d814dbb18dacb9c9284292";
+		};
 		C935C9816F3BA8E0B93EF4E6 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1396,6 +1553,7 @@
 				C05777AE20CE90B200423FE7 /* SalesReturnApprovalCellCell.swift in Sources */,
 				C0D2ABA520A805EE001AE4FD /* InboxTableViewController.swift in Sources */,
 				C03C7C1320C7DA3D00D8248C /* TransferStyleCell.swift in Sources */,
+				C0C72B7C210744EE00C37656 /* Vac_App.swift in Sources */,
 				C0CB9CFF20F5F0EB001502E7 /* ROActions.swift in Sources */,
 				C00851DA20EA1D37009673C5 /* UserCommentReturnViewController.swift in Sources */,
 				C08A26D720A6E7EC0028052C /* SalesOrderApprovalViewController.swift in Sources */,
@@ -1424,16 +1582,20 @@
 				C087AEA92105CDF70090BC2E /* EmployeeGeneralInformationInboxViewController.swift in Sources */,
 				C08A269D20A6E41E0028052C /* JobTitleChangeViewController.swift in Sources */,
 				C0D2ABA720A80606001AE4FD /* InboxTableViewCell.swift in Sources */,
+				C0F5D2AD210C357C00F49A41 /* LoanModul.swift in Sources */,
 				C035314A20B1875700E0DBD9 /* Login.swift in Sources */,
 				C0A9E72620DE423C000C7A0D /* DetailsSalesReturnApprovalCell.swift in Sources */,
 				C013CC4620BEAE3200B08289 /* DepVacTicket.swift in Sources */,
 				C08A268120A6E2DE0028052C /* TrackingInboxViewController.swift in Sources */,
+				C0E560C4210DB09300AAB272 /* VacationService.swift in Sources */,
+				C00AF22E2109E3FC008D1CD3 /* VacactionApprovalService.swift in Sources */,
 				C0489E9A20E4EAA900CF6167 /* ArrayOfSaveToGp.swift in Sources */,
 				C00D95C220FB164B00949ABE /* SalesCreditCutomerDetailsViewController.swift in Sources */,
 				C008655A20C94472006CD88E /* ItemsSelectedCell.swift in Sources */,
 				C0A9E72220DE4222000C7A0D /* CustomerAgingViewController.swift in Sources */,
 				C00D95D320FB765D00949ABE /* SalesOrderItemDetailsViewController.swift in Sources */,
 				C0A9E71220DE19A6000C7A0D /* UserCommentViewController.swift in Sources */,
+				C0C72B722106ED9D00C37656 /* LoanDetailsInboxViewController.swift in Sources */,
 				C087AEB32105E7380090BC2E /* UserCommentInboxTableViewController.swift in Sources */,
 				C00BB06F20DFA72400D95532 /* SORModul.swift in Sources */,
 				C00D95C020FB147200949ABE /* SalesItemDetailsCell.swift in Sources */,
@@ -1444,12 +1606,15 @@
 				C00851D820EA1D13009673C5 /* UserCommentReturnCell.swift in Sources */,
 				C08A26ED20A6E8B50028052C /* ReportViewController.swift in Sources */,
 				C0A9E71020DE1995000C7A0D /* CustomerCreditDetailsViewController.swift in Sources */,
+				C0C0158821085D52009B1861 /* VacData.swift in Sources */,
 				C005CB7420B40B7600875740 /* InboxGrid.swift in Sources */,
 				C08A26C520A6E7480028052C /* DeviceDetailsViewController.swift in Sources */,
 				C03C7C0820C7D96E00D8248C /* ReturnStyleTableViewController.swift in Sources */,
 				C08A26A720A6E48D0028052C /* SettleCalcViewController.swift in Sources */,
 				C087AEB12105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift in Sources */,
 				C0CE40CA20BC14C600A06CB4 /* Task_Inbox.swift in Sources */,
+				C00AF21E2109AD36008D1CD3 /* LoanAppModul.swift in Sources */,
+				C00AF2242109D11C008D1CD3 /* LoginService.swift in Sources */,
 				C0B90AD620B6C10000760FD0 /* VacationsDetailsViewController.swift in Sources */,
 				C00BF62A20EB4E6C00EA32D0 /* AttachmentReturnViewController.swift in Sources */,
 				C03C7C1820C7F75100D8248C /* Sales.swift in Sources */,
@@ -1460,6 +1625,7 @@
 				C061756F209EF792007F8E59 /* LoginViewController.swift in Sources */,
 				C00707FA20A05F2800320ED4 /* SWRevealViewController.m in Sources */,
 				C03C7C1120C7DA2A00D8248C /* TansferStyleTableViewController.swift in Sources */,
+				C0C72B7B210744EE00C37656 /* ArrayOfVac_App.swift in Sources */,
 				C0BE2E4620CDD553005F8B4A /* ReturnPagesCell.swift in Sources */,
 				C035314C20B1875700E0DBD9 /* SoapHttpClient.swift in Sources */,
 				C0CE40C920BC14C600A06CB4 /* ArrayOfEmpVac.swift in Sources */,
@@ -1479,26 +1645,35 @@
 				C03C7C1920C7F75100D8248C /* ArrayOfSales.swift in Sources */,
 				C0F8BC9F20BD708300791A8C /* VisaRequiresCell.swift in Sources */,
 				C08A267D20A6E2AB0028052C /* HomeViewController.swift in Sources */,
-				C009E19A2102FCC300CDC054 /* XMLString.swift in Sources */,
+				C00AF21C2109AD15008D1CD3 /* Loan_App.swift in Sources */,
 				C0489E9E20E4F0A200CF6167 /* SaveToGp.swift in Sources */,
+				C0C72B782107425400C37656 /* VacAppModul.swift in Sources */,
 				C009E1A0210312AD00CDC054 /* Loan.swift in Sources */,
+				C0F5D2A9210C2EAA00F49A41 /* LoanApprovalService.swift in Sources */,
 				C08A26C720A6E75B0028052C /* NewPaymentReqViewController.swift in Sources */,
 				C087AEAD2105DC790090BC2E /* AdministrativeUseInboxViewController.swift in Sources */,
 				C00D95CF20FB75C800949ABE /* SalesOrderDetailsViewController.swift in Sources */,
 				C0234D3A20C5237E008BB55B /* extensions.swift in Sources */,
 				C0B7F4BE20A1A89F007D1F67 /* Section.swift in Sources */,
 				C08A26BF20A6E71D0028052C /* ITMasterFileViewController.swift in Sources */,
+				C00AF2202109C1AC008D1CD3 /* XMLString.swift in Sources */,
 				C08A26BB20A6E6FF0028052C /* PurchaseSystemRiyadhFoodViewController.swift in Sources */,
+				C00AF21B2109AD15008D1CD3 /* ArrayOfLoan_App.swift in Sources */,
 				C0F4275B20AD9E4200FD7CDB /* PickerviewAction.swift in Sources */,
 				C00D95D120FB760600949ABE /* SalesOrderDetailsCell.swift in Sources */,
+				C00AF2292109D6F1008D1CD3 /* TrackingService.swift in Sources */,
 				C0E6E26920D7F75600E7E3C0 /* LanguageManger.swift in Sources */,
 				C005CB7620B40B7600875740 /* ArrayOfListType.swift in Sources */,
 				C0A9E71E20DE410F000C7A0D /* DetailsSalesReturnApprovalViewController.swift in Sources */,
 				C008655820C94455006CD88E /* ItemsSelectedViewController.swift in Sources */,
 				C00478F220F2088E002CAA44 /* FilePreviewViewController.swift in Sources */,
+				C0C72B7E21074A0C00C37656 /* VacModul.swift in Sources */,
+				C0F5D2AB210C340400F49A41 /* LoanData.swift in Sources */,
 				C035313E20B183A100E0DBD9 /* AuthServices.swift in Sources */,
 				C08A26C120A6E72F0028052C /* AddCategoryViewController.swift in Sources */,
 				C087AEA72105C2760090BC2E /* InboxApprovalFormViewController.swift in Sources */,
+				C00AF22C2109DE73008D1CD3 /* HomeService.swift in Sources */,
+				C00AF2262109D18B008D1CD3 /* CommonUserFunctions.swift in Sources */,
 				C0A8446420E7444E0042F2AA /* SalesOrderItemsDetailsModel.swift in Sources */,
 				C0A9E71C20DE217A000C7A0D /* WorkFlowCell.swift in Sources */,
 				C087AEAF2105E12A0090BC2E /* CompanionsDetailsInboxTableViewController.swift in Sources */,
@@ -1512,6 +1687,7 @@
 				C08A268720A6E3140028052C /* LoanViewController.swift in Sources */,
 				C0A9E72020DE4202000C7A0D /* ItemReturnDetailsViewController.swift in Sources */,
 				C0B1EBCA20DB92F600E5E4C5 /* ItemAddedModel.swift in Sources */,
+				C0C72B702106ED3B00C37656 /* PreviousNewLoanDetailsInboxTableViewController.swift in Sources */,
 				C009E1A1210312AD00CDC054 /* ArrayOfEmpLoan.swift in Sources */,
 				C08A26CF20A6E7A10028052C /* TaskDetailsViewController.swift in Sources */,
 				C08A267F20A6E2CA0028052C /* ChangePasswordViewController.swift in Sources */,
@@ -1539,12 +1715,14 @@
 				C00D95BB20FB140B00949ABE /* SalesDetailsViewController.swift in Sources */,
 				C009E19F210312AD00CDC054 /* EmpLoan.swift in Sources */,
 				C08A269320A6E3AC0028052C /* SalaryPreviewViewController.swift in Sources */,
+				C0F5D2AF210C655F00F49A41 /* Modules.swift in Sources */,
 				C035314920B1875700E0DBD9 /* SoapHttpClientExtension.swift in Sources */,
 				C061756D209EF792007F8E59 /* AppDelegate.swift in Sources */,
 				C08A26CD20A6E7970028052C /* NewTaskViewController.swift in Sources */,
 				C08A26A120A6E4440028052C /* InOutDeductionViewController.swift in Sources */,
 				C08A268D20A6E3420028052C /* EmployeeViolationViewController.swift in Sources */,
 				C08A26D120A6E7BC0028052C /* NewComplainViewController.swift in Sources */,
+				C0C72B6E2106ECDB00C37656 /* EmployeeInfoInboxViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1681,7 +1859,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;

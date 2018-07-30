@@ -11,6 +11,7 @@ import UIKit
 
 class AuthServices{
     let login = Login()
+    let loginService = LoginService.shared
     var arrayOfResult: [String?] = [String]()
     var result: String?
     static var currentUserId: String = ""
@@ -18,8 +19,8 @@ class AuthServices{
     let language = LoginViewController.languageChosen
     
     func checkUserId(id: String, password: String, onSeccuss: @escaping () -> Void, onError: @escaping (_ ErrorMessage: String) -> Void, viewController: UIViewController){
-        arrayOfResult = login.CheckLogin(username: id, password: password, error: "", langid: language)
-            
+        arrayOfResult = loginService.CheckLogin(username: id, password: password, error: "", langid: language)
+        
         if !arrayOfResult.isEmpty{
             if arrayOfResult[0] == "0"{
                 AuthServices.currentUserId = id
@@ -49,7 +50,7 @@ class AuthServices{
     }
     
     func changePassword(id: String, oldPassword: String, newPassword: String, onSeccuss: @escaping () -> Void, onError: @escaping (_ ErrorMessage: String) -> Void){
-        result = login.ChangePassword(emp_id: id, oldpassword: oldPassword, newpassword: newPassword, error: "")
+        result = loginService.ChangePassword(emp_id: id, oldpassword: oldPassword, newpassword: newPassword, error: "")
         if result == "0"{
             onSeccuss()
         } else {

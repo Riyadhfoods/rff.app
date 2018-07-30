@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Crashlytics
 
 class HomeViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -22,13 +23,14 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     var greetingMessage: String = ""
     let cell_id = "cell_pendingInbox"
     var webservice: Login = Login()
-    var taskInbox: [Task_Inbox] = [Task_Inbox]()
+    var taskInbox: [Task_InboxModul] = [Task_InboxModul]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         formId = ""
-        taskInbox = webservice.Task_InboxM(langid: LoginViewController.languageChosen, emp_id: AuthServices.currentUserId)
+        taskInbox = HomeService.shared.Task_Inbox(langid: LoginViewController.languageChosen, emp_id: AuthServices.currentUserId)
+            //webservice.Task_InboxM(langid: LoginViewController.languageChosen, emp_id: AuthServices.currentUserId)
         navigationItem.title = "Home".localize()
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
         
@@ -83,7 +85,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         default:
             break
         }
-        
+
         if storyboardName == "" || viewContollerId == "" {return}
         moveTo(storyboard: storyboardName, withIdentifier: viewContollerId, viewController: self)
     }

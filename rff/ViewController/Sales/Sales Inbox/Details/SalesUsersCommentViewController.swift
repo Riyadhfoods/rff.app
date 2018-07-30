@@ -32,6 +32,7 @@ class SalesUsersCommentViewController: UIViewController, UITableViewDelegate, UI
                 }
             }
         }
+        setViewAlignment()
     }
 
     override func didReceiveMemoryWarning() {

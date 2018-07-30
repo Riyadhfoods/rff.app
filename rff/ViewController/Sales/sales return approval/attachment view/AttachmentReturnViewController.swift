@@ -28,6 +28,7 @@ class AttachmentReturnViewController: UIViewController, UITableViewDataSource, U
         
         title = "Attachment Files".localize()
         docController?.delegate = self
+        setViewAlignment()
     }
 
     override func didReceiveMemoryWarning() {

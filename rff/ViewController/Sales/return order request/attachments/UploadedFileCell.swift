@@ -18,6 +18,8 @@ class UploadedFileCell: UITableViewCell {
         super.awakeFromNib()
         setUpCellHolderViewAndCellBackground(holderView: holderView, contentView: contentView)
         viewFile.layer.cornerRadius = 1
+        
+        setViewAlignment()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

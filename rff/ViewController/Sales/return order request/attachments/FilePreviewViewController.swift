@@ -17,6 +17,7 @@ class FilePreviewViewController: UIViewController, QLPreviewControllerDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setViewAlignment()
         previewController.dataSource = self
         present(previewController, animated: true)
     }

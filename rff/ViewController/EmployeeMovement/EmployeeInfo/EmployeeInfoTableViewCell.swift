@@ -14,6 +14,7 @@ class EmployeeInfoTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        setViewAlignment()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

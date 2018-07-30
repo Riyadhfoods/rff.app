@@ -37,6 +37,7 @@ class ReturnItemSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerVie
         showReturnType.tintColor = .clear
         PickerviewAction().showPickView(txtfield: showReturnType, pickerview: pickerview, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
         
+        setViewAlignment()
         qty.delegate = self
         setUpKeyboardToolBar(textfield: qty, viewController: self, cancelTitle: nil, cancelSelector: nil, doneTitle: "Done", doneSelector: #selector(doneButtonClick))
     }

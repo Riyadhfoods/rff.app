@@ -9,4 +9,10 @@
 import UIKit
 
 class SalesDetailsCell: UITableViewCell {
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        setViewAlignment()
+    }
 }

@@ -86,15 +86,17 @@ func setSlideMenu(controller: UIViewController, menuButton: UIBarButtonItem){
     if controller.revealViewController() != nil{
         menuButton.target = controller.revealViewController()
         
-        if LanguageManger.shared.currentLanguage == .en {
+        if !LanguageManger.isArabicLanguage {
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            controller.revealViewController().rearViewRevealWidth = AppDelegate().screenSize.width * 0.75
+            controller.revealViewController().rightViewController = nil
         } else {
             menuButton.action = #selector(SWRevealViewController.rightRevealToggle(_:))
+            controller.revealViewController().rightViewRevealWidth = AppDelegate().screenSize.width * 0.75
+            controller.revealViewController().rearViewController = nil
         }
-        
-        controller.revealViewController().rearViewRevealWidth = AppDelegate().screenSize.width * 0.75
-        controller.revealViewController().rightViewRevealWidth = AppDelegate().screenSize.width * 0.75
-        //controller.view.addGestureRecognizer(controller.revealViewController().panGestureRecognizer())
+        controller.view.addGestureRecognizer(controller.revealViewController().panGestureRecognizer())
+        controller.view.addGestureRecognizer(controller.revealViewController().tapGestureRecognizer())
     }
 }
 
@@ -140,8 +142,21 @@ enum ScrollDirection {
     }
 }
 
+func ActivityIndicatorDisplayAndAction(activityIndicator: UIActivityIndicatorView, action: @escaping () -> Void){
+    activityIndicator.startAnimating()
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+        action()
+        activityIndicator.stopAnimating()
+    })
+}
 
 
+func getStringDate(date: Date) -> String{
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd"
+    
+    return dateFormatter.string(from: date)
+}
 
 
 

@@ -24,6 +24,7 @@ class TransferPagesCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
+        setViewAlignment()
         holderView.layer.cornerRadius = 5.0
         holderView.layer.borderColor = borderColor.cgColor
         holderView.layer.borderWidth = 1

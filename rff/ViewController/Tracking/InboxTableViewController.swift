@@ -8,39 +8,44 @@
 
 import UIKit
 
-class InboxTableViewController: UITableViewController {
+class InboxTableViewController: UITableViewController, VacApproveActionDelegate {
 
     let cellId = "trackingInboxCell"
-    var arrayOfInboxGrid = [InboxGrid]()
-    var listIndexSelected: Int = 0
-    var categoryIndexSelected: Int = 0
+    var arrayOfInboxGrid = [InboxGridModul]()
     
     let mainBackgroundColor = AppDelegate().mainBackgroundColor
     let languageChosen = LoginViewController.languageChosen
+    var listFormId = 0
+    var pid = ""
+    var empName = ""
+    var empId = ""
+    var categorySelected = 0
+    var cellRow = 0
     var navTitle: String = ""
+    
+    func approveAction(isSuccess: Bool, row: Int, categorySelected: Int) {
+        if isSuccess && !arrayOfInboxGrid.isEmpty && (categorySelected == 1 || categorySelected == 3){
+            arrayOfInboxGrid.remove(at: row)
+            tableView.reloadData()
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set title for nav bar
-        setCustomNav(navItem: navigationItem, title: navTitle)
+        setCustomNavAndBackButton(navItem: navigationItem, title: navTitle, backTitle: "Return")
+        view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
         
         setViewAlignment()
-        view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-    // -- MARK: set ups
-    
 
     // -- MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
         emptyMessage(viewController: self, tableView: self.tableView, isEmpty: arrayOfInboxGrid.count == 0)
         return arrayOfInboxGrid.count
     }
@@ -58,6 +63,12 @@ class InboxTableViewController: UITableViewController {
             cell.dateEnglish.text = date
             cell.viewForm.addTarget(self, action: #selector(viewFormButtonTapped(sender:)), for: .touchUpInside)
             cell.viewForm.tag = indexPath.row
+//
+//            print("\(indexPath.row)")
+//            print("empid = \(arrayOfInboxGrid[indexPath.row].empid)")
+//            print("empname = \(arrayOfInboxGrid[indexPath.row].empname)")
+//            print("date = \(arrayOfInboxGrid[indexPath.row].date)")
+//            print("pid = \(arrayOfInboxGrid[indexPath.row].pid)")
             
             return cell
         }
@@ -68,7 +79,27 @@ class InboxTableViewController: UITableViewController {
     }
     
     @objc func viewFormButtonTapped(sender: UIButton){
-        performSegue(withIdentifier: "showApprovalFormForInbox", sender: nil)
+        pid = arrayOfInboxGrid[sender.tag].pid
+        empName = arrayOfInboxGrid[sender.tag].empname
+        empId = arrayOfInboxGrid[sender.tag].empid
+        cellRow = sender.tag
+        if listFormId == 10 || listFormId == 1004{
+          performSegue(withIdentifier: "showApprovalFormForInbox", sender: nil)
+        }
+        
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showApprovalFormForInbox"{
+            if let viewController = segue.destination as? InboxApprovalFormViewController{
+                viewController.listFormId = listFormId
+                viewController.pid = pid
+                viewController.appliedEmpName = empName
+                viewController.appliedEmpId = empId
+                viewController.categorySelected = categorySelected
+                viewController.delegate = self
+            }
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

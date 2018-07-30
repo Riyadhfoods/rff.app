@@ -16,6 +16,8 @@ class SalesOrderItemDetailsViewController: UIViewController, UITableViewDataSour
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setViewAlignment()
     }
 
     override func didReceiveMemoryWarning() {
