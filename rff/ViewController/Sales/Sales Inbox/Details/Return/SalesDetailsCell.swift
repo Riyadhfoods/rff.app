@@ -13,6 +13,6 @@ class SalesDetailsCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        setViewAlignment()
+        setViewAlignmentWithNoSubviews()
     }
 }

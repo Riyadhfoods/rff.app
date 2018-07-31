@@ -122,6 +122,12 @@ extension UITableViewCell{
         loopThroughSubViewAndAlignTextfieldText(subviews: self.contentView.subviews)
         loopThroughSubViewAndAlignLabelText(subviews: self.contentView.subviews)
     }
+    
+    func setViewAlignmentWithNoSubviews(){
+        if let textLabel = self.textLabel{
+            loopThroughSubViewAndAlignLabelText(subviews: [textLabel])
+        }
+    }
 }
 
 extension UIView{

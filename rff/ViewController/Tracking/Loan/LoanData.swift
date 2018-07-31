@@ -29,13 +29,6 @@ class LoanData{
     private var Basic_Sal : String = ""
     private var Package : String = ""
     var prevLoanArray = [LastLoan]()
-//    private var L_Date : String = ""
-//    private var L_StartDate : String = ""
-//    private var L_Guarantor : String = ""
-//    private var L_Amount : String = ""
-//    private var L_MonthlyPay : String = ""
-//    private var L_DeductedValue : String = ""
-//    private var L_BalAmount : String = ""
     
     func setEmployeeDetails(empLoan: LoanApprovalModul) -> EmployeeDetails{
         Emp_Name = Emp_Name == "" ? empLoan.Emp_Name : Emp_Name
@@ -64,14 +57,6 @@ class LoanData{
     }
     
     func getLastLoan(empLoan: LoanApprovalModul) -> [LastLoan]{
-//        L_Date = L_Date == "" ? empLoan.L_Date : L_Date
-//        L_StartDate = L_StartDate == "" ? empLoan.L_StartDate : L_StartDate
-//        L_Guarantor = L_Guarantor == "" ? empLoan.L_Guarantor : L_Guarantor
-//        L_LoanType = L_LoanType == "" ? empLoan.L_LoanType : L_LoanType
-//        L_Amount = L_Amount == "" ? empLoan.L_Amount : L_Amount
-//        L_MonthlyPay = L_MonthlyPay == "" ? empLoan.L_MonthlyPay : L_MonthlyPay
-//        L_DeductedValue = L_DeductedValue == "" ? empLoan.L_DeductedValue : L_DeductedValue
-//        L_BalAmount = L_BalAmount == "" ? empLoan.L_BalAmount : L_BalAmount
         
         if empLoan.L_Date != ""{
             prevLoanArray.append(LastLoan(L_Date: empLoan.L_Date,
@@ -123,13 +108,6 @@ class LoanData{
         Basic_Sal = ""
         Package = ""
         prevLoanArray = [LastLoan]()
-//        L_Date = ""
-//        L_StartDate = ""
-//        L_Guarantor = ""
-//        L_Amount = ""
-//        L_MonthlyPay = ""
-//        L_DeductedValue = ""
-//        L_BalAmount = ""
     }
     
 }

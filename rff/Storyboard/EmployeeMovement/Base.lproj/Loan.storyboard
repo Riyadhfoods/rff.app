@@ -14,11 +14,11 @@
             <objects>
                 <viewController id="0kx-Tj-3hm" customClass="LoanViewController" customModule="rff" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bFO-G1-ZRX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="2000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ka3-PO-aCG">
-                                <rect key="frame" x="0.0" y="64" width="375" height="1871"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="538"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="N3h-oi-YBK">
                                         <rect key="frame" x="16" y="16" width="343" height="566.5"/>
@@ -521,7 +521,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="leB-0x-zUt">
-                                <rect key="frame" x="16" y="1935" width="343" height="45"/>
+                                <rect key="frame" x="16" y="602" width="343" height="45"/>
                                 <color key="backgroundColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="zHU-pc-eME"/>
@@ -534,7 +534,7 @@
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hKI-9l-LAG">
-                                <rect key="frame" x="0.0" y="64" width="375" height="1936"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" white="1" alpha="0.96866973458904104" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="color" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </activityIndicatorView>
@@ -560,7 +560,6 @@
                             <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         </barButtonItem>
                     </navigationItem>
-                    <size key="freeformSize" width="375" height="2000"/>
                     <connections>
                         <outlet property="activityIndicator" destination="hKI-9l-LAG" id="4NR-6r-sRX"/>
                         <outlet property="amtRequiredTextField" destination="Jka-z2-q8O" id="oMu-jy-BiH"/>

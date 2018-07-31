@@ -14,7 +14,7 @@ class DetailsSalesOrderApprovalCell: UITableViewCell {
         super.awakeFromNib()
         // Initialization code
         
-        setViewAlignment()
+        setViewAlignmentWithNoSubviews()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

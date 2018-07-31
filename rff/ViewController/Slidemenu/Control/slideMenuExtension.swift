@@ -21,16 +21,30 @@ extension SlideMenuViewController {
         } else if tappedSection == 12 {
             AuthServices().logout(self)
         } else {
-            guard let isExpanded = sections[tappedSection].isExpanded else { return }
-            sections[tappedSection].isExpanded = !isExpanded
-            
-            listTableview.beginUpdates()
-            for i in 0 ..< sections[tappedSection].items.count {
-                listTableview.reloadRows(at: [IndexPath(row: i, section: tappedSection)], with: .fade)
-            }
-            listTableview.rectForHeader(inSection: tappedSection)
-            listTableview.endUpdates()
+            handleExpand(tappedSection: tappedSection)
         }
+    }
+    
+    func handleExpand(tappedSection: Int){
+        if oldTappedSection == 0 {
+            oldTappedSection = tappedSection
+        }
+        
+        guard let isExpanded = sections[tappedSection].isExpanded else { return }
+        for sectionIndex in 0..<sections.count{
+            if sectionIndex != tappedSection{
+                sections[sectionIndex].isExpanded = false
+            }
+        }
+        sections[tappedSection].isExpanded = !isExpanded
+        
+        listTableview.beginUpdates()
+        for i in 0 ..< sections[tappedSection].items.count {
+            listTableview.reloadRows(at: [IndexPath(row: i, section: tappedSection)], with: .bottom)
+        }
+        listTableview.rectForHeader(inSection: tappedSection)
+        listTableview.endUpdates()
+        oldTappedSection = tappedSection
     }
     
     

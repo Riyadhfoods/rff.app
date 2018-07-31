@@ -30,6 +30,8 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     var sectionsArabic = [Section]()
     var menuImages = [MenuImage]()
     
+    var oldTappedSection = 0
+    
     //let language = LoginViewController
     let languageChosen = LoginViewController.languageChosen
     static var selectedItem: String = ""
@@ -248,6 +250,8 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             header.expandButton.tag = section
             header.expandButton.addTarget(self, action: #selector(toggleSection(sender:)), for: .touchUpInside)
             
+//            header.expandedIcon.text = sections[section].isExpanded ? "➖" : "➕"
+            
             if (section == 0 || section == 11 || section == 12){
                 header.expandedIcon.isHidden = true
             }
@@ -256,6 +260,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             return header.contentView
         }
         return UIView()
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

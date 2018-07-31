@@ -13,7 +13,7 @@ class DetailsSalesReturnApprovalCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        setViewAlignment()
+        setViewAlignmentWithNoSubviews()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

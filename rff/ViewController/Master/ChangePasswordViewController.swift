@@ -23,14 +23,9 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     
     // 1 --> English, 2 --> Arabic
     let languageChosen = LoginViewController.languageChosen
-    var buttonTitle: String = ""
-    var successfulAlertTitle: String = ""
-    var errorAlertTitle: String = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Adding the text field delegate
         oldPasswordTextfield.delegate = self
         newPasswordTextfield.delegate = self
         
@@ -43,12 +38,10 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     // -- MARK: IBActions
     
     @IBAction func changeButtonTapped(_ sender: Any) {
-        successfulAlertTitle = "Password Change Successfully".localize()
-        errorAlertTitle = "Error!".localize()
         
         if let oldPassword = oldPasswordTextfield.text, let newPassword = newPasswordTextfield.text{
             AuthServices().changePassword(id: AuthServices.currentUserId, oldPassword: oldPassword, newPassword: newPassword, onSeccuss: {
-                AlertMessage().showAlertMessage(alertTitle: self.successfulAlertTitle, alertMessage: "", actionTitle: "Ok", onAction: {
+                AlertMessage().showAlertMessage(alertTitle: "Success".localize(), alertMessage: "Password Change Successfully".localize(), actionTitle: "Ok", onAction: {
                     self.oldPasswordTextfield.text = ""
                     self.newPasswordTextfield.text = ""
                     
@@ -56,7 +49,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
                     self.newPasswordTextfield.resignFirstResponder()
                 }, cancelAction: nil, self)
             }) { (error) in
-                AlertMessage().showAlertMessage(alertTitle: self.errorAlertTitle, alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
+                AlertMessage().showAlertMessage(alertTitle: "Alert".localize(), alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
             }
             self.view.endEditing(true)
         }

@@ -106,7 +106,6 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
             detailsTableView.reloadData()
         }
         
-        setViewAlignment()
         activityIndicator.stopAnimating()
     }
 

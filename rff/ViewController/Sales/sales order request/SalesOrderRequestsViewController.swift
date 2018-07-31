@@ -198,7 +198,6 @@ class SalesOrderRequestsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setViewAlignment()
         
         emp_id = AuthServices.currentUserId
         

@@ -18,4 +18,8 @@ struct Section {
         self.items = items
         self.isExpanded = isExpanded
     }
+    
+    init(){
+        self.isExpanded = false
+    }
 }

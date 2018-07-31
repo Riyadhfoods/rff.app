@@ -97,8 +97,6 @@ class InboxApprovalFormViewController: UIViewController {
         activityIndicator.stopAnimating()
     }
     
-    
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         
@@ -116,121 +114,7 @@ class InboxApprovalFormViewController: UIViewController {
         stackViewWidth.constant = AppDelegate.shared.screenSize.width - 32
     }
     
-    func setUpVacData(){
-        VacData.shared.setValueToDefault()
-        empVacDetails = webserviceForVac.GetData(
-            langid: LoginViewController.languageChosen,
-            pid: pid,
-            emp_number: AuthServices.currentUserId)
-        
-        for empVac in empVacDetails{
-            empGeneralInfoArrayForVac = VacData.shared.setEmpGeneralInfo(empVac: empVac)
-            leaveDetailsArrayForVac = VacData.shared.setleaveDetailsInfo(empVac: empVac)
-            administrativeUseArrayForVac = VacData.shared.setAdministrativeUse(empVac: empVac)
-            companionsDetailsArrayForVac = VacData.shared.setCompanionsDetails(empVac: empVac)
-            settlementTicketDetailsArrayForVac = VacData.shared.setSettlementAndTicketDetails(empVac: empVac)
-        }
-        
-        workFlowForVac = webserviceForVac.BindApproversGrid(
-            formid: listFormId,
-            pid: pid,
-            langid: LoginViewController.languageChosen)
-        for workFlow in workFlowForVac{
-            workFlowNamesForVac.append(workFlow.WorkFlow_EmpName)
-        }
-        userCommentForVac = webserviceForVac.BindCommentGrid(
-            pid: pid,
-            fid: listFormId,
-            gvApp_RowCount: workFlowForVac.count)
-        
-        updateWorkFlowPendingStatus(workFlowArray: workFlowForVac, editWorkFlowArray: &editWorkFlowForVac)
-        handleTheHeightOfTableView()
-    }
-    
-    func setUpLoanData(){
-        LoanData.shared.setValueToDefault()
-        empLaonDetails = webserviceForLoan.Get_Emps_Details(
-            langid: LoginViewController.languageChosen,
-            emp_id: AuthServices.currentUserId,
-            pid: pid,
-            fid: "\(listFormId)",
-            loanemp_id: appliedEmpId)
-        
-        for empLoan in empLaonDetails{
-            empInfoForLoan = LoanData.shared.setEmployeeDetails(empLoan: empLoan)
-            prevLoanForLoan = LoanData.shared.getLastLoan(empLoan: empLoan)
-            loanDeatilsForLoan = LoanData.shared.getLoanDetails(empLoan: empLoan)
-        }
-        
-        workFlowForLoan = webserviceForLoan.BindApproversGrid(formid: listFormId, pid: pid, langid: LoginViewController.languageChosen)
-        for workFlow in workFlowForLoan{
-            workFlowNamesForLoan.append(workFlow.WorkFlow_EmpName)
-        }
-        userCommentForLoan = webserviceForLoan.BindCommentGrid(pid: pid, fid: listFormId, gvApp_RowCount: workFlowForLoan.count)
-        
-        updateWorkFlowPendingStatus(workFlowArray: workFlowForLoan, editWorkFlowArray: &editWorkFlowForLoan)
-        handleTheHeightOfTableView()
-        
-        print("--------------------------------------------------------------------")
-        if let empInfoForLoan = empInfoForLoan{
-            print("Emp_Name = \(empInfoForLoan.Emp_Name)")
-            print("Join_Date = \(empInfoForLoan.Join_Date)")
-            print("Start_Date = \(empInfoForLoan.Start_Date)")
-            print("Company = \(empInfoForLoan.Company)")
-            print("Manager = \(empInfoForLoan.Manager)")
-            print("Job_Desc = \(empInfoForLoan.Job_Desc)")
-            print("Sub_JobDesc = \(empInfoForLoan.Sub_JobDesc)")
-            print("Department = \(empInfoForLoan.Department)")
-            print("Nationality = \(empInfoForLoan.Nationality)")
-            print("Basic_Sal = \(empInfoForLoan.Basic_Sal)")
-            print("Package = \(empInfoForLoan.Package)")
-        }
-        for prevLoan in prevLoanForLoan{
-            print("L_Date = \(prevLoan.L_Date)")
-            print("L_StartDate = \(prevLoan.L_StartDate)")
-            print("L_Guarantor = \(prevLoan.L_Guarantor)")
-            print("L_LoanType = \(prevLoan.L_LoanType)")
-            print("L_Amount = \(prevLoan.L_Amount)")
-            print("L_MonthlyPay = \(prevLoan.L_MonthlyPay)")
-            print("L_DeductedValue = \(prevLoan.L_DeductedValue)")
-            print("L_BalAmount = \(prevLoan.L_BalAmount)")
-        }
-        if let loanDeatilsForLoan = loanDeatilsForLoan{
-            print("LoanType = \(loanDeatilsForLoan.LoanType)")
-            print("CreatedDate = \(loanDeatilsForLoan.CreatedDate)")
-            print("AmountRequired = \(loanDeatilsForLoan.AmountRequired)")
-            print("Guarantor_Name = \(loanDeatilsForLoan.Guarantor_Name)")
-            print("PayPeriod = \(loanDeatilsForLoan.PayPeriod)")
-            print("Monthly_Pay = \(loanDeatilsForLoan.Monthly_Pay)")
-        }
-        for comment in userCommentForLoan{
-            print("Cmt_Name = \(comment.Cmt_Name)")
-            print("Cmt_Comment = \(comment.Cmt_Comment)")
-        }
-        for workFlow in editWorkFlowForLoan{
-            print("WorkFlow_Empid = \(workFlow.WorkFlow_Empid)")
-            print("WorkFlow_EmpName = \(workFlow.WorkFlow_EmpName)")
-            print("WorkFlow_EmpRole = \(workFlow.WorkFlow_EmpRole)")
-            print("WorkFlow_EmpStatus = \(workFlow.WorkFlow_EmpStatus)")
-            print("WorkFlow_EmpTransDate = \(workFlow.WorkFlow_EmpTransDate)")
-        }
-        print("--------------------------------------------------------------------")
-    }
-    
     // -- MARK: Helper Functions
-    
-    func isVacArrayEmpty() -> Bool{
-        return
-            empVacDetails.isEmpty &&
-            userCommentForVac.isEmpty &&
-            workFlowForVac.isEmpty
-    }
-    
-    func isLoanArrayEmpty() -> Bool{
-        return empLaonDetails.isEmpty &&
-                userCommentForLoan.isEmpty &&
-                workFlowForLoan.isEmpty
-    }
     
     func updateWorkFlowPendingStatus(workFlowArray: [WorkFlowModul], editWorkFlowArray: inout [WorkFlowModul]){
         var isPending = false
@@ -264,99 +148,6 @@ class InboxApprovalFormViewController: UIViewController {
     }
     
     // MARK: IBActions
-    
-    func approveActionForVac(buttonType: String, actionTitle: String){
-        if let commentText = commentTextView.text,
-            let vaction = leaveDetailsArrayForVac,
-            let workFlowLast = workFlowForVac.last{
-            
-            let approveVacationResult = webserviceForVac.Approve_Vacation(
-                vac_number: vaction.Vacation_Number,
-                Emp_ID: appliedEmpId,
-                fid: "\(listFormId)",
-                pid: pid,
-                comment: commentText,
-                buttonType: buttonType,
-                FormId: listFormId,
-                Comment: commentText,
-                grid_empid: gridEmpId,
-                totalgrd_rows: workFlowForVac.count,
-                login_empId: AuthServices.currentUserId,
-                finalApp_EmpId: workFlowLast.WorkFlow_Empid,
-                finalApp_Status: workFlowLast.WorkFlow_EmpStatus)
-            
-            if approveVacationResult == "" {
-                AlertMessage().showAlertMessage(
-                    alertTitle: "Success",
-                    alertMessage: "Vacation request " + actionTitle + " successfully",
-                    actionTitle: "OK", onAction: {
-                        
-                        ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-                            if let delegate = self.delegate{
-                                delegate.approveAction(isSuccess: true, row: self.cellRow, categorySelected: self.categorySelected)
-                            }
-                            self.navigationController?.popViewController(animated: true)
-                        })
-                        
-                }, cancelAction: nil, self)
-            } else {
-                if let delegate = self.delegate{
-                    delegate.approveAction(isSuccess: false, row: self.cellRow, categorySelected: categorySelected)
-                }
-            }
-        }
-    }
-    
-    func approveActionForLoan(buttonType: String, actionTitle: String){
-        if let commentText = commentTextView.text,
-            let workFlowLast = workFlowForLoan.last{
-            
-            print("""
-                Emp_ID: \(appliedEmpId),
-                pid: \(pid),
-                buttonType: \(buttonType),
-                FormId: \(listFormId),
-                Comment: \(commentText),
-                grid_empid: \(gridEmpId),
-                totalgrd_rows: \(workFlowForLoan.count),
-                login_empId: \(AuthServices.currentUserId),
-                finalApp_EmpId: \(workFlowLast.WorkFlow_Empid),
-                finalApp_Status: \(workFlowLast.WorkFlow_EmpStatus)
-                """)
-            
-            let approveVacationResult = webserviceForLoan.Approve_Loan(
-                Emp_ID: appliedEmpId,
-                pid: pid,
-                buttonType: buttonType,
-                FormId: listFormId,
-                Comment: commentText,
-                grid_empid: gridEmpId,
-                totalgrd_rows: workFlowForLoan.count,
-                login_empId: AuthServices.currentUserId,
-                finalApp_EmpId: workFlowLast.WorkFlow_Empid,
-                finalApp_Status: workFlowLast.WorkFlow_EmpStatus)
-            
-            if approveVacationResult == "" {
-                AlertMessage().showAlertMessage(
-                    alertTitle: "Success",
-                    alertMessage: "Loan request " + actionTitle + " successfully",
-                    actionTitle: "OK", onAction: {
-                        
-                        ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-                            if let delegate = self.delegate{
-                                delegate.approveAction(isSuccess: true, row: self.cellRow, categorySelected: self.categorySelected)
-                            }
-                            self.navigationController?.popViewController(animated: true)
-                        })
-                        
-                }, cancelAction: nil, self)
-            } else {
-                if let delegate = self.delegate{
-                    delegate.approveAction(isSuccess: false, row: self.cellRow, categorySelected: self.categorySelected)
-                }
-            }
-        }
-    }
     
     func runApproveAction(buttonType: String, actionTitle: String){
         if listFormId == 10{
@@ -411,9 +202,7 @@ class InboxApprovalFormViewController: UIViewController {
                 })
                 
         }, cancelAction: "Cancel", self)
-        
     }
-    
 }
 
 extension InboxApprovalFormViewController: UITableViewDelegate, UITableViewDataSource{
@@ -448,36 +237,10 @@ extension InboxApprovalFormViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if listFormId == 10 {
-            if indexPath.row == 0 {
-                if empGeneralInfoArrayForVac == nil{ return 0 }
-            } else if indexPath.row == 1 {
-                if leaveDetailsArrayForVac == nil{ return 0 }
-            } else if indexPath.row == 2 {
-                if administrativeUseArrayForVac == nil{ return 0 }
-            } else if indexPath.row == 3 {
-                if companionsDetailsArrayForVac.isEmpty{ return 0 }
-            } else if indexPath.row == 4 {
-                if settlementTicketDetailsArrayForVac == nil{ return 0 }
-            } else if indexPath.row == 5 {
-                if userCommentForVac.isEmpty{ return 0 }
-            } else if indexPath.row == 6 {
-                if workFlowForVac.isEmpty{ return 0 }
-            }
-            return 44
+            return setHeightForRowForVac(indexPath: indexPath)
         }
         else if listFormId == 1004 {
-            if indexPath.row == 0 {
-                if empInfoForLoan == nil{ return 0 }
-            } else if indexPath.row == 1 {
-                if prevLoanForLoan.isEmpty{ return 0 }
-            } else if indexPath.row == 2 {
-                if loanDeatilsForLoan == nil{ return 0 }
-            } else if indexPath.row == 3 {
-                if userCommentForLoan.isEmpty{ return 0 }
-            } else if indexPath.row == 4 {
-                if workFlowForLoan.isEmpty{ return 0 }
-            }
-            return 44
+            return setHeightForRowForLoan(indexPath: indexPath)
         }
         return 0
     }
@@ -486,65 +249,11 @@ extension InboxApprovalFormViewController: UITableViewDelegate, UITableViewDataS
     
     func handleTheHeightOfTableView(){
         if listFormId == 10 {
-            var emptyArray = [Bool]()
-            var emptyArrayCount = 0
-            
-            emptyArray.append(empGeneralInfoArrayForVac == nil)
-            emptyArray.append(leaveDetailsArrayForVac == nil)
-            emptyArray.append(administrativeUseArrayForVac == nil)
-            emptyArray.append(companionsDetailsArrayForVac.isEmpty)
-            emptyArray.append(settlementTicketDetailsArrayForVac == nil)
-            emptyArray.append(userCommentForVac.isEmpty)
-            emptyArray.append(workFlowForVac.isEmpty)
-            
-            for isEmpty in emptyArray{
-                if isEmpty{
-                    emptyArrayCount += 1
-                }
-            }
-            
-            tableViewHeight.constant = CGFloat(44 * (cellTitleArrayForVac.count - emptyArrayCount))
+            handleHeighOfTableViewForVac()
         } else if listFormId == 1004 {
-            var emptyArray = [Bool]()
-            var emptyArrayCount = 0
-            
-            emptyArray.append(empInfoForLoan == nil)
-            emptyArray.append(prevLoanForLoan.isEmpty)
-            emptyArray.append(loanDeatilsForLoan == nil)
-            emptyArray.append(userCommentForLoan.isEmpty)
-            emptyArray.append(workFlowForLoan.isEmpty)
-            
-            for isEmpty in emptyArray{
-                if isEmpty{
-                    emptyArrayCount += 1
-                }
-            }
-            
-            tableViewHeight.constant = CGFloat(44 * (cellTitleArrayForLoan.count - emptyArrayCount))
+            handleHeighOfTableViewForLoan()
         }
         detailsTableView.reloadData()
-    }
-    
-    func performSugueForVac(row: Int){
-        switch row {
-        case 0: performSegue(withIdentifier: "showInboxEmpDetails", sender: nil)
-        case 1: performSegue(withIdentifier: "showInboxLeaveDetails", sender: nil)
-        case 2: performSegue(withIdentifier: "showAdministrativeUseDetails", sender: nil)
-        case 3: performSegue(withIdentifier: "showCompanionsDetailsInbox", sender: nil)
-        case 4: performSegue(withIdentifier: "showSettlementandTicketDetails", sender: nil)
-        case 5: performSegue(withIdentifier: "showUserCommentInbox", sender: nil)
-        case 6: performSegue(withIdentifier: "showWorkFlowInbox", sender: nil)
-        default: break}
-    }
-    
-    func performSugueForLoan(row: Int){
-        switch row {
-        case 0: performSegue(withIdentifier: "showEmpInfoInboxLoan", sender: nil)
-        case 1: performSegue(withIdentifier: "showPrevLoanDetailsInbox", sender: nil)
-        case 2: performSegue(withIdentifier: "showLoanDetailsInbox", sender: nil)
-        case 3: performSegue(withIdentifier: "showUserCommentInbox", sender: nil)
-        case 4: performSegue(withIdentifier: "showWorkFlowInbox", sender: nil)
-        default: break}
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -554,79 +263,6 @@ extension InboxApprovalFormViewController: UITableViewDelegate, UITableViewDataS
             prepareForLoan(for: segue, sender: sender)
         }
     }
-    
-    func prepareForVac(for segue: UIStoryboardSegue, sender: Any?){
-        if segue.identifier == "showInboxEmpDetails"{
-            if let vc = segue.destination as? EmployeeGeneralInformationInboxViewController{
-                vc.empGeneralInfoArrayForVac = empGeneralInfoArrayForVac
-                vc.navigationItem.title = cellTitleArrayForVac[0].localize()
-            }
-        } else if segue.identifier == "showInboxLeaveDetails"{
-            if let vc = segue.destination as? LeaveDetailsInboxViewController{
-                vc.leaveDetailsArrayForVac = leaveDetailsArrayForVac
-                vc.navigationItem.title = cellTitleArrayForVac[1].localize()
-            }
-        } else if segue.identifier == "showAdministrativeUseDetails"{
-            if let vc = segue.destination as? AdministrativeUseInboxViewController{
-                vc.administrativeUseArrayForVac = administrativeUseArrayForVac
-                vc.navigationItem.title = cellTitleArrayForVac[2].localize()
-            }
-        } else if segue.identifier == "showCompanionsDetailsInbox"{
-            if let vc = segue.destination as? CompanionsDetailsInboxTableViewController{
-                vc.companionsDetailsArrayForVac = companionsDetailsArrayForVac
-                vc.navigationItem.title = cellTitleArrayForVac[3].localize()
-            }
-        } else if segue.identifier == "showSettlementandTicketDetails"{
-            if let vc = segue.destination as? SettlementandTicketDetailsViewController{
-                vc.settlementTicketDetailsArrayForVac = settlementTicketDetailsArrayForVac
-                vc.navigationItem.title = cellTitleArrayForVac[4].localize()
-            }
-        } else if segue.identifier == "showUserCommentInbox"{
-            if let vc = segue.destination as? UserCommentInboxTableViewController{
-                vc.userComment = userCommentForVac
-                vc.empName = appliedEmpName
-                vc.workFlowNames = workFlowNamesForVac
-                vc.navigationItem.title = cellTitleArrayForVac[5].localize()
-            }
-        } else if segue.identifier == "showWorkFlowInbox"{
-            if let vc = segue.destination as? WorkFlowInboxTableViewController{
-                vc.workFlow = editWorkFlowForVac
-                vc.navigationItem.title = cellTitleArrayForVac[6].localize()
-            }
-        }
-    }
-    
-    func prepareForLoan(for segue: UIStoryboardSegue, sender: Any?){
-        if segue.identifier == "showEmpInfoInboxLoan"{
-            if let vc = segue.destination as? EmployeeInfoInboxViewController{
-                vc.empInfoForLoan = empInfoForLoan
-                vc.navigationItem.title = cellTitleArrayForLoan[0]
-            }
-        } else if segue.identifier == "showPrevLoanDetailsInbox"{
-            if let vc = segue.destination as? PreviousNewLoanDetailsInboxTableViewController{
-                vc.prevLoanForLoan = prevLoanForLoan
-                vc.navigationItem.title = cellTitleArrayForLoan[1]
-            }
-        } else if segue.identifier == "showLoanDetailsInbox"{
-            if let vc = segue.destination as? LoanDetailsInboxViewController{
-                vc.loanDeatilsForLoan = loanDeatilsForLoan
-                vc.navigationItem.title = cellTitleArrayForLoan[2]
-            }
-        } else if segue.identifier == "showUserCommentInbox"{
-            if let vc = segue.destination as? UserCommentInboxTableViewController{
-                vc.userComment = userCommentForLoan
-                vc.empName = appliedEmpName
-                vc.workFlowNames = workFlowNamesForLoan
-                vc.navigationItem.title = cellTitleArrayForLoan[3]
-            }
-        } else if segue.identifier == "showWorkFlowInbox"{
-            if let vc = segue.destination as? WorkFlowInboxTableViewController{
-                vc.workFlow = editWorkFlowForLoan
-                vc.navigationItem.title = cellTitleArrayForLoan[4]
-            }
-        }
-    }
-    
 }
 
 extension InboxApprovalFormViewController: UITextViewDelegate{
@@ -662,8 +298,7 @@ extension InboxApprovalFormViewController{
 class InboxApprovalFormCell: UITableViewCell{
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        setViewAlignment()
+        setViewAlignmentWithNoSubviews()
     }
 }
 
