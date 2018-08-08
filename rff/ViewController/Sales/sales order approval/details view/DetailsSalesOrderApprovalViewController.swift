@@ -12,6 +12,15 @@ protocol ApprovalOrderConfomationDelegate{
     func orderRequestStatus(isRejected: Bool)
 }
 
+class CheckSalesApprovalModel{
+    var appRetail: String = ""
+    var appMarket: String = ""
+    var appExport: String = ""
+    var appDairy: String = ""
+    var approver: String = ""
+    var approver1: String = ""
+}
+
 class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDelegate, ItemDetailsDelegate {
     
     // -- MARK: IBOutlets
@@ -38,7 +47,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     
     // -- MARK: Variables
     
-    let webservice = Sales()
+    let webservice = SalesOrderApproveService.instance
     let cellId = "cell_detailsSalesOrderRequest"
     
     let cellTitleArray = [
@@ -47,13 +56,13 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         "User Comment".localize(),
         "Work Flow".localize()]
     
-    var checkSalesApprovalArray: [SalesModel] = [SalesModel]()
-    var itemsDetailsArray = [SalesModel]()
+    var checkSalesApprovalArray = [SalesOrderButtonVisibiltyMudel]()
+    var itemsDetailsArray = [OrderApproveItem]()
     
-    var customerCreditDetailsArray = [SalesModel]()
-    var userCommentArray = [SalesModel]()
-    var workFlowArray = [SalesModel]()
-    var comboBoxArray = [SalesModel]()
+    var customerCreditDetailsArray = [OrderApproveCreditModul]()
+    var userCommentArray = [CommentModul]()
+    var workFlowArray = [WorkFlowModul]()
+    var comboBoxArray = [ComBoxMudel]()
     var isItemsChecked = [Bool]()
     var orderId = ""
     var userId = ""
@@ -77,14 +86,12 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        activityIndicator.startAnimating()
         
         setbackNavTitle(navItem: navigationItem)
         title = "Approval Form".localize()
-        stackViewWidth.constant = AppDelegate().screenSize.width - 32
-        activityIndicator.startAnimating()
+        stackViewWidth.constant = AppDelegate.shared.screenSize.width - 32
         userId = AuthServices.currentUserId
-        
-        setupComboBox()
         
         requestDate.text = reqDate
         returnDate.text = deliveryDate
@@ -105,6 +112,9 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
             handleVisibilityOfButtons(comment: "")
             detailsTableView.reloadData()
         }
+        if comboBoxArray.isEmpty{
+            setupComboBox()
+        }
         
         activityIndicator.stopAnimating()
     }
@@ -121,18 +131,18 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
             
             itemsDetails.append(SalesOrderItemsDetailsModel(
                 orderId: item.OrderID,
-                serialNumber: item.SOA_SERIALNUMBER,
-                itemNumber: item.SOA_ITEMNUMBER,
-                itemDesc: item.SOA_ITEMDESC,
-                changePrice: item.SOA_CHANGEDPRICE,
-                originalPrice: item.SOA_ORIGINALPRICE,
-                qty: item.SOA_QTY,
-                unitOfMeasurement: item.SOA_UNITOFMEASUREMENT,
-                lastYearOrderQty: item.SOA_LASTYEARORDERQTY,
-                yearToDateOrderQty: item.SOA_YEARTODATEORDERQTY,
-                total: item.SOA_TOTAL,
-                requestDate: item.SOA_REQUESTDATE,
-                deliveryDate: item.SOA_DELIVERYDATE))
+                serialNumber: item.SERIALNUMBER,
+                itemNumber: item.ITEMNUMBER,
+                itemDesc: item.ITEMDESC,
+                changePrice: item.CHANGEDPRICE,
+                originalPrice: item.ORIGINALPRICE,
+                qty: item.QTY,
+                unitOfMeasurement: item.UNITOFMEASUREMENT,
+                lastYearOrderQty: item.LASTYEARORDERQTY,
+                yearToDateOrderQty: item.YEARTODATEORDERQTY,
+                total: item.TOTAL,
+                requestDate: item.REQUESTDATE,
+                deliveryDate: item.DELIVERYDATE))
         }
         
         customerCreditDetailsArray = webservice.BindCustomerCreditGridView_SalesApprovalForm(ordernumber: orderId)
@@ -190,12 +200,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
             }
         }
         
-        let rowHeight: CGFloat = 44 * (4 - emptyArrayCount)
-        setTableViewHeight(height: rowHeight)
-    }
-    
-    func setTableViewHeight(height: CGFloat){
-        tableViewHeight.constant = height
+        tableViewHeight.constant = 44 * (4 - emptyArrayCount)
     }
     
     // -- MARK: TextView handle
@@ -221,20 +226,18 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         return id
     }
     
-    func getArray(row: Int) -> [SalesModel]{
-        var array = [SalesModel]()
+    func getArray(row: Int) -> Bool{
         switch row{
-        case 0: array = itemsDetailsArray
-        case 1: array = customerCreditDetailsArray
-        case 2: array = userCommentArray
-        case 3: array = workFlowArray
-        default: array = [SalesModel]()}
-        return array
+        case 0: return itemsDetailsArray.isEmpty
+        case 1: return customerCreditDetailsArray.isEmpty
+        case 2: return userCommentArray.isEmpty
+        case 3: return workFlowArray.isEmpty
+        default: return false}
     }
     
     func setUserCommentAndSetWorkFlow(){
-        userCommentArray = webservice.BindUserComment_SalesApprovalForm(orderid: orderId)
-        workFlowArray = webservice.BindApprovalGrid_SalesApprovalForm(orderid: orderId)
+        userCommentArray = webservice.commonSalesService.BindUserComment_SalesApprovalForm(orderid: orderId)
+        workFlowArray = webservice.commonSalesService.BindApprovalGrid_SalesApprovalForm(orderid: orderId)
     }
     
     func handleSuccessAction(action: @escaping () -> Void){
@@ -255,17 +258,13 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         approveResult = webservice.ApproveFinalOrder(orderno: orderId, approver: checkSalasApproveInfo.approver, empno: userId, comment: comment)
         AlertMessage().showAlertMessage(alertTitle: approveResult, alertMessage: "", actionTitle: "Ok", onAction: {
             self.handleSuccessAction {
-                self.updateValues()
+                self.setUserCommentAndSetWorkFlow()
                 self.navigationController?.popToRootViewController(animated: true)
                 if let delegate = self.delegate{
                     delegate.orderRequestStatus(isApproved: true)
                 }
             }
         }, cancelAction: nil, self)
-    }
-    
-    func updateValues(){
-        setUserCommentAndSetWorkFlow()
     }
     
     var rejectOrReportIssueResault = ""
@@ -282,7 +281,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
             comment: comment)
 
         AlertMessage().showAlertMessage(alertTitle: rejectOrReportIssueResault, alertMessage: "", actionTitle: "Ok", onAction: {
-            self.updateValues()
+            self.setUserCommentAndSetWorkFlow()
             self.handleSuccessAction {
                 self.navigationController?.popToRootViewController(animated: true)
                 if let delegate = self.delegate{
@@ -294,7 +293,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     
     // -- MARK: IBActions
     
-    var saveToGPReturn = [SaveToGpModel]()
+    var saveToGPReturn = [SaveToGpMudel]()
     var approveResult = ""
     @IBAction func approveAndSaveGBButtonTapped(_ sender: Any) {
         var error = ""
@@ -435,10 +434,9 @@ extension DetailsSalesOrderApprovalViewController: UITableViewDelegate, UITableV
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rowDetailsArray = getArray(row: indexPath.row)
         let performId = getId(row: indexPath.row)
         
-        if !rowDetailsArray.isEmpty{
+        if !getArray(row: indexPath.row){
             performSegue(withIdentifier: performId, sender: nil)}
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -478,7 +476,7 @@ extension DetailsSalesOrderApprovalViewController: UITableViewDelegate, UITableV
                 vc.userCommentArray = self.userCommentArray
             }
         } else {
-            if let vc = segue.destination as?WorkFlowViewController{
+            if let vc = segue.destination as? WorkFlowViewController{
                 vc.workFlowArray = self.workFlowArray
             }
         }

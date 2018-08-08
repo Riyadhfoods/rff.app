@@ -34,8 +34,8 @@ class AttendanceDetailsViewController: UIViewController {
     
     // -- MARK: Variables
     
-    let screenSize = AppDelegate().screenSize
-    let mainBackgroundColor = AppDelegate().mainBackgroundColor
+    let screenSize = AppDelegate.shared.screenSize
+    let mainBackgroundColor = AppDelegate.shared.mainBackgroundColor
     
     // -- MARK: viewDidLoad
     

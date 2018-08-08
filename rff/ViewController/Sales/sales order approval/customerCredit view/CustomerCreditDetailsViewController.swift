@@ -26,9 +26,8 @@ class CustomerCreditDetailsViewController: UIViewController {
     
     // -- MARK: Variables
     
-    let webservice = Sales()
     var orderId = ""
-    var customerCreditDetailsArray = [SalesModel]()
+    var customerCreditDetailsArray = [OrderApproveCreditModul]()
     
     // -- MARK: viewDidLoad
     override func viewDidLoad() {
@@ -50,19 +49,25 @@ class CustomerCreditDetailsViewController: UIViewController {
     func setUpData(){
         //customerCreditDetailsArray = webservice.BindCustomerCreditGridView_SalesApprovalForm(ordernumber: orderId)
         for customerCredit in customerCreditDetailsArray{
-            customerId.text = customerCredit.SOA_CUSTOMERID
-            customerName.text = customerCredit.SOA_CUSTOMERNAME
-            creditLimitRight.text = customerCredit.SOA_CREDITLIMIT
-            totalDueRight.text = customerCredit.SOA_TOTALDUE
-            upTo31Right.text = customerCredit.SOA_ZEROTOTHIRYONEDAYS
-            upTo60Right.text = customerCredit.SOA_THIRYONETOSIXTYDAYS
-            upTo90Right.text = customerCredit.SOA_SIXTYONETONINETYDAYS
-            upTo120Right.text = customerCredit.SOA_NINETYONETOHUNDREDTWENTYDAYS
-            moreThan90Right.text = customerCredit.SOA_ABOVE120DAYS
-            statusRight.text = customerCredit.SOA_STATUS
+            customerId.text = customerCredit.CUSTOMERID
+            customerName.text = customerCredit.CUSTOMERNAME
+            creditLimitRight.text = customerCredit.CREDITLIMIT
+            totalDueRight.text = customerCredit.TOTALDUE
+            upTo31Right.text = customerCredit.ZEROTOTHIRYONEDAYS
+            upTo60Right.text = customerCredit.THIRYONETOSIXTYDAYS
+            upTo90Right.text = customerCredit.SIXTYONETONINETYDAYS
+            upTo120Right.text = customerCredit.NINETYONETOHUNDREDTWENTYDAYS
+            moreThan90Right.text = customerCredit.ABOVE120DAYS
+            statusRight.text = customerCredit.STATUS
         }
     }
 }
+
+
+
+
+
+
 
 
 

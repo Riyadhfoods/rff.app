@@ -33,8 +33,8 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     
     // -- MARK: Variable
     
-    let webService = Sales()
-    let screenSize = AppDelegate().screenSize
+    let webService = SalesReturnApproveService.instance
+    let screenSize = AppDelegate.shared.screenSize
     let cellId = "cell_detailsSalesReturnRequest"
     
     let cellTitleArray = [
@@ -43,13 +43,13 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
         "User Comment".localize(),
         "Work Flow".localize()]
     
-    var itemsDetailsArray = [SalesReturn]()
-    var customerCreditDetailsArray = [SalesReturn]()
-    var userCommentArray = [SalesReturn]()
-    var workFlowArray = [SalesReturn]()
-    var loadCompleteArray = [SalesReturn]()
-    var loadCompleteArrayWithComment = [SalesReturn]()
-    var attachmentArray = [SalesReturn]()
+    var itemsDetailsArray = [ReturnApproveItemModel]()
+    var customerCreditDetailsArray = [ReturnApproveCreditModul]()
+    var userCommentArray = [CommentModul]()
+    var workFlowArray = [WorkFlowModul]()
+    var loadCompleteArray = [OnLoandModul]()
+    var loadCompleteArrayWithComment = [OnLoandModul]()
+    var attachmentArray = [ReturnApproveAttachment]()
     var itemReturnDetails = [SalesReturnItemsDetailsModel]()
     var isItemsChecked = [Bool]()
     var userId = ""
@@ -117,33 +117,34 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
         itemsDetailsArray = webService.SRA_BindItemGrid(empno: userId, returnid: returnId)
         for itemDetail in itemsDetailsArray{
             itemReturnDetails.append(SalesReturnItemsDetailsModel(
-                serialNumber: itemDetail.SRA_SerialNumber,
-                InvoiceNumber: itemDetail.SRA_InvoiceNumber,
-                LOTNumber: itemDetail.SRA_LotNumber,
-                ItemNumber: itemDetail.SRA_ItemNumber,
-                desc: itemDetail.SRA_Description,
-                unitPrice: itemDetail.SRA_Unitprice,
-                totalCast: itemDetail.SRA_TotalCost,
-                qty: itemDetail.SRA_Qty,
-                uofm: itemDetail.SRA_UOFM,
-                returnType: itemDetail.SRA_ReturnType))
+                serialNumber: itemDetail.SerialNumber,
+                InvoiceNumber: itemDetail.InvoiceNumber,
+                LOTNumber: itemDetail.LotNumber,
+                ItemNumber: itemDetail.ItemNumber,
+                desc: itemDetail.Description,
+                unitPrice: itemDetail.Unitprice,
+                totalCast: itemDetail.TotalCost,
+                qty: itemDetail.Qty,
+                uofm: itemDetail.UOFM,
+                returnType: itemDetail.ReturnType))
             
-            setUpLabelText(label: empCreated, text: itemDetail.SRA_EmpCreated, isArrayEmpty: itemsDetailsArray.isEmpty)
-            setUpLabelText(label: customerName, text: itemDetail.SRA_CustomerName, isArrayEmpty: itemsDetailsArray.isEmpty)
-            setUpLabelText(label: salesPerson, text: itemDetail.SRA_SalesPerson, isArrayEmpty: itemsDetailsArray.isEmpty)
-            setUpLabelText(label: requestDate, text: itemDetail.SRA_ReqDate, isArrayEmpty: itemsDetailsArray.isEmpty)
-            setUpLabelText(label: ReturnDate, text: itemDetail.SRA_ReturnDate, isArrayEmpty: itemsDetailsArray.isEmpty)
-            customerCreditDetailsArray = webService.SRR_BindCustomerAging(customer_no: itemDetail.SRA_CustomerName)
+            setUpLabelText(label: empCreated, text: itemDetail.EmpCreated, isArrayEmpty: itemsDetailsArray.isEmpty)
+            setUpLabelText(label: customerName, text: itemDetail.CustomerName, isArrayEmpty: itemsDetailsArray.isEmpty)
+            setUpLabelText(label: salesPerson, text: itemDetail.SalesPerson, isArrayEmpty: itemsDetailsArray.isEmpty)
+            setUpLabelText(label: requestDate, text: itemDetail.ReqDate, isArrayEmpty: itemsDetailsArray.isEmpty)
+            setUpLabelText(label: ReturnDate, text: itemDetail.ReturnDate, isArrayEmpty: itemsDetailsArray.isEmpty)
+            
+            customerCreditDetailsArray = webService.SRR_BindCustomerAging(customer_no: itemDetail.CustomerName)
             count += 1
         }
-        userCommentArray = webService.SRA_BindUserGrid(empno: userId, returnid: returnId)
-        workFlowArray = webService.SRA_BindApproverGrid(empno: userId, returnid: returnId)
+        userCommentArray = webService.commonSalesService.SRA_BindUserGrid(empno: userId, returnid: returnId)
+        workFlowArray = webService.commonSalesService.SRA_BindApproverGrid(empno: userId, returnid: returnId)
         
         loadCompleteArray = webService.SRA_ONLOADCOMPLETE(empnumber: userId, returnid: returnId, comment: "")
         for loadComplete in loadCompleteArray{
-            approveButtonOutlet.isHidden = !loadComplete.SRA_APPROVE_BTN
-            rejectAllButtonOutlet.isHidden = !loadComplete.SRA_REJECT_BTN
-            approver = loadComplete.SRA_APPROVER
+            approveButtonOutlet.isHidden = !loadComplete.APPROVE_BTN
+            rejectAllButtonOutlet.isHidden = !loadComplete.REJECT_BTN
+            approver = loadComplete.Approver
         }
         attachmentArray = webService.SRA_BindAttachmentGrid(empno: userId, returnid: returnId)
     }
@@ -183,7 +184,7 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     func re_call_onLoadComplete(comment: String){
         loadCompleteArrayWithComment = webService.SRA_ONLOADCOMPLETE(empnumber: userId, returnid: returnId, comment: comment)
         for loadComplete in self.loadCompleteArrayWithComment{
-            self.approver = loadComplete.SRA_APPROVER
+            self.approver = loadComplete.Approver
         }
     }
     
@@ -285,10 +286,9 @@ extension DetailsSalesReturnApprovalViewController: UITableViewDelegate, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let rowDetailsArray = getArray(row: indexPath.row)
         let performId = getId(row: indexPath.row)
         
-        if !rowDetailsArray.isEmpty{
+        if !getArray(row: indexPath.row){
             performSegue(withIdentifier: performId, sender: nil)}
         tableView.deselectRow(at: indexPath, animated: true)
     }
@@ -353,15 +353,13 @@ extension DetailsSalesReturnApprovalViewController: UITableViewDelegate, UITable
         return id
     }
     
-    func getArray(row: Int) -> [SalesReturn]{
-        var array = [SalesReturn]()
+    func getArray(row: Int) -> Bool{
         switch row{
-        case 0: array = itemsDetailsArray
-        case 1: array = customerCreditDetailsArray
-        case 2: array = userCommentArray
-        case 3: array = workFlowArray
-        default: array = [SalesReturn]()}
-        return array
+        case 0: return itemsDetailsArray.isEmpty
+        case 1: return customerCreditDetailsArray.isEmpty
+        case 2: return userCommentArray.isEmpty
+        case 3: return workFlowArray.isEmpty
+        default: return false }
     }
     
     func setTableViewHeight(height: CGFloat){

@@ -16,7 +16,7 @@ class SalesCreditCutomerDetailsViewController: UIViewController {
     @IBOutlet weak var totalDue: UILabel!
     @IBOutlet weak var status: UILabel!
     
-    var customerCreditDetailsArray = [SalesReturn]()
+    var customerCreditDetailsArray = [SalesCreditLimmitInboxModul]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,10 +34,10 @@ class SalesCreditCutomerDetailsViewController: UIViewController {
     
     func setUpData(){
         for customerCredit in customerCreditDetailsArray{
-            customerName.text = customerCredit.SRI_CustomerName
-            creditLimit.text = customerCredit.SRI_CreditLimit
-            totalDue.text = customerCredit.SRI_TotalDue
-            status.text = customerCredit.SRI_Status
+            customerName.text = customerCredit.CustomerName
+            creditLimit.text = customerCredit.CreditLimit
+            totalDue.text = customerCredit.TotalDue
+            status.text = customerCredit.Status
         }
     }
 

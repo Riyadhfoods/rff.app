@@ -19,9 +19,9 @@ class SalesReturnApprovalViewController: UIViewController, ApprovalConfomationDe
     // -- MARK: Variables
     
     let cellId = "cell_salesReturnApproval"
-    let screenSize = AppDelegate().screenSize
-    let webService = Sales()
-    var salesReturnDetails: [SalesReturn] = [SalesReturn]()
+    let screenSize = AppDelegate.shared.screenSize
+    let webService = SalesReturnApproveService.instance
+    var salesReturnDetails: [SalesReturnApproveModul] = [SalesReturnApproveModul]()
     var rowIndexSelected = 0
     var isApproved = false
     var isRejected = false

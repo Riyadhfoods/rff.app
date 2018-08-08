@@ -69,8 +69,8 @@ extension InboxApprovalFormViewController{
             print("Monthly_Pay = \(loanDeatilsForLoan.Monthly_Pay)")
         }
         for comment in userCommentForLoan{
-            print("Cmt_Name = \(comment.Cmt_Name)")
-            print("Cmt_Comment = \(comment.Cmt_Comment)")
+            print("Cmt_Name = \(comment.Name)")
+            print("Cmt_Comment = \(comment.Comment)")
         }
         for workFlow in editWorkFlowForLoan{
             print("WorkFlow_Empid = \(workFlow.WorkFlow_Empid)")

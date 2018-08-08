@@ -71,7 +71,7 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     let takeAction = ROActions.shared
     
-    let screenSize = AppDelegate().screenSize
+    let screenSize = AppDelegate.shared.screenSize
     var companyPickerView = UIPickerView()
     var salesPersonPickerView = UIPickerView()
     var customerPickerView = UIPickerView()
@@ -91,17 +91,17 @@ class ReturnOrderRequestsViewController: UIViewController {
     let currentDate = Date()
     var date: String = ""
     
-    let webservice = Sales()
-    var companyArray = [SalesModel]()
+    let webservice = SalesReturnRequestService.instance
+    var companyArray = [CompanyModul]()
     var companyNamesArray = [String]()
     var companyIdArray = [String]()
-    var salespersonArray = [SalesModel]()
+    var salespersonArray = [SalesPersonModul]()
     var salesPersonNamesArray = [String]()
     var salesPersonIdArray = [String]()
-    var customerArray = [SalesModel]()
+    var customerArray = [CustomerModul]()
     var customerNamesArray = [String]()
     var customerIdArray = [String]()
-    var branchArray = [SalesModel]()
+    var branchArray = [BranchModul]()
     var branchNamesArray = [String]()
     var branchIdArray = [String]()
     
@@ -109,18 +109,18 @@ class ReturnOrderRequestsViewController: UIViewController {
     var itemNameArray: [String] = [String]()
     var invoices: [InvoicesModel] = [InvoicesModel]()
     
-    var invoiceArray = [SalesReturn]()
-    var itemArray = [SalesReturn]()
+    var invoiceArray = [InvoiceAndItemModul]()
+    var itemArray = [InvoiceAndItemModul]()
     
-    var creditDetailsArray = [SalesReturn]()
-    var creditDetailsArrayReceived = [SalesReturn]()
+    var creditDetailsArray = [CreditLimitModul]()
+    var creditDetailsArrayReceived = [CreditLimitModul]()
     
-    var storeArrayReceived = [SalesModel]()
-    var storeArray = [SalesModel]()
+    var storeArrayReceived = [StoreModul]()
+    var storeArray = [StoreModul]()
     var storeIdArray = [String]()
-    var cityArray = [SalesModel]()
-    var salesPersonStoreArray = [SalesModel]()
-    var merchandiserArray = [SalesModel]()
+    var cityArray = [StoreModul]()
+    var salesPersonStoreArray = [StoreModul]()
+    var merchandiserArray = [StoreModul]()
     
     var salesSelecteedRow: Int = 0
     var citySelectedRow: Int = 0
@@ -177,15 +177,15 @@ class ReturnOrderRequestsViewController: UIViewController {
     // -- MARK: Set ups
     
     func setUpSalesOrderData(){
-        companyArray = webservice.BindSalesOrderCompany()
+        companyArray = webservice.commonSalesService.BindSalesOrderCompany()
         salespersonArray = webservice.BindSalesReturnSalesPerson()
-        branchArray = webservice.BindSalesOrderBranches()
+        branchArray = webservice.commonSalesService.BindSalesOrderBranches()
     }
     
     func setUpViews(){
         setCustomDefaultNav(navItem: navigationItem)
         
-        stackViewWidth.constant = AppDelegate().screenSize.width - 32
+        stackViewWidth.constant = AppDelegate.shared.screenSize.width - 32
         showCompanyPickerView.tintColor = .clear
         returnDateTextField.tintColor = .clear
         showSalesPersonPickerView.tintColor = .clear
@@ -299,7 +299,7 @@ class ReturnOrderRequestsViewController: UIViewController {
     
     func setupButtonBorder(button: UIButton){
         button.layer.borderWidth = 1
-        button.layer.borderColor = AppDelegate().mainBackgroundColor.cgColor
+        button.layer.borderColor = AppDelegate.shared.mainBackgroundColor.cgColor
     }
     
     // -- MARK: IBActions
@@ -309,7 +309,7 @@ class ReturnOrderRequestsViewController: UIViewController {
     }
     
     var eachItemAddedCount = 0
-    func addItem(itemArrayFromWS: [SalesReturn]){
+    func addItem(itemArrayFromWS: [ReturnItemSendModel]){
         for item in itemArrayFromWS{
             eachItemAddedCount += 1
             itemsArrayFromWS.append(InvoiceItemModel(

@@ -39,7 +39,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     }()
     
     // -- MARK: Variable
-    let screenSize = AppDelegate().screenSize
+    let screenSize = AppDelegate.shared.screenSize
     let pickViewList: UIPickerView = UIPickerView()
     let pickViewCategory: UIPickerView = UIPickerView()
     var pickview: UIPickerView = UIPickerView()
@@ -118,7 +118,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     func setUpArrays(){
-        arrayOfListReceived = TrackingService.shared.Bind_ddlReqType(langid: languageChosen)
+        arrayOfListReceived = TrackingService.instance.Bind_ddlReqType(langid: languageChosen)
         
         list.listname = "Select list".localize()
         categoryArray = [
@@ -247,7 +247,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     func showArrayOfInboxGrid(fromId: String, drpdwnvalue: String){
         if let currentUserIdInt = Int(AuthServices.currentUserId), let searchText = searchContectTextfield.text{
-            self.arrayOfInboxGrid = TrackingService.shared.SearchInbox(empid: currentUserIdInt,
+            self.arrayOfInboxGrid = TrackingService.instance.SearchInbox(empid: currentUserIdInt,
                                                                        formid: fromId,
                                                                        drpdwnvalue: drpdwnvalue,
                                                                        search: searchText,

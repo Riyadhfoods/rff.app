@@ -21,9 +21,9 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     @IBOutlet weak var profileImageWidth: NSLayoutConstraint!
     
     // -- MARK: variables
-    let slideMenuScreenWidth = (AppDelegate().screenSize.width * 0.75)
-    let screenHeight = AppDelegate().screenSize.height
-    let contentWidth = AppDelegate().screenSize.width * 0.19
+    let slideMenuScreenWidth = (AppDelegate.shared.screenSize.width * 0.75)
+    let screenHeight = AppDelegate.shared.screenSize.height
+    let contentWidth = AppDelegate.shared.screenSize.width * 0.19
     let cellId_header = "cellId_header"
     let cell_list = "cell_list"
     var sections = [Section]()
@@ -142,7 +142,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     }
     
     func setupWidth(){
-        let porfileImageArea = AppDelegate().screenSize.width * 0.16
+        let porfileImageArea = AppDelegate.shared.screenSize.width * 0.16
         
         holderViewRightAnchor.constant = contentWidth
         profileHolder.layoutIfNeeded()

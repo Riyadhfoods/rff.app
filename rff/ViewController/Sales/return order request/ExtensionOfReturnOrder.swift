@@ -26,7 +26,7 @@ extension ReturnOrderRequestsViewController{
     }
     
     func getStoreId(customerId: String){
-        storeArray = webservice.BindDdlStore(customerid: customerId)
+        storeArray = webservice.commonSalesService.BindDdlStore(customerid: customerId)
         if storeArray.isEmpty {
             storeIdArray = ["Select store id".localize()]
         } else {
@@ -41,15 +41,15 @@ extension ReturnOrderRequestsViewController{
         creditDetailsArray = webservice.SRR_BindCustomerAging(customer_no: customerId)
         if !creditDetailsArray.isEmpty{
             creditLimitRight.text = creditDetailsArray[0].CreditLimit
-            totalDueRight.text = creditDetailsArray[0].TotalDue
-            upTo31Right.text = creditDetailsArray[0].ZeroTo31Days
-            upTo60Right.text = creditDetailsArray[0].ThirtyOneto60Days
-            upTo90Right.text = creditDetailsArray[0].SixtyOneTo90Days
-            upTo120Right.text = creditDetailsArray[0].Nineoneto120Days
-            moreThan90Right.text = creditDetailsArray[0].Above120Days
-            statusRight.text = creditDetailsArray[0].Status
+            totalDueRight.text = creditDetailsArray[0].ToTalDue
+            upTo31Right.text = creditDetailsArray[0].ZEROTO31days
+            upTo60Right.text = creditDetailsArray[0].ThirtyOneTo60Days
+            upTo90Right.text = creditDetailsArray[0].SIXTYOneTo90Days
+            upTo120Right.text = creditDetailsArray[0].NINETYOneTo120Days
+            moreThan90Right.text = creditDetailsArray[0].Above120DAYS
+            statusRight.text = creditDetailsArray[0].CustomerAgying_Status
             
-            if creditDetailsArray[0].Status == "Above Credit"{
+            if creditDetailsArray[0].CustomerAgying_Status == "Above Credit"{
                 statusRight.textColor = .red
             } else { statusRight.textColor = mainBackgroundColor }
         }
@@ -114,16 +114,16 @@ extension ReturnOrderRequestsViewController{
             salesPersonStoreTextfield.text = "Select sales person".localize()
             merchandiserTextfield.text = "Select merchandiser".localize()
         } else {
-            cityArray = webservice.BindCity(storevalue: name, customer: customerNamesArray[customerRow])
+            cityArray = webservice.commonSalesService.BindCity(storevalue: name, customer: customerNamesArray[customerRow])
             if !cityArray.isEmpty{
                 cityTextfield.text = cityArray[0].City
-                salesPersonStoreArray = webservice.BindSalesPersonforStore(
+                salesPersonStoreArray = webservice.commonSalesService.BindSalesPersonforStore(
                     customer: customerNamesArray[customerRow],
                     city: cityArray[0].City,
                     store: name)
                 if !salesPersonStoreArray.isEmpty{
                     salesPersonStoreTextfield.text = salesPersonStoreArray[0].SalesPersonStore
-                    merchandiserArray = webservice.BindMerchandiser(
+                    merchandiserArray = webservice.commonSalesService.BindMerchandiser(
                         customer: customerNamesArray[customerRow],
                         city: cityArray[0].City,
                         store: name,
@@ -138,13 +138,13 @@ extension ReturnOrderRequestsViewController{
     
     func HandleValuesForCity(name: String){
         if  !cityArray.isEmpty{
-            salesPersonStoreArray = webservice.BindSalesPersonforStore(
+            salesPersonStoreArray = webservice.commonSalesService.BindSalesPersonforStore(
                 customer: customerNamesArray[customerRow],
                 city: name,
                 store: storeIdArray[salesSelecteedRow])
             if !salesPersonStoreArray.isEmpty{
                 salesPersonStoreTextfield.text = salesPersonStoreArray[0].SalesPersonStore
-                merchandiserArray = webservice.BindMerchandiser(
+                merchandiserArray = webservice.commonSalesService.BindMerchandiser(
                     customer: customerNamesArray[customerRow],
                     city: name,
                     store: storeIdArray[salesSelecteedRow],
@@ -161,7 +161,7 @@ extension ReturnOrderRequestsViewController{
     
     func HandleValuesForSalesPersonStore(name: String){
         if !salesPersonStoreArray.isEmpty{
-            merchandiserArray = webservice.BindMerchandiser(
+            merchandiserArray = webservice.commonSalesService.BindMerchandiser(
                 customer: customerNamesArray[customerRow],
                 city: cityArray[citySelectedRow].City,
                 store: storeIdArray[salesSelecteedRow],

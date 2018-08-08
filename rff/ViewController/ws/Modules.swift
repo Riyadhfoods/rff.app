@@ -93,9 +93,9 @@ class LoanApprovalModul{
 }
 
 class CommentModul {
-    var Cmt_Name: String = ""
-    var Cmt_Comment: String = ""
-    var Cmt_Id: String = ""
+    var Name: String = ""
+    var Comment: String = ""
+    var Id: String = ""
 }
 
 class WorkFlowModul{
@@ -189,11 +189,304 @@ class submitModul{
     var PID : String = ""
 }
 
+// -- MARK: Loan
+
+class EmpInfoModul_2{
+    var Emp_ID : String = ""
+    var Emp_Name : String = ""
+}
+
+class SubmitModul{
+    var error: String = ""
+}
+
+// -- MARK: Sales
+
+class SalesInboxModul{
+    var totalrows : Int = 0
+    var currentrows : String = ""
+    var Flag : Bool = false
+    var ID : String = ""
+    var EmpCreated : String = ""
+    var CustomerName : String = ""
+    var RequestDate : String = ""
+    var ReturnDate : String = ""
+    var Items : String = ""
+    var Date : String = ""
+    var Status : String = ""
+    var PendingBy : String = ""
+    var Comment : String = ""
+}
 
 
+class SalesItemInboxModul{
+    // sales return
+    var Return_SerialNumber : String = ""
+    var Return_CustomerName : String = ""
+    var Return_SLSPersonName : String = ""
+    var Return_ReturnType : String = ""
+    var Return_ReqDate : String = ""
+    var Return_ReturnDate : String = ""
+    var Return_Comment : String = ""
+    var Return_InvoiceNumber : String = ""
+    var Return_LotNumber : String = ""
+    var Return_ItemNumber : String = ""
+    var Return_ItemDesc : String = ""
+    var Return_Unitprice : String = ""
+    var Return_ExtPrice : String = ""
+    var Return_Qty : String = ""
+    var Return_UOFM : String = ""
+    var Return_InvoiceDate : String = ""
+    
+    // sales order
+    var Order_ORDERID : String = ""
+    var Order_EMPCREATED : String = ""
+    var Order_SLSPERSONID : String = ""
+    var Order_CUSTNAME : String = ""
+    var Order_SERIALNUMBER : String = ""
+    var Order_ITEMID : String = ""
+    var Order_ITEMDESC : String = ""
+    var Order_UNITCOST : String = ""
+    var Order_EXTCOST : String = ""
+    var Order_QTY : String = ""
+    var Order_UOFM : String = ""
+    var Order_LASTYEAR : String = ""
+    var Order_YEARTODATE : String = ""
+    var Order_REQDATE : String = ""
+    var Order_DELIVERYDATE : String = ""
+    var Order_COMMENT : String = ""
+}
 
 
+class SalesCreditLimmitInboxModul{
+    var CustomerID : String = ""
+    var CustomerName : String = ""
+    var CreditLimit : String = ""
+    var TotalDue : String = ""
+    var Status : String = ""
+}
 
+class SalesReturnWorkFlowInboxModul{
+    var EMP_ID : String = ""
+    var Name : String = ""
+    var EmpRole : String = ""
+    var Status : String = ""
+    var TransDate : String = ""
+}
+
+class SalesOrderApproveModul{
+    var OrderID : String = ""
+    var ReqDate : String = ""
+    var DeliveryDate : String = ""
+    var EmpCreated : String = ""
+    var Comment : String = ""
+    var CustomerName : String = ""
+    var Items : String = ""
+    var Status : String = ""
+}
+
+class OrderApproveItem{
+    var SERIALNUMBER : String = ""
+    var ITEMNUMBER : String = ""
+    var ITEMDESC : String = ""
+    var CHANGEDPRICE : String = ""
+    var ORIGINALPRICE : String = ""
+    var QTY : String = ""
+    var UNITOFMEASUREMENT : String = ""
+    var LASTYEARORDERQTY : String = ""
+    var YEARTODATEORDERQTY : String = ""
+    var TOTAL : String = ""
+    var REQUESTDATE : String = ""
+    var DELIVERYDATE : String = ""
+    var OrderID : String = ""
+}
+
+class OrderApproveCreditModul{
+    var CUSTOMERID : String = ""
+    var CUSTOMERNAME : String = ""
+    var CREDITLIMIT : String = ""
+    var TOTALDUE : String = ""
+    var ZEROTOTHIRYONEDAYS : String = ""
+    var THIRYONETOSIXTYDAYS : String = ""
+    var SIXTYONETONINETYDAYS : String = ""
+    var NINETYONETOHUNDREDTWENTYDAYS : String = ""
+    var ABOVE120DAYS : String = ""
+    var STATUS : String = ""
+}
+
+class ComBoxMudel{
+    var DocumentId : String = ""
+    var LocationCode : String = ""
+}
+
+class SalesOrderButtonVisibiltyMudel{
+    var ApproveandEnterManually_btn : Bool = false
+    var U_Comment : Bool = false
+    var App_btn_vis : Bool = false
+    var Rej_btn_vis : Bool = false
+    var Report_btn_vis : Bool = false
+    var Savetogp_btn_vis : Bool = false
+    var Loc_control_vis : Bool = false
+    var DocId_control_vis : Bool = false
+    var Flag : Bool = false
+    var Approver: String = ""
+    var Approver1: String = ""
+    var App_Market: String = ""
+    var App_Retail: String = ""
+    var App_Export: String = ""
+    var App_Diary: String = ""
+}
+
+class SaveToGpMudel{
+    public var GP_Save : String = ""
+    public var GP_Error : String = ""
+    public var Savetogp_btn_vis : Bool = false
+    public var ApproveandEnterManually_btn : Bool = false
+}
+
+class SalesReturnApproveModul{
+    var ReturnID : String = ""
+    var EmpCreated : String = ""
+    var Items : String = ""
+    var ReqDate : String = ""
+    var RetDate : String = ""
+    var Comment : String = ""
+}
+
+class ReturnApproveItemModel{
+    var SerialNumber : String = ""
+    var EmpCreated : String = ""
+    var CustomerName : String = ""
+    var SalesPerson : String = ""
+    var ReqDate : String = ""
+    var ReturnDate : String = ""
+    var InvoiceNumber : String = ""
+    var LotNumber : String = ""
+    var ItemNumber : String = ""
+    var Description : String = ""
+    var Unitprice : String = ""
+    var TotalCost : String = ""
+    var Qty : String = ""
+    var UOFM : String = ""
+    var ReturnType : String = ""
+}
+
+class ReturnApproveCreditModul{
+    var CreditLimit : String = ""
+    var TotalDue : String = ""
+    var ZeroTo31Days : String = ""
+    var ThirtyOneto60Days : String = ""
+    var SixtyOneTo90Days : String = ""
+    var Nineoneto120Days : String = ""
+    var Above120Days : String = ""
+    var Status : String = ""
+}
+
+class OnLoandModul{
+    var Approver: String = ""
+    var APPROVE_BTN: Bool = false
+    var REJECT_BTN: Bool = false
+    var CustomerDDL: Bool = false
+    var SalesPersonDDL: Bool = false
+}
+
+class ReturnApproveAttachment{
+    var INDEX : String = ""
+    var FILENAME : String = ""
+    var FILETYPE : String = ""
+}
+
+
+// Sales Order Request
+
+class CompanyModul{
+    var Comp_ID : String = ""
+    var EName : String = ""
+}
+
+class BranchModul{
+    var Branch : String = ""
+    var AccountEmp : String = ""
+}
+
+class LocCodeModul{
+    var LocationCode : String = ""
+}
+
+class SalesPersonModul{
+    var SalesPersonId : String = ""
+    var SalesPerson : String = ""
+}
+
+class CustomerModul{
+    var CustomerId : String = ""
+    var CustomerName : String = ""
+}
+
+class StoreModul{
+    var StoreID : String = ""
+    var StoreName : String = ""
+    var City : String = ""
+    var SalesPersonStore : String = ""
+    var Merchandiser : String = ""
+}
+
+class CreditLimitModul{
+    var CreditLimit : String = ""
+    var ToTalDue : String = ""
+    var ZEROTO31days : String = ""
+    var ThirtyOneTo60Days : String = ""
+    var SIXTYOneTo90Days : String = ""
+    var NINETYOneTo120Days : String = ""
+    var Above120DAYS : String = ""
+    var CustomerAgying_Status : String = ""
+}
+
+class ItemSalesModel{
+    var DRP_ITEMNUMER : String = ""
+    var DrpItems : String = ""
+    var DrpItemId : String = ""
+}
+
+class ItemClassModul{
+    var grid_error: String = ""
+    var Grid_ItemId: String = ""
+    var Grid_Desc: String = ""
+    var Grid_UOM: String = ""
+    var Grid_Qty: String = ""
+    var Grid_UnitPrice: String = ""
+    var Grid_TotalPrice: String = ""
+}
+
+class ItemSendModul{
+    var grid_error: String = ""
+    var OrderID: String = ""
+    var Flag: Bool = false
+    var Status: String = ""
+}
+
+class unitOfMeasurementModel{
+    var UnitofMeasure: String = ""
+}
+
+class ReturnItemSendModel{
+    var SRR_ITEMGRID_COLUMN1: String = ""
+    var SRR_ITEMGRID_COLUMN2: String = ""
+    var SRR_ITEMGRID_COLUMN3: String = ""
+    var SRR_ITEMGRID_COLUMN4: String = ""
+    var SRR_ITEMGRID_COLUMN5: String = ""
+    var SRR_ITEMGRID_COLUMN6: String = ""
+    var SRR_ITEMGRID_COLUMN7: String = ""
+    var SRR_ITEMGRID_COLUMN8: String = ""
+    var SRR_ITEMGRID_COLUMN9: String = ""
+    var SRR_ITEMGRID_COLUMN10: String = ""
+    var SRR_ITEMGRID_COLUMN11: String = ""
+}
+
+class InvoiceAndItemModul{
+    var Sop_Number: String = ""
+    var Items: String = ""
+}
 
 
 

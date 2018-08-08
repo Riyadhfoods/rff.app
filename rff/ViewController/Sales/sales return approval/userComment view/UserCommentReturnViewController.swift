@@ -19,8 +19,8 @@ class UserCommentReturnViewController: UIViewController, UITableViewDelegate, UI
     let webservice = Sales()
     let cellId = "cell_returnUserComment"
     var orderId = ""
-    var userCommentArray = [SalesReturn]()
-    var userWithNotEmptyCommentArray = [SalesReturn]()
+    var userCommentArray = [CommentModul]()
+    var userWithNotEmptyCommentArray = [CommentModul]()
     
     // -- MARK: viewDidLoad
     
@@ -29,7 +29,7 @@ class UserCommentReturnViewController: UIViewController, UITableViewDelegate, UI
         
         title = "User Comment".localize()
         for comment in userCommentArray{
-            if comment.SRA_User_EmpComment != ""{
+            if comment.Comment != ""{
                 userWithNotEmptyCommentArray.append(comment)
             }
         }
@@ -52,8 +52,8 @@ class UserCommentReturnViewController: UIViewController, UITableViewDelegate, UI
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? UserCommentReturnCell{
             
             let userComment = userWithNotEmptyCommentArray[indexPath.row]
-            cell.empNameReturn.text = userComment.SRA_User_EmpName
-            cell.commentReturn.text = userComment.SRA_User_EmpComment
+            cell.empNameReturn.text = userComment.Name
+            cell.commentReturn.text = userComment.Comment
             return cell
             
         }

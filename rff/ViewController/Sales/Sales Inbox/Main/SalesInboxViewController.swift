@@ -21,7 +21,7 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     // -- MARK: variables
     
-    let screenSize = AppDelegate().screenSize
+    let screenSize = AppDelegate.shared.screenSize
     let languageChosen = LoginViewController.languageChosen
     let segueId_transferStyle = "showTransferStyle"
     let segueId_orderStyle = "showOrderStyle"
@@ -31,8 +31,8 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
     let selectListArray = ["Select a list", "Order List", "Transfer List", "Return List"]
     var selectedListIndex: Int = 0
     
-    let salesWebservice: Sales = Sales()
-    var salesArray: [SalesModel] = [SalesModel]()
+    let salesWebservice = SalesInboxService.instance
+    var salesArray: [SalesInboxModul] = [SalesInboxModul]()
     var transferArray: [SalesModel] = [SalesModel]()
     var returnArray: [SalesModel] = [SalesModel]()
     

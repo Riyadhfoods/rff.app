@@ -29,7 +29,7 @@ class ItemReturnDetailsCell: UITableViewCell {
         
         checkBoxBtn.layer.cornerRadius = 39/2
         checkBoxBtn.layer.borderWidth = 1
-        checkBoxBtn.layer.borderColor = AppDelegate().mainBackgroundColor.cgColor
+        checkBoxBtn.layer.borderColor = AppDelegate.shared.mainBackgroundColor.cgColor
         
         setViewAlignment()
     }

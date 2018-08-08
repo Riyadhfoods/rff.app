@@ -101,8 +101,8 @@ class SalesOrderRequestsViewController: UIViewController {
     
     // -- MARK: Variable
     
-    let webservice = Sales()
-    let screenSize = AppDelegate().screenSize
+    let webservice = SalesOrderRequestService.instance
+    let screenSize = AppDelegate.shared.screenSize
     
     let companyPickerView: UIPickerView = UIPickerView()
     let branchPickerView: UIPickerView = UIPickerView()
@@ -128,33 +128,33 @@ class SalesOrderRequestsViewController: UIViewController {
     var salesPersonTextChosen: String?
     var merchandiserTextChosen: String?
     
-    var companyArray = [SalesModel]()
+    var companyArray = [CompanyModul]()
     var companyNamesArray = [String]()
     var companyIdArray = [String]()
-    var branchArray = [SalesModel]()
+    var branchArray = [BranchModul]()
     var branchNamesArray = [String]()
     var branchIdArray = [String]()
     var docIdArray = [String]()
-    var locCodeArray = [SalesModel]()
+    var locCodeArray = [LocCodeModul]()
     var locCodeNumsArray = [String]()
     
-    var salespersonArray = [SalesModel]()
-    var customerArray = [SalesModel]()
+    var salespersonArray = [SalesPersonModul]()
+    var customerArray = [CustomerModul]()
     var salespersonNamesArray = [String]()
     var customerNamesArray = [String]()
     
-    var storeArray = [SalesModel]()
+    var storeArray = [StoreModul]()
     var storeIdArray = [String]()
-    var cityArray = [SalesModel]()
-    var salesPersonArray = [SalesModel]()
-    var merchandiserArray = [SalesModel]()
+    var cityArray = [StoreModul]()
+    var salesPersonArray = [StoreModul]()
+    var merchandiserArray = [StoreModul]()
     
-    var creditDetailsArray = [SalesModel]()
-    var items = [SalesModel]()
+    var creditDetailsArray = [CreditLimitModul]()
+    var items = [ItemSalesModel]()
     var itemsName = [String]()
-    var unoits = [SalesModel]()
+    var unoits = [unitOfMeasurementModel]()
     var unoitsName = [String]()
-    var itemAddedReceived = [ItemAddedModel]()
+    var itemAddedReceived = [ItemClassModul]()
     
     let deliveryDatePickerView: UIDatePicker = UIDatePicker()
     let currentDate = Date()
@@ -179,8 +179,8 @@ class SalesOrderRequestsViewController: UIViewController {
     
     var count: Int = 0
     
-    var itemSentStatus = [SalesModel]()
-    var sentStatus = [SalesModel]()
+    var itemSentStatus = [ItemSendModul]()
+    var sentStatus = [ItemSendModul]()
     
     // To keep track
     var pickerview: UIPickerView = UIPickerView()
@@ -224,8 +224,8 @@ class SalesOrderRequestsViewController: UIViewController {
     }
     
     func setUpSalesOrderData(){
-        companyArray = webservice.BindSalesOrderCompany()
-        branchArray = webservice.BindSalesOrderBranches()
+        companyArray = webservice.commonSalesService.BindSalesOrderCompany()
+        branchArray = webservice.commonSalesService.BindSalesOrderBranches()
         locCodeArray = webservice.BindSalesOrderLocCode()
         salespersonArray = webservice.BindSalesOrderSalesPerson()
     }
@@ -287,7 +287,6 @@ class SalesOrderRequestsViewController: UIViewController {
         for branch in branchArray{
             branchNamesArray.append(branch.Branch)
             branchIdArray.append(branch.AccountEmp)
-            branchEnglishNames.append(branch.BranchEnglishName)
         }
         for locCode in locCodeArray{
             locCodeNumsArray.append(locCode.LocationCode)
@@ -418,7 +417,7 @@ class SalesOrderRequestsViewController: UIViewController {
     }
     
     func getStoreId(customerId: String){
-        storeArray = webservice.BindDdlStore(customerid: customerId)
+        storeArray = webservice.commonSalesService.BindDdlStore(customerid: customerId)
         if storeArray.isEmpty {
             storeIdArray = ["Select store id".localize()]
             storeStackView.isHidden = true
@@ -607,7 +606,7 @@ class SalesOrderRequestsViewController: UIViewController {
                             flag = true
                         } else { flag = false }
                         
-                        if let so_status = Int(status.SO_Status), so_status == 1{
+                        if let so_status = Int(status.Status), so_status == 1{
                             orderStatus = so_status
                         }
                         countForItemStatus += 1
@@ -792,7 +791,7 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
             showMerchandiserPickerViewTextfield.resignFirstResponder()
         } else if textField == showItemsPickerViewTextfield{
             itemsTextfield.text = items.isEmpty ? "Select item".localize() : itemsName[itemSelectedRow]
-            unoits = items.isEmpty ? [SalesModel]() : webservice.BindSalesOrderUnitofMeasure(itemid: itemsName[itemSelectedRow])
+            unoits = items.isEmpty ? [unitOfMeasurementModel]() : webservice.BindSalesOrderUnitofMeasure(itemid: itemsName[itemSelectedRow])
             unoitTextfield.text = "Select unoit of measure".localize()
             qtyTextfield.text = "1"
             showItemsPickerViewTextfield.resignFirstResponder()
@@ -934,15 +933,15 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
         } else if pickerView == storePickerView{
             salesSelecteedRow = row
             storeTextfield.text = storeIdArray[row]
-            cityArray = webservice.BindCity(storevalue: storeIdArray[row], customer: customerNamesArray[selectedRowForCustomer])
+            cityArray = webservice.commonSalesService.BindCity(storevalue: storeIdArray[row], customer: customerNamesArray[selectedRowForCustomer])
             if !cityArray.isEmpty{
                 cityTextfield.text = cityArray[0].City
                 citySelectedRow = 0
-                salesPersonArray = webservice.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[0].City, store: storeIdArray[row])
+                salesPersonArray = webservice.commonSalesService.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[0].City, store: storeIdArray[row])
                 if !salesPersonArray.isEmpty{
                     salesPersonTextfield.text = salesPersonArray[0].SalesPersonStore
                     salesperosnSelectedRow = 0
-                    merchandiserArray = webservice.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[0].City, store: storeIdArray[row], salesperson: salesPersonArray[0].SalesPersonStore)
+                    merchandiserArray = webservice.commonSalesService.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[0].City, store: storeIdArray[row], salesperson: salesPersonArray[0].SalesPersonStore)
                     if !merchandiserArray.isEmpty{
                         merchandiserTextfield.text = merchandiserArray[0].Merchandiser
                         merSelectedRow = 0
@@ -952,11 +951,11 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
         } else if pickerView == cityPickerView{
             citySelectedRow = row
             if  !cityArray.isEmpty{
-                salesPersonArray = webservice.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[row].City, store: storeIdArray[salesSelecteedRow])
+                salesPersonArray = webservice.commonSalesService.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[row].City, store: storeIdArray[salesSelecteedRow])
                 if !salesPersonArray.isEmpty{
                     salesPersonTextfield.text = salesPersonArray[0].SalesPersonStore
                     salesperosnSelectedRow = 0
-                    merchandiserArray = webservice.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[row].City, store: storeIdArray[salesSelecteedRow], salesperson: salesPersonArray[0].SalesPersonStore)
+                    merchandiserArray = webservice.commonSalesService.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[row].City, store: storeIdArray[salesSelecteedRow], salesperson: salesPersonArray[0].SalesPersonStore)
                     if !merchandiserArray.isEmpty{
                         merchandiserTextfield.text = merchandiserArray[0].Merchandiser
                         merSelectedRow = 0
@@ -966,7 +965,7 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
         } else if pickerView == salesPersonStorePickerView {
             if !salesPersonArray.isEmpty{
                 salesperosnSelectedRow = row
-                merchandiserArray = webservice.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[citySelectedRow].City, store: storeIdArray[salesSelecteedRow], salesperson: salesPersonArray[row].SalesPersonStore)
+                merchandiserArray = webservice.commonSalesService.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[citySelectedRow].City, store: storeIdArray[salesSelecteedRow], salesperson: salesPersonArray[row].SalesPersonStore)
                 if !merchandiserArray.isEmpty{
                     merchandiserTextfield.text = merchandiserArray[0].Merchandiser
                     merSelectedRow = 0

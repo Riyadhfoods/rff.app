@@ -81,9 +81,9 @@ class VacationsDetailsViewController: UIViewController {
     // -- MARK: Variables
     
     let cell_Id = "cell_visaRequires"
-    let mainBackgroundColor = AppDelegate().mainBackgroundColor
-    let screenSize = AppDelegate().screenSize
-    let webserviceForVacationDetails = VacationService.shared
+    let mainBackgroundColor = AppDelegate.shared.mainBackgroundColor
+    let screenSize = AppDelegate.shared.screenSize
+    let webserviceForVacationDetails = VacationService.instance
     
     var empVacationDetails = EmpVacationDetailsModul()
     var vacationTypeArray = [VacTypeInfoModul]()
@@ -775,6 +775,14 @@ extension VacationsDetailsViewController: UITextFieldDelegate, UITextViewDelegat
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.textfield = textField
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            comment.resignFirstResponder()
+            return false
+        }
+        return true
     }
 }
 

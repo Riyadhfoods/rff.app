@@ -19,7 +19,7 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var changeButtonOutlet: UIButton!
     
     // -- MARK: Variable
-    let screenSize = AppDelegate().screenSize
+    let screenSize = AppDelegate.shared.screenSize
     
     // 1 --> English, 2 --> Arabic
     let languageChosen = LoginViewController.languageChosen

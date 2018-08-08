@@ -43,18 +43,18 @@ class SalesDetailsViewController: UIViewController {
     
     // -- MARK: Variable
     
-    let webService = Sales()
-    let screenSize = AppDelegate().screenSize
+    let webService = SalesInboxService.instance
+    let screenSize = AppDelegate.shared.screenSize
     let cellId = "cell_salesDetails"
     let cellTitleArray = [
         "Item(s) Details".localize(),
         "Cutomer Credit Details".localize(),
         "User(s) Comment".localize(),
         "Work Flow".localize()]
-    var itemsDetailsArray = [SalesReturn]()
-    var customerCreditDetailsArray = [SalesReturn]()
-    var userCommentArray = [SalesReturn]()
-    var workFlowArray = [SalesReturn]()
+    var itemsDetailsArray = [SalesItemInboxModul]()
+    var customerCreditDetailsArray = [SalesCreditLimmitInboxModul]()
+    var userCommentArray = [CommentModul]()
+    var workFlowArray = [WorkFlowModul]()
     var salesItemDetails = [SalesItemDetails]()
     var returnId = ""
     var userId = ""
@@ -101,31 +101,31 @@ class SalesDetailsViewController: UIViewController {
         for itemDetail in itemsDetailsArray{
             salesItemDetails.append(SalesItemDetails(
                 serialNumber: "\(count)",
-                InvoiceNumber: itemDetail.SRA_InvoiceNumber,
-                LOTNumber: itemDetail.SRA_LotNumber,
-                ItemNumber: itemDetail.SRA_ItemNumber,
-                desc: itemDetail.SRA_ItemDesc,
-                unitPrice: itemDetail.SRA_Unitprice,
-                totalCast: itemDetail.SRA_ExtPrice,
-                qty: itemDetail.SRA_Qty,
-                uofm: itemDetail.SRA_UOFM,
-                invoiceDate: itemDetail.SRA_InvoiceDate,
-                returnType: itemDetail.SRA_ReturnType))
+                InvoiceNumber: itemDetail.Return_InvoiceNumber,
+                LOTNumber: itemDetail.Return_LotNumber,
+                ItemNumber: itemDetail.Return_ItemNumber,
+                desc: itemDetail.Return_ItemDesc,
+                unitPrice: itemDetail.Return_Unitprice,
+                totalCast: itemDetail.Return_ExtPrice,
+                qty: itemDetail.Return_Qty,
+                uofm: itemDetail.Return_UOFM,
+                invoiceDate: itemDetail.Return_InvoiceDate,
+                returnType: itemDetail.Return_ReturnType))
             
                 setUpLabelText(label: orderID, text: returnId, isArrayEmpty: itemsDetailsArray.isEmpty)
                 setUpLabelText(label: empCreated, text: empId, isArrayEmpty: itemsDetailsArray.isEmpty)
-                setUpLabelText(label: customerName, text: itemDetail.SRA_CustomerName, isArrayEmpty: itemsDetailsArray.isEmpty)
-                setUpLabelText(label: salesPerson, text: itemDetail.SRA_SLSPersonName, isArrayEmpty: itemsDetailsArray.isEmpty)
-                setUpLabelText(label: returnType, text: itemDetail.SRA_ReturnType, isArrayEmpty: itemsDetailsArray.isEmpty)
-                setUpLabelText(label: requestDate, text: itemDetail.SRA_ReqDate, isArrayEmpty: itemsDetailsArray.isEmpty)
-                setUpLabelText(label: returnDate, text: itemDetail.SRA_ReturnDate, isArrayEmpty: itemsDetailsArray.isEmpty)
-                setUpLabelText(label: comment, text: itemDetail.SRA_Comment, isArrayEmpty: itemsDetailsArray.isEmpty)
+                setUpLabelText(label: customerName, text: itemDetail.Return_CustomerName, isArrayEmpty: itemsDetailsArray.isEmpty)
+                setUpLabelText(label: salesPerson, text: itemDetail.Return_SLSPersonName, isArrayEmpty: itemsDetailsArray.isEmpty)
+                setUpLabelText(label: returnType, text: itemDetail.Return_ReturnType, isArrayEmpty: itemsDetailsArray.isEmpty)
+                setUpLabelText(label: requestDate, text: itemDetail.Return_ReqDate, isArrayEmpty: itemsDetailsArray.isEmpty)
+                setUpLabelText(label: returnDate, text: itemDetail.Return_ReturnDate, isArrayEmpty: itemsDetailsArray.isEmpty)
+                setUpLabelText(label: comment, text: itemDetail.Return_Comment, isArrayEmpty: itemsDetailsArray.isEmpty)
             
             count += 1
         }
         customerCreditDetailsArray = webService.SRI_BindCustomerCreditLimit(returnid: returnId, company: "")
-        userCommentArray = webService.SRA_BindUserGrid(empno: userId, returnid: returnId)
-        workFlowArray = webService.SRA_BindApproverGrid(empno: userId, returnid: returnId)
+        userCommentArray = webService.commonSalesService.SRA_BindUserGrid(empno: userId, returnid: returnId)
+        workFlowArray = webService.commonSalesService.SRA_BindApproverGrid(empno: userId, returnid: returnId)
     }
     
     func setUpLabelText(label: UILabel, text: String, isArrayEmpty: Bool){

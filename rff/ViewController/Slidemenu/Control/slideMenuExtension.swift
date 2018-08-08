@@ -40,7 +40,7 @@ extension SlideMenuViewController {
         
         listTableview.beginUpdates()
         for i in 0 ..< sections[tappedSection].items.count {
-            listTableview.reloadRows(at: [IndexPath(row: i, section: tappedSection)], with: .bottom)
+            listTableview.reloadRows(at: [IndexPath(row: i, section: tappedSection)], with: .fade)
         }
         listTableview.rectForHeader(inSection: tappedSection)
         listTableview.endUpdates()

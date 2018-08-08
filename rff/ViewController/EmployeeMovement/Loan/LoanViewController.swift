@@ -46,15 +46,15 @@ class LoanViewController: UIViewController {
     
     // -- MARK: Variables
     
-    let screenSize = AppDelegate().screenSize
-    let webservice = Loan()
+    let screenSize = AppDelegate.shared.screenSize
+    let webservice = LoanService.instance
     let gaurantorPickerview: UIPickerView = UIPickerView()
     let empPickerview: UIPickerView = UIPickerView()
     
-    var gaurantorsArray = [EmpLoan]()
+    var gaurantorsArray = [EmpInfoModul_2]()
     var gaurantorsNamesArray = [String]()
     var gaurantorsIdsArray = [String]()
-    var empArray = [EmpLoan]()
+    var empArray = [EmpInfoModul_2]()
     var empNamesArray = [String]()
     var empIdsArray = [String]()
     
@@ -311,7 +311,7 @@ class LoanViewController: UIViewController {
         if error != "" {
             AlertMessage().showAlertMessage(
                 alertTitle: "Alert",
-                alertMessage: "Could not send the load request",
+                alertMessage: "Could not send the loan request",
                 actionTitle: nil,
                 onAction: nil,
                 cancelAction: "OK", self)

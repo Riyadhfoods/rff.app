@@ -21,11 +21,10 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     // -- MARK: Variables
     
     let cellId = "cell_addedItem"
-    let webservice = Sales()
+    let webservice = SalesOrderRequestService.instance
     var count: Int = 0
     var delegate: ItemCountAddedDelegate?
-    var unoits = [SalesModel]()
-    var itemSentStatus = [SalesModel]()
+    var unoits = [unitOfMeasurementModel]()
     var sentStatus = [SalesModel]()
     var error: String = ""
     

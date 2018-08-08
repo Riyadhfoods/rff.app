@@ -18,8 +18,8 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     // -- MARK: Variable
     let language = LoginViewController.languageChosen
-    let screenSize = AppDelegate().screenSize
-    let mainBackgroundColor = AppDelegate().mainBackgroundColor
+    let screenSize = AppDelegate.shared.screenSize
+    let mainBackgroundColor = AppDelegate.shared.mainBackgroundColor
     var greetingMessage: String = ""
     let cell_id = "cell_pendingInbox"
     var webservice: Login = Login()
@@ -29,7 +29,7 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewDidLoad()
         
         formId = ""
-        taskInbox = HomeService.shared.Task_Inbox(langid: LoginViewController.languageChosen, emp_id: AuthServices.currentUserId)
+        taskInbox = HomeService.instance.Task_Inbox(langid: LoginViewController.languageChosen, emp_id: AuthServices.currentUserId)
         navigationItem.title = "Home".localize()
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
         

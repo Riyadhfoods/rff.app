@@ -19,10 +19,9 @@ class SalesOrderApprovalViewController: UIViewController, ApprovalOrderConfomati
     // -- MAKR: Variables
     
     let cellId = "cell_salesOrderApproval"
-    let screenSize = AppDelegate().screenSize
-    let webService = Sales()
-    var salesOrderDetails: [SalesModel] = [SalesModel]()
-    var buttonVisibilityArray: [SalesModel] = [SalesModel]()
+    let screenSize = AppDelegate.shared.screenSize
+    let webService = SalesOrderApproveService.instance
+    var salesOrderDetails: [SalesOrderApproveModul] = [SalesOrderApproveModul]()
     var rowIndexSelected = 0
     
     var isApproved = false
@@ -78,12 +77,12 @@ extension SalesOrderApprovalViewController: UITableViewDelegate, UITableViewData
             
             let salesOrder = salesOrderDetails[indexPath.row]
             cell.orderId.text = salesOrder.OrderID
-            cell.empCreated.text = salesOrder.SO_EmpCreated
-            cell.customerName.text = salesOrder.SO_CustomerName
-            cell.items.text = salesOrder.SO_Items
+            cell.empCreated.text = salesOrder.EmpCreated
+            cell.customerName.text = salesOrder.CustomerName
+            cell.items.text = salesOrder.Items
             cell.date.text = salesOrder.DeliveryDate
-            cell.status.text = salesOrder.SO_Status
-            cell.comment.text = salesOrder.SO_Comment  == "" ? AppDelegate.noComment : salesOrder.SO_Comment
+            cell.status.text = salesOrder.Status
+            cell.comment.text = salesOrder.Comment  == "" ? AppDelegate.noComment : salesOrder.Comment
             cell.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
             cell.selectButton.tag = indexPath.row
             return cell

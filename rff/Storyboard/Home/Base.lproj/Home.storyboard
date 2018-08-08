@@ -157,7 +157,7 @@
                         <viewLayoutGuide key="safeArea" id="LqO-74-Tfp"/>
                     </view>
                     <navigationItem key="navigationItem" title="Home" id="H3q-DK-bLw">
-                        <barButtonItem key="leftBarButtonItem" image="menu" landscapeImage="barButtonItem:BaD-Ai-KDA:landscapeImage" style="plain" id="BaD-Ai-KDA">
+                        <barButtonItem key="leftBarButtonItem" image="menu" landscapeImage="barButtonItem:BaD-Ai-KDA:landscapeImage" id="BaD-Ai-KDA">
                             <color key="tintColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                         </barButtonItem>
                     </navigationItem>

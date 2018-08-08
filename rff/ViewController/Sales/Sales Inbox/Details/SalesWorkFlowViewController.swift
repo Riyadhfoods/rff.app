@@ -11,10 +11,10 @@ import UIKit
 class SalesWorkFlowViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var workFlowTableView: UITableView!
-    var workFlowArray = [SalesReturn]()
-    var workFlowOrderArray = [SalesModel]()
-    var workFlowWithOutTheCreator = [SalesReturn]()
-    var workFlowOrderWithOutTheCreator = [SalesModel]()
+    var workFlowArray = [WorkFlowModul]()
+    var workFlowOrderArray = [WorkFlowModul]()
+    var workFlowWithOutTheCreator = [WorkFlowModul]()
+    var workFlowOrderWithOutTheCreator = [WorkFlowModul]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,18 +46,18 @@ class SalesWorkFlowViewController: UIViewController, UITableViewDataSource, UITa
             
             if !workFlowWithOutTheCreator.isEmpty{
                 let workFlow = workFlowWithOutTheCreator[indexPath.row]
-                cell.empID.text = workFlow.SRA_EMP_ID
-                cell.empName.text = workFlow.SRA_Name
-                cell.empRole.text = workFlow.SRA_EmpRole
-                cell.transDate.text = workFlow.SRA_TransDate
-                cell.status.text = workFlow.SRA_Status
+                cell.empID.text = workFlow.WorkFlow_Empid
+                cell.empName.text = workFlow.WorkFlow_EmpName
+                cell.empRole.text = workFlow.WorkFlow_EmpRole
+                cell.transDate.text = workFlow.WorkFlow_EmpTransDate
+                cell.status.text = workFlow.WorkFlow_EmpStatus
             } else {
                 let workFlow = workFlowOrderWithOutTheCreator[indexPath.row]
-                cell.empID.text = workFlow.SOA_EMPID
-                cell.empName.text = workFlow.SOA_NAME
-                cell.empRole.text = workFlow.SOA_EMPROLE
-                cell.transDate.text = workFlow.SOA_TRANSACTIONDATE
-                cell.status.text = workFlow.SOA_STATUS
+                cell.empID.text = workFlow.WorkFlow_Empid
+                cell.empName.text = workFlow.WorkFlow_EmpName
+                cell.empRole.text = workFlow.WorkFlow_EmpRole
+                cell.transDate.text = workFlow.WorkFlow_EmpTransDate
+                cell.status.text = workFlow.WorkFlow_EmpStatus
             }
             
             return cell

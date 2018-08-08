@@ -9,7 +9,7 @@
 import Foundation
 
 class LoginService{
-    static let shared = LoginService()
+    static let instance = LoginService()
     
     private var Url:String = "http://82.118.166.164/ios_hrms/ios.asmx"
     private var Host:String = "82.118.166.164"

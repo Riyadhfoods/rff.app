@@ -41,7 +41,7 @@ public class SoapHttpClient {
         self.ResponseData = nil;
         self.ResponseString = nil;
         
-        var responseData : Data = Data()
+        var responseData: Data = Data()
         
         let semaphore = DispatchSemaphore.init(value: 0)
         let url = URL.init(string: WebServiceUrl)
@@ -59,7 +59,7 @@ public class SoapHttpClient {
         req.addValue(SoapAction, forHTTPHeaderField: "SOAPAction")
         
         let task_ = session.dataTask(with: req as URLRequest){ (data, response, error) in
-            self.Error=error
+            self.Error = error
             
             if let httpResponse = response as? HTTPURLResponse {
                 self.StatusCode = httpResponse.statusCode
@@ -70,10 +70,13 @@ public class SoapHttpClient {
                     responseData = Data()
                     self.ResponseData = Data()
                 } else {
-                    responseData = data!
+                    if let data = data{
+                        responseData = data
+                        let responseString =  String.init(data: data, encoding: String.Encoding.utf8)
+                        self.ResponseString = responseString
+                    }
                     self.ResponseData = data
-                    let responseString =  String.init(data: data!, encoding: String.Encoding.utf8)
-                    self.ResponseString = responseString!
+                    
                 }
             }
             semaphore.signal()

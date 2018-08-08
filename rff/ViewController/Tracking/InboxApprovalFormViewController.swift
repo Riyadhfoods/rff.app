@@ -26,8 +26,8 @@ class InboxApprovalFormViewController: UIViewController {
     
     // -- MARK: Variables
     
-    let webserviceForVac = VacactionApprovalService.shared
-    let webserviceForLoan = LoanApprovalService.shared
+    let webserviceForVac = VacactionApprovalService.instance
+    let webserviceForLoan = LoanApprovalService.instance
     var listFormId: Int = 0
     var cellRow = 0
     var categorySelected = 0

@@ -9,42 +9,20 @@
 import Foundation
 
 class VacationService{
-    static let shared = VacationService()
+    static let instance = VacationService()
     let commonFunction = CommonFunction.shared
     
     private var Url: String = "http://82.118.166.164/ios_hrms/ios.asmx"
     private var Host: String = "82.118.166.164"
     
-    private func EmployeeInfoArrayValues(data: Data) -> [EmpInfoModul] {
-        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
-        let xmlResult0: XMLIndexer?  = commonFunction.getResult0(xmlToParse: xmlToParse)
-        var strVal = ""
-        var elemName = ""
-        var returnValue: [EmpInfoModul] = [EmpInfoModul]()
-        
-        if elemName == "" {
-            let itemCount1: Int = (xmlResult0?.children.count)!
-            for i1 in 0 ..< itemCount1 {
-                let rItem1 = EmpInfoModul()
-                let xmlResult_Parent1:XMLIndexer? = xmlResult0?.children[i1]
-                let childCount1 :Int = (xmlResult_Parent1?.children.count)!
-                for j1 in 0 ..< childCount1 {
-                    let xmlResult1: XMLIndexer? =  xmlResult_Parent1?.children[j1]
-                    let elem1: XMLElement? =  xmlResult1?.element
-                
-                    strVal = commonFunction.getStrValue(elem1: elem1)
-                    if let element = elem1{
-                        elemName = element.name
-                        if elemName == "Emp_Id" {
-                            if let strValInt = Int(strVal){ rItem1.Emp_Id = strValInt }
-                        }
-                        else if elemName == "Emp_Ename" { rItem1.Emp_Ename = strVal }
-                    }
-                }
-                returnValue.append(rItem1)
-            }
+    private var returnValueForBindEmpsVacationsDropDown = EmpInfoModul()
+    private func getElementValueForBindEmpsVacationsDropDown(elemName: String, strVal: String) -> EmpInfoModul{
+        let rItem1 = returnValueForBindEmpsVacationsDropDown
+        if elemName == "Emp_Id" {
+            if let strValInt = Int(strVal){ rItem1.Emp_Id = strValInt }
         }
-        return returnValue
+        else if elemName == "Emp_Ename" { rItem1.Emp_Ename = strVal }
+        return rItem1
     }
     
     func BindEmpsVacationsDropDown(langid: Int, Emp_no: String)-> [EmpInfoModul]{
@@ -68,8 +46,12 @@ class VacationService{
         let soapAction :String = "http://tempuri.org/BindEmpsVacationsDropDown"
         
         let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
-        let returnValue: [EmpInfoModul] = EmployeeInfoArrayValues(data: responseData)
-        return returnValue
+        
+        if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindEmpsVacationsDropDown = EmpInfoModul() }, getValue: {elementName, value in
+            self.getElementValueForBindEmpsVacationsDropDown(elemName: elementName, strVal: value)
+        }) as? [EmpInfoModul]{ return returnValue }
+        
+        return [EmpInfoModul]()
     }
     
     func BindDelegateVacationsDropDown(langid: Int, Emp_no: String)-> [EmpInfoModul]{
@@ -93,38 +75,20 @@ class VacationService{
         let soapAction :String = "http://tempuri.org/BindDelegateVacationsDropDown"
         
         let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
-        let returnValue: [EmpInfoModul] = EmployeeInfoArrayValues(data: responseData)
-        return returnValue
+        
+        if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindEmpsVacationsDropDown = EmpInfoModul() }, getValue: {elementName, value in
+            self.getElementValueForBindEmpsVacationsDropDown(elemName: elementName, strVal: value)
+        }) as? [EmpInfoModul]{ return returnValue }
+        
+        return [EmpInfoModul]()
     }
     
-    private func VacInfoArrayValues(data: Data) -> [VacTypeInfoModul] {
-        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
-        let xmlResult0: XMLIndexer?  = commonFunction.getResult0(xmlToParse: xmlToParse)
-        var strVal = ""
-        var elemName = ""
-        var returnValue: [VacTypeInfoModul] = [VacTypeInfoModul]()
-        
-        if elemName == "" {
-            let itemCount1: Int = (xmlResult0?.children.count)!
-            for i1 in 0 ..< itemCount1 {
-                let rItem1 = VacTypeInfoModul()
-                let xmlResult_Parent1:XMLIndexer? = xmlResult0?.children[i1]
-                let childCount1 :Int = (xmlResult_Parent1?.children.count)!
-                for j1 in 0 ..< childCount1 {
-                    let xmlResult1: XMLIndexer? =  xmlResult_Parent1?.children[j1]
-                    let elem1: XMLElement? =  xmlResult1?.element
-                    
-                    strVal = commonFunction.getStrValue(elem1: elem1)
-                    if let element = elem1{
-                        elemName = element.name
-                        if elemName == "Vac_Type" { rItem1.Vac_Type = strVal }
-                        else if elemName == "Vac_Desc" { rItem1.Vac_Desc = strVal }
-                    }
-                }
-                returnValue.append(rItem1)
-            }
-        }
-        return returnValue
+    private var returnValueForBindVacationType_DDL = VacTypeInfoModul()
+    private func getElementValueForBindVacationType_DDL(elemName: String, strVal: String) -> VacTypeInfoModul{
+        let rItem1 = returnValueForBindVacationType_DDL
+        if elemName == "Vac_Type" { rItem1.Vac_Type = strVal }
+        else if elemName == "Vac_Desc" { rItem1.Vac_Desc = strVal }
+        return rItem1
     }
     
     func BindVacationType_DDL(langid: Int) -> [VacTypeInfoModul]{
@@ -145,41 +109,25 @@ class VacationService{
         let soapAction :String = "http://tempuri.org/BindVacationType_DDL"
         
         let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
-        let returnValue: [VacTypeInfoModul] = VacInfoArrayValues(data: responseData)
-        return returnValue
+        
+        if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindVacationType_DDL = VacTypeInfoModul() }, getValue: {elementName, value in
+            self.getElementValueForBindVacationType_DDL(elemName: elementName, strVal: value)
+        }) as? [VacTypeInfoModul]{ return returnValue }
+        
+        return [VacTypeInfoModul]()
     }
     
-    private func empDepVacTicketInfoArrayValues(data: Data) -> [EmpDepVacTicketInfoModul] {
-        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
-        let xmlResult0: XMLIndexer?  = commonFunction.getResult0(xmlToParse: xmlToParse)
-        var strVal = ""
-        var elemName = ""
-        var returnValue: [EmpDepVacTicketInfoModul] = [EmpDepVacTicketInfoModul]()
-        
-        if elemName == "" {
-            let itemCount1: Int = (xmlResult0?.children.count)!
-            for i1 in 0 ..< itemCount1 {
-                let rItem1 = EmpDepVacTicketInfoModul()
-                let xmlResult_Parent1:XMLIndexer? = xmlResult0?.children[i1]
-                let childCount1 :Int = (xmlResult_Parent1?.children.count)!
-                for j1 in 0 ..< childCount1 {
-                    let xmlResult1: XMLIndexer? =  xmlResult_Parent1?.children[j1]
-                    let elem1: XMLElement? =  xmlResult1?.element
-                    
-                    strVal = commonFunction.getStrValue(elem1: elem1)
-                    elemName = elem1!.name
-                    if elemName == "RequireVisa" {
-                        if let strValInt = Int(strVal){ rItem1.RequireVisa = strValInt }
-                    }
-                    else if elemName == "Ticket" { rItem1.Ticket =  strVal }
-                    else if elemName == "DependentName" { rItem1.DependentName =  strVal }
-                    else if elemName == "BirthDate" { rItem1.BirthDate =  strVal }
-                    else if elemName == "Age" { rItem1.Age =  strVal }
-                }
-                returnValue.append(rItem1)
-            }
+    private var returnValueForGetEmpVacationTickets = EmpDepVacTicketInfoModul()
+    private func getElementValueForGetEmpVacationTickets(elemName: String, strVal: String) -> EmpDepVacTicketInfoModul{
+        let rItem1 = returnValueForGetEmpVacationTickets
+        if elemName == "RequireVisa" {
+            if let strValInt = Int(strVal){ rItem1.RequireVisa = strValInt }
         }
-        return returnValue
+        else if elemName == "Ticket" { rItem1.Ticket =  strVal }
+        else if elemName == "DependentName" { rItem1.DependentName =  strVal }
+        else if elemName == "BirthDate" { rItem1.BirthDate =  strVal }
+        else if elemName == "Age" { rItem1.Age =  strVal }
+        return rItem1
     }
     
     func GetEmpVacationTickets(emp_id: String, langId: Int) -> [EmpDepVacTicketInfoModul]{
@@ -203,52 +151,40 @@ class VacationService{
         let soapAction :String = "http://tempuri.org/GetEmpVacationTickets"
         
         let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
-        let returnValue:[EmpDepVacTicketInfoModul] = empDepVacTicketInfoArrayValues(data: responseData)
-        return returnValue
+        
+        if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForGetEmpVacationTickets = EmpDepVacTicketInfoModul() }, getValue: {elementName, value in
+            self.getElementValueForGetEmpVacationTickets(elemName: elementName, strVal: value)
+        }) as? [EmpDepVacTicketInfoModul]{ return returnValue }
+        
+        return [EmpDepVacTicketInfoModul]()
     }
     
-    private func VacDetailsArrayValues(data: Data) -> EmpVacationDetailsModul {
-        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
-        let xmlResult0: XMLIndexer?  = commonFunction.getResult0(xmlToParse: xmlToParse)
-        var strVal = ""
-        var elemName = ""
-        let returnValue: EmpVacationDetailsModul = EmpVacationDetailsModul()
-        
-        if elemName == "" {
-            let itemCount1: Int = (xmlResult0?.children.count)!
-            for i1 in 0 ..< itemCount1 {
-                let xmlResult1: XMLIndexer? =  xmlResult0?.children[i1]
-                let elem1: XMLElement? =  xmlResult1?.element
-                
-                strVal = commonFunction.getStrValue(elem1: elem1)
-                if let element = elem1{
-                    elemName = element.name
-                    if elemName == "exitrentry" { returnValue.exitrentry = strVal }
-                    else if elemName == "extradays" { returnValue.extradays = strVal }
-                    else if elemName == "Job_Num" { returnValue.Job_Num = strVal }
-                    else if elemName == "Job_English" { returnValue.Job_English = strVal }
-                    else if elemName == "Sub_Job_Num" { returnValue.Sub_Job_Num = strVal }
-                    else if elemName == "Sub_Job_English" { returnValue.Sub_Job_English = strVal }
-                    else if elemName == "Nationality_Num" { returnValue.Nationality_Num = strVal }
-                    else if elemName == "Nationality_English" { returnValue.Nationality_English = strVal }
-                    else if elemName == "Manager_Id" { returnValue.Manager_Id = strVal }
-                    else if elemName == "Manager_English" { returnValue.Manager_English = strVal }
-                    else if elemName == "Department_Num" { returnValue.Department_Num = strVal }
-                    else if elemName == "Department_English" { returnValue.Department_English = strVal }
-                    else if elemName == "JoinDate" { returnValue.JoinDate = strVal }
-                    else if elemName == "StartDate" { returnValue.StartDate = strVal }
-                    else if elemName == "Leave_Start_Dt" { returnValue.Leave_Start_Dt = strVal }
-                    else if elemName == "Leave_Return_Dt" { returnValue.Leave_Return_Dt = strVal }
-                    else if elemName == "Balance_Vacation" { returnValue.Balance_Vacation = strVal }
-                    else if elemName == "Number_Days" { returnValue.Number_Days = strVal }
-                    else if elemName == "ExitReEntry" { returnValue.ExitReEntry = strVal }
-                    else if elemName == "ExtraDays" { returnValue.ExtraDays = strVal }
-                    else if elemName == "SettlementAmount" { returnValue.SettlementAmount = strVal }
-                    else if elemName == "Dependent_Ticket" { returnValue.Dependent_Ticket = strVal }
-                    else if elemName == "RequireVisa" { returnValue.RequireVisa = strVal }
-                }
-            }
-        }
+    private var returnValueForGetEmpVacationDetails = EmpVacationDetailsModul()
+    private func getElementValueForGetEmpVacationDetails(elemName: String, strVal: String) -> EmpVacationDetailsModul{
+        let returnValue = returnValueForGetEmpVacationDetails
+        if elemName == "exitrentry" { returnValue.exitrentry = strVal }
+        else if elemName == "extradays" { returnValue.extradays = strVal }
+        else if elemName == "Job_Num" { returnValue.Job_Num = strVal }
+        else if elemName == "Job_English" { returnValue.Job_English = strVal }
+        else if elemName == "Sub_Job_Num" { returnValue.Sub_Job_Num = strVal }
+        else if elemName == "Sub_Job_English" { returnValue.Sub_Job_English = strVal }
+        else if elemName == "Nationality_Num" { returnValue.Nationality_Num = strVal }
+        else if elemName == "Nationality_English" { returnValue.Nationality_English = strVal }
+        else if elemName == "Manager_Id" { returnValue.Manager_Id = strVal }
+        else if elemName == "Manager_English" { returnValue.Manager_English = strVal }
+        else if elemName == "Department_Num" { returnValue.Department_Num = strVal }
+        else if elemName == "Department_English" { returnValue.Department_English = strVal }
+        else if elemName == "JoinDate" { returnValue.JoinDate = strVal }
+        else if elemName == "StartDate" { returnValue.StartDate = strVal }
+        else if elemName == "Leave_Start_Dt" { returnValue.Leave_Start_Dt = strVal }
+        else if elemName == "Leave_Return_Dt" { returnValue.Leave_Return_Dt = strVal }
+        else if elemName == "Balance_Vacation" { returnValue.Balance_Vacation = strVal }
+        else if elemName == "Number_Days" { returnValue.Number_Days = strVal }
+        else if elemName == "ExitReEntry" { returnValue.ExitReEntry = strVal }
+        else if elemName == "ExtraDays" { returnValue.ExtraDays = strVal }
+        else if elemName == "SettlementAmount" { returnValue.SettlementAmount = strVal }
+        else if elemName == "Dependent_Ticket" { returnValue.Dependent_Ticket = strVal }
+        else if elemName == "RequireVisa" { returnValue.RequireVisa = strVal }
         return returnValue
     }
     
@@ -273,35 +209,23 @@ class VacationService{
         let soapAction :String = "http://tempuri.org/GetEmpVacationDetails"
         
         let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
-        let returnValue: EmpVacationDetailsModul = VacDetailsArrayValues(data: responseData)
-        return returnValue
+        
+        if let returnValue = commonFunction.Values(data: responseData, reSet: { returnValueForGetEmpVacationDetails = EmpVacationDetailsModul() }, getValue: { (elementName, value) -> AnyObject in
+            self.getElementValueForGetEmpVacationDetails(elemName: elementName, strVal: value)
+        }) as? EmpVacationDetailsModul{ return returnValue }
+        
+        return EmpVacationDetailsModul()
     }
     
-    private func UpdateVacDetailsArrayValues(data: Data) -> UpdateVacationDetailsInfoModul {
-        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
-        let xmlResult0: XMLIndexer?  = commonFunction.getResult0(xmlToParse: xmlToParse)
-        var strVal = ""
-        var elemName = ""
-        let returnValue: UpdateVacationDetailsInfoModul = UpdateVacationDetailsInfoModul()
-        
-        if elemName == "" {
-            let itemCount1: Int = (xmlResult0?.children.count)!
-            for i1 in 0 ..< itemCount1 {
-                let xmlResult1: XMLIndexer? =  xmlResult0?.children[i1]
-                let elem1: XMLElement? =  xmlResult1?.element
-                
-                strVal = commonFunction.getStrValue(elem1: elem1)
-                if let element = elem1{
-                    elemName = element.name
-                    if elemName == "exitrentry" { returnValue.exitrentry =  strVal }
-                    else if elemName == "Emp_Id" { returnValue.Emp_Id =  strVal }
-                    else if elemName == "Balance_Vacation" { returnValue.Balance_Vacation =  strVal }
-                    else if elemName == "Number_Days" { returnValue.Number_Days =  strVal }
-                    else if elemName == "ExitReEntry" { returnValue.ExitReEntry =  strVal }
-                    else if elemName == "RequireVisa" { returnValue.RequireVisa =  strVal }
-                }
-            }
-        }
+    private var returnValueForcalculateActualVacatioDays = UpdateVacationDetailsInfoModul()
+    private func getElementValueForcalculateActualVacatioDays(elemName: String, strVal: String) -> UpdateVacationDetailsInfoModul{
+        let returnValue = returnValueForcalculateActualVacatioDays
+        if elemName == "exitrentry" { returnValue.exitrentry =  strVal }
+        else if elemName == "Emp_Id" { returnValue.Emp_Id =  strVal }
+        else if elemName == "Balance_Vacation" { returnValue.Balance_Vacation =  strVal }
+        else if elemName == "Number_Days" { returnValue.Number_Days =  strVal }
+        else if elemName == "ExitReEntry" { returnValue.ExitReEntry =  strVal }
+        else if elemName == "RequireVisa" { returnValue.RequireVisa =  strVal }
         return returnValue
     }
     
@@ -329,44 +253,32 @@ class VacationService{
         let soapAction: String = "http://tempuri.org/calculateActualVacatioDays"
         
         let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
-        let returnValue: UpdateVacationDetailsInfoModul = UpdateVacDetailsArrayValues(data: responseData)
-        return returnValue
+        
+        if let returnValue = commonFunction.Values(data: responseData, reSet: { returnValueForcalculateActualVacatioDays = UpdateVacationDetailsInfoModul() }, getValue: { (elementName, value) -> AnyObject in
+            self.getElementValueForcalculateActualVacatioDays(elemName: elementName, strVal: value)
+        }) as? UpdateVacationDetailsInfoModul{ return returnValue }
+        
+        return UpdateVacationDetailsInfoModul()
     }
     
-    private func settlementDetailsArrayValues(data: Data) -> settlmentDetailsModul {
-        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
-        let xmlResult0: XMLIndexer?  = commonFunction.getResult0(xmlToParse: xmlToParse)
-        var strVal = ""
-        var elemName = ""
-        let returnValue: settlmentDetailsModul = settlmentDetailsModul()
-        
-        if elemName == "" {
-            let itemCount1: Int = (xmlResult0?.children.count)!
-            for i1 in 0 ..< itemCount1 {
-                let xmlResult1: XMLIndexer? =  xmlResult0?.children[i1]
-                let elem1: XMLElement? =  xmlResult1?.element
-                
-                strVal = commonFunction.getStrValue(elem1: elem1)
-                if let element = elem1{
-                    elemName = element.name
-                    if elemName == "TotalSettlementAmount" { returnValue.TotalSettlementAmount = strVal }
-                    else if elemName == "DiffTicketAmount" { returnValue.DiffTicketAmount = strVal }
-                    else if elemName == "NetTicketPrice" { returnValue.NetTicketPrice = strVal }
-                    else if elemName == "TicketPercent" { returnValue.TicketPercent = strVal }
-                    else if elemName == "TicketAmount" { returnValue.TicketAmount = strVal }
-                    else if elemName == "TicketPrice" { returnValue.TicketPrice = strVal }
-                    else if elemName == "VNet" { returnValue.VNet = strVal }
-                    else if elemName == "VAllowances" { returnValue.VAllowances = strVal }
-                    else if elemName == "VTotal" { returnValue.VTotal = strVal }
-                    else if elemName == "VBasic" { returnValue.VBasic = strVal }
-                    else if elemName == "SNet" { returnValue.SNet = strVal }
-                    else if elemName == "STotal" { returnValue.STotal = strVal }
-                    else if elemName == "SAllowances" { returnValue.SAllowances = strVal }
-                    else if elemName == "SBasic" { returnValue.SBasic = strVal }
-                    else if elemName == "SDeduction" { returnValue.SDeduction = strVal }
-                }
-            }
-        }
+    private var returnValueForget_settlement_details = settlmentDetailsModul()
+    private func getElementValueForget_settlement_details(elemName: String, strVal: String) -> settlmentDetailsModul{
+        let returnValue = returnValueForget_settlement_details
+        if elemName == "TotalSettlementAmount" { returnValue.TotalSettlementAmount = strVal }
+        else if elemName == "DiffTicketAmount" { returnValue.DiffTicketAmount = strVal }
+        else if elemName == "NetTicketPrice" { returnValue.NetTicketPrice = strVal }
+        else if elemName == "TicketPercent" { returnValue.TicketPercent = strVal }
+        else if elemName == "TicketAmount" { returnValue.TicketAmount = strVal }
+        else if elemName == "TicketPrice" { returnValue.TicketPrice = strVal }
+        else if elemName == "VNet" { returnValue.VNet = strVal }
+        else if elemName == "VAllowances" { returnValue.VAllowances = strVal }
+        else if elemName == "VTotal" { returnValue.VTotal = strVal }
+        else if elemName == "VBasic" { returnValue.VBasic = strVal }
+        else if elemName == "SNet" { returnValue.SNet = strVal }
+        else if elemName == "STotal" { returnValue.STotal = strVal }
+        else if elemName == "SAllowances" { returnValue.SAllowances = strVal }
+        else if elemName == "SBasic" { returnValue.SBasic = strVal }
+        else if elemName == "SDeduction" { returnValue.SDeduction = strVal }
         return returnValue
     }
     
@@ -400,40 +312,28 @@ class VacationService{
         let soapAction: String = "http://tempuri.org/get_settlement_details"
         
         let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
-        let returnValue: settlmentDetailsModul = settlementDetailsArrayValues(data: responseData)
-        return returnValue
+        
+        if let returnValue = commonFunction.Values(data: responseData, reSet: { returnValueForget_settlement_details = settlmentDetailsModul() }, getValue: { (elementName, value) -> AnyObject in
+            self.getElementValueForget_settlement_details(elemName: elementName, strVal: value)
+        }) as? settlmentDetailsModul{ return returnValue }
+        
+        return settlmentDetailsModul()
     }
     
-    private func sumbitArrayValues(data: Data) -> submitModul {
-        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
-        let xmlResult0: XMLIndexer?  = commonFunction.getResult0(xmlToParse: xmlToParse)
-        var strVal = ""
-        var elemName = ""
-        let returnValue: submitModul = submitModul()
-        
-        if elemName == "" {
-            let itemCount1: Int = (xmlResult0?.children.count)!
-            for i1 in 0 ..< itemCount1 {
-                let xmlResult1: XMLIndexer? =  xmlResult0?.children[i1]
-                let elem1: XMLElement? =  xmlResult1?.element
-                
-                strVal = commonFunction.getStrValue(elem1: elem1)
-                if let element = elem1{
-                    elemName = element.name
-                    if elemName == "Error" { returnValue.Error =  strVal }
-                    else if elemName == "PID" { returnValue.PID =  strVal }
-                }
-            }
-        }
+    private var returnValueForSubmitEmpVacation = submitModul()
+    private func getElementValueForSubmitEmpVacation(elemName: String, strVal: String) -> submitModul{
+        let returnValue = returnValueForSubmitEmpVacation
+        if elemName == "Error" { returnValue.Error =  strVal }
+        else if elemName == "PID" { returnValue.PID =  strVal }
         return returnValue
     }
     
     func SubmitEmpVacation(emp_no:String, delegateid:String, vacationtype:String, tickekreq:Int, settlementamt:Double, leavestartdate:String, leavertndate:String, numberofdays:String, dependenttck:String, exitreentry:Int, comment:String, error:String) -> submitModul{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         
-        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
-        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
-        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
         soapReqXML += " <soap:Body>"
         soapReqXML += "<SubmitEmpVacation xmlns=\"http://tempuri.org/\">"
         soapReqXML += "<emp_no>"
@@ -479,8 +379,12 @@ class VacationService{
         let soapAction: String = "http://tempuri.org/SubmitEmpVacation"
         
         let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
-        let returnValue: submitModul = sumbitArrayValues(data : responseData)
-        return returnValue
+        
+        if let returnValue = commonFunction.Values(data: responseData, reSet: { returnValueForSubmitEmpVacation = submitModul() }, getValue: { (elementName, value) -> AnyObject in
+            self.getElementValueForSubmitEmpVacation(elemName: elementName, strVal: value)
+        }) as? submitModul{ return returnValue }
+        
+        return submitModul()
     }
     
     func save_settlement(emp_id: String, pid: String, sbasic: String, sallowances: String, stotal: String, snet: String, vbasic: String, vallowances: String, vtotal: String, vnet: String, ticketprice: String, ticketamount: String, ticketpercent: String, diffticketamount: String, netticketp: String, error: String) -> String{

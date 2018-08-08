@@ -9,7 +9,7 @@
 import Foundation
 import NotificationCenter
 
-let mainBackgroundColor = AppDelegate().mainBackgroundColor
+let mainBackgroundColor = AppDelegate.shared.mainBackgroundColor
 
 func setCustomDefaultNav(navItem: UINavigationItem){
     navItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
@@ -88,11 +88,11 @@ func setSlideMenu(controller: UIViewController, menuButton: UIBarButtonItem){
         
         if !LanguageManger.isArabicLanguage {
             menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
-            controller.revealViewController().rearViewRevealWidth = AppDelegate().screenSize.width * 0.75
+            controller.revealViewController().rearViewRevealWidth = AppDelegate.shared.screenSize.width * 0.75
             controller.revealViewController().rightViewController = nil
         } else {
             menuButton.action = #selector(SWRevealViewController.rightRevealToggle(_:))
-            controller.revealViewController().rightViewRevealWidth = AppDelegate().screenSize.width * 0.75
+            controller.revealViewController().rightViewRevealWidth = AppDelegate.shared.screenSize.width * 0.75
             controller.revealViewController().rearViewController = nil
         }
         controller.view.addGestureRecognizer(controller.revealViewController().panGestureRecognizer())
@@ -150,13 +150,30 @@ func ActivityIndicatorDisplayAndAction(activityIndicator: UIActivityIndicatorVie
     })
 }
 
-
 func getStringDate(date: Date) -> String{
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"
     
     return dateFormatter.string(from: date)
 }
+
+func setUpActivityIndicatorHolder(view: UIView){
+    view.layer.cornerRadius = 10
+    view.layer.borderWidth = 1
+    view.layer.borderColor = AppDelegate.shared.mainBackgroundColor.cgColor
+}
+
+func startLoader(superView: UIView, activityIndicator: UIActivityIndicatorView){
+    superView.isHidden = false
+    activityIndicator.startAnimating()
+}
+
+func stopLoader(superView: UIView, activityIndicator: UIActivityIndicatorView){
+    superView.isHidden = true
+    activityIndicator.stopAnimating()
+}
+
+
 
 
 

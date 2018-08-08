@@ -12,7 +12,7 @@ class AttendanceClearanceViewController: UIViewController {
 
     @IBOutlet weak var menuBtn: UIBarButtonItem!
     
-    let screenSize = AppDelegate().screenSize
+    let screenSize = AppDelegate.shared.screenSize
     override func viewDidLoad() {
         super.viewDidLoad()
         

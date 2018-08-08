@@ -12,7 +12,7 @@ class MyRequestsViewController: UIViewController {
 
     @IBOutlet weak var menuBtn: UIBarButtonItem!
     
-    let screenSize = AppDelegate().screenSize
+    let screenSize = AppDelegate.shared.screenSize
     //let swrevealAction = SWRevealFunction()
     
     override func viewDidLoad() {

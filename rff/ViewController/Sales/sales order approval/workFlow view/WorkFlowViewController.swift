@@ -17,10 +17,9 @@ class WorkFlowViewController: UIViewController, UITableViewDataSource, UITableVi
     
     // -- MARK: Variables
     
-    let webservice = Sales()
     let cellId = "cell_workFlow"
     var orderId = ""
-    var workFlowArray = [SalesModel]()
+    var workFlowArray = [WorkFlowModul]()
     
     // -- MARK: viewDidLoad
     
@@ -46,11 +45,11 @@ class WorkFlowViewController: UIViewController, UITableViewDataSource, UITableVi
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? WorkFlowCell{
             
             let workFlow = workFlowArray[indexPath.row]
-            cell.empId.text = workFlow.SOA_EMPID
-            cell.empName.text = workFlow.SOA_EMPNAME
-            cell.empRole.text = workFlow.SOA_EMPROLE
-            cell.transDate.text = workFlow.SOA_TRANSACTIONDATE
-            cell.status.text = workFlow.SOA_STATUS
+            cell.empId.text = workFlow.WorkFlow_Empid
+            cell.empName.text = workFlow.WorkFlow_EmpName
+            cell.empRole.text = workFlow.WorkFlow_EmpRole
+            cell.transDate.text = workFlow.WorkFlow_EmpTransDate
+            cell.status.text = workFlow.WorkFlow_EmpStatus
             
             return cell
         }

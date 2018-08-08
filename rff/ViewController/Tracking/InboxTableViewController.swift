@@ -13,7 +13,7 @@ class InboxTableViewController: UITableViewController, VacApproveActionDelegate 
     let cellId = "trackingInboxCell"
     var arrayOfInboxGrid = [InboxGridModul]()
     
-    let mainBackgroundColor = AppDelegate().mainBackgroundColor
+    let mainBackgroundColor = AppDelegate.shared.mainBackgroundColor
     let languageChosen = LoginViewController.languageChosen
     var listFormId = 0
     var pid = ""

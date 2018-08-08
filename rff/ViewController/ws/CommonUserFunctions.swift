@@ -130,16 +130,6 @@ class CommonFunction{
         return nil // Invalid input
     }
     
-    func getResult0(xmlToParse: String) -> XMLIndexer?{
-        let xml = SWXMLHash.lazy(xmlToParse)
-        let xmlRoot = xml.children.first
-        _ = xmlRoot?.children.last
-        let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
-        let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
-        
-        return xmlResult0
-    }
-    
     func getStrValue(elem1: XMLElement?) -> String{
         var strVal = ""
         if elem1?.children.first is TextElement {
@@ -150,5 +140,67 @@ class CommonFunction{
             }
         }
         return strVal
+    }
+    
+    func ArrValues(data: Data, reSet: (() -> Void), getValue: @escaping ((_ elementName: String, _ value: String) -> AnyObject)) -> [AnyObject] {
+        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
+        let xml = SWXMLHash.lazy(xmlToParse)
+        let xmlRoot = xml.children.first
+        _ = xmlRoot?.children.last
+        let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
+        let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
+        var strVal = ""
+        var elemName = ""
+        var returnValue: [AnyObject] = [AnyObject]()
+        if elemName == "" {
+            let itemCount1: Int = (xmlResult0?.children.count)!
+            for i1 in 0 ..< itemCount1 {
+                var rItem1: AnyObject?
+                let xmlResult_Parent1: XMLIndexer? = xmlResult0?.children[i1]
+                let childCount1: Int = (xmlResult_Parent1?.children.count)!
+                reSet()
+                for j1 in 0 ..< childCount1 {
+                    let xmlResult1: XMLIndexer? =  xmlResult_Parent1?.children[j1]
+                    let elem1: XMLElement? =  xmlResult1?.element
+                    strVal = getStrValue(elem1: elem1)
+                    if let element = elem1{
+                        elemName = element.name
+                        rItem1 = getValue(elemName, strVal)
+                    }
+                }
+                if let rItem1 = rItem1{
+                    returnValue.append(rItem1)
+                }
+            }
+        }
+        return returnValue
+    }
+    
+    func Values(data: Data, reSet: (() -> Void), getValue: @escaping ((_ elementName: String, _ value: String) -> AnyObject)) -> AnyObject? {
+        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
+        let xml = SWXMLHash.lazy(xmlToParse)
+        let xmlRoot = xml.children.first
+        _ = xmlRoot?.children.last
+        let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
+        let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
+        var strVal = ""
+        var elemName = ""
+        var returnValue: AnyObject?
+        reSet()
+        
+        if elemName == "" {
+            let itemCount1: Int = (xmlResult0?.children.count)!
+            for i1 in 0 ..< itemCount1 {
+                let xmlResult1: XMLIndexer? =  xmlResult0?.children[i1]
+                let elem1: XMLElement? =  xmlResult1?.element
+                
+                strVal = getStrValue(elem1: elem1)
+                if let element = elem1{
+                    elemName = element.name
+                    returnValue = getValue(elemName, strVal)
+                }
+            }
+        }
+        return returnValue
     }
 }

@@ -46,8 +46,8 @@ class SalesOrderDetailsViewController: UIViewController {
     
     // -- MARK: Variables
     
-    let webService = Sales()
-    let screenSize = AppDelegate().screenSize
+    let webService = SalesInboxService.instance
+    let screenSize = AppDelegate.shared.screenSize
     let cellId = ""
     let cellTitleArray = [
         "Item(s) Details".localize(),
@@ -55,12 +55,11 @@ class SalesOrderDetailsViewController: UIViewController {
         "User(s) Comment".localize(),
         "Work Flow".localize()]
     
-    var checkSalesApprovalArray: [SalesModel] = [SalesModel]()
-    var itemsDetailsArray = [SalesReturn]()
+    var itemsDetailsArray = [SalesItemInboxModul]()
     var salesOrderItemDetails = [SalesOrderItemDetails]()
-    var customerCreditDetailsArray = [SalesReturn]()
-    var userCommentArray = [SalesModel]()
-    var workFlowArray = [SalesModel]()
+    var customerCreditDetailsArray = [SalesCreditLimmitInboxModul]()
+    var userCommentArray = [CommentModul]()
+    var workFlowArray = [WorkFlowModul]()
     
     var orderId = ""
     var userId = ""
@@ -103,34 +102,34 @@ class SalesOrderDetailsViewController: UIViewController {
         itemsDetailsArray = webService.SRI_BindItemGrid(returnid: orderId, querytype: "order")
         for item in itemsDetailsArray{
             salesOrderItemDetails.append(SalesOrderItemDetails(
-                orderId: item.SOI_ORDERID,
-                empCreated: item.SOI_EMPCREATED,
-                salesPerson: item.SOI_SLSPERSONID,
-                customerName: item.SOI_CUSTNAME,
-                serialNumber: item.SOI_SERIALNUMBER,
-                itemId: item.SOI_ITEMID,
-                itemDesc: item.SOI_ITEMDESC,
-                unitPrice: item.SOI_UNITCOST,
-                extCast: item.SOI_EXTCOST,
-                qty: item.SOI_QTY,
-                uofm: item.SOI_UOFM,
-                lastYear: item.SOI_LASTYEAR,
-                yearToDate: item.SOI_YEARTODATE,
-                requestDate: item.SOI_REQDATE,
-                deliveryDate: item.SOI_DELIVERYDATE,
-                comment: item.SOI_COMMENT))
+                orderId: item.Order_ORDERID,
+                empCreated: item.Order_EMPCREATED,
+                salesPerson: item.Order_SLSPERSONID,
+                customerName: item.Order_CUSTNAME,
+                serialNumber: item.Order_SERIALNUMBER,
+                itemId: item.Order_ITEMID,
+                itemDesc: item.Order_ITEMDESC,
+                unitPrice: item.Order_UNITCOST,
+                extCast: item.Order_EXTCOST,
+                qty: item.Order_QTY,
+                uofm: item.Order_UOFM,
+                lastYear: item.Order_LASTYEAR,
+                yearToDate: item.Order_YEARTODATE,
+                requestDate: item.Order_REQDATE,
+                deliveryDate: item.Order_DELIVERYDATE,
+                comment: item.Order_COMMENT))
             
-            orderID.text = item.SOI_ORDERID
-            empCreated.text = item.SOI_EMPCREATED
-            salesPerson.text = item.SOI_SLSPERSONID
-            customerName.text = item.SOI_CUSTNAME
-            date.text = item.SOI_DELIVERYDATE
-            comment.text = item.SOI_COMMENT
+            orderID.text = item.Order_ORDERID
+            empCreated.text = item.Order_EMPCREATED
+            salesPerson.text = item.Order_SLSPERSONID
+            customerName.text = item.Order_CUSTNAME
+            date.text = item.Order_DELIVERYDATE
+            comment.text = item.Order_COMMENT
         }
         
         customerCreditDetailsArray = webService.SRI_BindCustomerCreditLimit(returnid: orderId, company: "")
-        userCommentArray = webService.BindUserComment_SalesApprovalForm(orderid: orderId)
-        workFlowArray = webService.BindApprovalGrid_SalesApprovalForm(orderid: orderId)
+        userCommentArray = webService.commonSalesService.BindUserComment_SalesApprovalForm(orderid: orderId)
+        workFlowArray = webService.commonSalesService.BindApprovalGrid_SalesApprovalForm(orderid: orderId)
     }
     
     func handleTheHeightOfTableView(){

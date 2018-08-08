@@ -19,7 +19,6 @@ class ItemsDetailsViewController: UIViewController, UITableViewDataSource, UITab
     
     // -- MARK: Variables
     
-    let webservice = Sales()
     let cellId = "cell_itemsDetails"
     var orderId = ""
     var userId = ""

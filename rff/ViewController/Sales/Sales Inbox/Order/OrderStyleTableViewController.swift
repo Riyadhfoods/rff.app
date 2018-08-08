@@ -16,21 +16,18 @@ class OrderStyleTableViewController: UITableViewController {
     let cellId_pages = "cell_pages"
     var listIndexSelected: Int = 0
     var searchMessage: String = ""
-    let salesWebservice: Sales = Sales()
+    let salesWebservice = SalesInboxService.instance
+    let commonFunction = CommonFunctionsForSales.instance
     
-    var salesArray: [SalesModel] = [SalesModel]()
-    var newSalesArray: [SalesModel] = [SalesModel]()
-    var preSalesArray: [SalesModel] = [SalesModel]()
+    var salesArray: [SalesInboxModul] = [SalesInboxModul]()
     
     var urlString: [String] = [String]()
     var rowIndexSelected = 0
     
-    let languageChosen = LoginViewController.languageChosen
-    
     var currentIndex: Int = 0
     var previousIndex: Int = 0
     var totalRow = 0
-    var currentRow = "0"
+    var currentRows = "0"
     var isSalesArrayEmpty = true
     
     var lastIndex: Int = 0
@@ -44,12 +41,10 @@ class OrderStyleTableViewController: UITableViewController {
         setViewAlignment()
         setCustomNav(navItem: navigationItem, title: "RFC Order List")
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
-        
-        preSalesArray = salesArray
         if salesArray.count != 0 {
             isSalesArrayEmpty = false
             totalRow = salesArray[0].totalrows
-            currentRow = salesArray[0].currentrows
+            currentRows = salesArray[0].currentrows
         }
     }
 
@@ -79,7 +74,7 @@ class OrderStyleTableViewController: UITableViewController {
                 cell.nextPage.addTarget(self, action: #selector(forwardButtonTapped), for: .touchUpInside)
                 cell.lastPage.addTarget(self, action: #selector(lastButtonTapped), for: .touchUpInside)
                 
-                cell.pageNum.text = "\(currentRow) " + "out of".localize() + " \(totalRow)"
+                cell.pageNum.text = "\(currentRows) " + "out of".localize() + " \(totalRow)"
                 return cell
             }
         } else if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? OrderStyleCell{
@@ -104,8 +99,6 @@ class OrderStyleTableViewController: UITableViewController {
             
             cell.viewOutlet.addTarget(self, action: #selector(viewButtonTapped(sender:)), for: .touchUpInside)
             cell.viewOutlet.tag = indexPath.row
-            
-            urlString.append(salesArray[indexPath.row].URL)
             
             return cell
             
@@ -147,17 +140,15 @@ class OrderStyleTableViewController: UITableViewController {
     }
     
     func updateTableView(currentIndex: Int){
-        newSalesArray = salesWebservice.GetSalesInbox(id: listIndexSelected, emp_id: AuthServices.currentUserId, searchtext: searchMessage, index: currentIndex)
-        if newSalesArray.count != 0{
-            currentRow = newSalesArray[0].currentrows
-            salesArray = newSalesArray
-            tableView.reloadData()
-            
-            let indexPath = IndexPath(row: 0, section: 0)
-            tableView.scrollToRow(at: indexPath, at: .top, animated: true)
-        } else {
-            salesArray = preSalesArray
-            return
+        let preSalesArray = salesArray
+        commonFunction.getNewArray(id: listIndexSelected, search: searchMessage, index: currentIndex)
+        commonFunction.receivedNewArray = {(newArray) in
+            self.salesArray = newArray
+            self.currentRows = newArray[0].currentrows
+            self.commonFunction.updatingTableViewForInboxSales(tableView: self.tableView)
+        }
+        commonFunction.noNewArray = {() in
+            self.salesArray = preSalesArray
         }
     }
     

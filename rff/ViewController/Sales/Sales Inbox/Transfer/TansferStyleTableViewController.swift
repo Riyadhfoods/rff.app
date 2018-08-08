@@ -16,11 +16,11 @@ class TansferStyleTableViewController: UITableViewController {
     let cellId_page = "cell_pageTransfer"
     var listIndexSelected: Int = 0
     var searchMessage: String = ""
-    let salesWebservice: Sales = Sales()
+    let salesWebservice = SalesInboxService.instance
     
-    var salesArray: [SalesModel] = [SalesModel]()
-    var newSalesArray: [SalesModel] = [SalesModel]()
-    var preSalesArray: [SalesModel] = [SalesModel]()
+    var salesArray: [SalesInboxModul] = [SalesInboxModul]()
+    var newSalesArray: [SalesInboxModul] = [SalesInboxModul]()
+    var preSalesArray: [SalesInboxModul] = [SalesInboxModul]()
     
     var urlString: [String] = [String]()
     var rowIndexSelected = 0
@@ -92,7 +92,7 @@ class TansferStyleTableViewController: UITableViewController {
                 
                 let id = "\(salesArray[indexPath.row].ID)"
                 let empCreated = salesArray[indexPath.row].EmpCreated
-                let date = salesArray[indexPath.row].date
+                let date = salesArray[indexPath.row].Date
                 let items = salesArray[indexPath.row].Items
                 let status = salesArray[indexPath.row].Status
                 let pendingBy = salesArray[indexPath.row].PendingBy
@@ -108,8 +108,6 @@ class TansferStyleTableViewController: UITableViewController {
                 
                 cell.selectOutlet.addTarget(self, action: #selector(selectButtonTapped(sender:)), for: .touchUpInside)
                 cell.selectOutlet.tag = indexPath.row
-                
-                urlString.append(salesArray[indexPath.row].URL)
                 
                 return cell
             }

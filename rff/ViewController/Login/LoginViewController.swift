@@ -19,7 +19,9 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var companyDropdownImage: UIImageView!
     @IBOutlet weak var languangeTextfield: UITextField!
     @IBOutlet weak var languangeDropdownImage: UIImageView!
+    @IBOutlet weak var activityContainerView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var activityHolderView: UIView!
     
     // MARK: Constrians
     @IBOutlet weak var logoHeight: NSLayoutConstraint!
@@ -47,7 +49,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     // -- MARK: Variables
     
-    let screenHeight = AppDelegate().screenSize.height
+    let screenHeight = AppDelegate.shared.screenSize.height
     let pickerViewAction = PickerviewAction()
     let pickViewCompay: UIPickerView = UIPickerView()
     let pickViewLanguage: UIPickerView = UIPickerView()
@@ -59,7 +61,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     // 1 --> English, 2 --> Arabic
     static var languageChosen: Int = 1
-    let screenSize = AppDelegate().screenSize
+    let screenSize = AppDelegate.shared.screenSize
 
     // -- MARK: viewDidLoad
     override func viewDidLoad() {
@@ -68,6 +70,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         activityIndicator.stopAnimating()
         
         logoHolderView.layer.cornerRadius = 153.41 / 2
+        setUpActivityIndicatorHolder(view: activityHolderView)
         setUpLayout()
         
         // text field delegate
@@ -173,7 +176,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 userDefault.set(setLanguageChosen(languagetextfield: language), forKey: "langIndex")
             }
             
-            activityIndicator.startAnimating()
+            startLoader(superView: activityContainerView, activityIndicator: activityIndicator)
             DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.01) {
                 AuthServices().checkUserId(id: usernametext, password: passwordText, onSeccuss: {
                     self.setLanguage()
@@ -181,7 +184,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                 }, onError: { (error) in
                     AlertMessage().showAlertMessage(alertTitle: "Alert!", alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "Dismiss", self)
                 }, viewController: self)
-                self.activityIndicator.stopAnimating()
+                stopLoader(superView: self.activityContainerView, activityIndicator: self.activityIndicator)
             }
         }
     }

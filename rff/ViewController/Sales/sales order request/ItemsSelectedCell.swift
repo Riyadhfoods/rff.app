@@ -23,7 +23,7 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     
     let webservice = Sales()
     let pickerview = UIPickerView()
-    var unoits = [SalesModel]()
+    var unoits = [unitOfMeasurementModel]()
     var selectedRow = 0
     var indexpathRow = 0
     

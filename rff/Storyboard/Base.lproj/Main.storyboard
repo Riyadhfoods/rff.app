@@ -206,27 +206,67 @@
                                 <nil key="highlightedColor"/>
                                 <size key="shadowOffset" width="0.0" height="0.0"/>
                             </label>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="mey-vs-mXU">
-                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
-                                <color key="backgroundColor" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="0.69868364726027399" colorSpace="custom" customColorSpace="sRGB"/>
-                            </activityIndicatorView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsZ-hr-2UJ">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mFQ-jd-mlE">
+                                        <rect key="frame" x="122.5" y="268.5" width="130" height="130"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="sl9-Dh-9Ym">
+                                                <rect key="frame" x="0.0" y="10" width="130" height="110"/>
+                                                <subviews>
+                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="mey-vs-mXU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="130" height="80"/>
+                                                        <color key="color" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </activityIndicatorView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MOw-tQ-Ktu">
+                                                        <rect key="frame" x="0.0" y="80" width="130" height="30"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="30" id="sXS-Pd-lfz"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="0.79591181506849318" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="sl9-Dh-9Ym" secondAttribute="trailing" id="FdD-Mn-8TY"/>
+                                            <constraint firstAttribute="bottom" secondItem="sl9-Dh-9Ym" secondAttribute="bottom" constant="10" id="ddh-Vq-gK1"/>
+                                            <constraint firstItem="sl9-Dh-9Ym" firstAttribute="leading" secondItem="mFQ-jd-mlE" secondAttribute="leading" id="fta-NZ-Dvm"/>
+                                            <constraint firstAttribute="width" constant="130" id="nEg-fK-jo8"/>
+                                            <constraint firstAttribute="height" constant="130" id="x4I-8Z-6jq"/>
+                                            <constraint firstItem="sl9-Dh-9Ym" firstAttribute="top" secondItem="mFQ-jd-mlE" secondAttribute="top" constant="10" id="yJF-Bw-BRm"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" red="0.41176470588235292" green="0.51764705882352935" blue="0.36078431372549019" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="mFQ-jd-mlE" firstAttribute="centerY" secondItem="dsZ-hr-2UJ" secondAttribute="centerY" id="9eO-oY-NuF"/>
+                                    <constraint firstItem="mFQ-jd-mlE" firstAttribute="centerX" secondItem="dsZ-hr-2UJ" secondAttribute="centerX" id="hRD-fg-6cc"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="0.41176470588235292" green="0.51764705882352935" blue="0.36078431372549019" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8z8-kp-YpP" secondAttribute="trailing" constant="16" id="2EY-7U-s1w"/>
-                            <constraint firstItem="mey-vs-mXU" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="3bi-tK-07R"/>
+                            <constraint firstItem="dsZ-hr-2UJ" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="4BV-YJ-wxI"/>
                             <constraint firstItem="I0b-X6-FaS" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="8vf-mH-UvK"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="mey-vs-mXU" secondAttribute="bottom" id="GBQ-rh-BhA"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="mey-vs-mXU" secondAttribute="trailing" id="MNY-bS-XhO"/>
+                            <constraint firstAttribute="trailing" secondItem="dsZ-hr-2UJ" secondAttribute="trailing" id="PVx-s4-Mza"/>
+                            <constraint firstItem="dsZ-hr-2UJ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="QmB-Nt-834"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="I0b-X6-FaS" secondAttribute="trailing" constant="9" id="Tmi-qO-Gns"/>
                             <constraint firstItem="8z8-kp-YpP" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="bok-f8-8op"/>
+                            <constraint firstAttribute="bottom" secondItem="dsZ-hr-2UJ" secondAttribute="bottom" id="kf7-jX-rkJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="I0b-X6-FaS" secondAttribute="bottom" constant="16" id="ovN-CR-DJZ"/>
-                            <constraint firstItem="mey-vs-mXU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="u6n-9Q-ha0"/>
                             <constraint firstItem="8z8-kp-YpP" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="24" id="yBc-8h-jRk"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="activityContainerView" destination="dsZ-hr-2UJ" id="nSa-Vd-sfE"/>
+                        <outlet property="activityHolderView" destination="mFQ-jd-mlE" id="HfO-ma-qnG"/>
                         <outlet property="activityIndicator" destination="mey-vs-mXU" id="9G2-NV-i3L"/>
                         <outlet property="buttonHeight" destination="D2Q-Lc-SYn" id="gH2-ku-jZn"/>
                         <outlet property="companyDropdownImage" destination="zch-dE-CYG" id="40l-AQ-ySi"/>
@@ -820,7 +860,7 @@
         <image name="rff_logo" width="386" height="178"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="blt-EB-Nwg"/>
+        <segue reference="RZ6-CK-JbD"/>
         <segue reference="aOq-qD-Zs6"/>
     </inferredMetricsTieBreakers>
 </document>

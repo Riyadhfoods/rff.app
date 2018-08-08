@@ -17,7 +17,7 @@ class AttachmentReturnViewController: UIViewController, UITableViewDataSource, U
     // -- MARK: Variables
     
     let cellId = "cell_attachmentReturn"
-    var attachmentArray = [SalesReturn]()
+    var attachmentArray = [ReturnApproveAttachment]()
     var url : URL?
     var docController : UIDocumentInteractionController?
     

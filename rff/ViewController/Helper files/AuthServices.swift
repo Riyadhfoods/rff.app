@@ -10,8 +10,7 @@ import Foundation
 import UIKit
 
 class AuthServices{
-    let login = Login()
-    let loginService = LoginService.shared
+    let loginService = LoginService.instance
     var arrayOfResult: [String?] = [String]()
     var result: String?
     static var currentUserId: String = ""

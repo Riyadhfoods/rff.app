@@ -17,11 +17,10 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
     
     // -- MARK: Variables
     
-    let webservice = Sales()
     let cellId = "cell_userComment"
     var orderId = ""
-    var userCommentArray = [SalesModel]()
-    var userCommentWithNoEmptyValue = [SalesModel]()
+    var userCommentArray = [CommentModul]()
+    var userCommentWithNoEmptyValue = [CommentModul]()
     
     // -- MARK: viewDidLoad
     
@@ -31,8 +30,8 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
         title = "User Comment"
         
         for index in 0..<userCommentArray.count where index != 0{
-            if userCommentArray[index].SOA_EMPNAME != ""{
-                if userCommentArray[index].SOA_COMMENT != ""{
+            if userCommentArray[index].Name != ""{
+                if userCommentArray[index].Comment != ""{
                     userCommentWithNoEmptyValue.append(userCommentArray[index])
                 }
             }
@@ -57,8 +56,8 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
             
             let userComment = userCommentWithNoEmptyValue[indexPath.row]
             
-            cell.empName.text = userComment.SOA_EMPNAME
-            cell.comment.text = userComment.SOA_COMMENT
+            cell.empName.text = userComment.Name
+            cell.comment.text = userComment.Comment
             
             return cell
         }

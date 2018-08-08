@@ -16,7 +16,7 @@ class EmployeeInfoViewController: UIViewController, UITableViewDataSource, UITab
     @IBOutlet weak var employeeInfoListItem: UITableView!
     
     // -- MARK: Variable
-    let screenSize = AppDelegate().screenSize
+    let screenSize = AppDelegate.shared.screenSize
     let cell_Id = "employeeInfoCell"
     
     let employeeListArray = [

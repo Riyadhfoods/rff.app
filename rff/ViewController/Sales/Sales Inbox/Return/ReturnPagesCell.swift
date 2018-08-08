@@ -18,13 +18,12 @@ class ReturnPagesCell: UITableViewCell {
     @IBOutlet weak var holderView: UIView!
     
     let cornerRadius: CGFloat = 35/2
-    let borderColor = AppDelegate().mainBackgroundColor
+    let borderColor = AppDelegate.shared.mainBackgroundColor
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         
-        setViewAlignment()
         holderView.layer.cornerRadius = 5.0
         holderView.layer.borderColor = borderColor.cgColor
         holderView.layer.borderWidth = 1

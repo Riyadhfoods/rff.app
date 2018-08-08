@@ -40,10 +40,10 @@ class UserCommentInboxTableViewController: UITableViewController {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? UserCommentInbox{
             
             let comment = userComment[indexPath.row]
-            if let userId = Int(comment.Cmt_Id){
+            if let userId = Int(comment.Id){
                 let name = workFlowNames[userId]
                 cell.empName.text = name
-                cell.comment.text = comment.Cmt_Comment
+                cell.comment.text = comment.Comment
             }
             return cell
         }
