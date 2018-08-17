@@ -85,6 +85,8 @@ extension SalesOrderApprovalViewController: UITableViewDelegate, UITableViewData
             cell.comment.text = salesOrder.Comment  == "" ? AppDelegate.noComment : salesOrder.Comment
             cell.selectButton.addTarget(self, action: #selector(selectButtonTapped), for: .touchUpInside)
             cell.selectButton.tag = indexPath.row
+            
+            print(salesOrder.OrderID + salesOrder.EmpCreated)
             return cell
         }
         return UITableViewCell()

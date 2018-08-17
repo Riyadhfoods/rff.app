@@ -19,16 +19,6 @@ class SalesWorkFlowViewController: UIViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if !workFlowArray.isEmpty{
-            for index in 0..<workFlowArray.count where index != 0{
-                workFlowWithOutTheCreator.append(workFlowArray[index])
-            }
-        } else {
-            for index in 0..<workFlowOrderArray.count where index != 0{
-                workFlowOrderWithOutTheCreator.append(workFlowOrderArray[index])
-            }
-        }
-        
         setViewAlignment()
     }
 
@@ -37,22 +27,22 @@ class SalesWorkFlowViewController: UIViewController, UITableViewDataSource, UITa
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if !workFlowOrderWithOutTheCreator.isEmpty { return workFlowOrderWithOutTheCreator.count }
-        return workFlowWithOutTheCreator.count
+        if !workFlowOrderArray.isEmpty { return workFlowOrderArray.count }
+        return workFlowArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: "cell_salesWorkFlow", for: indexPath) as? SalesWorkFlowCell{
             
-            if !workFlowWithOutTheCreator.isEmpty{
-                let workFlow = workFlowWithOutTheCreator[indexPath.row]
+            if !workFlowArray.isEmpty{
+                let workFlow = workFlowArray[indexPath.row]
                 cell.empID.text = workFlow.WorkFlow_Empid
                 cell.empName.text = workFlow.WorkFlow_EmpName
                 cell.empRole.text = workFlow.WorkFlow_EmpRole
                 cell.transDate.text = workFlow.WorkFlow_EmpTransDate
                 cell.status.text = workFlow.WorkFlow_EmpStatus
             } else {
-                let workFlow = workFlowOrderWithOutTheCreator[indexPath.row]
+                let workFlow = workFlowOrderArray[indexPath.row]
                 cell.empID.text = workFlow.WorkFlow_Empid
                 cell.empName.text = workFlow.WorkFlow_EmpName
                 cell.empRole.text = workFlow.WorkFlow_EmpRole

@@ -22,7 +22,6 @@ class HomeViewController: UIViewController, UITableViewDelegate, UITableViewData
     let mainBackgroundColor = AppDelegate.shared.mainBackgroundColor
     var greetingMessage: String = ""
     let cell_id = "cell_pendingInbox"
-    var webservice: Login = Login()
     var taskInbox: [Task_InboxModul] = [Task_InboxModul]()
     
     override func viewDidLoad() {

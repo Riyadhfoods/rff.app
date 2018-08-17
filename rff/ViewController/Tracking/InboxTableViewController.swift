@@ -19,6 +19,7 @@ class InboxTableViewController: UITableViewController, VacApproveActionDelegate 
     var pid = ""
     var empName = ""
     var empId = ""
+    var empId_next = ""
     var categorySelected = 0
     var cellRow = 0
     var navTitle: String = ""
@@ -63,7 +64,7 @@ class InboxTableViewController: UITableViewController, VacApproveActionDelegate 
             cell.dateEnglish.text = date
             cell.viewForm.addTarget(self, action: #selector(viewFormButtonTapped(sender:)), for: .touchUpInside)
             cell.viewForm.tag = indexPath.row
-//
+
 //            print("\(indexPath.row)")
 //            print("empid = \(arrayOfInboxGrid[indexPath.row].empid)")
 //            print("empname = \(arrayOfInboxGrid[indexPath.row].empname)")
@@ -82,9 +83,17 @@ class InboxTableViewController: UITableViewController, VacApproveActionDelegate 
         pid = arrayOfInboxGrid[sender.tag].pid
         empName = arrayOfInboxGrid[sender.tag].empname
         empId = arrayOfInboxGrid[sender.tag].empid
+        if sender.tag + 1 < arrayOfInboxGrid.count{
+            empId_next = arrayOfInboxGrid[sender.tag + 1].empid
+        }
+        
+        
+        
         cellRow = sender.tag
         if listFormId == 10 || listFormId == 1004{
-          performSegue(withIdentifier: "showApprovalFormForInbox", sender: nil)
+            performSegue(withIdentifier: "showApprovalFormForInbox", sender: nil)
+        } else if listFormId == 2079{
+            performSegue(withIdentifier: "showApprovalFormForBusinessTrip", sender: nil)
         }
         
     }

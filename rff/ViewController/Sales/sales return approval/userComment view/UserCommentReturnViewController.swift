@@ -16,7 +16,6 @@ class UserCommentReturnViewController: UIViewController, UITableViewDelegate, UI
     
     // -- MARK: Variables
     
-    let webservice = Sales()
     let cellId = "cell_returnUserComment"
     var orderId = ""
     var userCommentArray = [CommentModul]()

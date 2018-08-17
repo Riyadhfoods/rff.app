@@ -28,8 +28,8 @@ class UserCommentViewController: UIViewController, UITableViewDataSource, UITabl
         super.viewDidLoad()
         
         title = "User Comment"
-        
-        for index in 0..<userCommentArray.count where index != 0{
+        //for index in 0..<userCommentArray.count where index != 0
+        for index in 0..<userCommentArray.count{
             if userCommentArray[index].Name != ""{
                 if userCommentArray[index].Comment != ""{
                     userCommentWithNoEmptyValue.append(userCommentArray[index])

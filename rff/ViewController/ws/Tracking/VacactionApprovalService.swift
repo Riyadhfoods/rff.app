@@ -164,7 +164,7 @@ class VacactionApprovalService{
         return [CommentModul]()
     }
     
-    func Approve_Vacation(vac_number:String, Emp_ID:String, fid:String, pid:String, comment:String, buttonType:String, FormId:Int, Comment:String, grid_empid:String, totalgrd_rows:Int?, login_empId:String, finalApp_EmpId:String, finalApp_Status:String)-> String{
+    func Approve_Vacation(vac_number:String, Emp_ID:String, fid:String, pid:String, comment:String, buttonType:String, FormId:Int, Comment:String, grid_empid:String, totalgrd_rows:Int?, login_empId:String, finalApp_EmpId:String, finalApp_Status:String, gridEmpid_next: String)-> String{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         
         soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
@@ -206,7 +206,7 @@ class VacactionApprovalService{
         }
         else {
             soapReqXML += ">"
-            soapReqXML += (totalgrd_rows == nil ?"":String( totalgrd_rows! ) )
+            soapReqXML += (totalgrd_rows == nil ? "" : String( totalgrd_rows! ) )
             soapReqXML += "</totalgrd_rows>"
         }
         
@@ -219,13 +219,16 @@ class VacactionApprovalService{
         soapReqXML += "<finalApp_Status>"
         soapReqXML += finalApp_Status
         soapReqXML += "</finalApp_Status>"
+        soapReqXML += "<gridEmpid_next>"
+        soapReqXML += gridEmpid_next
+        soapReqXML += "</gridEmpid_next>"
         soapReqXML += "</Approve_Vacation>"
         soapReqXML += "</soap:Body>"
         soapReqXML += "</soap:Envelope>"
         
         let soapAction :String = "http://tempuri.org/Approve_Vacation"
         
-        let responseData: Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData)
         
         if let strVal = strVal{

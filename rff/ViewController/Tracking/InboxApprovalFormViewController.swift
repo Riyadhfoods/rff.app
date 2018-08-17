@@ -69,6 +69,7 @@ class InboxApprovalFormViewController: UIViewController {
     var appliedEmpName = ""
     var appliedEmpId = ""
     var gridEmpId = ""
+    var gridEmpId_next = ""
     var delegate: VacApproveActionDelegate?
     
     // -- MARK: View life cycle
@@ -120,30 +121,40 @@ class InboxApprovalFormViewController: UIViewController {
         var isPending = false
         var isRejected = false
         var isOnHold = false
-        for workFlow in workFlowArray{
-            print(workFlow.WorkFlow_EmpStatus)
-            if workFlow.WorkFlow_EmpStatus == "Rejected"{
+        for count in 0..<workFlowArray.count{
+            print(workFlowArray[count].WorkFlow_EmpStatus)
+            if workFlowArray[count].WorkFlow_EmpStatus == "Rejected"{
                 isRejected = true
-            } else if workFlow .WorkFlow_EmpStatus == "On Hold"{
-                gridEmpId = workFlow.WorkFlow_Empid
+            } else if workFlowArray[count].WorkFlow_EmpStatus == "On Hold"{
+                gridEmpId = workFlowArray[count].WorkFlow_Empid
+                gridEmpId_next = count + 1 < workFlowArray.count ? workFlowArray[count + 1].WorkFlow_Empid : ""
                 isOnHold = true
-                if workFlow.WorkFlow_Empid == AuthServices.currentUserId{
+                if workFlowArray[count].WorkFlow_Empid == AuthServices.currentUserId{
                     buttonsStackView.isHidden = false
                 }
             }
             
-            if workFlow.WorkFlow_EmpStatus == "" && !isRejected && !isOnHold{
+            if workFlowArray[count].WorkFlow_EmpStatus == "" && !isRejected && !isOnHold{
                 if !isPending{
-                    gridEmpId = workFlow.WorkFlow_Empid
-                    workFlow.WorkFlow_EmpStatus = "Pending"
+                    gridEmpId = workFlowArray[count].WorkFlow_Empid
+                    gridEmpId_next = count + 1 < workFlowArray.count ? workFlowArray[count + 1].WorkFlow_Empid : ""
+                    workFlowArray[count].WorkFlow_EmpStatus = "Pending"
                     isPending = true
                     
-                    if workFlow.WorkFlow_Empid == AuthServices.currentUserId{
+                    if workFlowArray[count].WorkFlow_Empid == AuthServices.currentUserId{
                         buttonsStackView.isHidden = false
                     }
                 }
             }
-            editWorkFlowArray.append(workFlow)
+            editWorkFlowArray.append(workFlowArray[count])
+        }
+    }
+    
+    func handleVisibilityOfButtons(status: String, emp_id: String){
+        if status == "On Hold" || status == "Pending" {
+            if emp_id == AuthServices.currentUserId{
+                buttonsStackView.isHidden = false
+            }
         }
     }
     

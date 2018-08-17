@@ -200,6 +200,39 @@ class SubmitModul{
     var error: String = ""
 }
 
+// -- MARK: Business Trip
+class BusinessTripClass{
+    var EmpNum : String = ""
+    var EmpName : String = ""
+    var TransDesc : String = ""
+    var TransId : String = ""
+}
+
+class BusinessTrip_AppModel{
+    var TransMode : String = ""
+    var ExitReEnteryVisa : Bool = false
+    var StartDate : String = ""
+    var EndDate : String = ""
+    var Dest : String = ""
+    var TripAmt : String = ""
+    var AmtDesc : String = ""
+    var Reason : String = ""
+    var MeetAndAssistance : String = ""
+    var Luggage : String = ""
+    var AirLines : String = ""
+    var Membership : String = ""
+    var Othersvl : String = ""
+}
+
+class BusinessTrip_AppTravelModel{
+    var AirLineGrid : String = ""
+    var VisaGrid : Bool = false
+    var ToLocGrid : String = ""
+    var FromLocGrid : String = ""
+    var ToDateGrid : String = ""
+    var FromDateGrid : String = ""
+}
+
 // -- MARK: Sales
 
 class SalesInboxModul{

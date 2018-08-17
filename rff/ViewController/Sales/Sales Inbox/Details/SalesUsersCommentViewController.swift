@@ -40,6 +40,7 @@ class SalesUsersCommentViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if userWithNotEmptyCommentOrderArray.isEmpty && userWithNotEmptyCommentArray.isEmpty { emptyMessage(viewController: self, tableView: userCommentTableView, isEmpty: true)}
         if !userWithNotEmptyCommentOrderArray.isEmpty { return userWithNotEmptyCommentOrderArray.count }
         return userWithNotEmptyCommentArray.count
     }

@@ -31,6 +31,7 @@ struct ItemsModul {
 var itemAddedArray = [ItemsModul]()
 var customerGlobal = ""
 var locCodeGlobal = ""
+var gpCust: Bool = false
 
 class SalesOrderRequestsViewController: UIViewController {
 
@@ -213,6 +214,7 @@ class SalesOrderRequestsViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        setUpKeyboardToolBar(textfield: qtyTextfield, viewController: self, cancelTitle: nil, cancelSelector: nil, doneTitle: "Done".localize(), doneSelector: #selector(doneButtonClick))
         if companyArray.isEmpty && branchArray.isEmpty && locCodeArray.isEmpty && salespersonArray.isEmpty{
             setupAarray()
         }
@@ -269,7 +271,7 @@ class SalesOrderRequestsViewController: UIViewController {
         salespersonNamesArray = ["Select salesperson".localize()]
         storeIdArray = ["Select store id".localize()]
         
-        setUpKeyboardToolBar(textfield: qtyTextfield, viewController: self, cancelTitle: nil, cancelSelector: nil, doneTitle: "Done".localize(), doneSelector: #selector(doneButtonClick))
+        //setUpKeyboardToolBar(textfield: qtyTextfield, viewController: self, cancelTitle: nil, cancelSelector: nil, doneTitle: "Done".localize(), doneSelector: #selector(doneButtonClick))
         
         setUpSelectors()
         setUpCommentDisplay()
@@ -299,6 +301,7 @@ class SalesOrderRequestsViewController: UIViewController {
     }
     
     func initalvalue(){
+        gpCust = false
         if !companyArray.isEmpty{
             companyTextfield.text = companyNamesArray[1]
             selectedRowForCompany = 1
@@ -468,11 +471,33 @@ class SalesOrderRequestsViewController: UIViewController {
     @IBAction func itemButtonTapped(_ sender: Any) {
         performSegue(withIdentifier: "showItemAddedList", sender: nil)
     }
+    
+    
+    func getQtyRequired(itemArray: [ItemsModul], itemTxt: String, uofmTxt: String, qtyText: Double) -> Double{
+        var qtyReq = qtyText
+        for item in itemArray{
+            if item.Grid_Desc == itemTxt && item.Grid_UOM == uofmTxt{
+                if let itemQtyDouble = Double(item.Grid_Qty){
+                    qtyReq += itemQtyDouble
+                }
+            }
+        }
+        print("quantityrequired = \(qtyReq)")
+        return qtyReq
+    }
    
     var isItemExist = false
     @IBAction func addItemButtonTapped(_ sender: Any) {
-        if let itemText = itemsTextfield.text, let unoitText = unoitTextfield.text, let qtyText = qtyTextfield.text{
-            itemAddedReceived = webservice.BindPurchaseGridData(quantity: qtyText, quantityrequired: 0.0, ItemId: itemText, unitofmeasure: unoitText, customerid: customerNamesArray[selectedRowForCustomer], loccode: locCodeNumsArray[selectedRowForLocCode])
+        if itemAddedArray.count > 0 {
+            salespersonTextfield.isUserInteractionEnabled = false
+            customerTextfield.isUserInteractionEnabled = false
+        }
+        
+        if let itemText = itemsTextfield.text, let unoitText = unoitTextfield.text, let qtyText = qtyTextfield.text, let qtyDouble = Double(qtyText){
+            
+            let quantity: Double = getQtyRequired(itemArray: itemAddedArray, itemTxt: itemText.trimmingCharacters(in: .whitespaces), uofmTxt: unoitText, qtyText: qtyDouble)
+            
+            itemAddedReceived = webservice.BindPurchaseGridData(quantity: "\(quantity)", quantityrequired: 0.0, ItemId: itemText, unitofmeasure: unoitText, customerid: customerNamesArray[selectedRowForCustomer], loccode: locCodeNumsArray[selectedRowForLocCode])
             
             if unoitText == "Select unoit of measure".localize(){
                 AlertMessage().showAlertMessage(alertTitle: "Alert!".localize(), alertMessage: "You did not select a unit of measure".localize(), actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
@@ -505,6 +530,9 @@ class SalesOrderRequestsViewController: UIViewController {
             if item.grid_error != ""{
                 warningLabel.isHidden = false
                 warningLabel.text = item.grid_error
+                print("-------------- add item -------------------")
+                print(item.grid_error)
+                print("-------------- add item -------------------")
                 return
             }
             itemAddedArray.append(
@@ -513,7 +541,7 @@ class SalesOrderRequestsViewController: UIViewController {
                     Grid_ItemId: item.Grid_ItemId,
                     Grid_Desc: item.Grid_Desc,
                     Grid_UOM: item.Grid_UOM,
-                    Grid_Qty: item.Grid_Qty,
+                    Grid_Qty: qtyText,
                     Grid_UnitPrice: item.Grid_UnitPrice,
                     Grid_TotalPrice: item.Grid_TotalPrice))
             
@@ -526,6 +554,16 @@ class SalesOrderRequestsViewController: UIViewController {
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
+        for item in itemAddedArray{
+            print("""
+            Grid_ItemId: \(item.Grid_ItemId),
+                Grid_Desc: \(item.Grid_Desc),
+                Grid_UnitPrice: \(item.Grid_UnitPrice),
+                Grid_Qty: \(item.Grid_Qty),
+                Grid_TotalPrice: \(item.Grid_TotalPrice),
+                Grid_UOM: \(item.Grid_UOM)
+
+            """) }
         if let companyText = companyTextfield.text,
             let branchText = branchTextfield.text,
             let locCodeText = LocCodeTextfield.text,
@@ -540,7 +578,8 @@ class SalesOrderRequestsViewController: UIViewController {
                 locCodeText == locCodeNumsArray[0] ||
                 salespersonText == salespersonNamesArray[0] ||
                 customerText == customerNamesArray[0] ||
-                deliveryDate.isEmpty
+                deliveryDate.isEmpty ||
+                itemAddedArray.isEmpty
             {
                 let alertTitle = "Alert!".localize()
                 let alertMessage = "You did not fill or select any of the fields".localize()
@@ -671,6 +710,7 @@ class SalesOrderRequestsViewController: UIViewController {
         branchPickerView.selectRow(0, inComponent: 0, animated: false)
         LocCodePickerView.selectRow(0, inComponent: 0, animated: false)
         salespersonPickerView.selectRow(0, inComponent: 0, animated: false)
+        customerPickerView.selectRow(0, inComponent: 0, animated: false)
         storePickerView.selectRow(0, inComponent: 0, animated: false)
         cityPickerView.selectRow(0, inComponent: 0, animated: false)
         salesPersonStorePickerView.selectRow(0, inComponent: 0, animated: false)
@@ -691,6 +731,8 @@ class SalesOrderRequestsViewController: UIViewController {
         storeStackView.isHidden = true
         viewHolder.isHidden = true
         warningLabel.isHidden = true
+        salespersonTextfield.isUserInteractionEnabled = true
+        customerTextfield.isUserInteractionEnabled = true
         setCountLabel(c: itemAddedArray.count)
         scrollView.scrollTo(direction: .Top, animated: false)
     }
@@ -771,6 +813,7 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
         } else if textField == showcustomerPickerViewTextfield{
             customerTextfield.text = customerNamesArray[selectedRowForCustomer].localize()
             customerGlobal = customerNamesArray[selectedRowForCustomer]
+            
             showcustomerPickerViewTextfield.resignFirstResponder()
         } else if textField == showStorePickerViewTextfield{
             storeTextfield.text = storeIdArray[salesSelecteedRow]
@@ -828,6 +871,117 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
         } else if textField == showUnoitPickerViewTextfield{
             showUnoitPickerViewTextfield.resignFirstResponder()
         }
+    }
+    
+    // -- MARK: Picker View Helper Functions
+    
+    func returnValueIfNotEmpty(element: String) -> String {
+        return element.isEmpty ? "" : element
+    }
+    
+    func handleButtonVisibility(){
+        if !gpCust{
+            storeStackView.isHidden = true
+            viewHolder.isHidden = true
+        } else {
+            viewHolder.isHidden = false
+            storeStackView.isHidden = false
+            setUpDefaultValueFromStoreToQty()
+        }
+    }
+    
+    func setSalesRowAndMerValue(row: Int){
+        salesperosnSelectedRow = row
+        merchandiserArray = webservice.commonSalesService.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[citySelectedRow].City, store: storeIdArray[salesSelecteedRow], salesperson: salesPersonArray[row].SalesPersonStore)
+    }
+    
+    func setMerToDefalut(){
+        merchandiserTextfield.text = merchandiserArray[0].Merchandiser
+        merSelectedRow = 0
+    }
+    
+    func handleSalesPersonSelection(row: Int){
+        selectedRowForSalesPerson = row
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            self.getCustomers(salesperson: self.salespersonNamesArray[row])
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
+        customerTextfield.text = customerNamesArray[0].localize()
+        selectedRowForCustomer = 0
+        customerPickerView.selectRow(0, inComponent: 0, animated: false)
+        gpCust = false
+        handleButtonVisibility()
+        
+        print(gpCust)
+    }
+    
+    func handleCustomerSelection(row: Int){
+        selectedRowForCustomer = row
+        
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+            let customerId = self.customerNamesArray[self.selectedRowForCustomer]
+            gpCust = self.webservice.CustomerDDLReset(cutomerid: customerId)
+            self.getStoreId(customerId: customerId)
+            self.getCreditDetails(customerId: customerId)
+            self.getItems(customerId: customerId)
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        }
+        
+        handleButtonVisibility()
+        print(gpCust)
+    }
+    
+    func handleStoreSelection(row: Int){
+        salesSelecteedRow = row
+        storeTextfield.text = storeIdArray[row]
+        cityArray = webservice.commonSalesService.BindCity(storevalue: storeIdArray[row], customer: customerNamesArray[selectedRowForCustomer])
+        if !cityArray.isEmpty{
+            cityTextfield.text = cityArray[0].City
+            citySelectedRow = 0
+            salesPersonArray = webservice.commonSalesService.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[0].City, store: storeIdArray[row])
+            if !salesPersonArray.isEmpty{
+                salesPersonTextfield.text = salesPersonArray[0].SalesPersonStore
+                setSalesRowAndMerValue(row: 0)
+                if !merchandiserArray.isEmpty{
+                    setMerToDefalut()
+                }
+            }
+        }
+    }
+    
+    func handleCitySelection(row: Int){
+        citySelectedRow = row
+        if  !cityArray.isEmpty{
+            salesPersonArray = webservice.commonSalesService.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[row].City, store: storeIdArray[salesSelecteedRow])
+            if !salesPersonArray.isEmpty{
+                salesPersonTextfield.text = salesPersonArray[0].SalesPersonStore
+                setSalesRowAndMerValue(row: 0)
+                if !merchandiserArray.isEmpty{
+                    setMerToDefalut()
+                }
+            }
+        }
+    }
+    
+    func handleSalesPersonStoreSelection(row: Int){
+        if !salesPersonArray.isEmpty{
+            setSalesRowAndMerValue(row: row)
+            if !merchandiserArray.isEmpty{
+                setMerToDefalut()
+            }
+        }
+    }
+    
+    func handleItemSelection(row: Int){
+        if itemsName.isEmpty{
+            unoits = webservice.BindSalesOrderUnitofMeasure(itemid: itemsName[row])
+        }
+        itemSelectedRow = row
+        uofmSelectedRow = 0
+        unoitPickerView.selectRow(0, inComponent: 0, animated: false)
     }
     
     // -- MARK: picker view data source
@@ -902,84 +1056,22 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
             selectedRowForCompany = row
         } else if pickerView == branchPickerView{
             selectedRowForBranch = row
-            print("Brancn name \(branchNamesArray[row]) , English name \(branchEnglishNames[row])")
         } else if pickerView == LocCodePickerView{
             selectedRowForLocCode = row
         } else if pickerView == salespersonPickerView{
-            selectedRowForSalesPerson = row
-            getCustomers(salesperson: salespersonNamesArray[row])
-            customerTextfield.text = customerNamesArray[0].localize()
-            selectedRowForCustomer = 0
-            customerPickerView.selectRow(0, inComponent: 0, animated: false)
+            handleSalesPersonSelection(row: row)
         } else if pickerView == customerPickerView{
-            selectedRowForCustomer = row
-            
-            UIApplication.shared.isNetworkActivityIndicatorVisible = true
-            
-            getStoreId(customerId: customerNamesArray[selectedRowForCustomer])
-            getCreditDetails(customerId: customerNamesArray[selectedRowForCustomer])
-            getItems(customerId: customerNamesArray[selectedRowForCustomer])
-            if storeArray.isEmpty{
-                storeStackView.isHidden = true
-                viewHolder.isHidden = true
-            } else {
-                viewHolder.isHidden = false
-                storeStackView.isHidden = false
-                setUpDefaultValueFromStoreToQty()
-            }
-            
-            UIApplication.shared.isNetworkActivityIndicatorVisible = false
-            
+            handleCustomerSelection(row: row)
         } else if pickerView == storePickerView{
-            salesSelecteedRow = row
-            storeTextfield.text = storeIdArray[row]
-            cityArray = webservice.commonSalesService.BindCity(storevalue: storeIdArray[row], customer: customerNamesArray[selectedRowForCustomer])
-            if !cityArray.isEmpty{
-                cityTextfield.text = cityArray[0].City
-                citySelectedRow = 0
-                salesPersonArray = webservice.commonSalesService.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[0].City, store: storeIdArray[row])
-                if !salesPersonArray.isEmpty{
-                    salesPersonTextfield.text = salesPersonArray[0].SalesPersonStore
-                    salesperosnSelectedRow = 0
-                    merchandiserArray = webservice.commonSalesService.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[0].City, store: storeIdArray[row], salesperson: salesPersonArray[0].SalesPersonStore)
-                    if !merchandiserArray.isEmpty{
-                        merchandiserTextfield.text = merchandiserArray[0].Merchandiser
-                        merSelectedRow = 0
-                    }
-                }
-            }
+            handleStoreSelection(row: row)
         } else if pickerView == cityPickerView{
-            citySelectedRow = row
-            if  !cityArray.isEmpty{
-                salesPersonArray = webservice.commonSalesService.BindSalesPersonforStore(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[row].City, store: storeIdArray[salesSelecteedRow])
-                if !salesPersonArray.isEmpty{
-                    salesPersonTextfield.text = salesPersonArray[0].SalesPersonStore
-                    salesperosnSelectedRow = 0
-                    merchandiserArray = webservice.commonSalesService.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[row].City, store: storeIdArray[salesSelecteedRow], salesperson: salesPersonArray[0].SalesPersonStore)
-                    if !merchandiserArray.isEmpty{
-                        merchandiserTextfield.text = merchandiserArray[0].Merchandiser
-                        merSelectedRow = 0
-                    }
-                }
-            }
+            handleCitySelection(row: row)
         } else if pickerView == salesPersonStorePickerView {
-            if !salesPersonArray.isEmpty{
-                salesperosnSelectedRow = row
-                merchandiserArray = webservice.commonSalesService.BindMerchandiser(customer: customerNamesArray[selectedRowForCustomer], city: cityArray[citySelectedRow].City, store: storeIdArray[salesSelecteedRow], salesperson: salesPersonArray[row].SalesPersonStore)
-                if !merchandiserArray.isEmpty{
-                    merchandiserTextfield.text = merchandiserArray[0].Merchandiser
-                    merSelectedRow = 0
-                }
-            }
+            handleSalesPersonStoreSelection(row: row)
         } else if pickerView == merchandiserPickerView{
             merSelectedRow = row
         } else if pickerView == itemsPickerView{
-            if itemsName.isEmpty{
-                unoits = webservice.BindSalesOrderUnitofMeasure(itemid: itemsName[row])
-            }
-            itemSelectedRow = row
-            uofmSelectedRow = 0
-            unoitPickerView.selectRow(0, inComponent: 0, animated: false)
+            handleItemSelection(row: row)
         } else if pickerView == unoitPickerView{
             uofmSelectedRow = row
         }
@@ -1017,9 +1109,6 @@ extension SalesOrderRequestsViewController{
 extension SalesOrderRequestsViewController: ItemCountAddedDelegate{
     func setCount(count: Int) {
         self.count = count
-    }
-    func itemsArrayReceived(itemsArray: [ItemsModul]) {
-        itemAddedArray = itemsArray
     }
 }
 

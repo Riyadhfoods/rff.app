@@ -17,7 +17,6 @@ class ReturnItemSelectedViewController: UIViewController, UIImagePickerControlle
     // -- MARK: Variables
     
     let cellId = "cell_items"
-    let webservice = Sales()
     var isAttachmentError = false
     var isSendingError = false
     var sendResultError = ""

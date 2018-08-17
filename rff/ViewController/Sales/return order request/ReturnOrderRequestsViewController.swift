@@ -33,6 +33,7 @@ class ReturnOrderRequestsViewController: UIViewController {
     @IBOutlet weak var superMarketYesButton: UIButton!
     @IBOutlet weak var superMarketNoButton: UIButton!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var rtvtxtfield: UITextField!
     
     @IBOutlet weak var invoiceDateTextField: UITextField!
     @IBOutlet weak var invoiceTextField: UITextField!
@@ -414,13 +415,15 @@ class ReturnOrderRequestsViewController: UIViewController {
             let cityText = cityTextfield.text,
             let salesPersonStoreText = salesPersonStoreTextfield.text,
             let merText = merchandiserTextfield.text,
-            let comment = commentTextView.text
+            let comment = commentTextView.text,
+            let rtvNoTxt = rtvtxtfield.text
         {
             if companyText == companyNamesArray[0] ||
                 returnDateText == "" ||
                 salesPerosnText == salesPersonNamesArray[0] ||
                 customerText == customerNamesArray[0] ||
-                branchText == branchNamesArray[0]{
+                branchText == branchNamesArray[0] ||
+                rtvNoTxt == ""{
                     self.alertMessageForEmptyField(alertMessage: "You did not fill the fields".localize())
                     self.shouldProcess = false
             } else if !storeArray.isEmpty && storeText == storeIdArray[0] {
@@ -430,7 +433,6 @@ class ReturnOrderRequestsViewController: UIViewController {
                 self.alertMessageForEmptyField(alertMessage: "You did not add any items".localize())
                 self.shouldProcess = false
             } else { self.shouldProcess = true }
-            
             for item in itemsArrayFromWS{
                 if item.returnType == "Select Type".localize(){
                     self.alertMessageForEmptyField(alertMessage: "You did not select return item for each item".localize())
@@ -442,7 +444,7 @@ class ReturnOrderRequestsViewController: UIViewController {
                 self.activityIndicator.startAnimating()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                     self.runBeforeSending()
-                    self.runSend(returnDate: returnDateText, comment: comment, city: cityText, salesPersonStore: salesPersonStoreText, merchandiser: merText)
+                    self.runSend(returnDate: returnDateText, comment: comment, city: cityText, salesPersonStore: salesPersonStoreText, merchandiser: merText, rtvNo: rtvNoTxt)
                     self.activityIndicator.stopAnimating()
                 }
                 
@@ -494,7 +496,7 @@ class ReturnOrderRequestsViewController: UIViewController {
         }
     }
     
-    func runSend(returnDate: String, comment: String, city: String, salesPersonStore: String, merchandiser: String){
+    func runSend(returnDate: String, comment: String, city: String, salesPersonStore: String, merchandiser: String, rtvNo: String){
         let sendResultArray = webservice.SRR_SEND_SRR(
             supermarket: supermarket,
             itemtable: !itemsArrayFromWS.isEmpty,
@@ -512,7 +514,8 @@ class ReturnOrderRequestsViewController: UIViewController {
             storevalue: storeIdArray[salesSelecteedRow],
             cityvalue: city,
             storesalespersonvalue: salesPersonStore,
-            merchandiser: merchandiser)
+            merchandiser: merchandiser,
+            rtvNo: rtvNo)
         
         if !sendResultArray.isEmpty{
             if sendResultArray[1] != ""{

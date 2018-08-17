@@ -169,7 +169,7 @@ class LoanApprovalService{
         return [CommentModul]()
     }
     
-    func Approve_Loan(Emp_ID:String, pid:String, buttonType:String, FormId:Int, Comment:String, grid_empid:String, totalgrd_rows:Int, login_empId:String, finalApp_EmpId:String, finalApp_Status:String)-> String{
+    func Approve_Loan(Emp_ID:String, pid:String, buttonType:String, FormId:Int, Comment:String, grid_empid:String, totalgrd_rows:Int, login_empId:String, finalApp_EmpId:String, finalApp_Status:String, gridEmpid_next: String)-> String{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         
         soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
@@ -207,6 +207,9 @@ class LoanApprovalService{
         soapReqXML += "<finalApp_Status>"
         soapReqXML += finalApp_Status
         soapReqXML += "</finalApp_Status>"
+        soapReqXML += "<gridEmpid_next>"
+        soapReqXML += gridEmpid_next
+        soapReqXML += "</gridEmpid_next>"
         soapReqXML += "</Approve_Loan>"
         soapReqXML += "</soap:Body>"
         soapReqXML += "</soap:Envelope>"

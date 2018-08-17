@@ -77,7 +77,6 @@ class FileModul {
 
 class ROActions{
     static var shared = ROActions()
-    let webservice = Sales()
     
     // To set the count the item add to the list
     func setCountForItem(c: Int, button: UIBarButtonItem){

@@ -22,7 +22,6 @@ class ItemReturnDetailsViewController: UIViewController, UITableViewDelegate, UI
     
     let screenSize = AppDelegate.shared.screenSize
     let cellId = "cell_itemReturnDetails"
-    var itemsDetailsArray = [SalesReturn]()
     var isChecked: Bool = true
     var itemReturnDetails = [SalesReturnItemsDetailsModel]()
     var delegate: ItemUpdatedValuesDelegate?

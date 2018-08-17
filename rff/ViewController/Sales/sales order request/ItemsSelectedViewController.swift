@@ -25,7 +25,6 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     var count: Int = 0
     var delegate: ItemCountAddedDelegate?
     var unoits = [unitOfMeasurementModel]()
-    var sentStatus = [SalesModel]()
     var error: String = ""
     
     // -- MARk: viewDidLoad
@@ -64,7 +63,6 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
             cell.PCSTextfield.text = itemAddedArray[indexPath.row].Grid_UOM
             cell.qtyTextfield.text = itemAddedArray[indexPath.row].Grid_Qty
             cell.unitPriceTextfield.text = itemAddedArray[indexPath.row].Grid_UnitPrice
-            cell.totalPrice.text = itemAddedArray[indexPath.row].Grid_TotalPrice
             
             cell.deleteButton.tag = indexPath.row
             cell.deleteButton.addTarget(self, action: #selector(handleDeleteAction(sender:)), for: .touchUpInside)
@@ -72,6 +70,7 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
             
             cell.qtyTextfield.tag = indexPath.row
             cell.unitPriceTextfield.tag = indexPath.row
+            cell.delegate = self
             
             return cell
         }

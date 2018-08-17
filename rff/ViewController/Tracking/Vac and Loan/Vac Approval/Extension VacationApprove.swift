@@ -110,7 +110,8 @@ extension InboxApprovalFormViewController{
                 totalgrd_rows: workFlowForVac.count,
                 login_empId: AuthServices.currentUserId,
                 finalApp_EmpId: workFlowLast.WorkFlow_Empid,
-                finalApp_Status: workFlowLast.WorkFlow_EmpStatus)
+                finalApp_Status: workFlowLast.WorkFlow_EmpStatus,
+                gridEmpid_next: gridEmpId_next)
             
             if approveVacationResult == "" {
                 AlertMessage().showAlertMessage(

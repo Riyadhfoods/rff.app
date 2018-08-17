@@ -303,7 +303,7 @@ class SalesReturnRequestService{
         return returnValue
     }
     
-    func SRR_SEND_SRR(supermarket: Bool, itemtable: Bool, returnid: String, customervalue: String, customertext: String, salespersonvalue: String, salespersontext: String, returndate: String, emp_no: String, comment: String, branchtext: String, companyid: String, branchvalue: String, storevalue: String, cityvalue: String, storesalespersonvalue: String, merchandiser: String) -> [String?]{
+    func SRR_SEND_SRR(supermarket: Bool, itemtable: Bool, returnid: String, customervalue: String, customertext: String, salespersonvalue: String, salespersontext: String, returndate: String, emp_no: String, comment: String, branchtext: String, companyid: String, branchvalue: String, storevalue: String, cityvalue: String, storesalespersonvalue: String, merchandiser: String, rtvNo:String) -> [String?]{
         
         var soapReqXML: String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         soapReqXML += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
@@ -362,6 +362,9 @@ class SalesReturnRequestService{
         soapReqXML += "<merchandiser>"
         soapReqXML += merchandiser
         soapReqXML += "</merchandiser>"
+        soapReqXML += "<rtvNo>"
+        soapReqXML += rtvNo
+        soapReqXML += "</rtvNo>"
         soapReqXML += "</SRR_SEND_SRR>"
         soapReqXML += "</soap:Body>"
         soapReqXML += "</soap:Envelope>"

@@ -11,7 +11,6 @@ import UIKit
 class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
 
     @IBOutlet weak var num: UILabel!
-    @IBOutlet weak var itemId: UILabel!
     @IBOutlet weak var desc: UILabel!
     @IBOutlet weak var showPCSPickerTextField: UITextField!
     @IBOutlet weak var PCSTextfield: UITextField!
@@ -21,7 +20,8 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var holderView: UIView!
     
-    let webservice = Sales()
+    let webservice = SalesOrderRequestService.instance
+    var delegate: ItemsSelectedViewController?
     let pickerview = UIPickerView()
     var unoits = [unitOfMeasurementModel]()
     var selectedRow = 0
@@ -52,7 +52,7 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
         // Configure the view for the selected state
     }
     
-    var itemAddedReceived = [ItemAddedModel]()
+    var itemAddedReceived = [ItemClassModul]()
     
     @objc func doneClick(){
         PCSTextfield.text = unoits.isEmpty ? "" : unoits[selectedRow].UnitofMeasure
@@ -89,6 +89,7 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedRow = row
+        itemAddedArray[indexpathRow].Grid_UOM = unoits[row].UnitofMeasure
     }
     
     @objc func doneButtonClick(){
@@ -101,28 +102,72 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     
     var qtyOldText: String = ""
     var unitPriceOldText: String = ""
+    var totalPriceOldText: String = ""
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if let qtyTxt = qtyTextfield.text, let unitPriceTxt = unitPriceTextfield.text{
+        if let qtyTxt = qtyTextfield.text, let unitPriceTxt = unitPriceTextfield.text, let totalPriceText = totalPrice.text{
             qtyOldText = qtyTxt
             unitPriceOldText = unitPriceTxt
+            totalPriceOldText = totalPriceText
         }
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if let qtyTxt = qtyTextfield.text, let qtyDouble = Double(qtyTxt), let unitPriceTxt = unitPriceTextfield.text, let unitPriceDouble = Double(unitPriceTxt){
+        var error = ""
+        if let qtyTxt = qtyTextfield.text,
+            let qtyDouble = Double(qtyTxt),
+            let unitPriceTxt = unitPriceTextfield.text,
+            let unitPriceDouble = Double(unitPriceTxt),
+            let itemText = desc.text,
+            let uofmText = PCSTextfield.text{
+            
             if qtyTxt == qtyOldText && unitPriceTxt == unitPriceOldText{ return }
             let result = qtyDouble * unitPriceDouble
             let resultFormatted = String(format: "%.5f", result)
-            totalPrice.text = resultFormatted
             
             if textField == qtyTextfield{
-                itemAddedArray[textField.tag].Grid_Qty = qtyTxt
+                error = handleChangeInQty(itemText: itemText, qtyTxt: qtyTxt, uofmText: uofmText, index: textField.tag)
+                
+                if error != "" {
+                    if let delegate = delegate{
+                        AlertMessage().showAlertMessage(alertTitle: "Alert", alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "OK", delegate)
+                    }
+                    print("------------------- gty change in grid ----------------------")
+                    print(error)
+                    print("------------------- gty change in grid ----------------------")
+                }
+                
+                itemAddedArray[textField.tag].Grid_Qty = error != "" ? qtyOldText : qtyTxt
+                qtyTextfield.text = error != "" ? qtyOldText : qtyTxt
+                
+                
             } else {
                 itemAddedArray[textField.tag].Grid_UnitPrice = unitPriceTxt
             }
-            itemAddedArray[textField.tag].Grid_TotalPrice = resultFormatted
+            itemAddedArray[textField.tag].Grid_TotalPrice = error != "" ? totalPriceOldText : resultFormatted
+            totalPrice.text = error != "" ? totalPriceOldText : resultFormatted
         }
+        
+        print("""
+            Grid_ItemId: \(itemAddedArray[textField.tag].Grid_ItemId),
+            Grid_Desc: \(itemAddedArray[textField.tag].Grid_Desc),
+            Grid_UnitPrice: \(itemAddedArray[textField.tag].Grid_UnitPrice),
+            Grid_Qty: \(itemAddedArray[textField.tag].Grid_Qty),
+            Grid_TotalPrice: \(itemAddedArray[textField.tag].Grid_TotalPrice),
+            Grid_UOM: \(itemAddedArray[textField.tag].Grid_UOM)
+            
+            """)
+    }
+    
+    func handleChangeInQty(itemText: String, qtyTxt: String, uofmText: String, index: Int) -> String{
+        let inQtyChange = self.webservice.qtyChangeInGrid(gpcust: gpCust, itemNum: itemText, gridqty: qtyTxt, girdUofm: uofmText,
+                                                      gridItemNum: itemAddedArray[index].Grid_ItemId, uofm: uofmText, locCodeValue: locCodeGlobal)
+        for qtyChange in inQtyChange{
+            if qtyChange.grid_error != "" {
+                return qtyChange.grid_error
+            }
+        }
+        return ""
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

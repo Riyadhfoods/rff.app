@@ -226,6 +226,125 @@ class SalesOrderRequestService{
         return [ItemClassModul]()
     }
     
+    func CheckItemQty(itemnumber: String, uofm: String, Locode: String, qty: Double, uofmDdl: String, ItemIdgrid: String, qtygrid: Double) -> Double{
+        var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML  += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<CheckItemQty xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<itemnumber>"
+        soapReqXML += itemnumber
+        soapReqXML += "</itemnumber>"
+        soapReqXML += "<uofm>"
+        soapReqXML += uofm
+        soapReqXML += "</uofm>"
+        soapReqXML += "<Locode>"
+        soapReqXML += Locode
+        soapReqXML += "</Locode>"
+        soapReqXML += "<qty>"
+        soapReqXML += String(qty)
+        soapReqXML += "</qty>"
+        soapReqXML += "<uofmDdl>"
+        soapReqXML += uofmDdl
+        soapReqXML += "</uofmDdl>"
+        soapReqXML += "<ItemIdgrid>"
+        soapReqXML += ItemIdgrid
+        soapReqXML += "</ItemIdgrid>"
+        soapReqXML += "<qtygrid>"
+        soapReqXML += String(qtygrid)
+        soapReqXML += "</qtygrid>"
+        soapReqXML += "</CheckItemQty>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/CheckItemQty"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let strVal :String? = commonFunction.stringFromXML(data : responseData);
+        if let strVal = strVal{
+            if let doubleStrVal = strVal.toDouble(){
+                return doubleStrVal
+            }
+        }
+        return 0
+    }
+    
+    func CustomerDDLReset(cutomerid: String) -> Bool{
+        var soapReqXML: String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<CustomerDDLReset xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<cutomerid>"
+        soapReqXML += cutomerid
+        soapReqXML += "</cutomerid>"
+        soapReqXML += "</CustomerDDLReset>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction :String = "http://tempuri.org/CustomerDDLReset"
+        
+        let responseData:Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let strVal: String? = commonFunction.stringFromXML(data: responseData);
+        if let strVal = strVal {
+            return strVal.lowercased() == "true"
+        }
+        return false
+    }
+    
+    func qtyChangeInGrid(gpcust: Bool, itemNum: String, gridqty: String, girdUofm: String, gridItemNum: String, uofm: String, locCodeValue: String) -> [ItemClassModul]{
+        var returnValueArray = ItemClassModul()
+        var soapReqXML: String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<qtyChangeInGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<gpcust>"
+        soapReqXML += String(gpcust)
+        soapReqXML += "</gpcust>"
+        soapReqXML += "<itemNum>"
+        soapReqXML += itemNum
+        soapReqXML += "</itemNum>"
+        soapReqXML += "<gridqty>"
+        soapReqXML += gridqty
+        soapReqXML += "</gridqty>"
+        soapReqXML += "<girdUofm>"
+        soapReqXML += girdUofm
+        soapReqXML += "</girdUofm>"
+        soapReqXML += "<gridItemNum>"
+        soapReqXML += gridItemNum
+        soapReqXML += "</gridItemNum>"
+        soapReqXML += "<uofm>"
+        soapReqXML += uofm
+        soapReqXML += "</uofm>"
+        soapReqXML += "<locCodeValue>"
+        soapReqXML += locCodeValue
+        soapReqXML += "</locCodeValue>"
+        soapReqXML += "</qtyChangeInGrid>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction: String = "http://tempuri.org/qtyChangeInGrid"
+        
+        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        
+        if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = ItemClassModul() }, getValue: {elemName, strVal in
+            
+            let rItem1 = returnValueArray
+            if elemName == "grid_error" { rItem1.grid_error =  strVal }
+            return rItem1
+            
+        }) as? [ItemClassModul]{ return returnValue }
+        
+        return [ItemClassModul]()
+    }
+    
     func SendItemGrid(orderid: String, serialno: Int, customerid: String, Grid_ItemId: String, Grid_Desc: String, Grid_UnitPrice: String, Grid_Qty: String, Grid_TotalPrice: String, Grid_UOM: String) -> [ItemSendModul]{
         var returnValueArray = ItemSendModul()
         

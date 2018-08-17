@@ -33,8 +33,6 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
     
     let salesWebservice = SalesInboxService.instance
     var salesArray: [SalesInboxModul] = [SalesInboxModul]()
-    var transferArray: [SalesModel] = [SalesModel]()
-    var returnArray: [SalesModel] = [SalesModel]()
     
     var currentUserId = ""
     

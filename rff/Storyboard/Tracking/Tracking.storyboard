@@ -342,6 +342,7 @@
                     </tableView>
                     <connections>
                         <segue destination="XOS-rd-gXo" kind="show" identifier="showApprovalFormForInbox" id="yNq-3k-U0i"/>
+                        <segue destination="WAm-8w-x4j" kind="show" identifier="showApprovalFormForBusinessTrip" id="RNe-fg-YPo"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="osA-fv-EtW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -375,6 +376,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ePi-0s-XSR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5743" y="1046"/>
+        </scene>
+        <!--BusinessTripApproval-->
+        <scene sceneID="mAs-ty-E2K">
+            <objects>
+                <viewControllerPlaceholder storyboardName="BusinessTripApproval" id="WAm-8w-x4j" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="HGX-6e-KC5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5740" y="1134"/>
         </scene>
     </scenes>
     <resources>

@@ -48,7 +48,6 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     var listTextChosen: String?
     var categoryTextChosen: String?
-    let webservice = Login()
     var arrayOfListReceived = [ListTypeModul]()
     var arrayOfList = [ListTypeModul]()
     var list = ListTypeModul()
