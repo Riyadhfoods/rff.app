@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InboxTableViewController: UITableViewController, VacApproveActionDelegate {
+class InboxTableViewController: UITableViewController, ApproveActionDelegate {
 
     let cellId = "trackingInboxCell"
     var arrayOfInboxGrid = [InboxGridModul]()
@@ -87,8 +87,6 @@ class InboxTableViewController: UITableViewController, VacApproveActionDelegate 
             empId_next = arrayOfInboxGrid[sender.tag + 1].empid
         }
         
-        
-        
         cellRow = sender.tag
         if listFormId == 10 || listFormId == 1004{
             performSegue(withIdentifier: "showApprovalFormForInbox", sender: nil)
@@ -105,6 +103,17 @@ class InboxTableViewController: UITableViewController, VacApproveActionDelegate 
                 viewController.pid = pid
                 viewController.appliedEmpName = empName
                 viewController.appliedEmpId = empId
+                viewController.cellRow = cellRow
+                viewController.categorySelected = categorySelected
+                viewController.delegate = self
+            }
+        } else if segue.identifier == "showApprovalFormForBusinessTrip" {
+            if let viewController = segue.destination as? BusinessTripApprovalFormViewController{
+                viewController.listFormId = listFormId
+                viewController.pid = pid
+                viewController.appliedEmpName = empName
+                viewController.appliedEmpId = empId
+                viewController.cellRow = cellRow
                 viewController.categorySelected = categorySelected
                 viewController.delegate = self
             }

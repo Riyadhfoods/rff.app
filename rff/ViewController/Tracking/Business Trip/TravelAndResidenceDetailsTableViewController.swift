@@ -9,10 +9,6 @@
 import UIKit
 
 class TravelAndResidenceDetailsTableViewController: UITableViewController {
-
-    // -- MARK: IBOutlets
-    
-    
     
     // -- MARK: Variables
     
@@ -33,11 +29,24 @@ class TravelAndResidenceDetailsTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return travelAndResidenceDetailsArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? TravelAndResidenceDetailsCell{
+            
+            let travelD = travelAndResidenceDetailsArray[indexPath.row]
+            
+            cell.airlines.text = travelD.AirLineGrid
+            
+            if travelD.VisaGrid {
+                cell.visaButton.setBackgroundImage(#imageLiteral(resourceName: "checkBox"), for: .normal)
+            } else { cell.visaButton.setBackgroundImage(UIImage(), for: .normal) }
+            
+            cell.toLoc.text = travelD.ToLocGrid
+            cell.fromLoc.text = travelD.FromLocGrid
+            cell.Todate.text = travelD.ToDateGrid
+            cell.fromDate.text = travelD.FromDateGrid
             
             return cell
         }

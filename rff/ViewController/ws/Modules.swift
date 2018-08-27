@@ -489,6 +489,7 @@ class ItemClassModul{
     var Grid_Qty: String = ""
     var Grid_UnitPrice: String = ""
     var Grid_TotalPrice: String = ""
+    var Onhand: String = ""
 }
 
 class ItemSendModul{

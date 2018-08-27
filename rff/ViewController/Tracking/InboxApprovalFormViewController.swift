@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol VacApproveActionDelegate{
+protocol ApproveActionDelegate{
     func approveAction(isSuccess: Bool, row: Int, categorySelected: Int)
 }
 
@@ -21,6 +21,7 @@ class InboxApprovalFormViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
+    @IBOutlet weak var activityIndicatorContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var buttonsStackView: UIStackView!
     
@@ -70,7 +71,7 @@ class InboxApprovalFormViewController: UIViewController {
     var appliedEmpId = ""
     var gridEmpId = ""
     var gridEmpId_next = ""
-    var delegate: VacApproveActionDelegate?
+    var delegate: ApproveActionDelegate?
     
     // -- MARK: View life cycle
     
@@ -85,7 +86,7 @@ class InboxApprovalFormViewController: UIViewController {
         
         setViewAlignment()
         setupCommentView()
-        activityIndicator.startAnimating()
+        start()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -95,7 +96,7 @@ class InboxApprovalFormViewController: UIViewController {
         } else if isLoanArrayEmpty() && listFormId == 1004{
             setUpLoanData()
         }
-        activityIndicator.stopAnimating()
+        stop()
     }
     
     override func didReceiveMemoryWarning() {
@@ -116,6 +117,9 @@ class InboxApprovalFormViewController: UIViewController {
     }
     
     // -- MARK: Helper Functions
+    
+    func start(){ startLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator) }
+    func stop(){ stopLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator) }
     
     func updateWorkFlowPendingStatus(workFlowArray: [WorkFlowModul], editWorkFlowArray: inout [WorkFlowModul]){
         var isPending = false
@@ -161,58 +165,76 @@ class InboxApprovalFormViewController: UIViewController {
     // MARK: IBActions
     
     func runApproveAction(buttonType: String, actionTitle: String){
-        if listFormId == 10{
-            approveActionForVac(buttonType: buttonType, actionTitle: actionTitle)
-        } else if listFormId == 1004{
-            approveActionForLoan(buttonType: buttonType, actionTitle: actionTitle)
-        }
-    }
-
-    @IBAction func approveButtonTapped(_ sender: Any) {
+//        if listFormId == 10{
+//            approveActionForVac(buttonType: buttonType, actionTitle: actionTitle)
+//        } else if listFormId == 1004{
+//            approveActionForLoan(buttonType: buttonType, actionTitle: actionTitle)
+//        }
         
         AlertMessage().showAlertMessage(
             alertTitle: "Confirmation",
             alertMessage: "Do you want to approve the request?",
             actionTitle: "OK",
             onAction: {
-
-                ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-                    self.runApproveAction(buttonType: "BtnApprove", actionTitle: "approved")
+                
+                self.start()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+                    if self.listFormId == 10{
+                        self.approveActionForVac(buttonType: buttonType, actionTitle: actionTitle)
+                    } else if self.listFormId == 1004{
+                        self.approveActionForLoan(buttonType: buttonType, actionTitle: actionTitle)
+                    }
+                    self.stop()
                 })
-
+                
         }, cancelAction: "Cancel", self)
+    }
+
+    @IBAction func approveButtonTapped(_ sender: Any) {
+        runApproveAction(buttonType: "BtnApprove", actionTitle: "approved")
+//        AlertMessage().showAlertMessage(
+//            alertTitle: "Confirmation",
+//            alertMessage: "Do you want to approve the request?",
+//            actionTitle: "OK",
+//            onAction: {
+//
+//                ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
+//                    self.runApproveAction(buttonType: "BtnApprove", actionTitle: "approved")
+//                })
+//
+//        }, cancelAction: "Cancel", self)
         
     }
     
     @IBAction func onHoldButtonTapped(_ sender: Any) {
-        
-        AlertMessage().showAlertMessage(
-            alertTitle: "Confirmation",
-            alertMessage: "Do you want to onhold the request?",
-            actionTitle: "OK",
-            onAction: {
-                
-                ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-                    self.runApproveAction(buttonType: "BtnHold", actionTitle: "put onhold")
-                })
-                
-        }, cancelAction: "Cancel", self)
+        runApproveAction(buttonType: "BtnHold", actionTitle: "put onhold")
+//        AlertMessage().showAlertMessage(
+//            alertTitle: "Confirmation",
+//            alertMessage: "Do you want to onhold the request?",
+//            actionTitle: "OK",
+//            onAction: {
+//
+//                ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
+//                    self.runApproveAction(buttonType: "BtnHold", actionTitle: "put onhold")
+//                })
+//
+//        }, cancelAction: "Cancel", self)
         
     }
     
     @IBAction func rejectButtonTapped(_ sender: Any) {
-        
-        AlertMessage().showAlertMessage(
-            alertTitle: "Confirmation",
-            alertMessage: "Do you want to reject the request?",
-            actionTitle: "OK",
-            onAction: {
-                
-                ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-                    self.runApproveAction(buttonType: "BtnReject", actionTitle: "rejected")
-                })
-                
-        }, cancelAction: "Cancel", self)
+        runApproveAction(buttonType: "BtnReject", actionTitle: "rejected")
+//        AlertMessage().showAlertMessage(
+//            alertTitle: "Confirmation",
+//            alertMessage: "Do you want to reject the request?",
+//            actionTitle: "OK",
+//            onAction: {
+//
+//                ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
+//                    self.runApproveAction(buttonType: "BtnReject", actionTitle: "rejected")
+//                })
+//
+//        }, cancelAction: "Cancel", self)
     }
 }
 

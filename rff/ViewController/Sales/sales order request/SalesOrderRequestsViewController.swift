@@ -95,6 +95,7 @@ class SalesOrderRequestsViewController: UIViewController {
     @IBOutlet weak var unoitTextfield: UITextField!
     @IBOutlet weak var showUnoitPickerViewTextfield: UITextField!
     @IBOutlet weak var qtyTextfield: UITextField!
+    @IBOutlet weak var qtyDescLabel: UILabel!
     @IBOutlet weak var warningLabel: UILabel!
     @IBOutlet weak var commentTextview: UITextView!
     
@@ -474,11 +475,16 @@ class SalesOrderRequestsViewController: UIViewController {
     
     
     func getQtyRequired(itemArray: [ItemsModul], itemTxt: String, uofmTxt: String, qtyText: Double) -> Double{
-        var qtyReq = qtyText
+        var qtyReq = 0.0
         for item in itemArray{
             if item.Grid_Desc == itemTxt && item.Grid_UOM == uofmTxt{
                 if let itemQtyDouble = Double(item.Grid_Qty){
-                    qtyReq += itemQtyDouble
+                    qtyReq = self.webservice.GetReqQtyForBindPurchaseGrid(itemid: itemTxt,
+                                                                          loccode: locCodeGlobal,
+                                                                          grdItemNum: item.Grid_ItemId,
+                                                                          grduofm: item.Grid_UOM,
+                                                                          grdqty: itemQtyDouble,
+                                                                          quantityrequired: qtyReq)
                 }
             }
         }
@@ -496,8 +502,7 @@ class SalesOrderRequestsViewController: UIViewController {
         if let itemText = itemsTextfield.text, let unoitText = unoitTextfield.text, let qtyText = qtyTextfield.text, let qtyDouble = Double(qtyText){
             
             let quantity: Double = getQtyRequired(itemArray: itemAddedArray, itemTxt: itemText.trimmingCharacters(in: .whitespaces), uofmTxt: unoitText, qtyText: qtyDouble)
-            
-            itemAddedReceived = webservice.BindPurchaseGridData(quantity: "\(quantity)", quantityrequired: 0.0, ItemId: itemText, unitofmeasure: unoitText, customerid: customerNamesArray[selectedRowForCustomer], loccode: locCodeNumsArray[selectedRowForLocCode])
+            itemAddedReceived = webservice.BindPurchaseGridData(quantity: "\(qtyText)", quantityrequired: quantity, ItemId: itemText, unitofmeasure: unoitText, customerid: customerNamesArray[selectedRowForCustomer], loccode: locCodeNumsArray[selectedRowForLocCode])
             
             if unoitText == "Select unoit of measure".localize(){
                 AlertMessage().showAlertMessage(alertTitle: "Alert!".localize(), alertMessage: "You did not select a unit of measure".localize(), actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
@@ -507,50 +512,77 @@ class SalesOrderRequestsViewController: UIViewController {
             if itemAddedArray.isEmpty {
                 addItem(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
             } else {
-                for item in itemAddedArray{
-                    if item.Grid_Desc == itemText && item.Grid_UOM == unoitText && item.Grid_Qty == qtyText{
-                        isItemExist = true
-                        break
-                    }
-                }
-                if isItemExist{
-                    AlertMessage().showAlertMessage(alertTitle: "Item has been Added".localize(), alertMessage: "You have already added this item. Do you wnat to add it again".localize(), actionTitle: "Yes".localize(), onAction: {
-                        self.addItem(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
-                    }, cancelAction: "No".localize(), self)
-                    isItemExist = false
-                } else {
-                    addItem(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
-                }
+                loopThriughArrayToCheckItemExitanceAndTakeAction(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
             }
         }
     }
     
-    func addItem(itemText: String, unoitText: String, qtyText: String){
+    func loopThriughArrayToCheckItemExitanceAndTakeAction(itemText: String, unoitText: String, qtyText: String){
+        for item in itemAddedArray{
+            if item.Grid_Desc == itemText && item.Grid_UOM == unoitText && item.Grid_Qty == qtyText{
+                isItemExist = true
+                break
+            }
+        }
+        if isItemExist{
+            AlertMessage().showAlertMessage(alertTitle: "Item has been Added".localize(), alertMessage: "You have already added this item. Do you wnat to add it again".localize(), actionTitle: "Yes".localize(), onAction: {
+                self.addItem(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
+            }, cancelAction: "No".localize(), self)
+            isItemExist = false
+        } else {
+            addItem(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
+        }
+    }
+    
+    func isSuccess() -> Bool{
+        var onHandQty = ""
+        var err = ""
         for item in itemAddedReceived{
-            if item.grid_error != ""{
-                warningLabel.isHidden = false
-                warningLabel.text = item.grid_error
+            if onHandQty == "" {
+                onHandQty = item.Onhand
+                qtyDescLabel.isHidden = onHandQty.isEmpty
+                qtyDescLabel.text = onHandQty
+            }
+            if err == "" {
+                err = item.grid_error
+            }
+            
+            if err != ""{
+                warningLabel.isHidden = err.isEmpty
+                warningLabel.text = err
                 print("-------------- add item -------------------")
                 print(item.grid_error)
                 print("-------------- add item -------------------")
-                return
+                return false
             }
-            itemAddedArray.append(
-                ItemsModul(
-                    grid_error: item.grid_error,
-                    Grid_ItemId: item.Grid_ItemId,
-                    Grid_Desc: item.Grid_Desc,
-                    Grid_UOM: item.Grid_UOM,
-                    Grid_Qty: qtyText,
-                    Grid_UnitPrice: item.Grid_UnitPrice,
-                    Grid_TotalPrice: item.Grid_TotalPrice))
-            
-            print("grid_error: \(item.grid_error)\nGrid_ItemId: \(item.Grid_ItemId)\nGrid_Desc: \(item.Grid_Desc)\nGrid_UOM: \(item.Grid_UOM)\nGrid_Qty: \(item.Grid_Qty)\nGrid_UnitPrice: \(item.Grid_UnitPrice)\nGrid_TotalPrice: \(item.Grid_TotalPrice))\n")
         }
-        warningLabel.isHidden = true
-        count += 1
-        setCountLabel(c: itemAddedArray.count)
-        AlertMessage().showAlertForXTime(alertTitle: "Item has been Added".localize(), time: 0.5, tagert: self)
+        
+        return true
+    }
+    
+    func addItem(itemText: String, unoitText: String, qtyText: String){
+        if isSuccess(){
+            for item in itemAddedReceived{
+                if item.Grid_ItemId != "" {
+                    itemAddedArray.append(
+                        ItemsModul(
+                            grid_error: item.grid_error,
+                            Grid_ItemId: item.Grid_ItemId,
+                            Grid_Desc: item.Grid_Desc,
+                            Grid_UOM: item.Grid_UOM,
+                            Grid_Qty: qtyText,
+                            Grid_UnitPrice: item.Grid_UnitPrice,
+                            Grid_TotalPrice: item.Grid_TotalPrice))
+                    
+                    print("grid_error: \(item.grid_error)\nGrid_ItemId: \(item.Grid_ItemId)\nGrid_Desc: \(item.Grid_Desc)\nGrid_UOM: \(item.Grid_UOM)\nGrid_Qty: \(item.Grid_Qty)\nGrid_UnitPrice: \(item.Grid_UnitPrice)\nGrid_TotalPrice: \(item.Grid_TotalPrice))\n")
+                }
+            }
+            warningLabel.isHidden = true
+            qtyDescLabel.isHidden = true
+            count += 1
+            setCountLabel(c: itemAddedArray.count)
+            AlertMessage().showAlertForXTime(alertTitle: "Item has been Added".localize(), time: 0.5, tagert: self)
+        }
     }
     
     @IBAction func sendButtonTapped(_ sender: Any) {
@@ -731,6 +763,7 @@ class SalesOrderRequestsViewController: UIViewController {
         storeStackView.isHidden = true
         viewHolder.isHidden = true
         warningLabel.isHidden = true
+        qtyDescLabel.isHidden = true
         salespersonTextfield.isUserInteractionEnabled = true
         customerTextfield.isUserInteractionEnabled = true
         setCountLabel(c: itemAddedArray.count)
@@ -839,6 +872,7 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
             qtyTextfield.text = "1"
             showItemsPickerViewTextfield.resignFirstResponder()
             warningLabel.isHidden = true
+            qtyDescLabel.isHidden = true
         } else if textField == showUnoitPickerViewTextfield{
             unoitTextfield.text = unoits.isEmpty ? "Select unoit of measure".localize() : unoits[uofmSelectedRow].UnitofMeasure
             showUnoitPickerViewTextfield.resignFirstResponder()

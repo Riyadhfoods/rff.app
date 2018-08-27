@@ -208,22 +208,58 @@
                                     </button>
                                 </subviews>
                             </stackView>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hSe-N1-Z1z">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Pp4-hd-G9X">
+                                        <rect key="frame" x="153.5" y="284.5" width="68" height="79"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="doX-lA-Rah">
+                                                <rect key="frame" x="0.0" y="0.0" width="68" height="37"/>
+                                                <color key="color" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </activityIndicatorView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7p6-Po-xF0">
+                                                <rect key="frame" x="0.0" y="42" width="68" height="37"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="68" id="fbM-QL-vz9"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.96999999999999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="Pp4-hd-G9X" firstAttribute="centerX" secondItem="hSe-N1-Z1z" secondAttribute="centerX" id="2z6-MR-9eR"/>
+                                    <constraint firstItem="Pp4-hd-G9X" firstAttribute="centerY" secondItem="hSe-N1-Z1z" secondAttribute="centerY" id="tEh-ll-28R"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="hSe-N1-Z1z" firstAttribute="top" secondItem="9RZ-QR-5Yb" secondAttribute="top" id="G09-Rj-lYg"/>
                             <constraint firstItem="QbV-3r-Yqu" firstAttribute="top" secondItem="9RZ-QR-5Yb" secondAttribute="top" id="Ioz-jy-Ub5"/>
+                            <constraint firstAttribute="bottom" secondItem="hSe-N1-Z1z" secondAttribute="bottom" id="SKi-6U-yB4"/>
                             <constraint firstItem="94p-ED-NpM" firstAttribute="top" secondItem="QbV-3r-Yqu" secondAttribute="bottom" constant="8" id="SVa-3l-w7K"/>
                             <constraint firstItem="QbV-3r-Yqu" firstAttribute="trailing" secondItem="9RZ-QR-5Yb" secondAttribute="trailing" id="Vop-FJ-Y9S"/>
+                            <constraint firstAttribute="trailing" secondItem="hSe-N1-Z1z" secondAttribute="trailing" id="XAf-2c-Xgq"/>
                             <constraint firstItem="QbV-3r-Yqu" firstAttribute="leading" secondItem="9RZ-QR-5Yb" secondAttribute="leading" id="YWj-ng-cqr"/>
                             <constraint firstItem="94p-ED-NpM" firstAttribute="leading" secondItem="9RZ-QR-5Yb" secondAttribute="leading" constant="16" id="g78-K2-cCg"/>
+                            <constraint firstItem="hSe-N1-Z1z" firstAttribute="leading" secondItem="9RZ-QR-5Yb" secondAttribute="leading" id="k4f-4j-yav"/>
                             <constraint firstItem="9RZ-QR-5Yb" firstAttribute="bottom" secondItem="94p-ED-NpM" secondAttribute="bottom" constant="20" id="oLz-7z-xam"/>
                             <constraint firstItem="9RZ-QR-5Yb" firstAttribute="trailing" secondItem="94p-ED-NpM" secondAttribute="trailing" constant="16" id="zr3-Na-9Ma"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9RZ-QR-5Yb"/>
                     </view>
                     <connections>
+                        <outlet property="activityContainerView" destination="hSe-N1-Z1z" id="hFF-rg-n6L"/>
+                        <outlet property="activityIndictor" destination="doX-lA-Rah" id="NTq-B5-suT"/>
+                        <outlet property="buttonsStackView" destination="94p-ED-NpM" id="hrq-gO-he8"/>
                         <outlet property="commentTextView" destination="TMU-Ap-4RA" id="M2f-Ws-yRm"/>
                         <outlet property="exitReEntryVisaButton" destination="ROG-5x-AdE" id="4Z1-IO-kjp"/>
+                        <outlet property="lodingLabel" destination="7p6-Po-xF0" id="zby-0C-xDc"/>
                         <outlet property="scrollView" destination="QbV-3r-Yqu" id="GHx-cA-eRl"/>
                         <outlet property="stackViewWidth" destination="LDk-rz-tLb" id="I8m-k1-Fgl"/>
                         <outlet property="tableViewForTitles" destination="xOf-1Z-FXx" id="2j9-JD-7uG"/>

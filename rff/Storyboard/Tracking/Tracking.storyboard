@@ -166,20 +166,44 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aQF-bk-uI7">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IBD-TY-Ey8">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="0.96866973460000005" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="color" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </activityIndicatorView>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="rdu-st-6t6">
+                                        <rect key="frame" x="153.5" y="263" width="68" height="77"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="aQF-bk-uI7">
+                                                <rect key="frame" x="0.0" y="0.0" width="68" height="37"/>
+                                                <color key="backgroundColor" white="1" alpha="0.96866973460000005" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="color" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </activityIndicatorView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rHS-Xv-lgc">
+                                                <rect key="frame" x="0.0" y="40" width="68" height="37"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="68" id="49o-ah-sit"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.96999999999999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="rdu-st-6t6" firstAttribute="centerY" secondItem="IBD-TY-Ey8" secondAttribute="centerY" id="CAn-RU-bQH"/>
+                                    <constraint firstItem="rdu-st-6t6" firstAttribute="centerX" secondItem="IBD-TY-Ey8" secondAttribute="centerX" id="auB-j7-UwW"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="OJK-sa-yfv" firstAttribute="trailing" secondItem="aQF-bk-uI7" secondAttribute="trailing" id="7c0-Qe-LkW"/>
-                            <constraint firstItem="aQF-bk-uI7" firstAttribute="leading" secondItem="OJK-sa-yfv" secondAttribute="leading" id="E0x-Hr-3XP"/>
                             <constraint firstItem="OJK-sa-yfv" firstAttribute="trailing" secondItem="aPi-oJ-RGw" secondAttribute="trailing" constant="16" id="I4W-Dq-wcW"/>
                             <constraint firstItem="aPi-oJ-RGw" firstAttribute="top" secondItem="OJK-sa-yfv" secondAttribute="top" constant="16" id="PzS-NM-zSd"/>
-                            <constraint firstItem="aQF-bk-uI7" firstAttribute="top" secondItem="OJK-sa-yfv" secondAttribute="top" id="g8g-lE-4gf"/>
-                            <constraint firstItem="OJK-sa-yfv" firstAttribute="bottom" secondItem="aQF-bk-uI7" secondAttribute="bottom" id="nbJ-Nk-Zen"/>
+                            <constraint firstAttribute="trailing" secondItem="IBD-TY-Ey8" secondAttribute="trailing" id="ZA1-J3-AXx"/>
+                            <constraint firstItem="OJK-sa-yfv" firstAttribute="bottom" secondItem="IBD-TY-Ey8" secondAttribute="bottom" id="erO-1A-sF7"/>
+                            <constraint firstItem="IBD-TY-Ey8" firstAttribute="top" secondItem="OJK-sa-yfv" secondAttribute="top" id="ikP-Fg-qBQ"/>
+                            <constraint firstItem="IBD-TY-Ey8" firstAttribute="leading" secondItem="Pft-Pe-rep" secondAttribute="leading" id="tKK-jd-zie"/>
                             <constraint firstItem="aPi-oJ-RGw" firstAttribute="leading" secondItem="OJK-sa-yfv" secondAttribute="leading" constant="16" id="uet-rs-OTf"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="OJK-sa-yfv"/>
@@ -191,6 +215,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="aQF-bk-uI7" id="p3O-rL-FOy"/>
+                        <outlet property="activityIndicatorContainer" destination="IBD-TY-Ey8" id="bG2-JZ-G80"/>
                         <outlet property="categoryTextfield" destination="ACN-uQ-HLn" id="aHL-qr-KIV"/>
                         <outlet property="listTextfield" destination="Mv2-xm-fzY" id="Ads-7u-lJl"/>
                         <outlet property="menuBtn" destination="eX2-cO-6Bb" id="WGE-4c-NxK"/>
@@ -203,7 +228,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hGc-kp-wzw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3682" y="1334"/>
+            <point key="canvasLocation" x="3680.8000000000002" y="1333.5832083958021"/>
         </scene>
         <!--Inbox Table View Controller-->
         <scene sceneID="pFV-Mm-Wd3">

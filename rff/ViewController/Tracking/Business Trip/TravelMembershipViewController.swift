@@ -36,6 +36,12 @@ class TravelMembershipViewController: UIViewController {
     }
 
     func setUpData(){
-        
+        for travel in travelMenebershipArray{
+            meetAndAssistance.text = travel.MeetAndAssistance
+            luggageAndCargo.text = travel.Luggage
+            AirLines.text = travel.AirLines
+            membershipCardNo.text = travel.Membership
+            others.text = travel.Othersvl
+        }
     }
 }

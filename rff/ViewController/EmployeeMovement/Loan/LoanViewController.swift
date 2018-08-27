@@ -15,6 +15,7 @@ class LoanViewController: UIViewController {
     @IBOutlet weak var menuBtn: UIBarButtonItem!
     @IBOutlet weak var empTextField: UITextField!
     @IBOutlet weak var showEmpPickerTextField: UITextField!
+    @IBOutlet weak var activityIndicatorContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     @IBOutlet weak var selectorFurnishing: UIView!
@@ -83,13 +84,14 @@ class LoanViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
         view.addGestureRecognizer(tapGesture)
+        start()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         setUpArray()
-        activityIndicator.stopAnimating()
+        stop()
     }
     
     @objc func didTapView(gesture: UITapGestureRecognizer) {
@@ -98,8 +100,9 @@ class LoanViewController: UIViewController {
     
     // -- MARK: Set ups
     
-    
     func setUpViews(){
+        stackViewWidth.constant = screenSize.width - 32
+        
         amtRequiredTextField.delegate = self
         paymnetPeriodTextField.delegate = self
         showEmpPickerTextField.tintColor = .clear
@@ -196,101 +199,16 @@ class LoanViewController: UIViewController {
         initalValues()
     }
     
-    // -- MARK: IBAction
-    
-    @IBAction func furnishingButtonTapped(_ sender: Any) {
-        furnishingButton.backgroundColor = mainBackgroundColor
-        arrivalButton.backgroundColor = .white
-        urgentButton.backgroundColor = .white
-        exceptionalBuuton.backgroundColor = .white
-        othersBuuton.backgroundColor = .white
-        
-        loanType = 1
-    }
-    
-    @IBAction func arrivalButtonTapped(_ sender: Any) {
-        furnishingButton.backgroundColor = .white
-        arrivalButton.backgroundColor = mainBackgroundColor
-        urgentButton.backgroundColor = .white
-        exceptionalBuuton.backgroundColor = .white
-        othersBuuton.backgroundColor = .white
-        
-        loanType = 2
-    }
-    
-    @IBAction func urgentButtonTapped(_ sender: Any) {
-        furnishingButton.backgroundColor = .white
-        arrivalButton.backgroundColor = .white
-        urgentButton.backgroundColor = mainBackgroundColor
-        exceptionalBuuton.backgroundColor = .white
-        othersBuuton.backgroundColor = .white
-        
-        loanType = 3
-    }
-    
-    @IBAction func exceptionalButtonTapped(_ sender: Any) {
-        furnishingButton.backgroundColor = .white
-        arrivalButton.backgroundColor = .white
-        urgentButton.backgroundColor = .white
-        exceptionalBuuton.backgroundColor = mainBackgroundColor
-        othersBuuton.backgroundColor = .white
-        
-        loanType = 4
-    }
-    
-    @IBAction func othersButtonTapped(_ sender: Any) {
-        furnishingButton.backgroundColor = .white
-        arrivalButton.backgroundColor = .white
-        urgentButton.backgroundColor = .white
-        exceptionalBuuton.backgroundColor = .white
-        othersBuuton.backgroundColor = mainBackgroundColor
-        
-        loanType = 5
-    }
+    // -- MARK: Helper functions
+    func start(){startLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)}
+    func stop(){stopLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)}
     
     func handleSuccessAction(action: @escaping () -> Void){
-        self.activityIndicator.startAnimating()
+        self.start()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
             action()
-            self.activityIndicator.stopAnimating()
+            self.stop()
         })
-    }
-    
-    @IBAction func sendButtonTapped(_ sender: Any) {
-        AlertMessage().showAlertMessage(
-            alertTitle: "Confirmation",
-            alertMessage: "Do you want to send loan request?",
-            actionTitle: "Yes",
-            onAction: {
-                
-                if let empText = self.empTextField.text,
-                    let amtText = self.amtRequiredTextField.text,
-                    let gaurantorText = self.gaurantorTextField.text,
-                    let paymentText = self.paymnetPeriodTextField.text,
-                    let commentText = self.commentTextView.text{
-                    
-                    if empText == self.empNamesArray[0] ||
-                        amtText.isEmpty ||
-                        gaurantorText == self.gaurantorsNamesArray[0] ||
-                        paymentText.isEmpty{
-                        
-                        AlertMessage().showAlertMessage(
-                            alertTitle: "Alert",
-                            alertMessage: "Please fill all the fields",
-                            actionTitle: nil,
-                            onAction: nil,
-                            cancelAction: "Cancel", self)
-                    } else {
-                        self.activityIndicator.startAnimating()
-                        self.handleSuccessAction {
-                            self.submit(paymentText: paymentText, amtText: amtText, commentText: commentText)
-                            self.activityIndicator.stopAnimating()
-                        }
-                    }
-                }
-                
-        }, cancelAction: "Cancel", self)
-        
     }
     
     func submit(paymentText: String, amtText: String, commentText: String){
@@ -346,6 +264,94 @@ class LoanViewController: UIViewController {
         scrollView.scrollTo(direction: .Top, animated: false)
     }
     
+    // -- MARK: IBAction
+    
+    @IBAction func furnishingButtonTapped(_ sender: Any) {
+        furnishingButton.backgroundColor = mainBackgroundColor
+        arrivalButton.backgroundColor = .white
+        urgentButton.backgroundColor = .white
+        exceptionalBuuton.backgroundColor = .white
+        othersBuuton.backgroundColor = .white
+        
+        loanType = 1
+    }
+    
+    @IBAction func arrivalButtonTapped(_ sender: Any) {
+        furnishingButton.backgroundColor = .white
+        arrivalButton.backgroundColor = mainBackgroundColor
+        urgentButton.backgroundColor = .white
+        exceptionalBuuton.backgroundColor = .white
+        othersBuuton.backgroundColor = .white
+        
+        loanType = 2
+    }
+    
+    @IBAction func urgentButtonTapped(_ sender: Any) {
+        furnishingButton.backgroundColor = .white
+        arrivalButton.backgroundColor = .white
+        urgentButton.backgroundColor = mainBackgroundColor
+        exceptionalBuuton.backgroundColor = .white
+        othersBuuton.backgroundColor = .white
+        
+        loanType = 3
+    }
+    
+    @IBAction func exceptionalButtonTapped(_ sender: Any) {
+        furnishingButton.backgroundColor = .white
+        arrivalButton.backgroundColor = .white
+        urgentButton.backgroundColor = .white
+        exceptionalBuuton.backgroundColor = mainBackgroundColor
+        othersBuuton.backgroundColor = .white
+        
+        loanType = 4
+    }
+    
+    @IBAction func othersButtonTapped(_ sender: Any) {
+        furnishingButton.backgroundColor = .white
+        arrivalButton.backgroundColor = .white
+        urgentButton.backgroundColor = .white
+        exceptionalBuuton.backgroundColor = .white
+        othersBuuton.backgroundColor = mainBackgroundColor
+        
+        loanType = 5
+    }
+    
+    @IBAction func sendButtonTapped(_ sender: Any) {
+        AlertMessage().showAlertMessage(
+            alertTitle: "Confirmation",
+            alertMessage: "Do you want to send loan request?",
+            actionTitle: "Yes",
+            onAction: {
+                
+                if let empText = self.empTextField.text,
+                    let amtText = self.amtRequiredTextField.text,
+                    let gaurantorText = self.gaurantorTextField.text,
+                    let paymentText = self.paymnetPeriodTextField.text,
+                    let commentText = self.commentTextView.text{
+                    
+                    if empText == self.empNamesArray[0] ||
+                        amtText.isEmpty ||
+                        gaurantorText == self.gaurantorsNamesArray[0] ||
+                        paymentText.isEmpty{
+                        
+                        AlertMessage().showAlertMessage(
+                            alertTitle: "Alert",
+                            alertMessage: "Please fill all the fields",
+                            actionTitle: nil,
+                            onAction: nil,
+                            cancelAction: "Cancel", self)
+                    } else {
+                        self.activityIndicator.startAnimating()
+                        self.handleSuccessAction {
+                            self.submit(paymentText: paymentText, amtText: amtText, commentText: commentText)
+                            self.activityIndicator.stopAnimating()
+                        }
+                    }
+                }
+                
+        }, cancelAction: "Cancel", self)
+        
+    }
 }
 
 extension LoanViewController: UIPickerViewDataSource, UIPickerViewDelegate{

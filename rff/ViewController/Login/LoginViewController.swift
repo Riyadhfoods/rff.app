@@ -21,7 +21,6 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     @IBOutlet weak var languangeDropdownImage: UIImageView!
     @IBOutlet weak var activityContainerView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var activityHolderView: UIView!
     
     // MARK: Constrians
     @IBOutlet weak var logoHeight: NSLayoutConstraint!
@@ -70,7 +69,6 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         activityIndicator.stopAnimating()
         
         logoHolderView.layer.cornerRadius = 153.41 / 2
-        setUpActivityIndicatorHolder(view: activityHolderView)
         setUpLayout()
         
         // text field delegate

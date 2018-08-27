@@ -533,24 +533,48 @@
                                     <action selector="sendButtonTapped:" destination="0kx-Tj-3hm" eventType="touchUpInside" id="Wmh-E0-WQR"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hKI-9l-LAG">
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Gia-oh-wbY">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <color key="backgroundColor" white="1" alpha="0.96866973458904104" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="color" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </activityIndicatorView>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="LKb-RE-Bxj">
+                                        <rect key="frame" x="153.5" y="262" width="68" height="79"/>
+                                        <subviews>
+                                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="hKI-9l-LAG">
+                                                <rect key="frame" x="0.0" y="0.0" width="68" height="37"/>
+                                                <color key="backgroundColor" white="1" alpha="0.96866973458904104" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="color" red="0.41176470590000003" green="0.51764705879999995" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            </activityIndicatorView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E9m-6f-8eH">
+                                                <rect key="frame" x="0.0" y="42" width="68" height="37"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="68" id="hnr-Ij-AeG"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="0.96999999999999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="LKb-RE-Bxj" firstAttribute="centerX" secondItem="Gia-oh-wbY" secondAttribute="centerX" id="n1B-vk-eZs"/>
+                                    <constraint firstItem="LKb-RE-Bxj" firstAttribute="centerY" secondItem="Gia-oh-wbY" secondAttribute="centerY" id="oV4-xt-bOJ"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="zJA-PC-AVF" firstAttribute="trailing" secondItem="leB-0x-zUt" secondAttribute="trailing" constant="16" id="5FJ-Gz-je0"/>
                             <constraint firstItem="leB-0x-zUt" firstAttribute="top" secondItem="Ka3-PO-aCG" secondAttribute="bottom" id="5WY-97-Lcf"/>
-                            <constraint firstItem="hKI-9l-LAG" firstAttribute="leading" secondItem="zJA-PC-AVF" secondAttribute="leading" id="9Dc-Vj-Rdr"/>
                             <constraint firstItem="leB-0x-zUt" firstAttribute="leading" secondItem="zJA-PC-AVF" secondAttribute="leading" constant="16" id="Faa-td-DRM"/>
+                            <constraint firstItem="zJA-PC-AVF" firstAttribute="bottom" secondItem="Gia-oh-wbY" secondAttribute="bottom" id="GjX-qn-Y0s"/>
+                            <constraint firstItem="Gia-oh-wbY" firstAttribute="leading" secondItem="bFO-G1-ZRX" secondAttribute="leading" id="JGn-rQ-hDG"/>
                             <constraint firstItem="zJA-PC-AVF" firstAttribute="bottom" secondItem="leB-0x-zUt" secondAttribute="bottom" constant="20" id="KMB-t9-95d"/>
+                            <constraint firstAttribute="trailing" secondItem="Gia-oh-wbY" secondAttribute="trailing" id="Kns-oh-2Tw"/>
                             <constraint firstAttribute="trailing" secondItem="Ka3-PO-aCG" secondAttribute="trailing" id="PJR-vx-yE5"/>
                             <constraint firstItem="Ka3-PO-aCG" firstAttribute="top" secondItem="zJA-PC-AVF" secondAttribute="top" id="RC4-t4-pb3"/>
-                            <constraint firstItem="hKI-9l-LAG" firstAttribute="bottom" secondItem="zJA-PC-AVF" secondAttribute="bottom" id="T1m-6h-eeF"/>
-                            <constraint firstItem="hKI-9l-LAG" firstAttribute="top" secondItem="zJA-PC-AVF" secondAttribute="top" id="VZr-qx-Eu1"/>
-                            <constraint firstItem="zJA-PC-AVF" firstAttribute="trailing" secondItem="hKI-9l-LAG" secondAttribute="trailing" id="gWN-Fw-Qun"/>
+                            <constraint firstItem="Gia-oh-wbY" firstAttribute="top" secondItem="zJA-PC-AVF" secondAttribute="top" id="fiD-Lx-Knb"/>
                             <constraint firstItem="Ka3-PO-aCG" firstAttribute="leading" secondItem="bFO-G1-ZRX" secondAttribute="leading" id="y1y-P1-zkS"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zJA-PC-AVF"/>
@@ -562,6 +586,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="hKI-9l-LAG" id="4NR-6r-sRX"/>
+                        <outlet property="activityIndicatorContainer" destination="Gia-oh-wbY" id="wW7-fl-JXh"/>
                         <outlet property="amtRequiredTextField" destination="Jka-z2-q8O" id="oMu-jy-BiH"/>
                         <outlet property="amyEachMonthLabel" destination="Amk-uk-G9u" id="Dw3-YI-is4"/>
                         <outlet property="arrivalButton" destination="msH-Ab-Ic1" id="02b-XE-Bh9"/>
@@ -592,7 +617,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oAL-Lo-tg0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6013.6000000000004" y="3105.2473763118442"/>
+            <point key="canvasLocation" x="6013.6000000000004" y="3104.7976011994006"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x4l-6d-unT">

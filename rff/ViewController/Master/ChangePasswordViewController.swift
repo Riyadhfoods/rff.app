@@ -17,6 +17,8 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var newPasswordLabel: UILabel!
     @IBOutlet weak var newPasswordTextfield: UITextField!
     @IBOutlet weak var changeButtonOutlet: UIButton!
+    @IBOutlet weak var aiContainer: UIView!
+    @IBOutlet weak var ai: UIActivityIndicatorView!
     
     // -- MARK: Variable
     let screenSize = AppDelegate.shared.screenSize
@@ -38,20 +40,27 @@ class ChangePasswordViewController: UIViewController, UITextFieldDelegate {
     // -- MARK: IBActions
     
     @IBAction func changeButtonTapped(_ sender: Any) {
-        
+        self.view.endEditing(true)
         if let oldPassword = oldPasswordTextfield.text, let newPassword = newPasswordTextfield.text{
-            AuthServices().changePassword(id: AuthServices.currentUserId, oldPassword: oldPassword, newPassword: newPassword, onSeccuss: {
-                AlertMessage().showAlertMessage(alertTitle: "Success".localize(), alertMessage: "Password Change Successfully".localize(), actionTitle: "Ok", onAction: {
-                    self.oldPasswordTextfield.text = ""
-                    self.newPasswordTextfield.text = ""
-                    
-                    self.oldPasswordTextfield.resignFirstResponder()
-                    self.newPasswordTextfield.resignFirstResponder()
-                }, cancelAction: nil, self)
-            }) { (error) in
-                AlertMessage().showAlertMessage(alertTitle: "Alert".localize(), alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
+            startLoader(superView: aiContainer, activityIndicator: ai)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
+                self.changePassword(oldPassword: oldPassword, newPassword: newPassword)
+                stopLoader(superView: self.aiContainer, activityIndicator: self.ai)
             }
-            self.view.endEditing(true)
+        }
+    }
+    
+    func changePassword(oldPassword: String, newPassword: String){
+        AuthServices().changePassword(id: AuthServices.currentUserId, oldPassword: oldPassword, newPassword: newPassword, onSeccuss: {
+            AlertMessage().showAlertMessage(alertTitle: "Success".localize(), alertMessage: "Password Change Successfully".localize(), actionTitle: "Ok", onAction: {
+                self.oldPasswordTextfield.text = ""
+                self.newPasswordTextfield.text = ""
+                
+                self.oldPasswordTextfield.resignFirstResponder()
+                self.newPasswordTextfield.resignFirstResponder()
+            }, cancelAction: nil, self)
+        }) { (error) in
+            AlertMessage().showAlertMessage(alertTitle: "Alert".localize(), alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
         }
     }
     

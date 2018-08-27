@@ -14,6 +14,7 @@ class BTUserCommentTableViewController: UITableViewController {
     
     var userCommentArray = [CommentModul]()
     let cellId = "cell_userCommentBT"
+    var workFlowNames = [String]()
     
     // -- MARK: View life cycle
     
@@ -24,17 +25,24 @@ class BTUserCommentTableViewController: UITableViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        emptyMessage(viewController: self, tableView: tableView, isEmpty: userCommentArray.isEmpty)
+        return userCommentArray.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? BTUserCommentCell{
+            
+            let comment = userCommentArray[indexPath.row]
+            if let userId = Int(comment.Id){
+                let name = workFlowNames[userId]
+                cell.empName.text = name
+                cell.comment.text = comment.Comment
+            }
             
             return cell
         }

@@ -59,6 +59,9 @@ class BusinessTripViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
     
+    @IBOutlet weak var aiContainer: UIView!
+    @IBOutlet weak var ai: UIActivityIndicatorView!
+    
     // -- MARK: Variables
     
     let screenSize = AppDelegate.shared.screenSize
@@ -100,15 +103,16 @@ class BusinessTripViewController: UIViewController {
         setUpSelectors()
         setUpView()
         
-        
         setViewAlignment()
         setSlideMenu(controller: self, menuButton: menuBtn)
+        start()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         setUpDate()
+        stop()
     }
     
     // -- MARK: SetUps
@@ -139,6 +143,7 @@ class BusinessTripViewController: UIViewController {
         commentTextView.delegate = self
         
         setUpEmptyText()
+        setUpToolBar()
     }
     
     func setUpEmptyText(){
@@ -191,19 +196,29 @@ class BusinessTripViewController: UIViewController {
         }
         
         if !transMode.isEmpty{
-            transId = transMode[0].TransDesc
+            transId = transMode[0].TransId
             transModeTextField.text = transMode[0].TransDesc
         }
     }
     
+    func setUpToolBar(){
+        setUpKeyboardToolBar(textfield: businessTripAmtTextField, viewController: self, cancelTitle: "Done", cancelSelector: #selector(doneClicked), doneTitle: nil, doneSelector: nil)
+    }
     
-    // -- MARK: IBActions
+    @objc func doneClicked(){
+        businessTripAmtTextField.resignFirstResponder()
+    }
+    
+    // -- MARK: Helper functions
+    
+    func start(){startLoader(superView: aiContainer, activityIndicator: ai)}
+    func stop(){stopLoader(superView: aiContainer, activityIndicator: ai)}
     
     func handleSuccessAction(action: @escaping () -> Void){
-        //self.activityIndicator.startAnimating()
+        start()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
             action()
-            //self.activityIndicator.stopAnimating()
+            self.stop()
         })
     }
     
@@ -217,45 +232,8 @@ class BusinessTripViewController: UIViewController {
         return isCheckedValue
     }
     
-    @IBAction func exitReEntryVisaButtonTapped(_ sender: Any) {
-        exitReEntryVisaCheckBox = isBoxChecked(isCheckedValue: &exitReEntryVisaCheckBox, button: exitReEntryVisaYesButton)
-    }
-    
-    @IBAction func visa_1ButtonTapped(_ sender: Any) {
-        visa_1CheckBox = isBoxChecked(isCheckedValue: &visa_1CheckBox, button: visa_1Button)
-    }
-    
-    @IBAction func visa_2ButtonTapped(_ sender: Any) {
-        visa_2CheckBox = isBoxChecked(isCheckedValue: &visa_2CheckBox, button: visa_2Button)
-    }
-    
-    @IBAction func visa_3ButtonTapped(_ sender: Any) {
-        visa_3CheckBox = isBoxChecked(isCheckedValue: &visa_3CheckBox, button: visa_3Button)
-    }
-
-    @IBAction func submitButtonTapped(_ sender: Any) {
-        AlertMessage().showAlertMessage(
-            alertTitle: "Confirmation",
-            alertMessage: "Do you want to send loan request?",
-            actionTitle: "Yes",
-            onAction: {
-                if self.isReqFieldEmpty(){
-                    AlertMessage().showAlertMessage(
-                        alertTitle: "Alert",
-                        alertMessage: "Please fill all the fields",
-                        actionTitle: nil,
-                        onAction: nil,
-                        cancelAction: "Cancel", self)
-                } else {self.submit()}
-                
-        }, cancelAction: "Cancel", self)
-        
-    }
-    
     func submit(){
-        if let empNameTxt = empNameTextField.text,
-            let transModeTxt = transModeTextField.text,
-            let startDateTxt = startDateTextField.text,
+        if let startDateTxt = startDateTextField.text,
             let endDateTxt = endDateTextField.text,
             let destinationTxt = destinationTextField.text,
             let businessTripAmtTxt = businessTripAmtTextField.text,
@@ -363,20 +341,20 @@ class BusinessTripViewController: UIViewController {
         }
     }
     
-    func isReqFieldEmpty() -> Bool{
+    func isReqFieldsEmpty() -> Bool{
         if let empNameTxt = empNameTextField.text,
-        let transModeTxt = transModeTextField.text,
-        let startDateTxt = startDateTextField.text,
-        let endDateTxt = endDateTextField.text,
-        let destinationTxt = destinationTextField.text,
-        let businessTripAmtTxt = businessTripAmtTextField.text,
-        let amountDescTxt = amountDescTextField.text,
-        let reasonTxt = reasonTextField.text,
-        let airLine_1Txt = airLine_1TextField.text,
-        let fromLoc_1Txt = fromLoc_1TextField.text,
-        let ToLoc_1Txt = ToLoc_1TextField.text,
-        let fromDate_1Txt = fromDate_1TextField.text,
-        let toDate_1Txt = toDate_1TextField.text{
+            let transModeTxt = transModeTextField.text,
+            let startDateTxt = startDateTextField.text,
+            let endDateTxt = endDateTextField.text,
+            let destinationTxt = destinationTextField.text,
+            let businessTripAmtTxt = businessTripAmtTextField.text,
+            let amountDescTxt = amountDescTextField.text,
+            let reasonTxt = reasonTextField.text,
+            let airLine_1Txt = airLine_1TextField.text,
+            let fromLoc_1Txt = fromLoc_1TextField.text,
+            let ToLoc_1Txt = ToLoc_1TextField.text,
+            let fromDate_1Txt = fromDate_1TextField.text,
+            let toDate_1Txt = toDate_1TextField.text{
             if empNameTxt == "Select Employee" ||
                 transModeTxt == "Select Employee" ||
                 startDateTxt == "" ||
@@ -390,24 +368,24 @@ class BusinessTripViewController: UIViewController {
                 ToLoc_1Txt == "" ||
                 fromDate_1Txt == "" ||
                 toDate_1Txt == ""{
-                    return true
+                return true
             }
         }
         return false
     }
     
     func handleSentResultValue(result: String){
-        if result != "" {
+        if result.contains("under process") {
             AlertMessage().showAlertMessage(
                 alertTitle: "Alert",
-                alertMessage: "Could not send the business trip request",
+                alertMessage: result,
                 actionTitle: nil,
                 onAction: nil,
                 cancelAction: "OK", self)
-        } else {
+        } else if result.contains("saved successfully") {
             AlertMessage().showAlertMessage(
                 alertTitle: "Success",
-                alertMessage: "Business trip request is sent successfully",
+                alertMessage: result,
                 actionTitle: "OK",
                 onAction: {
                     
@@ -416,6 +394,14 @@ class BusinessTripViewController: UIViewController {
                     }
                     
             }, cancelAction: nil, self)
+        } else {
+            AlertMessage().showAlertMessage(
+                alertTitle: "Alert",
+                alertMessage: "Oops, something went wrong",
+                actionTitle: nil,
+                onAction: nil,
+                cancelAction: "OK", self)
+            return
         }
     }
     
@@ -435,6 +421,47 @@ class BusinessTripViewController: UIViewController {
         setUpEmptyText()
         setUpSelectors()
         scrollView.scrollTo(direction: .Top, animated: false)
+    }
+    
+    // -- MARK: IBActions
+    
+    @IBAction func exitReEntryVisaButtonTapped(_ sender: Any) {
+        exitReEntryVisaCheckBox = isBoxChecked(isCheckedValue: &exitReEntryVisaCheckBox, button: exitReEntryVisaYesButton)
+    }
+    
+    @IBAction func visa_1ButtonTapped(_ sender: Any) {
+        visa_1CheckBox = isBoxChecked(isCheckedValue: &visa_1CheckBox, button: visa_1Button)
+    }
+    
+    @IBAction func visa_2ButtonTapped(_ sender: Any) {
+        visa_2CheckBox = isBoxChecked(isCheckedValue: &visa_2CheckBox, button: visa_2Button)
+    }
+    
+    @IBAction func visa_3ButtonTapped(_ sender: Any) {
+        visa_3CheckBox = isBoxChecked(isCheckedValue: &visa_3CheckBox, button: visa_3Button)
+    }
+
+    @IBAction func submitButtonTapped(_ sender: Any) {
+        AlertMessage().showAlertMessage(
+            alertTitle: "Confirmation",
+            alertMessage: "Do you want to send loan request?",
+            actionTitle: "Yes",
+            onAction: {
+                if self.isReqFieldsEmpty(){
+                    AlertMessage().showAlertMessage(
+                        alertTitle: "Alert",
+                        alertMessage: "Please fill all the fields",
+                        actionTitle: nil,
+                        onAction: nil,
+                        cancelAction: "Cancel", self)
+                } else {
+                    self.handleSuccessAction {
+                        self.submit()
+                    }
+                }
+                
+        }, cancelAction: "Cancel", self)
+        
     }
 }
 
@@ -462,6 +489,7 @@ extension BusinessTripViewController: UIPickerViewDelegate, UIPickerViewDataSour
         }
         else{
             transModeTextField.text = "\(transMode[transModeSelectedRow].TransDesc)"
+            transId = transMode[transModeSelectedRow].TransId
             showTransModePickerTextField.resignFirstResponder()
         }
     }

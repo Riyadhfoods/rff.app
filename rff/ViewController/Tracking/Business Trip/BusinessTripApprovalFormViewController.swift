@@ -19,6 +19,10 @@ class BusinessTripApprovalFormViewController: UIViewController {
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var tableViewForTitles: UITableView!
+    @IBOutlet weak var buttonsStackView: UIStackView!
+    @IBOutlet weak var activityContainerView: UIView!
+    @IBOutlet weak var activityIndictor: UIActivityIndicatorView!
+    @IBOutlet weak var lodingLabel: UILabel!
     
     
     // -- MARK: Variables
@@ -35,11 +39,16 @@ class BusinessTripApprovalFormViewController: UIViewController {
     var btTravelDetails = [BusinessTrip_AppTravelModel]()
     var userComment = [CommentModul]()
     var workFlow = [WorkFlowModul]()
+    var editWorkFlow = [WorkFlowModul]()
     var listFormId: Int = 0
+    var cellRow = 0
+    var categorySelected = 0
     var appliedEmpName = ""
     var appliedEmpId = ""
     var gridEmpId = ""
     var gridEmpId_next = ""
+    var workFlowNames = [String]()
+    var delegate: ApproveActionDelegate?
     
     // -- MARK: View life cycle
     
@@ -48,12 +57,15 @@ class BusinessTripApprovalFormViewController: UIViewController {
         
         setUpView()
         setViewAlignment()
+        lodingLabel.textAlignment = .center
+        start()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         setUpData()
+        end()
     }
 
     override func didReceiveMemoryWarning() {
@@ -67,6 +79,8 @@ class BusinessTripApprovalFormViewController: UIViewController {
         tableViewForTitles.delegate = self
         commentTextView.delegate = self
         
+        buttonsStackView.isHidden = true
+        
         stackViewWidth.constant = AppDelegate.shared.screenSize.width - 32
         tableViewHeight.constant = CGFloat(cellTitle.count * 44)
         commentTextView.text = ""
@@ -75,14 +89,22 @@ class BusinessTripApprovalFormViewController: UIViewController {
     func setUpData(){
         btAppDetails = webservice.Bind_business_trip_Details(pid: pid, lang: LoginViewController.languageChosen)
         btTravelDetails = webservice.Bind_travel_details_grid(pid: pid, lang: LoginViewController.languageChosen)
+        
         workFlow = webservice.BindApproversGrid(formid: listFormId, pid: pid, lang: LoginViewController.languageChosen)
+        for workflow in workFlow{
+            workFlowNames.append(workflow.WorkFlow_EmpName)
+        }
+        
         userComment = webservice.BindCommentGrid(pid: pid, fid: listFormId, gvApp_RowCount: workFlow.count)
         
         setUpValues()
+        if editWorkFlow.isEmpty{
+            updateWorkFlowPendingStatus(array: workFlow, editArray: &editWorkFlow)
+        }
     }
     
     func setUpValues(){
-        for btApp  in btAppDetails{
+        for btApp in btAppDetails{
             transMode.text = btApp.TransMode
             if btApp.ExitReEnteryVisa == true {
                 exitReEntryVisaButton.setBackgroundImage(#imageLiteral(resourceName: "checkBox"), for: .normal)
@@ -90,18 +112,134 @@ class BusinessTripApprovalFormViewController: UIViewController {
         }
     }
     
+    // -- MARK: Helper Functions
+    
+    func updateWorkFlowPendingStatus(array: [WorkFlowModul], editArray: inout [WorkFlowModul]){
+        var isPending = false
+        var isRejected = false
+        var isOnHold = false
+        for count in 0..<array.count{
+            print(array[count].WorkFlow_EmpStatus)
+            if array[count].WorkFlow_EmpStatus == "Rejected"{
+                isRejected = true
+            } else if array[count].WorkFlow_EmpStatus == "On Hold"{
+                gridEmpId = array[count].WorkFlow_Empid
+                gridEmpId_next = count + 1 < array.count ? array[count + 1].WorkFlow_Empid : ""
+                isOnHold = true
+                if array[count].WorkFlow_Empid == AuthServices.currentUserId{
+                    buttonsStackView.isHidden = false
+                }
+            }
+            
+            if array[count].WorkFlow_EmpStatus == "" && !isRejected && !isOnHold{
+                if !isPending{
+                    gridEmpId = array[count].WorkFlow_Empid
+                    gridEmpId_next = count + 1 < array.count ? array[count + 1].WorkFlow_Empid : ""
+                    array[count].WorkFlow_EmpStatus = "Pending"
+                    isPending = true
+                    
+                    if array[count].WorkFlow_Empid == AuthServices.currentUserId{
+                        buttonsStackView.isHidden = false
+                    }
+                }
+            }
+            editArray.append(array[count])
+        }
+    }
+    
+    func start(){ startLoader(superView: self.activityContainerView, activityIndicator: self.activityIndictor) }
+    func end(){ stopLoader(superView: self.activityContainerView, activityIndicator: self.activityIndictor) }
+    
+    func approveAction(buttonType: String, actionTitle: String){
+        if let commentText = commentTextView.text,
+            let workFlowLast = workFlow.last{
+            
+            if buttonType == "BtnHold" || buttonType == "BtnReject"{
+                gridEmpId_next = gridEmpId
+            }
+            
+            print("""
+                Emp_ID: \(appliedEmpId),
+                pid: \(pid),
+                buttonType: \(buttonType),
+                FormId: \(listFormId),
+                Comment: \(commentText),
+                grid_empid: \(gridEmpId),
+                totalgrd_rows: \(workFlow.count),
+                login_empId: \(AuthServices.currentUserId),
+                finalApp_EmpId: \(workFlowLast.WorkFlow_Empid),
+                finalApp_Status: \(workFlowLast.WorkFlow_EmpStatus)
+                gridEmpid_next: \(gridEmpId_next)
+                """)
+            
+            let approveVacationResult = webservice.Approve_BusinessTrip(Emp_ID: appliedEmpId,
+                                                                        pid: pid,
+                                                                        buttonType: buttonType,
+                                                                        FormId: listFormId,
+                                                                        Comment: commentText,
+                                                                        grid_empid: gridEmpId,
+                                                                        totalgrd_rows: workFlow.count,
+                                                                        login_empId: AuthServices.currentUserId,
+                                                                        finalApp_EmpId: workFlowLast.WorkFlow_Empid,
+                                                                        finalApp_Status: workFlowLast.WorkFlow_EmpStatus,
+                                                                        gridEmpid_next: gridEmpId_next)
+            
+            if approveVacationResult == "" {
+                AlertMessage().showAlertMessage(
+                    alertTitle: "Success",
+                    alertMessage: "Business trip request " + actionTitle + " successfully",
+                    actionTitle: "OK", onAction: {
+                        
+                        self.start()
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+                            moveTo(storyboard: "Home", withIdentifier: "homeViewControllerNav", viewController: self)
+                            self.end()
+                        })
+
+                }, cancelAction: nil, self)
+            } else {
+                AlertMessage().showAlertMessage(
+                    alertTitle: "Alert",
+                    alertMessage: approveVacationResult,
+                    actionTitle: nil,
+                    onAction: nil,
+                    cancelAction: "OK",
+                    self)
+            }
+        }
+    }
+    
+    func runApprove(buttonType: String, actionTitle: String){
+        AlertMessage().showAlertMessage(
+            alertTitle: "Confirmation",
+            alertMessage: "Do you want to approve the request?",
+            actionTitle: "OK",
+            onAction: {
+                
+                self.start()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+                    self.approveAction(buttonType: buttonType, actionTitle: actionTitle)
+                    self.end()
+                })
+                
+        }, cancelAction: "Cancel", self)
+    }
+    
     // -- MARK: IBAction
     
     @IBAction func approveButtonTapped(_ sender: Any) {
         print("Approve Button Tapped")
+        runApprove(buttonType: "BtnApprove", actionTitle: "approved")
     }
     
     @IBAction func onHoldButtonTapped(_ sender: Any) {
         print("On Hold Button Tapped")
+        runApprove(buttonType: "BtnHold", actionTitle: "put onhold")
     }
     
     @IBAction func rejectButtonTapped(_ sender: Any) {
         print("Reject Button Tapped")
+        runApprove(buttonType: "BtnReject", actionTitle: "rejected")
     }
     
 }
@@ -150,10 +288,11 @@ extension BusinessTripApprovalFormViewController: UITableViewDelegate, UITableVi
         } else if segue.identifier == "showBTUserComment" {
             if let vc = segue.destination as? BTUserCommentTableViewController{
                 vc.userCommentArray = userComment
+                vc.workFlowNames = workFlowNames
             }
         } else if segue.identifier == "showBTWorkFlow" {
             if let vc = segue.destination as? BTWorkFlowTableViewController{
-                vc.workFlow = workFlow
+                vc.workFlow = editWorkFlow
             }
         }
     }

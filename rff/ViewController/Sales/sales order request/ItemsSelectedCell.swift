@@ -140,7 +140,6 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
                 itemAddedArray[textField.tag].Grid_Qty = error != "" ? qtyOldText : qtyTxt
                 qtyTextfield.text = error != "" ? qtyOldText : qtyTxt
                 
-                
             } else {
                 itemAddedArray[textField.tag].Grid_UnitPrice = unitPriceTxt
             }
@@ -159,15 +158,50 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
             """)
     }
     
-    func handleChangeInQty(itemText: String, qtyTxt: String, uofmText: String, index: Int) -> String{
-        let inQtyChange = self.webservice.qtyChangeInGrid(gpcust: gpCust, itemNum: itemText, gridqty: qtyTxt, girdUofm: uofmText,
-                                                      gridItemNum: itemAddedArray[index].Grid_ItemId, uofm: uofmText, locCodeValue: locCodeGlobal)
-        for qtyChange in inQtyChange{
-            if qtyChange.grid_error != "" {
-                return qtyChange.grid_error
+    func getQtyRequired(itemArray: [ItemsModul], itemTxt: String, uofmTxt: String, qtyText: Double) -> Double{
+        var qtyReq = 0.0
+        for item in itemArray{
+            if item.Grid_Desc == itemTxt && item.Grid_UOM == uofmTxt{
+                if let itemQtyDouble = Double(item.Grid_Qty){
+                    qtyReq = self.webservice.GetReqQtyForBindPurchaseGrid(itemid: itemTxt,
+                                                                          loccode: locCodeGlobal,
+                                                                          grdItemNum: item.Grid_ItemId,
+                                                                          grduofm: item.Grid_UOM,
+                                                                          grdqty: itemQtyDouble,
+                                                                          quantityrequired: qtyReq)
+                }
             }
         }
-        return ""
+        print("quantityrequired = \(qtyReq)")
+        return qtyReq
+    }
+    
+    func handleChangeInQty(itemText: String, qtyTxt: String, uofmText: String, index: Int) -> String{
+        var message = ""
+        var onHandQty = ""
+        if let qtyDouble = Double(qtyTxt){
+            let quantity: Double = getQtyRequired(itemArray: itemAddedArray, itemTxt: itemText.trimmingCharacters(in: .whitespaces), uofmTxt: uofmText, qtyText: qtyDouble)
+            
+            let inQtyChange = self.webservice.qtyChangeInGrid(gpcust: gpCust,
+                                                              itemNum: itemText,
+                                                              gridqty: qtyTxt,
+                                                              girdUofm: uofmText,
+                                                              qtyReq: quantity,
+                                                              gridItemNum: itemAddedArray[index].Grid_ItemId,
+                                                              uofm: uofmText,
+                                                              locCodeValue: locCodeGlobal)
+            for qtyChange in inQtyChange{
+                if onHandQty == "" {
+                    onHandQty = qtyChange.Onhand
+                }
+                if qtyChange.grid_error != "" {
+                    message = onHandQty
+                    message += "\n\n"
+                    message += qtyChange.grid_error
+                }
+            }
+        }
+        return message
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

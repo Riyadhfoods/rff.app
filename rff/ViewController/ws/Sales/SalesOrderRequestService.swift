@@ -182,6 +182,7 @@ class SalesOrderRequestService{
         else if elemName == "Grid_Qty" { rItem1.Grid_Qty =  strVal }
         else if elemName == "Grid_UnitPrice" { rItem1.Grid_UnitPrice =  strVal }
         else if elemName == "Grid_TotalPrice" { rItem1.Grid_TotalPrice =  strVal }
+        else if elemName == "Onhand" { rItem1.Onhand =  strVal }
         return rItem1
     }
     
@@ -296,7 +297,7 @@ class SalesOrderRequestService{
         return false
     }
     
-    func qtyChangeInGrid(gpcust: Bool, itemNum: String, gridqty: String, girdUofm: String, gridItemNum: String, uofm: String, locCodeValue: String) -> [ItemClassModul]{
+    func qtyChangeInGrid(gpcust: Bool, itemNum: String, gridqty: String, girdUofm: String, qtyReq: Double, gridItemNum: String, uofm: String, locCodeValue: String) -> [ItemClassModul]{
         var returnValueArray = ItemClassModul()
         var soapReqXML: String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         
@@ -317,6 +318,9 @@ class SalesOrderRequestService{
         soapReqXML += "<girdUofm>"
         soapReqXML += girdUofm
         soapReqXML += "</girdUofm>"
+        soapReqXML += "<qtyReq>"
+        soapReqXML += String(qtyReq)
+        soapReqXML += "</qtyReq>"
         soapReqXML += "<gridItemNum>"
         soapReqXML += gridItemNum
         soapReqXML += "</gridItemNum>"
@@ -338,6 +342,7 @@ class SalesOrderRequestService{
             
             let rItem1 = returnValueArray
             if elemName == "grid_error" { rItem1.grid_error =  strVal }
+            else if elemName == "Onhand" { rItem1.Onhand =  strVal }
             return rItem1
             
         }) as? [ItemClassModul]{ return returnValue }
@@ -523,6 +528,47 @@ class SalesOrderRequestService{
         return [unitOfMeasurementModel]()
     }
     
+    func GetReqQtyForBindPurchaseGrid(itemid: String, loccode: String, grdItemNum: String, grduofm: String, grdqty: Double, quantityrequired: Double)-> Double{
+        var soapReqXML: String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
+        
+        soapReqXML += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
+        soapReqXML += " xmlns:xsd =\"http://www.w3.org/2001/XMLSchema\""
+        soapReqXML += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
+        soapReqXML += " <soap:Body>"
+        soapReqXML += "<GetReqQtyForBindPurchaseGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<itemid>"
+        soapReqXML += itemid
+        soapReqXML += "</itemid>"
+        soapReqXML += "<loccode>"
+        soapReqXML += loccode
+        soapReqXML += "</loccode>"
+        soapReqXML += "<grdItemNum>"
+        soapReqXML += grdItemNum
+        soapReqXML += "</grdItemNum>"
+        soapReqXML += "<grduofm>"
+        soapReqXML += grduofm
+        soapReqXML += "</grduofm>"
+        soapReqXML += "<grdqty>"
+        soapReqXML += String(grdqty)
+        soapReqXML += "</grdqty>"
+        soapReqXML += "<quantityrequired>"
+        soapReqXML += String(quantityrequired)
+        soapReqXML += "</quantityrequired>"
+        soapReqXML += "</GetReqQtyForBindPurchaseGrid>"
+        soapReqXML += "</soap:Body>"
+        soapReqXML += "</soap:Envelope>"
+        
+        let soapAction: String = "http://tempuri.org/GetReqQtyForBindPurchaseGrid"
+        
+        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let strVal: String? = commonFunction.stringFromXML(data: responseData)
+        if let strVal = strVal {
+            if let intVal = strVal.toDouble(){
+                return intVal
+            }
+        }
+        return 0
+    }
     
     
 }

@@ -210,6 +210,7 @@ class ReturnOrderRequestsViewController: UIViewController {
         returnDateTextField.delegate = self
         invoiceDateTextField.delegate = self
         commentTextView.delegate = self
+        rtvtxtfield.delegate = self
         
         companyNamesArray = ["Select company".localize()]
         companyIdArray = [" "]
@@ -596,6 +597,7 @@ class ReturnOrderRequestsViewController: UIViewController {
         date = ""
         setUpDefaultValueForStore()
         invoiceDateTextField.text = ""
+        rtvtxtfield.text = ""
         
         invoiceSelectedRow = 0
         itemSelectedRow = 0
@@ -848,6 +850,12 @@ extension ReturnOrderRequestsViewController: UITextViewDelegate, UITextFieldDele
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         self.textField = textField
+        
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
 

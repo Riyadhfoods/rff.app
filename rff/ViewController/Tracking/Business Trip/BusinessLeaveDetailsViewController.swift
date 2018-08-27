@@ -37,7 +37,14 @@ class BusinessLeaveDetailsViewController: UIViewController {
     }
 
     func setData(){
-        
+        for detail in businessLeaveDtailsArray{
+            journeyStartDate.text = detail.StartDate
+            journeyEndDate.text = detail.EndDate
+            destination.text = detail.Dest
+            businessTripAmount.text = detail.TripAmt
+            amountDesc.text = detail.AmtDesc
+            reason.text = detail.Reason
+        }
     }
     
 }

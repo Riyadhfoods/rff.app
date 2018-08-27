@@ -150,6 +150,14 @@ func ActivityIndicatorDisplayAndAction(activityIndicator: UIActivityIndicatorVie
     })
 }
 
+func ActivityIndicatorDisplayAndActionAfterward(start: (), end: (), action: @escaping () -> Void){
+    start
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+        action()
+        end
+    })
+}
+
 func getStringDate(date: Date) -> String{
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "yyyy-MM-dd"

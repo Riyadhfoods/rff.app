@@ -23,6 +23,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     // TextField Action
     @IBOutlet weak var showListPickerTextField: UITextField!
     @IBOutlet weak var showCategoryPickerTextField: UITextField!
+    @IBOutlet weak var activityIndicatorContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let pickerViewAction = PickerviewAction()
@@ -72,26 +73,30 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         setUpPickerView()
         setupLanguagChange()
         setSlideMenu(controller: self, menuButton: menuBtn)
-        activityIndicator.startAnimating()
+        startLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        listRowIndex = 0
-        CategopryRowIndex = 0
+//        listRowIndex = 0
+//        CategopryRowIndex = 0
         if arrayOfListReceived.isEmpty{
             self.setUpArrays()
         }
-        activityIndicator.stopAnimating()
+        stopLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)
         
         if formId != ""{
             runViewIfComeFromHome()
         }
         
-        listTextfield.text = arrayOfList[0].listname
-        pickViewList.selectRow(0, inComponent: 0, animated: false)
-        categoryTextfield.text = categoryArray[0]
-        pickViewCategory.selectRow(0, inComponent: 0, animated: false)
+        print("listRowIndex = ", listRowIndex)
+        print("CategopryRowIndex = ", CategopryRowIndex)
+
+        
+//        listTextfield.text = arrayOfList[0].listname
+//        pickViewList.selectRow(0, inComponent: 0, animated: false)
+//        categoryTextfield.text = categoryArray[0]
+//        pickViewCategory.selectRow(0, inComponent: 0, animated: false)
     }
     
     // -- MARK: Setups
@@ -214,7 +219,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
                 return
             }, cancelAction: nil, self)
         } else {
-            activityIndicator.startAnimating()
+            startLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
                 self.showArrayOfInboxGrid(fromId: String(self.listFormId), drpdwnvalue: String(self.categoryIndexSelected))
             }
@@ -227,6 +232,8 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         var count = 0
         for list in arrayOfListReceived{
             if list.listtype == formId{
+                listRowIndex = count + 1
+                CategopryRowIndex = 1
                 listTextfield.text = list.listname
                 categoryTextfield.text = categoryArray[1]
                 if let arraylistInt = Int(list.listtype){
@@ -235,8 +242,10 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
                 
                 activityIndicator.startAnimating()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) {
-                    self.CategopryRowIndex = 1
                     self.showArrayOfInboxGrid(fromId: formId, drpdwnvalue: String(0))
+                    
+                    self.pickViewList.selectRow(self.listRowIndex, inComponent: 0, animated: false)
+                    self.pickViewCategory.selectRow(self.CategopryRowIndex, inComponent: 0, animated: false)
                 }
                 break
             }
@@ -254,7 +263,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
 
             formId = ""
             self.performSegue(withIdentifier: "showInboxTable", sender: nil)
-            self.activityIndicator.stopAnimating()
+            stopLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)
         }
     }
     

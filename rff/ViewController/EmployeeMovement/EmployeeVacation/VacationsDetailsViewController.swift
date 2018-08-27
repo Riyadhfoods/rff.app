@@ -48,6 +48,7 @@ class VacationsDetailsViewController: UIViewController {
     @IBOutlet weak var visaReuireTableView: UITableView!
     @IBOutlet weak var comment: UITextView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var activityIndicatorContainer: UIView!
     
     // -- MARK: Constrains
     @IBOutlet weak var tableViewWidth: NSLayoutConstraint!
@@ -131,14 +132,14 @@ class VacationsDetailsViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapView(gesture:)))
         view.addGestureRecognizer(tapGesture)
-        activityIndicator.startAnimating()
+        start()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         setupArrays()
-        activityIndicator.stopAnimating()
+        stop()
     }
 
     override func didReceiveMemoryWarning() {
@@ -294,24 +295,10 @@ class VacationsDetailsViewController: UIViewController {
         }
     }
     
-    // -- MARK: IBAction
+    // -- MARK: Helper functions
     
-    var ticketRequest: Int = 0
-    @IBAction func byCompanyButtonTapped(_ sender: Any) {
-        byCompanyButton.backgroundColor = mainBackgroundColor
-        cashButton.backgroundColor = .white
-        ticketRequest = 1
-        
-        changeSettlementAmount()
-    }
-    
-    @IBAction func cashButtonTapped(_ sender: Any) {
-        byCompanyButton.backgroundColor = .white
-        cashButton.backgroundColor = mainBackgroundColor
-        ticketRequest = 0
-        
-        changeSettlementAmount()
-    }
+    func start(){startLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)}
+    func stop(){stopLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)}
     
     func changeSettlementAmount(){
         settlementDetails = webserviceForVacationDetails.get_settlement_details(
@@ -323,23 +310,11 @@ class VacationsDetailsViewController: UIViewController {
         settlementAmount.text =  settlementDetails.TotalSettlementAmount
     }
     
-    @IBAction func exitYesButtonTapped(_ sender: Any) {
-        ExitYesButton.backgroundColor = mainBackgroundColor
-        exitNoBuuton.backgroundColor = .white
-        exitReEntryVisaSelected = 1
-    }
-    
-    @IBAction func exitNoButtonTapped(_ sender: Any) {
-        ExitYesButton.backgroundColor = .white
-        exitNoBuuton.backgroundColor = mainBackgroundColor
-        exitReEntryVisaSelected = 0
-    }
-    
     func handleSuccessAction(action: @escaping () -> Void){
-        self.activityIndicator.startAnimating()
+        self.start()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
             action()
-            self.activityIndicator.stopAnimating()
+            self.stop()
         })
     }
     
@@ -355,39 +330,6 @@ class VacationsDetailsViewController: UIViewController {
         initialValues()
         setupDefaultSelector()
         scrollView.scrollTo(direction: .Top, animated: false)
-    }
-    
-    @IBAction func submitButtonTapped(_ sender: Any) {
-        AlertMessage().showAlertMessage(
-            alertTitle: "Confirmation",
-            alertMessage: "Do you want to send vacation request?",
-            actionTitle: "Yes",
-            onAction: {
-                
-                if self.delegateTextField.text == "Your delegate".localize() {
-                    let alertMessage = "Choose your delegate".localize()
-                    let alertTitle = "Alert!".localize()
-                    
-                    AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
-                } else {
-                    if let numOfDays = self.numOfDays.text,
-                        let leaveStartDate = self.leaveStartDatePickerView.text,
-                        let returnDate = self.ReturnDatePickerView.text,
-                        let vacationType = self.vacationTypeTextField.text,
-                        let exitReEntryDays = self.exitReEntryDays.text{
-                        
-                        self.handleSuccessAction {
-                            self.submit(numOfDays: numOfDays,
-                                        leaveStartDate: leaveStartDate,
-                                        returnDate: returnDate,
-                                        vacationType: vacationType,
-                                        exitReEntryDays: exitReEntryDays)
-                        }
-                    }
-                }
-                
-        }, cancelAction: "Cancel", self)
-        
     }
     
     func submit(numOfDays: String, leaveStartDate: String, returnDate: String, vacationType: String, exitReEntryDays: String){
@@ -451,6 +393,70 @@ class VacationsDetailsViewController: UIViewController {
                 }
             }, cancelAction: nil, self)
         }
+    }
+    
+    // -- MARK: IBAction
+    
+    var ticketRequest: Int = 0
+    @IBAction func byCompanyButtonTapped(_ sender: Any) {
+        byCompanyButton.backgroundColor = mainBackgroundColor
+        cashButton.backgroundColor = .white
+        ticketRequest = 1
+        
+        changeSettlementAmount()
+    }
+    
+    @IBAction func cashButtonTapped(_ sender: Any) {
+        byCompanyButton.backgroundColor = .white
+        cashButton.backgroundColor = mainBackgroundColor
+        ticketRequest = 0
+        
+        changeSettlementAmount()
+    }
+    
+    @IBAction func exitYesButtonTapped(_ sender: Any) {
+        ExitYesButton.backgroundColor = mainBackgroundColor
+        exitNoBuuton.backgroundColor = .white
+        exitReEntryVisaSelected = 1
+    }
+    
+    @IBAction func exitNoButtonTapped(_ sender: Any) {
+        ExitYesButton.backgroundColor = .white
+        exitNoBuuton.backgroundColor = mainBackgroundColor
+        exitReEntryVisaSelected = 0
+    }
+    
+    @IBAction func submitButtonTapped(_ sender: Any) {
+        AlertMessage().showAlertMessage(
+            alertTitle: "Confirmation",
+            alertMessage: "Do you want to send vacation request?",
+            actionTitle: "Yes",
+            onAction: {
+                
+                if self.delegateTextField.text == "Your delegate".localize() {
+                    let alertMessage = "Choose your delegate".localize()
+                    let alertTitle = "Alert!".localize()
+                    
+                    AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
+                } else {
+                    if let numOfDays = self.numOfDays.text,
+                        let leaveStartDate = self.leaveStartDatePickerView.text,
+                        let returnDate = self.ReturnDatePickerView.text,
+                        let vacationType = self.vacationTypeTextField.text,
+                        let exitReEntryDays = self.exitReEntryDays.text{
+                        
+                        self.handleSuccessAction {
+                            self.submit(numOfDays: numOfDays,
+                                        leaveStartDate: leaveStartDate,
+                                        returnDate: returnDate,
+                                        vacationType: vacationType,
+                                        exitReEntryDays: exitReEntryDays)
+                        }
+                    }
+                }
+                
+        }, cancelAction: "Cancel", self)
+        
     }
 }
 
