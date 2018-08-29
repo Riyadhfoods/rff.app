@@ -92,6 +92,8 @@ class InboxTableViewController: UITableViewController, ApproveActionDelegate {
             performSegue(withIdentifier: "showApprovalFormForInbox", sender: nil)
         } else if listFormId == 2079{
             performSegue(withIdentifier: "showApprovalFormForBusinessTrip", sender: nil)
+        } else if listFormId == 1003{
+            performSegue(withIdentifier: "showApproveFormForResign", sender: nil)
         }
         
     }

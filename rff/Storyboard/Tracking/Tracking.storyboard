@@ -368,6 +368,7 @@
                     <connections>
                         <segue destination="XOS-rd-gXo" kind="show" identifier="showApprovalFormForInbox" id="yNq-3k-U0i"/>
                         <segue destination="WAm-8w-x4j" kind="show" identifier="showApprovalFormForBusinessTrip" id="RNe-fg-YPo"/>
+                        <segue destination="RGl-ZV-gPO" kind="show" identifier="showApproveFormForResign" id="wR6-LS-TWr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="osA-fv-EtW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -408,7 +409,15 @@
                 <viewControllerPlaceholder storyboardName="BusinessTripApproval" id="WAm-8w-x4j" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HGX-6e-KC5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5740" y="1134"/>
+            <point key="canvasLocation" x="5743" y="1098"/>
+        </scene>
+        <!--ResignApproval-->
+        <scene sceneID="MkT-hU-y7d">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ResignApproval" id="RGl-ZV-gPO" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VkD-WA-Mya" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5714" y="1151"/>
         </scene>
     </scenes>
     <resources>

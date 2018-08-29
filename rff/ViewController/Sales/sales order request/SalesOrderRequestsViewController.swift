@@ -467,6 +467,11 @@ class SalesOrderRequestsViewController: UIViewController {
         }
     }
     
+    func userInteraction(isEnable: Bool){
+        showsalespersonPickerViewTextfield.isUserInteractionEnabled = isEnable
+        showcustomerPickerViewTextfield.isUserInteractionEnabled = isEnable
+    }
+    
     // -- MARK: IBAction
     
     @IBAction func itemButtonTapped(_ sender: Any) {
@@ -511,6 +516,7 @@ class SalesOrderRequestsViewController: UIViewController {
             
             if itemAddedArray.isEmpty {
                 addItem(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
+                userInteraction(isEnable: false)
             } else {
                 loopThriughArrayToCheckItemExitanceAndTakeAction(itemText: itemText, unoitText: unoitText, qtyText: qtyText)
             }
@@ -760,6 +766,7 @@ class SalesOrderRequestsViewController: UIViewController {
         setUpDefaultValueFromStoreToQty()
         commentTextview.text = ""
         itemAddedArray.removeAll()
+        userInteraction(isEnable: true)
         storeStackView.isHidden = true
         viewHolder.isHidden = true
         warningLabel.isHidden = true
