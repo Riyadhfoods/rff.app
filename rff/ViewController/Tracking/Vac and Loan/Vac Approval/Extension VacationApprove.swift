@@ -28,6 +28,7 @@ extension InboxApprovalFormViewController{
         }
         
         workFlowForVac = webserviceForVac.BindApproversGrid(
+            emp_id: appliedEmpId,
             formid: listFormId,
             pid: pid,
             langid: LoginViewController.languageChosen)
@@ -39,7 +40,14 @@ extension InboxApprovalFormViewController{
             fid: listFormId,
             gvApp_RowCount: workFlowForVac.count)
         
-        updateWorkFlowPendingStatus(workFlowArray: workFlowForVac, editWorkFlowArray: &editWorkFlowForVac)
+        if editWorkFlowForVac.isEmpty {
+            let updatedValues = CommonTrackFunctions.instance.updateWorkFlowPendingStatus(array: workFlowForVac, editArray: &editWorkFlowForVac)
+            editWorkFlowForVac = updatedValues.0
+            gridEmpId = updatedValues.1
+            gridEmpId_next = updatedValues.2
+            buttonsStackView.isHidden = updatedValues.3
+        }
+        
         handleTheHeightOfTableView()
     }
     
@@ -97,6 +105,10 @@ extension InboxApprovalFormViewController{
             let vaction = leaveDetailsArrayForVac,
             let workFlowLast = workFlowForVac.last{
             
+            if buttonType == "BtnHold" || buttonType == "BtnReject"{
+                gridEmpId_next = gridEmpId
+            }
+            
             let approveVacationResult = webserviceForVac.Approve_Vacation(
                 vac_number: vaction.Vacation_Number,
                 Emp_ID: appliedEmpId,
@@ -118,20 +130,37 @@ extension InboxApprovalFormViewController{
                     alertTitle: "Success",
                     alertMessage: "Vacation request " + actionTitle + " successfully",
                     actionTitle: "OK", onAction: {
-                        
-                        ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-                            if let delegate = self.delegate{
-                                delegate.approveAction(isSuccess: true, row: self.cellRow, categorySelected: self.categorySelected)
-                            }
-                            self.navigationController?.popViewController(animated: true)
-                        })
-                        
+                        self.saveActionForVac(buttonType: buttonType)
                 }, cancelAction: nil, self)
             } else {
-                if let delegate = self.delegate{
-                    delegate.approveAction(isSuccess: false, row: self.cellRow, categorySelected: categorySelected)
-                }
+                updateDelegateFunction(isSuccess: false)
+                AlertMessage().showAlertMessage(
+                    alertTitle: "Alert",
+                    alertMessage: approveVacationResult,
+                    actionTitle: nil,
+                    onAction: nil,
+                    cancelAction: "OK",
+                    self)
             }
+        }
+    }
+    
+    func saveActionForVac(buttonType: String){
+        start()
+        DispatchQueue.main.async {
+            self.workFlowForVac = self.webserviceForVac.BindApproversGrid(
+                emp_id: self.appliedEmpId,
+                formid: self.listFormId,
+                pid: self.pid,
+                langid: LoginViewController.languageChosen)
+            
+            let result = CommonTrackFunctions.instance.saveToHistory(array: self.workFlowForVac, btnType: buttonType, pid: self.pid, formId: self.listFormId)
+            
+            print(result)
+            
+            self.updateDelegateFunction(isSuccess: true)
+            self.navigationController?.popViewController(animated: true)
+            self.stop()
         }
     }
     

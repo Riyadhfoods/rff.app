@@ -28,11 +28,11 @@ class BusinessTripApprovalFormViewController: UIViewController {
     // -- MARK: Variables
     
     let webservice = BusinessTripApprovalService.instance
-    let cellTitle = ["Business Leave Details",
-                     "Travel & Residence Details",
-                     "Travel Membership",
-                     "User Comment",
-                     "WorkFlow"]
+    let cellTitles = ["Business Leave Details".localize(),
+                     "Travel & Residence Details".localize(),
+                     "Travel Membership".localize(),
+                     "User Comment".localize(),
+                     "Work Flow".localize()]
     let cellId = "cell_businessTripApproval"
     var pid = ""
     var btAppDetails = [BusinessTrip_AppModel]()
@@ -55,6 +55,11 @@ class BusinessTripApprovalFormViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if LanguageManger.isArabicLanguage{
+            title = "نموذج الموافقة"
+        } else {  title = "Approval Form" }
+        setbackNavTitle(navItem: navigationItem)
+        
         setUpView()
         setViewAlignment()
         lodingLabel.textAlignment = .center
@@ -64,6 +69,7 @@ class BusinessTripApprovalFormViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         setUpData()
         end()
     }
@@ -82,7 +88,7 @@ class BusinessTripApprovalFormViewController: UIViewController {
         buttonsStackView.isHidden = true
         
         stackViewWidth.constant = AppDelegate.shared.screenSize.width - 32
-        tableViewHeight.constant = CGFloat(cellTitle.count * 44)
+        tableViewHeight.constant = CGFloat(cellTitles.count * 44)
         commentTextView.text = ""
     }
     
@@ -90,7 +96,7 @@ class BusinessTripApprovalFormViewController: UIViewController {
         btAppDetails = webservice.Bind_business_trip_Details(pid: pid, lang: LoginViewController.languageChosen)
         btTravelDetails = webservice.Bind_travel_details_grid(pid: pid, lang: LoginViewController.languageChosen)
         
-        workFlow = webservice.BindApproversGrid(formid: listFormId, pid: pid, lang: LoginViewController.languageChosen)
+        workFlow = webservice.BindApproversGrid(emp_id: appliedEmpId, formid: listFormId, pid: pid, lang: LoginViewController.languageChosen)
         for workflow in workFlow{
             workFlowNames.append(workflow.WorkFlow_EmpName)
         }
@@ -99,8 +105,13 @@ class BusinessTripApprovalFormViewController: UIViewController {
         
         setUpValues()
         if editWorkFlow.isEmpty{
-            updateWorkFlowPendingStatus(array: workFlow, editArray: &editWorkFlow)
+            let updatedValues = CommonTrackFunctions.instance.updateWorkFlowPendingStatus(array: workFlow, editArray: &editWorkFlow)
+            editWorkFlow = updatedValues.0
+            gridEmpId = updatedValues.1
+            gridEmpId_next = updatedValues.2
+            buttonsStackView.isHidden = updatedValues.3
         }
+        handleHeighOfTableView()
     }
     
     func setUpValues(){
@@ -150,7 +161,7 @@ class BusinessTripApprovalFormViewController: UIViewController {
     func start(){ startLoader(superView: self.activityContainerView, activityIndicator: self.activityIndictor) }
     func end(){ stopLoader(superView: self.activityContainerView, activityIndicator: self.activityIndictor) }
     
-    func approveAction(buttonType: String, actionTitle: String){
+    func approveAction(buttonType: String, rMessage: String){
         if let commentText = commentTextView.text,
             let workFlowLast = workFlow.last{
             
@@ -172,32 +183,28 @@ class BusinessTripApprovalFormViewController: UIViewController {
                 gridEmpid_next: \(gridEmpId_next)
                 """)
             
-            let approveVacationResult = webservice.Approve_BusinessTrip(Emp_ID: appliedEmpId,
-                                                                        pid: pid,
-                                                                        buttonType: buttonType,
-                                                                        FormId: listFormId,
-                                                                        Comment: commentText,
-                                                                        grid_empid: gridEmpId,
-                                                                        totalgrd_rows: workFlow.count,
-                                                                        login_empId: AuthServices.currentUserId,
-                                                                        finalApp_EmpId: workFlowLast.WorkFlow_Empid,
-                                                                        finalApp_Status: workFlowLast.WorkFlow_EmpStatus,
-                                                                        gridEmpid_next: gridEmpId_next)
+            let approveVacationResult = webservice.Approve_BusinessTrip(
+                Emp_ID: appliedEmpId,
+                pid: pid,
+                buttonType: buttonType,
+                FormId: listFormId,
+                Comment: commentText,
+                grid_empid: gridEmpId,
+                totalgrd_rows: workFlow.count,
+                login_empId: AuthServices.currentUserId,
+                finalApp_EmpId: workFlowLast.WorkFlow_Empid,
+                finalApp_Status: workFlowLast.WorkFlow_EmpStatus,
+                gridEmpid_next: gridEmpId_next)
             
             if approveVacationResult == "" {
                 AlertMessage().showAlertMessage(
                     alertTitle: "Success",
-                    alertMessage: "Business trip request " + actionTitle + " successfully",
+                    alertMessage: rMessage,
                     actionTitle: "OK", onAction: {
-                        
-                        self.start()
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
-                            moveTo(storyboard: "Home", withIdentifier: "homeViewControllerNav", viewController: self)
-                            self.end()
-                        })
-
+                        self.saveAction(buttonType: buttonType)
                 }, cancelAction: nil, self)
             } else {
+                updateDelegateFunction(isSuccess: false)
                 AlertMessage().showAlertMessage(
                     alertTitle: "Alert",
                     alertMessage: approveVacationResult,
@@ -209,16 +216,35 @@ class BusinessTripApprovalFormViewController: UIViewController {
         }
     }
     
-    func runApprove(buttonType: String, actionTitle: String){
+    func updateDelegateFunction(isSuccess: Bool){
+        if let delegate = self.delegate{
+            delegate.approveAction(isSuccess: isSuccess, row: self.cellRow, categorySelected: self.categorySelected)
+        }
+    }
+    
+    func saveAction(buttonType: String){
+        start()
+        DispatchQueue.main.async {
+            self.workFlow = self.webservice.BindApproversGrid(emp_id: self.appliedEmpId, formid: self.listFormId, pid: self.pid, lang: LoginViewController.languageChosen)
+            let result = CommonTrackFunctions.instance.saveToHistory(array: self.workFlow, btnType: buttonType, pid: self.pid, formId: self.listFormId)
+            print(result)
+            
+            self.updateDelegateFunction(isSuccess: true)
+            self.navigationController?.popViewController(animated: true)
+            self.end()
+        }
+    }
+    
+    func runApprove(buttonType: String, cMessage: String, rMessage: String){
         AlertMessage().showAlertMessage(
             alertTitle: "Confirmation",
-            alertMessage: "Do you want to approve the request?",
+            alertMessage: cMessage,
             actionTitle: "OK",
             onAction: {
                 
                 self.start()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
-                    self.approveAction(buttonType: buttonType, actionTitle: actionTitle)
+                    self.approveAction(buttonType: buttonType, rMessage: rMessage)
                     self.end()
                 })
                 
@@ -229,17 +255,23 @@ class BusinessTripApprovalFormViewController: UIViewController {
     
     @IBAction func approveButtonTapped(_ sender: Any) {
         print("Approve Button Tapped")
-        runApprove(buttonType: "BtnApprove", actionTitle: "approved")
+        let cMessage = "Do you want to approve the request?"
+        let rMessage = "Business trip request approved successfully"
+        runApprove(buttonType: "BtnApprove", cMessage: cMessage, rMessage: rMessage)
     }
     
     @IBAction func onHoldButtonTapped(_ sender: Any) {
         print("On Hold Button Tapped")
-        runApprove(buttonType: "BtnHold", actionTitle: "put onhold")
+        let cMessage = "Do you want to put the request onhold?"
+        let rMessage = "Business trip request put onhold successfully"
+        runApprove(buttonType: "BtnHold", cMessage: cMessage, rMessage: rMessage)
     }
     
     @IBAction func rejectButtonTapped(_ sender: Any) {
         print("Reject Button Tapped")
-        runApprove(buttonType: "BtnReject", actionTitle: "rejected")
+        let cMessage = "Do you want to reject the request?"
+        let rMessage = "Business trip request rejected successfully"
+        runApprove(buttonType: "BtnReject", cMessage: cMessage, rMessage: rMessage)
     }
     
 }
@@ -249,12 +281,12 @@ class BusinessTripApprovalFormViewController: UIViewController {
 extension BusinessTripApprovalFormViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return cellTitle.count
+        return cellTitles.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? BusinessTripApprovalFormCell{
-            cell.textLabel?.text = cellTitle[indexPath.row]
+            cell.textLabel?.text = cellTitles[indexPath.row]
             return cell
         }
         return UITableViewCell()
@@ -276,25 +308,65 @@ extension BusinessTripApprovalFormViewController: UITableViewDelegate, UITableVi
         if segue.identifier == "showBTLeaveDetails" {
             if let vc = segue.destination as? BusinessLeaveDetailsViewController{
                 vc.businessLeaveDtailsArray = btAppDetails
+                vc.navigationItem.title = cellTitles[0]
             }
         } else if segue.identifier == "showBTTravelAndResidenceDetails" {
             if let vc = segue.destination as? TravelAndResidenceDetailsTableViewController{
                 vc.travelAndResidenceDetailsArray = btTravelDetails
+                vc.navigationItem.title = cellTitles[1]
             }
         } else if segue.identifier == "showBTTravelMembership" {
             if let vc = segue.destination as? TravelMembershipViewController{
                 vc.travelMenebershipArray = btAppDetails
+                vc.navigationItem.title = cellTitles[2]
             }
         } else if segue.identifier == "showBTUserComment" {
             if let vc = segue.destination as? BTUserCommentTableViewController{
                 vc.userCommentArray = userComment
                 vc.workFlowNames = workFlowNames
+                vc.navigationItem.title = cellTitles[3]
             }
         } else if segue.identifier == "showBTWorkFlow" {
             if let vc = segue.destination as? BTWorkFlowTableViewController{
                 vc.workFlow = editWorkFlow
+                vc.navigationItem.title = cellTitles[4]
             }
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+            if btAppDetails.isEmpty { return 0 }
+        } else if indexPath.row == 1 {
+            if btTravelDetails.isEmpty { return 0 }
+        } else if indexPath.row == 2 {
+            if btAppDetails.isEmpty { return 0 }
+        } else if indexPath.row == 3 {
+            if userComment.isEmpty { return 0 }
+        } else if indexPath.row == 4 {
+            if workFlow.isEmpty{ return 0 }
+        }
+        return 44
+    }
+    
+    func handleHeighOfTableView(){
+        var emptyArray = [Bool]()
+        var emptyArrayCount = 0
+        
+        emptyArray.append(btAppDetails.isEmpty)
+        emptyArray.append(btTravelDetails.isEmpty)
+        emptyArray.append(btAppDetails.isEmpty)
+        emptyArray.append(userComment.isEmpty)
+        emptyArray.append(workFlow.isEmpty)
+        
+        for isEmpty in emptyArray{
+            if isEmpty{
+                emptyArrayCount += 1
+            }
+        }
+        
+        tableViewHeight.constant = CGFloat(44 * (cellTitles.count - emptyArrayCount))
+        tableViewForTitles.reloadData()
     }
 }
 

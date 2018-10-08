@@ -30,12 +30,14 @@ class ResignEmpInfoViewController: UIViewController {
     // MARK: Variables
     
     let screenSize = AppDelegate.shared.screenSize
+    var empDetailsArray = [ResignEmpDetailsModul]()
     
     // MARK: View life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setUpView()
+        setUpData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,6 +47,34 @@ class ResignEmpInfoViewController: UIViewController {
     // MARK: SetUps
     
     func setUpView(){
-        stackViewWidth.constant = screenSize.width - 64
+        stackViewWidth.constant = screenSize.width - 32
     }
+    
+    func setUpData(){
+        for emp in empDetailsArray{
+            empNameLabel.text = emp.Employee_Name
+            managerLabel.text = emp.MGR_Name
+            DeptLabel.text = emp.Dept_Name
+            NationalityLabel.text = emp.Nationality
+            companyLabel.text = emp.Compnay
+            joinDateLabel.text = emp.Join_Date
+            startDateLabel.text = emp.Start_Date
+            jobLabel.text = emp.Job_Desc
+            subJobLabel.text = emp.Sub_Job_Desc
+            basicSalaryLabel.text = emp.Basic_Salary
+            packageLabel.text = emp.Package
+            workHrsLabel.text = emp.Work_Hrs
+            absentDaysLabel.text = emp.Absent_Days
+        }
+    }
+    
 }
+
+
+
+
+
+
+
+
+

@@ -233,6 +233,82 @@ class BusinessTrip_AppTravelModel{
     var FromDateGrid : String = ""
 }
 
+// -- MARK: Resign
+
+class ReasonModul{
+    var Error: String = ""
+    var ID : String = ""
+    var Reason : String = ""
+}
+
+class Emp_InfoModul{
+    var Error: String = ""
+    var Emp_Id : String = ""
+    var Emp_Name : String = ""
+}
+
+class ResignEmpDetailsModul{
+    var Error: String = ""
+    var Employee_Name : String = ""
+    var Join_Date : String = ""
+    var Start_Date : String = ""
+    var Compnay : String = ""
+    var MGR_Name : String = ""
+    var Job_Desc : String = ""
+    var Sub_Job_Desc : String = ""
+    var Dept_Name : String = ""
+    var Nationality : String = ""
+    var Work_Hrs : String = ""
+    var Basic_Salary : String = ""
+    var Package : String = ""
+    var Absent_Days : String = ""
+    var Resign_type : String = ""
+}
+
+class Inc_DecrDetailsModul{
+    var Error: String = ""
+    var Date : String = ""
+    var Old_Basic : String = ""
+    var New_Basic : String = ""
+    var Inc_Decr : String = ""
+}
+
+class EvaDetailsModul{
+    var Error: String = ""
+    var Date : String = ""
+    var Total : String = ""
+    var Result : String = ""
+    var MGr_Remark : String = ""
+}
+
+// -- In Out Deductions
+
+class Emp_Details_Modul{
+    var Error: String = ""
+    var Employee_Name : String = ""
+    var Join_Date : String = ""
+    var Start_Date : String = ""
+    var Compnay : String = ""
+    var MGR_Name : String = ""
+    var Job_Desc : String = ""
+    var Sub_Job_Desc : String = ""
+    var Dept_Name : String = ""
+    var Nationality : String = ""
+    var Work_Hrs : String = ""
+    var Basic_Salary : String = ""
+    var Package : String = ""
+    var Absent_Days : String = ""
+}
+
+class In_Ou_Deduction_Modul{
+    var Error: String = ""
+    var Date : String = ""
+    var FromTime : String = ""
+    var ToTime : String = ""
+    var TotalMin : String = ""
+}
+
+
 // -- MARK: Sales
 
 class SalesInboxModul{

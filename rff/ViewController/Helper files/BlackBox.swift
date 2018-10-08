@@ -34,6 +34,12 @@ func setbackNavTitle(navItem: UINavigationItem){
     navItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
 }
 
+func setLocalizedNavTitle(arabocTxt: String, englishTxt: String) -> String{
+    if LanguageManger.isArabicLanguage{
+        return arabocTxt
+    } else {  return englishTxt }
+}
+
 func emptyMessage(viewController: UIViewController, tableView: UITableView, isEmpty: Bool) {
     let rect = CGRect(origin: CGPoint(x: 16,y :16), size: CGSize(width: viewController.view.bounds.size.width - 16, height: viewController.view.bounds.size.height - 16))
     let messageLabel = UILabel(frame: rect)
@@ -158,13 +164,6 @@ func ActivityIndicatorDisplayAndActionAfterward(start: (), end: (), action: @esc
     })
 }
 
-func getStringDate(date: Date) -> String{
-    let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "yyyy-MM-dd"
-    
-    return dateFormatter.string(from: date)
-}
-
 func setUpActivityIndicatorHolder(view: UIView){
     view.layer.cornerRadius = 10
     view.layer.borderWidth = 1
@@ -181,7 +180,13 @@ func stopLoader(superView: UIView, activityIndicator: UIActivityIndicatorView){
     activityIndicator.stopAnimating()
 }
 
-
+func isError(error: String, target vc: UIViewController) -> Bool{
+    if error != "" {
+        AlertMessage().showAlertMessage(alertTitle: "Alert", alertMessage: error, actionTitle: nil, onAction: nil, cancelAction: "OK", vc)
+        return true
+    }
+    return false
+}
 
 
 

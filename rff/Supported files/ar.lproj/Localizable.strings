@@ -25,7 +25,7 @@
 "Ticket Change" = "تغيير التذكرة";
 "Job Title Change" = "تغيير المسمى الوظيفي";
 "Business Trip" = "رحلة عمل";
-"In Out Deduction" = "In Out Deduction";
+"In Out Deduction" = "طلب اذن خروج";
 "ATTENDANCE" = "الحضور و الانصراف";
 "Attendance Details" = "تفاصيل الحضور";
 "OverTime Calculation" = "حساب العمل الاضافي";
@@ -185,6 +185,92 @@
 "Deduction" = "الخصومات";
 "each month" = "كل شهر";
 
+// resign approval
+"EOS Type " = "نوع نهاية الخدمة ";
+"Do you want to approve the request?" = "هل تود قبول الطلب؟";
+"Resign request approved successfully" = "تم قبول طلب الاستقاله بنجاح";
+"Do you want to put the request onhold?" = "هل تود وضع الطلب على الانتظار؟";
+"Resign request put onhold successfully" = "تم وضع طلب الاستقاله في الانتظر بنجاح";
+"Do you want to reject the request?" = "هل تود رفض الطلب؟";
+"Resign request rejected successfully" = "تم رفض طلب الاستقاله بنجاح";
+"Nantionality" = "الجنسية";
+"work Hours" = "ساعات العمل";
+"Absent Days" = "أيام الغياب";
+"Old Basic" = "الراتب الاساسي القديم";
+"New Basic" = "الراتب الاساسي الجديد";
+"Inrement/Decrement" = "الزيادة او النقصان";
+"Total" = "المجموع";
+"Result" = "النتيجة";
+"MGR Remark" = "ملاحظة المدير";
+
+// Employee Loan
+"Could not send the loan request" = "لا يمكن ارسل طلب سلفة";
+"Loan request is sent successfully" = "تم ارسال طلب السلفه بنجاح";
+"Do you want to send loan request?" = "هل تود ارسال طلب سلفه؟";
+"Please fill all the fields" = "يجب ملء جميع الحقول";
+
+// Employee resign
+"Increment/Decrement Details" = "تفاصيل الزيادة او النقصان";
+"Evaluation Details" = "تفاصيل التقييم";
+"Do you want to send resign request?" = "هل تود ارسال طلب الاستقاله؟";
+"Select Reason" = "اختر السبب";
+"You did not select a reason" = "لم يتم اختيار السبب";
+"Resign request for emp. no. " = "طلب الاستقاله للموظف رقم ";
+" saved successfully..!!" = " تم ارسالها بنجاح";
+"Success" = "تم الارسال بنجاح";
+"Reason" = "السبب";
+"End of service" = "نهاية الخدمة";
+
+// Employee BusinessTrip
+"Exit Reentry Visa" = "تأشيرة خروج وعودة";
+"Select Transportation" = "اختر وسيلة المواصلات";
+"Business Leave Details" = "تفاصيل رحلة العمل";
+"Start Date " = "تاريخ بدء الرحلة";
+"End Date " = "تاريخ انتهاء الرحلة";
+"Destination" = "الوجهة";
+"Business Trip Amount" = "مبلغ رحلة العمل";
+"Amount Description" = "وصف المبلغ";
+"Reason for business Trip" = "اسباب رحلة العمل";
+"Travel & Residence Details" = "تفاصيل السفر والسكن";
+"Air Line" = "الخطوط الجوية";
+"Visa" = "تأشيرة";
+"From" = "من";
+"To" = "الى";
+"From Date" = "من تاريخ";
+"To Date" = "الى تاريخ";
+"Travel Membership" = "عضوية السفر";
+"Meet & Assistance" = "المقابلة / المساعدة";
+"Luggage & Cargo" = "الأمتعة و البضائع";
+"Air Lines" = "الخطوط الجوية";
+"Membership Card No." = "بطاقة العضوية";
+"Others" = "اخري";
+"Confirmation" = "تاكيد";
+"Do you want to send business trip request?" = "هل نود ارسال طلب رحلة عمل";
+
+"Mode of Transport" = "وسيلة المواصلات";
+"Journey Start Date" = "تاريخ بدء الرحلة";
+"Journey End Date" = "تاريخ انتهاء الرحلة";
+"Reason for Business Trip" = "اسباب رحلة العمل";
+"AirLines" = "الخطوط الجوية";
+"From Loaction" = "من الموقع";
+"To Location" = "الى الموقع";
+"From Date" = "من تاريخ";
+"To Date" = "الى تاريخ";
+
+"Do you want to approve the request?" = "هل تود قبول الطلب؟";
+"Business trip request approved successfully" = "تم قبول طلب رحلة عمل بنجاح";
+"Do you want to put the request onhold?" = "هل تود وضع الطلب على الانتظار؟";
+"Business trip request put onhold successfully" = "تم وضع طلب رحلة عمل في الانتظر بنجاح";
+"Do you want to reject the request?"  = "هل تود رفض الطلب؟";
+"Business trip request rejected successfully" = "تم رفض طلب رحلة عمل بنجاح";
+
+// Employee in out dudection
+"Start Time" = "وقت البداية";
+"End Time" = "وقت النهاية";
+"Delay Minutes" = "دقايق التاخير";
+"Do you want to send in-out deduction request?" = "هل تود ارسال طلب اذن خروج؟";
+"In-out deduction request sent successfully" = "تم ارسال طلب اذن الخروج بنجاح";
+
 // Sales Inbox
 "Sales Inbox" = "المبيعات";
 "Search content" = "محتوى البحث";
@@ -315,7 +401,6 @@
 "Invoice has been Added" = "تم اضافة الفاتورة";
 "You did not fill invoice date or did not select invoice or item" = "لم يتم اختيار تاريخ الفاتورة او رقم الفاتوره او الصنف";
 "You have already added this invoice. Do you wnat to add it again" = "تم اضافة الفاتورة من قبل. هل تود اضافتها مره اخرى؟ ";
-"Confirmation" = "تأكيد";
 "Do you want to send the request" = "هل تود ارسال الطلب؟";
 "You did not fill the fields" = "لم يتم ادخال جميع الحقول";
 "You did not select store id" = "لم يتم ادخال رمز المستودع";

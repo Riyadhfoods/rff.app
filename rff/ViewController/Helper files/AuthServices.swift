@@ -32,7 +32,7 @@ class AuthServices{
                 }
             }
         } else {
-            AlertMessage().showAlertMessage(alertTitle: "Oops!", alertMessage: "Something went wrong with connection", actionTitle: nil, onAction: nil, cancelAction: "Dismiss", viewController)
+            AlertMessage().showAlertMessage(alertTitle: "Oops!", alertMessage: "Your connection was interrupted", actionTitle: nil, onAction: nil, cancelAction: "Dismiss", viewController)
             print("Oops, something went wrong!")
         }
     }

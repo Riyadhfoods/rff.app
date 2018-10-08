@@ -80,14 +80,7 @@ class ROActions{
     
     // To set the count the item add to the list
     func setCountForItem(c: Int, button: UIBarButtonItem){
-        button.title = "ITEMS".localize() + " (" + "\(c))"
-    }
-    
-    // To set the format of date to show
-    func getStringDate(date: Date) -> String{
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.string(from: date)
+        button.title = "(\(c))"
     }
     
     // To covert uiimage to data

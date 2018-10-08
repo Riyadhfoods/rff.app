@@ -51,7 +51,7 @@ class InboxApprovalFormViewController: UIViewController {
     var empGeneralInfoArrayForVac: EmployeeGeneralInfo?
     var leaveDetailsArrayForVac: LeaveDetails?
     var administrativeUseArrayForVac: AdministrativeUse?
-    var companionsDetailsArrayForVac = [CompanionsDetails]()
+    var companionsDetailsArrayForVac = [CompanionsDetails]()    
     var settlementTicketDetailsArrayForVac: SettlementAndTicketDetails?
     var userCommentForVac = [CommentModul]()
     var workFlowForVac = [WorkFlowModul]()
@@ -69,9 +69,11 @@ class InboxApprovalFormViewController: UIViewController {
     
     var appliedEmpName = ""
     var appliedEmpId = ""
+    var gridEmpId_prev = ""
     var gridEmpId = ""
     var gridEmpId_next = ""
     var delegate: ApproveActionDelegate?
+    var isOnHoldStatus = false
     
     // -- MARK: View life cycle
     
@@ -90,6 +92,7 @@ class InboxApprovalFormViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         super.viewDidAppear(animated)
         if isVacArrayEmpty() && listFormId == 10{
             setUpVacData()
@@ -121,39 +124,6 @@ class InboxApprovalFormViewController: UIViewController {
     func start(){ startLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator) }
     func stop(){ stopLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator) }
     
-    func updateWorkFlowPendingStatus(workFlowArray: [WorkFlowModul], editWorkFlowArray: inout [WorkFlowModul]){
-        var isPending = false
-        var isRejected = false
-        var isOnHold = false
-        for count in 0..<workFlowArray.count{
-            print(workFlowArray[count].WorkFlow_EmpStatus)
-            if workFlowArray[count].WorkFlow_EmpStatus == "Rejected"{
-                isRejected = true
-            } else if workFlowArray[count].WorkFlow_EmpStatus == "On Hold"{
-                gridEmpId = workFlowArray[count].WorkFlow_Empid
-                gridEmpId_next = count + 1 < workFlowArray.count ? workFlowArray[count + 1].WorkFlow_Empid : ""
-                isOnHold = true
-                if workFlowArray[count].WorkFlow_Empid == AuthServices.currentUserId{
-                    buttonsStackView.isHidden = false
-                }
-            }
-            
-            if workFlowArray[count].WorkFlow_EmpStatus == "" && !isRejected && !isOnHold{
-                if !isPending{
-                    gridEmpId = workFlowArray[count].WorkFlow_Empid
-                    gridEmpId_next = count + 1 < workFlowArray.count ? workFlowArray[count + 1].WorkFlow_Empid : ""
-                    workFlowArray[count].WorkFlow_EmpStatus = "Pending"
-                    isPending = true
-                    
-                    if workFlowArray[count].WorkFlow_Empid == AuthServices.currentUserId{
-                        buttonsStackView.isHidden = false
-                    }
-                }
-            }
-            editWorkFlowArray.append(workFlowArray[count])
-        }
-    }
-    
     func handleVisibilityOfButtons(status: String, emp_id: String){
         if status == "On Hold" || status == "Pending" {
             if emp_id == AuthServices.currentUserId{
@@ -162,23 +132,24 @@ class InboxApprovalFormViewController: UIViewController {
         }
     }
     
+    func updateDelegateFunction(isSuccess: Bool){
+        if let delegate = self.delegate{
+            delegate.approveAction(isSuccess: isSuccess, row: self.cellRow, categorySelected: self.categorySelected)
+        }
+    }
+    
     // MARK: IBActions
     
     func runApproveAction(buttonType: String, actionTitle: String){
-//        if listFormId == 10{
-//            approveActionForVac(buttonType: buttonType, actionTitle: actionTitle)
-//        } else if listFormId == 1004{
-//            approveActionForLoan(buttonType: buttonType, actionTitle: actionTitle)
-//        }
         
         AlertMessage().showAlertMessage(
             alertTitle: "Confirmation",
-            alertMessage: "Do you want to approve the request?",
+            alertMessage: "Do you want to \(actionTitle) the request?",
             actionTitle: "OK",
             onAction: {
                 
                 self.start()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+                DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
                     if self.listFormId == 10{
                         self.approveActionForVac(buttonType: buttonType, actionTitle: actionTitle)
                     } else if self.listFormId == 1004{
@@ -192,49 +163,14 @@ class InboxApprovalFormViewController: UIViewController {
 
     @IBAction func approveButtonTapped(_ sender: Any) {
         runApproveAction(buttonType: "BtnApprove", actionTitle: "approved")
-//        AlertMessage().showAlertMessage(
-//            alertTitle: "Confirmation",
-//            alertMessage: "Do you want to approve the request?",
-//            actionTitle: "OK",
-//            onAction: {
-//
-//                ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-//                    self.runApproveAction(buttonType: "BtnApprove", actionTitle: "approved")
-//                })
-//
-//        }, cancelAction: "Cancel", self)
-        
     }
     
     @IBAction func onHoldButtonTapped(_ sender: Any) {
         runApproveAction(buttonType: "BtnHold", actionTitle: "put onhold")
-//        AlertMessage().showAlertMessage(
-//            alertTitle: "Confirmation",
-//            alertMessage: "Do you want to onhold the request?",
-//            actionTitle: "OK",
-//            onAction: {
-//
-//                ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-//                    self.runApproveAction(buttonType: "BtnHold", actionTitle: "put onhold")
-//                })
-//
-//        }, cancelAction: "Cancel", self)
-        
     }
     
     @IBAction func rejectButtonTapped(_ sender: Any) {
         runApproveAction(buttonType: "BtnReject", actionTitle: "rejected")
-//        AlertMessage().showAlertMessage(
-//            alertTitle: "Confirmation",
-//            alertMessage: "Do you want to reject the request?",
-//            actionTitle: "OK",
-//            onAction: {
-//
-//                ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-//                    self.runApproveAction(buttonType: "BtnReject", actionTitle: "rejected")
-//                })
-//
-//        }, cancelAction: "Cancel", self)
     }
 }
 

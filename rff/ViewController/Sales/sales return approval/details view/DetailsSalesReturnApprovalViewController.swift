@@ -29,11 +29,13 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var approveButtonOutlet: UIButton!
     @IBOutlet weak var rejectAllButtonOutlet: UIButton!
+    @IBOutlet weak var aiContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -- MARK: Variable
     
     let webService = SalesReturnApproveService.instance
+    let SAH = SaveApproversHistoryService.instance
     let screenSize = AppDelegate.shared.screenSize
     let cellId = "cell_detailsSalesReturnRequest"
     
@@ -84,19 +86,21 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
             item.isItemChecked = true
         }
         
-        activityIndicator.startAnimating()
+        start()
         setViewAlignment()
         setUpViews()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         if  itemsDetailsArray.isEmpty && customerCreditDetailsArray.isEmpty && userCommentArray.isEmpty && workFlowArray.isEmpty{
             setupData()
             handleTheHeightOfTableView()
             DetailsSalesReturnTableview.reloadData()
         }
-        activityIndicator.stopAnimating()
+        stop()
     }
 
     override func didReceiveMemoryWarning() {
@@ -104,6 +108,9 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     }
     
     // -- MARK: Set ups
+    
+    func start(){startLoader(superView: aiContainer, activityIndicator: activityIndicator)}
+    func stop(){stopLoader(superView: aiContainer, activityIndicator: activityIndicator)}
     
     func setUpViews(){
         comment.text = ""
@@ -215,6 +222,11 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
                 } else {
                     AlertMessage().showAlertMessage(alertTitle: "Saved".localize(), alertMessage: "Order Id".localize() + " \(self.returnId) " + "approved successfully".localize(), actionTitle: "OK", onAction: {
                         self.handleSuccessAction {
+                            
+                            // TODO: Save to history
+                            self.workFlowArray = self.webService.commonSalesService.SRA_BindApproverGrid(empno: self.userId, returnid: self.returnId)
+                            self.runSaveApproveHistory(buttonType: "btnApproved")
+                            
                             self.navigationController?.popToRootViewController(animated: true)
                             if let delegate = self.delegate {
                                 delegate.returnRequestStatus(isApproved: true)
@@ -243,6 +255,11 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
                     }
                 } else {
                     AlertMessage().showAlertMessage(alertTitle: "Saved".localize(), alertMessage: "Order Id".localize() + " \(self.returnId) " + "rejected successfully".localize(), actionTitle: "OK", onAction: {
+                        
+                        // TODO: Save to history
+                        self.workFlowArray = self.webService.commonSalesService.SRA_BindApproverGrid(empno: self.userId, returnid: self.returnId)
+                        self.runSaveApproveHistory(buttonType: "btnReject")
+                        
                         self.handleSuccessAction {
                             self.navigationController?.popToRootViewController(animated: true)
                             if let delegate = self.delegate {
@@ -260,11 +277,33 @@ class DetailsSalesReturnApprovalViewController: UIViewController, UITextViewDele
     }
  
     func handleSuccessAction(action: @escaping () -> Void){
-        self.activityIndicator.startAnimating()
+        self.start()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
             action()
-            self.activityIndicator.stopAnimating()
+            self.stop()
         })
+    }
+    
+    func runSaveApproveHistory(buttonType: String){
+        var finalResult = ""
+        if let lastApprover = workFlowArray.last{
+            if lastApprover.WorkFlow_Empid == AuthServices.currentUserId || buttonType == "btnReject" {
+                for element in workFlowArray{
+                    let result = SAH.SaveRP2ApproversHistory(pid: returnId,
+                                                             fid: salesReturnOrder_formId,
+                                                             final_emp_id: element.WorkFlow_Empid,
+                                                             name: element.WorkFlow_EmpName,
+                                                             emp_role: element.WorkFlow_EmpRole,
+                                                             final_status: element.WorkFlow_EmpStatus,
+                                                             approve_date: element.WorkFlow_EmpTransDate)
+                    
+                    if result != "" { finalResult = result; break}
+                    finalResult = "Saved Successfully"
+                }
+            }
+        }
+        
+        AlertMessage().showAlertForXTime(alertTitle: finalResult, time: 0.05, tagert: self)
     }
 }
 

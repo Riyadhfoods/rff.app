@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		27DA64642BC167D62C683D54 /* Pods_rff.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF7DAE11DCEC3CD241D66426 /* Pods_rff.framework */; };
+		C0012ADE213F9C72005E92CA /* InOutDeductionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0012ADD213F9C72005E92CA /* InOutDeductionService.swift */; };
 		C00478F220F2088E002CAA44 /* FilePreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00478F120F2088E002CAA44 /* FilePreviewViewController.swift */; };
 		C005D5DD20CD331300E1740A /* OrderPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C005D5DC20CD331300E1740A /* OrderPagesCell.swift */; };
 		C00707F220A04B6C00320ED4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C00707F120A04B6C00320ED4 /* Assets.xcassets */; };
@@ -49,6 +50,7 @@
 		C021942F211070B10056D89B /* LoanService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C021942E211070B10056D89B /* LoanService.swift */; };
 		C02227272124423F00BB4E28 /* BusinessTripService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02227262124423F00BB4E28 /* BusinessTripService.swift */; };
 		C0234D3A20C5237E008BB55B /* extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0234D3920C5237E008BB55B /* extensions.swift */; };
+		C028665321662E5100CEA314 /* SaveApproversHistoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C028665221662E5100CEA314 /* SaveApproversHistoryService.swift */; };
 		C02C493E213517F7004F8B05 /* ResignEmpInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C493D213517F7004F8B05 /* ResignEmpInfoViewController.swift */; };
 		C02C49402135180E004F8B05 /* ResignIncDecTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C493F2135180E004F8B05 /* ResignIncDecTableViewController.swift */; };
 		C02C49422135181B004F8B05 /* ResignEvaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C49412135181B004F8B05 /* ResignEvaTableViewController.swift */; };
@@ -59,6 +61,9 @@
 		C02C494D21353C46004F8B05 /* RAEvaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C494C21353C46004F8B05 /* RAEvaTableViewController.swift */; };
 		C02C494F21353C5A004F8B05 /* RAUserCommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C494E21353C5A004F8B05 /* RAUserCommentTableViewController.swift */; };
 		C02C495121353C65004F8B05 /* RAWorkFlowTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02C495021353C65004F8B05 /* RAWorkFlowTableViewController.swift */; };
+		C02D6604213A5EFC004B85BD /* searchEmpDeledateVacTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D6603213A5EFC004B85BD /* searchEmpDeledateVacTableViewController.swift */; };
+		C02D6606213A7E83004B85BD /* searchEmpGaurentorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C02D6605213A7E83004B85BD /* searchEmpGaurentorTableViewController.swift */; };
+		C034822121368BBC00F9CB73 /* ResignService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C034822021368BBC00F9CB73 /* ResignService.swift */; };
 		C035313E20B183A100E0DBD9 /* AuthServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = C035313D20B183A100E0DBD9 /* AuthServices.swift */; };
 		C035314920B1875700E0DBD9 /* SoapHttpClientExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C035314320B1875700E0DBD9 /* SoapHttpClientExtension.swift */; };
 		C035314B20B1875700E0DBD9 /* SWXMLHash+TypeConversion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C035314620B1875700E0DBD9 /* SWXMLHash+TypeConversion.swift */; };
@@ -209,9 +214,17 @@
 		C0CB9CFF20F5F0EB001502E7 /* ROActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB9CFE20F5F0EB001502E7 /* ROActions.swift */; };
 		C0CB9D0120F5FAF3001502E7 /* ExtensionOfReturnOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CB9D0020F5FAF3001502E7 /* ExtensionOfReturnOrder.swift */; };
 		C0CE40CD20BC281200A06CB4 /* PendingInboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CE40CC20BC281200A06CB4 /* PendingInboxCell.swift */; };
+		C0CF53B6213D2868007A7A0E /* InOutDeductionApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CF53B5213D2868007A7A0E /* InOutDeductionApprovalViewController.swift */; };
+		C0CF53B9213D2891007A7A0E /* IODEmpDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CF53B8213D2891007A7A0E /* IODEmpDetailsViewController.swift */; };
+		C0CF53BB213D28A7007A7A0E /* IODUserCommentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CF53BA213D28A7007A7A0E /* IODUserCommentTableViewController.swift */; };
+		C0CF53BD213D28B5007A7A0E /* IODWorkFlowTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CF53BC213D28B5007A7A0E /* IODWorkFlowTableViewController.swift */; };
 		C0D2ABA520A805EE001AE4FD /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */; };
 		C0D2ABA720A80606001AE4FD /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */; };
 		C0DC68FB21258B7000DD4F45 /* BusinessTripApprovalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DC68FA21258B7000DD4F45 /* BusinessTripApprovalService.swift */; };
+		C0DF980C213BA1DF00845D9B /* SearchFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF980B213BA1DF00845D9B /* SearchFeature.swift */; };
+		C0DF980E213BB21500845D9B /* SalesOrderSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF980D213BB21500845D9B /* SalesOrderSearchTableViewController.swift */; };
+		C0DF9810213BEE2A00845D9B /* CommonTrackFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF980F213BEE2A00845D9B /* CommonTrackFunctions.swift */; };
+		C0E53AC82141120700363155 /* SalesReturnSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E53AC72141120700363155 /* SalesReturnSearchTableViewController.swift */; };
 		C0E560C4210DB09300AAB272 /* VacationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E560C3210DB09300AAB272 /* VacationService.swift */; };
 		C0E5790321204C6400523BDF /* BusinessTripApproval.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E5790221204C6400523BDF /* BusinessTripApproval.storyboard */; };
 		C0E6140220FDB8AE00309A53 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140420FDB8AE00309A53 /* Home.storyboard */; };
@@ -224,11 +237,13 @@
 		C0E6142920FDBC9E00309A53 /* ReturnOrderRequests.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6142B20FDBC9E00309A53 /* ReturnOrderRequests.storyboard */; };
 		C0E6E26920D7F75600E7E3C0 /* LanguageManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E6E26820D7F75500E7E3C0 /* LanguageManger.swift */; };
 		C0E6E26A20D7F78800E7E3C0 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C0E6E26C20D7F78800E7E3C0 /* Localizable.strings */; };
+		C0ED1499213D241C00C82687 /* InOutDeductionApproval.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0ED1498213D241C00C82687 /* InOutDeductionApproval.storyboard */; };
 		C0F4275B20AD9E4200FD7CDB /* PickerviewAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F4275A20AD9E4200FD7CDB /* PickerviewAction.swift */; };
 		C0F5D2A9210C2EAA00F49A41 /* LoanApprovalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5D2A8210C2EAA00F49A41 /* LoanApprovalService.swift */; };
 		C0F5D2AB210C340400F49A41 /* LoanData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5D2AA210C340400F49A41 /* LoanData.swift */; };
 		C0F5D2AD210C357C00F49A41 /* LoanModul.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5D2AC210C357C00F49A41 /* LoanModul.swift */; };
 		C0F5D2AF210C655F00F49A41 /* Modules.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F5D2AE210C655F00F49A41 /* Modules.swift */; };
+		C0F89E9D2169DD810094DD7E /* FormIds.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F89E9C2169DD810094DD7E /* FormIds.swift */; };
 		C0F8BC9F20BD708300791A8C /* VisaRequiresCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F8BC9E20BD708300791A8C /* VisaRequiresCell.swift */; };
 		C0FFEE2B20A4412C00712531 /* slideMenuExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFEE2A20A4412C00712531 /* slideMenuExtension.swift */; };
 		C0FFEE2D20A45FDE00712531 /* MenuImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0FFEE2C20A45FDE00712531 /* MenuImage.swift */; };
@@ -237,6 +252,7 @@
 /* Begin PBXFileReference section */
 		3EC8D7ADA73DE9FF7FE35C01 /* Pods-rff.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-rff.release.xcconfig"; path = "Pods/Target Support Files/Pods-rff/Pods-rff.release.xcconfig"; sourceTree = "<group>"; };
 		BF7DAE11DCEC3CD241D66426 /* Pods_rff.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_rff.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C0012ADD213F9C72005E92CA /* InOutDeductionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InOutDeductionService.swift; sourceTree = "<group>"; };
 		C00478F120F2088E002CAA44 /* FilePreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePreviewViewController.swift; sourceTree = "<group>"; };
 		C005D5DC20CD331300E1740A /* OrderPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderPagesCell.swift; sourceTree = "<group>"; };
 		C00707F120A04B6C00320ED4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -280,6 +296,7 @@
 		C021942E211070B10056D89B /* LoanService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanService.swift; sourceTree = "<group>"; };
 		C02227262124423F00BB4E28 /* BusinessTripService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTripService.swift; sourceTree = "<group>"; };
 		C0234D3920C5237E008BB55B /* extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = extensions.swift; sourceTree = "<group>"; };
+		C028665221662E5100CEA314 /* SaveApproversHistoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveApproversHistoryService.swift; sourceTree = "<group>"; };
 		C02C493D213517F7004F8B05 /* ResignEmpInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignEmpInfoViewController.swift; sourceTree = "<group>"; };
 		C02C493F2135180E004F8B05 /* ResignIncDecTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignIncDecTableViewController.swift; sourceTree = "<group>"; };
 		C02C49412135181B004F8B05 /* ResignEvaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignEvaTableViewController.swift; sourceTree = "<group>"; };
@@ -290,6 +307,9 @@
 		C02C494C21353C46004F8B05 /* RAEvaTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAEvaTableViewController.swift; sourceTree = "<group>"; };
 		C02C494E21353C5A004F8B05 /* RAUserCommentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAUserCommentTableViewController.swift; sourceTree = "<group>"; };
 		C02C495021353C65004F8B05 /* RAWorkFlowTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RAWorkFlowTableViewController.swift; sourceTree = "<group>"; };
+		C02D6603213A5EFC004B85BD /* searchEmpDeledateVacTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchEmpDeledateVacTableViewController.swift; sourceTree = "<group>"; };
+		C02D6605213A7E83004B85BD /* searchEmpGaurentorTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchEmpGaurentorTableViewController.swift; sourceTree = "<group>"; };
+		C034822021368BBC00F9CB73 /* ResignService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResignService.swift; sourceTree = "<group>"; };
 		C035313D20B183A100E0DBD9 /* AuthServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServices.swift; sourceTree = "<group>"; };
 		C035314320B1875700E0DBD9 /* SoapHttpClientExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoapHttpClientExtension.swift; sourceTree = "<group>"; };
 		C035314520B1875700E0DBD9 /* SWXMLHash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWXMLHash.h; sourceTree = "<group>"; };
@@ -444,9 +464,17 @@
 		C0CB9CFE20F5F0EB001502E7 /* ROActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ROActions.swift; sourceTree = "<group>"; };
 		C0CB9D0020F5FAF3001502E7 /* ExtensionOfReturnOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionOfReturnOrder.swift; sourceTree = "<group>"; };
 		C0CE40CC20BC281200A06CB4 /* PendingInboxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PendingInboxCell.swift; sourceTree = "<group>"; };
+		C0CF53B5213D2868007A7A0E /* InOutDeductionApprovalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InOutDeductionApprovalViewController.swift; sourceTree = "<group>"; };
+		C0CF53B8213D2891007A7A0E /* IODEmpDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IODEmpDetailsViewController.swift; sourceTree = "<group>"; };
+		C0CF53BA213D28A7007A7A0E /* IODUserCommentTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IODUserCommentTableViewController.swift; sourceTree = "<group>"; };
+		C0CF53BC213D28B5007A7A0E /* IODWorkFlowTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IODWorkFlowTableViewController.swift; sourceTree = "<group>"; };
 		C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
 		C0DC68FA21258B7000DD4F45 /* BusinessTripApprovalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTripApprovalService.swift; sourceTree = "<group>"; };
+		C0DF980B213BA1DF00845D9B /* SearchFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeature.swift; sourceTree = "<group>"; };
+		C0DF980D213BB21500845D9B /* SalesOrderSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesOrderSearchTableViewController.swift; sourceTree = "<group>"; };
+		C0DF980F213BEE2A00845D9B /* CommonTrackFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonTrackFunctions.swift; sourceTree = "<group>"; };
+		C0E53AC72141120700363155 /* SalesReturnSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReturnSearchTableViewController.swift; sourceTree = "<group>"; };
 		C0E560C3210DB09300AAB272 /* VacationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationService.swift; sourceTree = "<group>"; };
 		C0E5790221204C6400523BDF /* BusinessTripApproval.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BusinessTripApproval.storyboard; sourceTree = "<group>"; };
 		C0E6140520FDB8B100309A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
@@ -463,11 +491,13 @@
 		C0E6E26E20D7F8DC00E7E3C0 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Localizable.strings; sourceTree = "<group>"; };
 		C0E6E26F20D7F8DC00E7E3C0 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Main.strings; sourceTree = "<group>"; };
 		C0E6E27020D7F8DC00E7E3C0 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C0ED1498213D241C00C82687 /* InOutDeductionApproval.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = InOutDeductionApproval.storyboard; sourceTree = "<group>"; };
 		C0F4275A20AD9E4200FD7CDB /* PickerviewAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerviewAction.swift; sourceTree = "<group>"; };
 		C0F5D2A8210C2EAA00F49A41 /* LoanApprovalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanApprovalService.swift; sourceTree = "<group>"; };
 		C0F5D2AA210C340400F49A41 /* LoanData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanData.swift; sourceTree = "<group>"; };
 		C0F5D2AC210C357C00F49A41 /* LoanModul.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanModul.swift; sourceTree = "<group>"; };
 		C0F5D2AE210C655F00F49A41 /* Modules.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Modules.swift; sourceTree = "<group>"; };
+		C0F89E9C2169DD810094DD7E /* FormIds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormIds.swift; sourceTree = "<group>"; };
 		C0F8BC9E20BD708300791A8C /* VisaRequiresCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisaRequiresCell.swift; sourceTree = "<group>"; };
 		C0FFEE2A20A4412C00712531 /* slideMenuExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = slideMenuExtension.swift; sourceTree = "<group>"; };
 		C0FFEE2C20A45FDE00712531 /* MenuImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuImage.swift; sourceTree = "<group>"; };
@@ -577,6 +607,7 @@
 			isa = PBXGroup;
 			children = (
 				C08A26DC20A6E8200028052C /* SalesOrderRequestsViewController.swift */,
+				C0DF980D213BB21500845D9B /* SalesOrderSearchTableViewController.swift */,
 				C008655720C94455006CD88E /* ItemsSelectedViewController.swift */,
 				C008655920C94472006CD88E /* ItemsSelectedCell.swift */,
 				C00BB06E20DFA72400D95532 /* SORModul.swift */,
@@ -588,6 +619,7 @@
 			isa = PBXGroup;
 			children = (
 				C08A268620A6E3140028052C /* LoanViewController.swift */,
+				C02D6605213A7E83004B85BD /* searchEmpGaurentorTableViewController.swift */,
 			);
 			path = Loan;
 			sourceTree = "<group>";
@@ -603,6 +635,7 @@
 				C00AF2272109D6CD008D1CD3 /* Tracking */,
 				C0E560C2210DB06F00AAB272 /* Emp Movement */,
 				C021943021107FB20056D89B /* Sales */,
+				C028665121662DB100CEA314 /* SaveToHistory */,
 			);
 			path = ws;
 			sourceTree = "<group>";
@@ -827,6 +860,14 @@
 			path = Sales;
 			sourceTree = "<group>";
 		};
+		C028665121662DB100CEA314 /* SaveToHistory */ = {
+			isa = PBXGroup;
+			children = (
+				C028665221662E5100CEA314 /* SaveApproversHistoryService.swift */,
+			);
+			path = SaveToHistory;
+			sourceTree = "<group>";
+		};
 		C02C493C213517CD004F8B05 /* Resign */ = {
 			isa = PBXGroup;
 			children = (
@@ -858,9 +899,11 @@
 				C035313D20B183A100E0DBD9 /* AuthServices.swift */,
 				C0B5359220B2B565007EF65F /* AlertMessage.swift */,
 				C0B90AD720B6C75300760FD0 /* BlackBox.swift */,
+				C0DF980B213BA1DF00845D9B /* SearchFeature.swift */,
 				C0234D3920C5237E008BB55B /* extensions.swift */,
 				C07C54CC20ECD78100834044 /* AttachmentHandler.swift */,
 				C040CAB92121499000BA548D /* UI.swift */,
+				C0F89E9C2169DD810094DD7E /* FormIds.swift */,
 			);
 			path = "Helper files";
 			sourceTree = "<group>";
@@ -1027,7 +1070,6 @@
 		C078EB6520A84E7900E0B812 /* EmployeeMovement */ = {
 			isa = PBXGroup;
 			children = (
-				C078EB8B20A852EB00E0B812 /* InOutDeduction.storyboard */,
 				C078EB8720A8529A00E0B812 /* JobTitleChange.storyboard */,
 				C078EB8520A8527900E0B812 /* TicketChange.storyboard */,
 				C078EB8320A8524E00E0B812 /* VacationDaysUpdate.storyboard */,
@@ -1036,6 +1078,7 @@
 				C078EB7D20A851B400E0B812 /* SalaryPreview.storyboard */,
 				C078EB7B20A8518D00E0B812 /* ReturnFromVacation.storyboard */,
 				C078EB7920A8516400E0B812 /* EmployeeViolation.storyboard */,
+				C078EB8B20A852EB00E0B812 /* InOutDeduction.storyboard */,
 				C078EB8920A852CD00E0B812 /* BusinessTrip.storyboard */,
 				C078EB7720A8512D00E0B812 /* Resign.storyboard */,
 				C0E6140E20FDB97700309A53 /* Loan.storyboard */,
@@ -1048,6 +1091,7 @@
 			isa = PBXGroup;
 			children = (
 				C078EB6D20A84FFC00E0B812 /* Tracking.storyboard */,
+				C0ED1498213D241C00C82687 /* InOutDeductionApproval.storyboard */,
 				C02C494321352F68004F8B05 /* ResignApproval.storyboard */,
 				C0E5790221204C6400523BDF /* BusinessTripApproval.storyboard */,
 				C021942C211057B00056D89B /* VacAndLoanApproval.storyboard */,
@@ -1168,6 +1212,7 @@
 				C009E1A2210313F200CDC054 /* Loan */,
 				C040CAB8212148CB00BA548D /* BusinessTrip */,
 				C02C493C213517CD004F8B05 /* Resign */,
+				C0DF9811213BFA4D00845D9B /* In out deduction */,
 				C08A269020A6E38C0028052C /* LoanListViewController.swift */,
 				C08A268C20A6E3420028052C /* EmployeeViolationViewController.swift */,
 				C08A268E20A6E35D0028052C /* ReturnFromVacationViewController.swift */,
@@ -1177,7 +1222,6 @@
 				C08A269820A6E3F70028052C /* VacationDaysUpdateViewController.swift */,
 				C08A269A20A6E4090028052C /* TicketChangeViewController.swift */,
 				C08A269C20A6E41E0028052C /* JobTitleChangeViewController.swift */,
-				C08A26A020A6E4440028052C /* InOutDeductionViewController.swift */,
 			);
 			path = EmployeeMovement;
 			sourceTree = "<group>";
@@ -1192,6 +1236,8 @@
 				C0ADDFA6212172DE00D3D911 /* Vac and Loan */,
 				C0ADDFA7212172F100D3D911 /* Business Trip */,
 				C02C494721353BE6004F8B05 /* Resign Approval */,
+				C0CF53B7213D286C007A7A0E /* In out deduction */,
+				C0DF980F213BEE2A00845D9B /* CommonTrackFunctions.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -1253,6 +1299,7 @@
 			children = (
 				C08A26DE20A6E8340028052C /* ReturnOrderRequestsViewController.swift */,
 				C0CB9D0020F5FAF3001502E7 /* ExtensionOfReturnOrder.swift */,
+				C0E53AC72141120700363155 /* SalesReturnSearchTableViewController.swift */,
 				C0489E9520E4CE4900CF6167 /* ReturnItemSelectedViewController.swift */,
 				C0489E9720E4CE6800CF6167 /* ReturnItemSelectedCell.swift */,
 				C0CB9CFE20F5F0EB001502E7 /* ROActions.swift */,
@@ -1298,12 +1345,33 @@
 			path = Loan;
 			sourceTree = "<group>";
 		};
+		C0CF53B7213D286C007A7A0E /* In out deduction */ = {
+			isa = PBXGroup;
+			children = (
+				C0CF53B5213D2868007A7A0E /* InOutDeductionApprovalViewController.swift */,
+				C0CF53B8213D2891007A7A0E /* IODEmpDetailsViewController.swift */,
+				C0CF53BA213D28A7007A7A0E /* IODUserCommentTableViewController.swift */,
+				C0CF53BC213D28B5007A7A0E /* IODWorkFlowTableViewController.swift */,
+			);
+			path = "In out deduction";
+			sourceTree = "<group>";
+		};
+		C0DF9811213BFA4D00845D9B /* In out deduction */ = {
+			isa = PBXGroup;
+			children = (
+				C08A26A020A6E4440028052C /* InOutDeductionViewController.swift */,
+			);
+			path = "In out deduction";
+			sourceTree = "<group>";
+		};
 		C0E560C2210DB06F00AAB272 /* Emp Movement */ = {
 			isa = PBXGroup;
 			children = (
 				C0E560C3210DB09300AAB272 /* VacationService.swift */,
 				C021942E211070B10056D89B /* LoanService.swift */,
 				C02227262124423F00BB4E28 /* BusinessTripService.swift */,
+				C034822021368BBC00F9CB73 /* ResignService.swift */,
+				C0012ADD213F9C72005E92CA /* InOutDeductionService.swift */,
 			);
 			path = "Emp Movement";
 			sourceTree = "<group>";
@@ -1335,6 +1403,7 @@
 			children = (
 				C0B90AD520B6C10000760FD0 /* VacationsDetailsViewController.swift */,
 				C0F8BC9E20BD708300791A8C /* VisaRequiresCell.swift */,
+				C02D6603213A5EFC004B85BD /* searchEmpDeledateVacTableViewController.swift */,
 			);
 			path = EmployeeVacation;
 			sourceTree = "<group>";
@@ -1487,6 +1556,7 @@
 				C078EB8620A8527900E0B812 /* TicketChange.storyboard in Resources */,
 				C078EB7220A850BE00E0B812 /* EmployeeVacation.storyboard in Resources */,
 				C078EB7E20A851B400E0B812 /* SalaryPreview.storyboard in Resources */,
+				C0ED1499213D241C00C82687 /* InOutDeductionApproval.storyboard in Resources */,
 				C00F94432111A683007D70AA /* CustomActivityIndicatorView.xib in Resources */,
 				C078EB8420A8524E00E0B812 /* VacationDaysUpdate.storyboard in Resources */,
 				C078EBAA20A857D400E0B812 /* ITMasterFile.storyboard in Resources */,
@@ -1561,6 +1631,7 @@
 				C0CA06FD2111859C001D120B /* SalesInboxService.swift in Sources */,
 				C08A269B20A6E4090028052C /* TicketChangeViewController.swift in Sources */,
 				C05777AE20CE90B200423FE7 /* SalesReturnApprovalCellCell.swift in Sources */,
+				C0CF53B6213D2868007A7A0E /* InOutDeductionApprovalViewController.swift in Sources */,
 				C0D2ABA520A805EE001AE4FD /* InboxTableViewController.swift in Sources */,
 				C03C7C1320C7DA3D00D8248C /* TransferStyleCell.swift in Sources */,
 				C0CB9CFF20F5F0EB001502E7 /* ROActions.swift in Sources */,
@@ -1586,12 +1657,16 @@
 				C08A26C920A6E7710028052C /* TrackPaymentReqViewController.swift in Sources */,
 				C0C7AD822112FCED0068250F /* SalesOrderApproveService.swift in Sources */,
 				C08A269720A6E3D50028052C /* SalaryChangeViewController.swift in Sources */,
+				C0CF53BD213D28B5007A7A0E /* IODWorkFlowTableViewController.swift in Sources */,
 				C0CE40CD20BC281200A06CB4 /* PendingInboxCell.swift in Sources */,
 				C05777B020CE944D00423FE7 /* DetailsSalesOrderApprovalViewController.swift in Sources */,
 				C08A268B20A6E32B0028052C /* ResignViewController.swift in Sources */,
 				C087AEA92105CDF70090BC2E /* EmployeeGeneralInformationInboxViewController.swift in Sources */,
 				C08A269D20A6E41E0028052C /* JobTitleChangeViewController.swift in Sources */,
+				C034822121368BBC00F9CB73 /* ResignService.swift in Sources */,
+				C0DF980C213BA1DF00845D9B /* SearchFeature.swift in Sources */,
 				C0D2ABA720A80606001AE4FD /* InboxTableViewCell.swift in Sources */,
+				C02D6604213A5EFC004B85BD /* searchEmpDeledateVacTableViewController.swift in Sources */,
 				C0F5D2AD210C357C00F49A41 /* LoanModul.swift in Sources */,
 				C0A9E72620DE423C000C7A0D /* DetailsSalesReturnApprovalCell.swift in Sources */,
 				C08A268120A6E2DE0028052C /* TrackingInboxViewController.swift in Sources */,
@@ -1608,6 +1683,7 @@
 				C0ADDFB12121743B00D3D911 /* BTUserCommentTableViewController.swift in Sources */,
 				C00BB06F20DFA72400D95532 /* SORModul.swift in Sources */,
 				C00D95C020FB147200949ABE /* SalesItemDetailsCell.swift in Sources */,
+				C0012ADE213F9C72005E92CA /* InOutDeductionService.swift in Sources */,
 				C08A26DF20A6E8340028052C /* ReturnOrderRequestsViewController.swift in Sources */,
 				C08A26A520A6E4810028052C /* OverTimeCalcViewController.swift in Sources */,
 				C0A9E71420DE19B9000C7A0D /* WorkFlowViewController.swift in Sources */,
@@ -1646,6 +1722,7 @@
 				C0A9E71A20DE2162000C7A0D /* UserCommentCell.swift in Sources */,
 				C0489E9820E4CE6800CF6167 /* ReturnItemSelectedCell.swift in Sources */,
 				C0A6B98621102A6200FAEE37 /* Extension VacationApprove.swift in Sources */,
+				C0DF980E213BB21500845D9B /* SalesOrderSearchTableViewController.swift in Sources */,
 				C08A26B920A6E6E80028052C /* PurchaseViewController.swift in Sources */,
 				C021942F211070B10056D89B /* LoanService.swift in Sources */,
 				C0A9E70E20DE197D000C7A0D /* ItemsDetailsViewController.swift in Sources */,
@@ -1677,21 +1754,26 @@
 				C087AEA72105C2760090BC2E /* InboxApprovalFormViewController.swift in Sources */,
 				C00AF22C2109DE73008D1CD3 /* HomeService.swift in Sources */,
 				C00AF2262109D18B008D1CD3 /* CommonUserFunctions.swift in Sources */,
+				C0DF9810213BEE2A00845D9B /* CommonTrackFunctions.swift in Sources */,
 				C0A8446420E7444E0042F2AA /* SalesOrderItemsDetailsModel.swift in Sources */,
 				C0A9E71C20DE217A000C7A0D /* WorkFlowCell.swift in Sources */,
 				C087AEAF2105E12A0090BC2E /* CompanionsDetailsInboxTableViewController.swift in Sources */,
+				C0F89E9D2169DD810094DD7E /* FormIds.swift in Sources */,
 				C08A26D520A6E7DB0028052C /* SalesInboxViewController.swift in Sources */,
 				C08A26A920A6E4A00028052C /* AttendanceClearanceViewController.swift in Sources */,
 				C02C494B21353C3C004F8B05 /* RAIncDecTableViewController.swift in Sources */,
 				C02227272124423F00BB4E28 /* BusinessTripService.swift in Sources */,
 				C08A269920A6E3F70028052C /* VacationDaysUpdateViewController.swift in Sources */,
 				C08A268720A6E3140028052C /* LoanViewController.swift in Sources */,
+				C0E53AC82141120700363155 /* SalesReturnSearchTableViewController.swift in Sources */,
 				C0A9E72020DE4202000C7A0D /* ItemReturnDetailsViewController.swift in Sources */,
 				C0A6B98821102A7400FAEE37 /* Extension LoanApprove.swift in Sources */,
 				C0C72B702106ED3B00C37656 /* PreviousNewLoanDetailsInboxTableViewController.swift in Sources */,
+				C0CF53BB213D28A7007A7A0E /* IODUserCommentTableViewController.swift in Sources */,
 				C08A26CF20A6E7A10028052C /* TaskDetailsViewController.swift in Sources */,
 				C08A267F20A6E2CA0028052C /* ChangePasswordViewController.swift in Sources */,
 				C00851D620EA1142009673C5 /* SalesReturnItemsDetailsModel.swift in Sources */,
+				C02D6606213A7E83004B85BD /* searchEmpGaurentorTableViewController.swift in Sources */,
 				C00D95BE20FB145A00949ABE /* SalesItemDetailsViewController.swift in Sources */,
 				C0B5359320B2B565007EF65F /* AlertMessage.swift in Sources */,
 				C0FFEE2D20A45FDE00712531 /* MenuImage.swift in Sources */,
@@ -1713,6 +1795,7 @@
 				C0A9E70C20DE11C4000C7A0D /* DetailsSalesOrderApprovalCell.swift in Sources */,
 				C0A9E72A20DE42DD000C7A0D /* WorkFlowReturnCell.swift in Sources */,
 				C0ADDFAD212173DB00D3D911 /* TravelAndResidenceDetailsTableViewController.swift in Sources */,
+				C028665321662E5100CEA314 /* SaveApproversHistoryService.swift in Sources */,
 				C08A26C320A6E73B0028052C /* MyRequestsViewController.swift in Sources */,
 				C03C7C0D20C7D9FF00D8248C /* OrderStyleTableViewController.swift in Sources */,
 				C0A9E72420DE4231000C7A0D /* WorkFlowReturnViewController.swift in Sources */,
@@ -1721,6 +1804,7 @@
 				C08A269320A6E3AC0028052C /* SalaryPreviewViewController.swift in Sources */,
 				C0F5D2AF210C655F00F49A41 /* Modules.swift in Sources */,
 				C035314920B1875700E0DBD9 /* SoapHttpClientExtension.swift in Sources */,
+				C0CF53B9213D2891007A7A0E /* IODEmpDetailsViewController.swift in Sources */,
 				C061756D209EF792007F8E59 /* AppDelegate.swift in Sources */,
 				C08A26CD20A6E7970028052C /* NewTaskViewController.swift in Sources */,
 				C08A26A120A6E4440028052C /* InOutDeductionViewController.swift in Sources */,

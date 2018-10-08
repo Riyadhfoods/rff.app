@@ -75,7 +75,7 @@ class SalesInboxService{
     private func getElementValueForBindItemGrid(elementName: String, value: String) -> SalesItemInboxModul{
         if elementName == "SRA_SerialNumber" { returnValueForBindItemGrid.Return_SerialNumber =  value }
         else if elementName == "SRA_InvoiceNumber" { returnValueForBindItemGrid.Return_InvoiceNumber =  value }
-        else if elementName == "Return_Comment" { returnValueForBindItemGrid.Return_CustomerName =  value }
+        else if elementName == "SRA_CustomerName" { returnValueForBindItemGrid.Return_CustomerName =  value }
         else if elementName == "SRA_SLSPersonName" { returnValueForBindItemGrid.Return_SLSPersonName = value }
         else if elementName == "SRA_ReqDate" { returnValueForBindItemGrid.Return_ReqDate =  value }
         else if elementName == "SRA_ReturnDate" { returnValueForBindItemGrid.Return_ReturnDate = value }

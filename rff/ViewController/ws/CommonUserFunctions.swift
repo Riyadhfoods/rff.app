@@ -10,6 +10,9 @@ import Foundation
 
 class CommonFunction{
     static let shared = CommonFunction()
+    fileprivate var currentVC: UIViewController?
+    
+    func getCurrentViewContoller(Target vc: UIViewController){ currentVC = vc }
     
     func dataToBase64(data:NSData)->String{
         let result = data.base64EncodedString(options: NSData.Base64EncodingOptions.init(rawValue: 0))
@@ -143,64 +146,82 @@ class CommonFunction{
     }
     
     func ArrValues(data: Data, reSet: (() -> Void), getValue: @escaping ((_ elementName: String, _ value: String) -> AnyObject)) -> [AnyObject] {
-        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
-        let xml = SWXMLHash.lazy(xmlToParse)
-        let xmlRoot = xml.children.first
-        _ = xmlRoot?.children.last
-        let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
-        let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
-        var strVal = ""
-        var elemName = ""
-        var returnValue: [AnyObject] = [AnyObject]()
-        if elemName == "" {
-            let itemCount1: Int = (xmlResult0?.children.count)!
-            for i1 in 0 ..< itemCount1 {
-                var rItem1: AnyObject?
-                let xmlResult_Parent1: XMLIndexer? = xmlResult0?.children[i1]
-                let childCount1: Int = (xmlResult_Parent1?.children.count)!
-                reSet()
-                for j1 in 0 ..< childCount1 {
-                    let xmlResult1: XMLIndexer? =  xmlResult_Parent1?.children[j1]
-                    let elem1: XMLElement? =  xmlResult1?.element
-                    strVal = getStrValue(elem1: elem1)
-                    if let element = elem1{
-                        elemName = element.name
-                        rItem1 = getValue(elemName, strVal)
+        if let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8){
+            let xml = SWXMLHash.lazy(xmlToParse)
+            let xmlRoot = xml.children.first
+            _ = xmlRoot?.children.last
+            let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
+            let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
+            var strVal = ""
+            var elemName = ""
+            var returnValue: [AnyObject] = [AnyObject]()
+            if elemName == "" {
+                if let itemCount1: Int = (xmlResult0?.children.count){
+                    for i1 in 0 ..< itemCount1 {
+                        var rItem1: AnyObject?
+                        let xmlResult_Parent1: XMLIndexer? = xmlResult0?.children[i1]
+                        let childCount1: Int = (xmlResult_Parent1?.children.count)!
+                        reSet()
+                        for j1 in 0 ..< childCount1 {
+                            let xmlResult1: XMLIndexer? =  xmlResult_Parent1?.children[j1]
+                            let elem1: XMLElement? =  xmlResult1?.element
+                            strVal = getStrValue(elem1: elem1)
+                            if let element = elem1{
+                                elemName = element.name
+                                rItem1 = getValue(elemName, strVal)
+                            }
+                        }
+                        if let rItem1 = rItem1{
+                            returnValue.append(rItem1)
+                        }
                     }
                 }
-                if let rItem1 = rItem1{
-                    returnValue.append(rItem1)
-                }
             }
-        }
-        return returnValue
+            return returnValue
+        } else { showWarningAlert() }
+        return [AnyObject]()
     }
     
     func Values(data: Data, reSet: (() -> Void), getValue: @escaping ((_ elementName: String, _ value: String) -> AnyObject)) -> AnyObject? {
-        let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8)!
-        let xml = SWXMLHash.lazy(xmlToParse)
-        let xmlRoot = xml.children.first
-        _ = xmlRoot?.children.last
-        let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
-        let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
-        var strVal = ""
-        var elemName = ""
-        var returnValue: AnyObject?
-        reSet()
-        
-        if elemName == "" {
-            let itemCount1: Int = (xmlResult0?.children.count)!
-            for i1 in 0 ..< itemCount1 {
-                let xmlResult1: XMLIndexer? =  xmlResult0?.children[i1]
-                let elem1: XMLElement? =  xmlResult1?.element
-                
-                strVal = getStrValue(elem1: elem1)
-                if let element = elem1{
-                    elemName = element.name
-                    returnValue = getValue(elemName, strVal)
+        if let xmlToParse = String.init(data: data, encoding: String.Encoding.utf8){
+            let xml = SWXMLHash.lazy(xmlToParse)
+            let xmlRoot = xml.children.first
+            _ = xmlRoot?.children.last
+            let xmlResponse: XMLIndexer? = xml.children.first?.children.first?.children.first
+            let xmlResult0: XMLIndexer?  = xmlResponse?.children.last
+            var strVal = ""
+            var elemName = ""
+            var returnValue: AnyObject?
+            reSet()
+            
+            if elemName == "" {
+                if let itemCount1: Int = (xmlResult0?.children.count){
+                    for i1 in 0 ..< itemCount1 {
+                        let xmlResult1: XMLIndexer? =  xmlResult0?.children[i1]
+                        let elem1: XMLElement? =  xmlResult1?.element
+                        
+                        strVal = getStrValue(elem1: elem1)
+                        if let element = elem1{
+                            elemName = element.name
+                            returnValue = getValue(elemName, strVal)
+                        }
+                    }
                 }
             }
-        }
-        return returnValue
+            return returnValue
+        } else { showWarningAlert() }
+        return nil
     }
+    
+    func showWarningAlert(){
+        if let currentVC = currentVC{
+            AlertMessage().showAlertMessage(alertTitle: "Alert",
+                                            alertMessage: "No data receive, please try again",
+                                            actionTitle: "OK", onAction: {
+                                                moveTo(storyboard: "Home", withIdentifier: "homeViewControllerNav", viewController: currentVC)
+            }, cancelAction: nil, currentVC)
+        } else { print("Current view contoller is nil") }
+        return
+    }
+    
 }

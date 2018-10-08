@@ -113,6 +113,8 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        print(textField.tag)
+        print(indexpathRow)
         var error = ""
         if let qtyTxt = qtyTextfield.text,
             let qtyDouble = Double(qtyTxt),
@@ -126,7 +128,7 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
             let resultFormatted = String(format: "%.5f", result)
             
             if textField == qtyTextfield{
-                error = handleChangeInQty(itemText: itemText, qtyTxt: qtyTxt, uofmText: uofmText, index: textField.tag)
+                error = handleChangeInQty(itemText: itemText, qtyTxt: qtyTxt, uofmText: uofmText, index: indexpathRow)
                 
                 if error != "" {
                     if let delegate = delegate{
@@ -137,23 +139,23 @@ class ItemsSelectedCell: UITableViewCell, UIPickerViewDelegate, UIPickerViewData
                     print("------------------- gty change in grid ----------------------")
                 }
                 
-                itemAddedArray[textField.tag].Grid_Qty = error != "" ? qtyOldText : qtyTxt
+                itemAddedArray[indexpathRow].Grid_Qty = error != "" ? qtyOldText : qtyTxt
                 qtyTextfield.text = error != "" ? qtyOldText : qtyTxt
                 
             } else {
-                itemAddedArray[textField.tag].Grid_UnitPrice = unitPriceTxt
+                itemAddedArray[indexpathRow].Grid_UnitPrice = unitPriceTxt
             }
-            itemAddedArray[textField.tag].Grid_TotalPrice = error != "" ? totalPriceOldText : resultFormatted
+            itemAddedArray[indexpathRow].Grid_TotalPrice = error != "" ? totalPriceOldText : resultFormatted
             totalPrice.text = error != "" ? totalPriceOldText : resultFormatted
         }
         
         print("""
-            Grid_ItemId: \(itemAddedArray[textField.tag].Grid_ItemId),
-            Grid_Desc: \(itemAddedArray[textField.tag].Grid_Desc),
-            Grid_UnitPrice: \(itemAddedArray[textField.tag].Grid_UnitPrice),
-            Grid_Qty: \(itemAddedArray[textField.tag].Grid_Qty),
-            Grid_TotalPrice: \(itemAddedArray[textField.tag].Grid_TotalPrice),
-            Grid_UOM: \(itemAddedArray[textField.tag].Grid_UOM)
+            Grid_ItemId: \(itemAddedArray[indexpathRow].Grid_ItemId),
+            Grid_Desc: \(itemAddedArray[indexpathRow].Grid_Desc),
+            Grid_UnitPrice: \(itemAddedArray[indexpathRow].Grid_UnitPrice),
+            Grid_Qty: \(itemAddedArray[indexpathRow].Grid_Qty),
+            Grid_TotalPrice: \(itemAddedArray[indexpathRow].Grid_TotalPrice),
+            Grid_UOM: \(itemAddedArray[indexpathRow].Grid_UOM)
             
             """)
     }

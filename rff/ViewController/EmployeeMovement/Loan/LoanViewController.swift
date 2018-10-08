@@ -37,7 +37,6 @@ class LoanViewController: UIViewController {
     @IBOutlet weak var othersBuuton: UIButton!
     
     @IBOutlet weak var amtRequiredTextField: UITextField!
-    @IBOutlet weak var showGaurantorPickerTextField: UITextField!
     @IBOutlet weak var gaurantorTextField: UITextField!
     @IBOutlet weak var paymnetPeriodTextField: UITextField!
     @IBOutlet weak var amyEachMonthLabel: UILabel!
@@ -49,12 +48,12 @@ class LoanViewController: UIViewController {
     
     let screenSize = AppDelegate.shared.screenSize
     let webservice = LoanService.instance
-    let gaurantorPickerview: UIPickerView = UIPickerView()
     let empPickerview: UIPickerView = UIPickerView()
     
     var gaurantorsArray = [EmpInfoModul_2]()
     var gaurantorsNamesArray = [String]()
     var gaurantorsIdsArray = [String]()
+    var gaurantorsId: String = ""
     var empArray = [EmpInfoModul_2]()
     var empNamesArray = [String]()
     var empIdsArray = [String]()
@@ -90,6 +89,7 @@ class LoanViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         setUpArray()
         stop()
     }
@@ -106,7 +106,6 @@ class LoanViewController: UIViewController {
         amtRequiredTextField.delegate = self
         paymnetPeriodTextField.delegate = self
         showEmpPickerTextField.tintColor = .clear
-        showGaurantorPickerTextField.tintColor = .clear
         
         amyEachMonthLabel.text = "0.0 " + "each month".localize()
         
@@ -114,6 +113,8 @@ class LoanViewController: UIViewController {
         gaurantorsIdsArray = [""]
         empNamesArray = ["Select employee"]
         empIdsArray = [""]
+        gaurantorTextField.text = gaurantorsNamesArray[0]
+        setCustomDefaultNav(navItem: navigationItem)
         activityIndicator.startAnimating()
     }
     
@@ -180,9 +181,6 @@ class LoanViewController: UIViewController {
             empPickerview.selectRow(1, inComponent: 0, animated: false)
             empSelectedRow = 1
         }
-        
-        gaurantorTextField.text = gaurantorsNamesArray[0]
-        
     }
     
     func setUpArray(){
@@ -200,12 +198,13 @@ class LoanViewController: UIViewController {
     }
     
     // -- MARK: Helper functions
+    
     func start(){startLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)}
     func stop(){stopLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)}
     
     func handleSuccessAction(action: @escaping () -> Void){
         self.start()
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now(), execute: {
             action()
             self.stop()
         })
@@ -215,28 +214,28 @@ class LoanViewController: UIViewController {
         var error = ""
         let submitLoanResult = webservice.SubmitEmpLoan(
             login_emp_number: AuthServices.currentUserId,
-            guarantor: gaurantorsIdsArray[gaurantorSelectedRow],
+            guarantor: gaurantorsId,
             loan_empnumber: empIdsArray[empSelectedRow],
             loantype: "\(loanType)",
             paymentperiod: paymentText,
             Amt_Required: amtText,
             comment: commentText)
-        
+
         for result in submitLoanResult{
             error = result.error
         }
         
         if error != "" {
             AlertMessage().showAlertMessage(
-                alertTitle: "Alert",
-                alertMessage: "Could not send the loan request",
+                alertTitle: "Alert".localize(),
+                alertMessage: "Could not send the loan request".localize(),
                 actionTitle: nil,
                 onAction: nil,
                 cancelAction: "OK", self)
         } else {
             AlertMessage().showAlertMessage(
-                alertTitle: "Success",
-                alertMessage: "Loan request is sent successfully",
+                alertTitle: "Success".localize(),
+                alertMessage: "Loan request is sent successfully".localize(),
                 actionTitle: "OK",
                 onAction: {
                     
@@ -249,6 +248,7 @@ class LoanViewController: UIViewController {
     }
     
     func setUpViewToDefault(){
+        gaurantorTextField.text = gaurantorsNamesArray[0]
         initalValues()
         setUpDefaultSelector()
         loanType = 5
@@ -259,9 +259,16 @@ class LoanViewController: UIViewController {
         amyEachMonthLabel.text = "0.0 " + "each month".localize()
         commentTextView.text = ""
         
-        gaurantorPickerview.selectRow(0, inComponent: 0, animated: false)
-        gaurantorSelectedRow = 0
         scrollView.scrollTo(direction: .Top, animated: false)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showEmpGaurantorList" {
+            if let vc = segue.destination as? searchEmpGaurentorTableViewController{
+                vc.emps = gaurantorsArray
+                vc.delegate = self
+            }
+        }
     }
     
     // -- MARK: IBAction
@@ -316,11 +323,16 @@ class LoanViewController: UIViewController {
         loanType = 5
     }
     
+    @IBAction func showEmpGaurantorButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "showEmpGaurantorList", sender: nil)
+    }
+    
+    
     @IBAction func sendButtonTapped(_ sender: Any) {
         AlertMessage().showAlertMessage(
-            alertTitle: "Confirmation",
-            alertMessage: "Do you want to send loan request?",
-            actionTitle: "Yes",
+            alertTitle: "Confirmation".localize(),
+            alertMessage: "Do you want to send loan request?".localize(),
+            actionTitle: "Yes".localize(),
             onAction: {
                 
                 if let empText = self.empTextField.text,
@@ -335,22 +347,32 @@ class LoanViewController: UIViewController {
                         paymentText.isEmpty{
                         
                         AlertMessage().showAlertMessage(
-                            alertTitle: "Alert",
-                            alertMessage: "Please fill all the fields",
+                            alertTitle: "Alert".localize(),
+                            alertMessage: "Please fill all the fields".localize(),
                             actionTitle: nil,
                             onAction: nil,
-                            cancelAction: "Cancel", self)
+                            cancelAction: "Cancel".localize(), self)
                     } else {
-                        self.activityIndicator.startAnimating()
                         self.handleSuccessAction {
                             self.submit(paymentText: paymentText, amtText: amtText, commentText: commentText)
-                            self.activityIndicator.stopAnimating()
+                            print("Hi")
                         }
                     }
                 }
                 
-        }, cancelAction: "Cancel", self)
+        }, cancelAction: "Cancel".localize(), self)
         
+    }
+}
+
+// -- MARK: Update Emp Delegate value
+
+extension LoanViewController: UpdateEmpTextDelegate{
+    func updateEmp(newName: String, newId: String) {
+        gaurantorTextField.text = newName == "" ? "Your delegate".localize() : newName
+        gaurantorsId = newId == "0" ? "" : "\(newId)"
+        
+        print("Vacation view -> Emp name = \(newName)\nEmp id = \(newId)")
     }
 }
 
@@ -362,32 +384,16 @@ extension LoanViewController: UIPickerViewDataSource, UIPickerViewDelegate{
             viewController: self,
             cancelSelector: #selector(didCancelButtonTapped),
             doneSelector: #selector(didDoneButtonTapped))
-        
-        PickerviewAction().showPickView(
-            txtfield: showGaurantorPickerTextField,
-            pickerview: gaurantorPickerview,
-            viewController: self,
-            cancelSelector: #selector(didCancelButtonTapped),
-            doneSelector: #selector(didDoneButtonTapped))
     }
     
     @objc func didDoneButtonTapped(){
-        if textField == showEmpPickerTextField{
-            empTextField.text = empNamesArray[empSelectedRow]
-            showEmpPickerTextField.resignFirstResponder()
-        } else {
-            gaurantorTextField.text = gaurantorsNamesArray[gaurantorSelectedRow]
-            showGaurantorPickerTextField.resignFirstResponder()
-            
-        }
+        empTextField.text = empNamesArray[empSelectedRow]
+        gaurantorsId = gaurantorsIdsArray[gaurantorSelectedRow]
+        showEmpPickerTextField.resignFirstResponder()
     }
     
     @objc func didCancelButtonTapped(){
-        if textField == showGaurantorPickerTextField{
-            showGaurantorPickerTextField.resignFirstResponder()
-        } else {
-            showEmpPickerTextField.resignFirstResponder()
-        }
+        showEmpPickerTextField.resignFirstResponder()
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -395,25 +401,15 @@ extension LoanViewController: UIPickerViewDataSource, UIPickerViewDelegate{
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == empPickerview{
-            return empNamesArray.count
-        }
-        return gaurantorsNamesArray.count
+        return empNamesArray.count
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        if pickerView == empPickerview{
-            return empNamesArray[row]
-        }
-        return gaurantorsNamesArray[row]
+        return empNamesArray[row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if pickerView == empPickerview{
-            empSelectedRow = row
-        } else {
-            gaurantorSelectedRow = row
-        }
+        empSelectedRow = row
     }
 }
 
@@ -424,7 +420,7 @@ extension LoanViewController: UITextFieldDelegate, UITextViewDelegate{
             viewController: self,
             cancelTitle: nil,
             cancelSelector: nil,
-            doneTitle: "Done",
+            doneTitle: "Done".localize(),
             doneSelector: #selector(didDoneToolBarButtonTapped))
         
         setUpKeyboardToolBar(
@@ -432,7 +428,7 @@ extension LoanViewController: UITextFieldDelegate, UITextViewDelegate{
             viewController: self,
             cancelTitle: nil,
             cancelSelector: nil,
-            doneTitle: "Done",
+            doneTitle: "Done".localize(),
             doneSelector: #selector(didDoneToolBarButtonTapped))
     }
     

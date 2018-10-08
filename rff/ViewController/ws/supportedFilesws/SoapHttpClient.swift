@@ -64,8 +64,8 @@ public class SoapHttpClient {
             if let httpResponse = response as? HTTPURLResponse {
                 self.StatusCode = httpResponse.statusCode
                 if httpResponse.statusCode != 200 {
-                    self.StatusCode=httpResponse.statusCode
-                    self.ErrorString=httpResponse.description
+                    self.StatusCode = httpResponse.statusCode
+                    self.ErrorString = httpResponse.description
                     
                     responseData = Data()
                     self.ResponseData = Data()

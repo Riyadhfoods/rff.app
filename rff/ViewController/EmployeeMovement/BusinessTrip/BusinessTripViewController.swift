@@ -111,6 +111,9 @@ class BusinessTripViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        title = setLocalizedNavTitle(arabocTxt: "رحلة عمل", englishTxt: "Business Trip")
+        
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         setUpDate()
         stop()
     }
@@ -202,7 +205,7 @@ class BusinessTripViewController: UIViewController {
     }
     
     func setUpToolBar(){
-        setUpKeyboardToolBar(textfield: businessTripAmtTextField, viewController: self, cancelTitle: "Done", cancelSelector: #selector(doneClicked), doneTitle: nil, doneSelector: nil)
+        setUpKeyboardToolBar(textfield: businessTripAmtTextField, viewController: self, cancelTitle: "Done".localize(), cancelSelector: #selector(doneClicked), doneTitle: nil, doneSelector: nil)
     }
     
     @objc func doneClicked(){
@@ -355,8 +358,8 @@ class BusinessTripViewController: UIViewController {
             let ToLoc_1Txt = ToLoc_1TextField.text,
             let fromDate_1Txt = fromDate_1TextField.text,
             let toDate_1Txt = toDate_1TextField.text{
-            if empNameTxt == "Select Employee" ||
-                transModeTxt == "Select Employee" ||
+            if empNameTxt == "Select Employee".localize() ||
+                transModeTxt == "Select Employee".localize() ||
                 startDateTxt == "" ||
                 endDateTxt == "" ||
                 destinationTxt == "" ||
@@ -377,14 +380,14 @@ class BusinessTripViewController: UIViewController {
     func handleSentResultValue(result: String){
         if result.contains("under process") {
             AlertMessage().showAlertMessage(
-                alertTitle: "Alert",
+                alertTitle: "Alert".localize(),
                 alertMessage: result,
                 actionTitle: nil,
                 onAction: nil,
                 cancelAction: "OK", self)
         } else if result.contains("saved successfully") {
             AlertMessage().showAlertMessage(
-                alertTitle: "Success",
+                alertTitle: "Success".localize(),
                 alertMessage: result,
                 actionTitle: "OK",
                 onAction: {
@@ -396,8 +399,8 @@ class BusinessTripViewController: UIViewController {
             }, cancelAction: nil, self)
         } else {
             AlertMessage().showAlertMessage(
-                alertTitle: "Alert",
-                alertMessage: "Oops, something went wrong",
+                alertTitle: "Alert".localize(),
+                alertMessage: "Oops, something went wrong".localize(),
                 actionTitle: nil,
                 onAction: nil,
                 cancelAction: "OK", self)
@@ -407,10 +410,10 @@ class BusinessTripViewController: UIViewController {
     
     func setValueToDefault(){
         empSelectedRow = 0
-        empNameTextField.text = "Select Employee"
+        empNameTextField.text = "Select Employee".localize()
         empPickerView.selectRow(0, inComponent: 0, animated: true)
         transModeSelectedRow = 0
-        transModeTextField.text = "Select Transportation"
+        transModeTextField.text = "Select Transportation".localize()
         transModePickerView.selectRow(0, inComponent: 0, animated: true)
         
         exitReEntryVisaCheckBox = false
@@ -443,14 +446,14 @@ class BusinessTripViewController: UIViewController {
 
     @IBAction func submitButtonTapped(_ sender: Any) {
         AlertMessage().showAlertMessage(
-            alertTitle: "Confirmation",
-            alertMessage: "Do you want to send loan request?",
-            actionTitle: "Yes",
+            alertTitle: "Confirmation".localize(),
+            alertMessage: "Do you want to send business trip request?".localize(),
+            actionTitle: "Yes".localize(),
             onAction: {
                 if self.isReqFieldsEmpty(){
                     AlertMessage().showAlertMessage(
-                        alertTitle: "Alert",
-                        alertMessage: "Please fill all the fields",
+                        alertTitle: "Alert".localize(),
+                        alertMessage: "Please fill all the fields".localize(),
                         actionTitle: nil,
                         onAction: nil,
                         cancelAction: "Cancel", self)
@@ -460,7 +463,7 @@ class BusinessTripViewController: UIViewController {
                     }
                 }
                 
-        }, cancelAction: "Cancel", self)
+        }, cancelAction: "Cancel".localize(), self)
         
     }
 }
@@ -527,56 +530,56 @@ extension BusinessTripViewController{
     func setUpDatePickerView(){
         PickerviewAction().showDatePicker(txtfield: startDateTextField,
                                           datePicker: startDatePicker,
-                                          title: "Start Date",
+                                          title: "Start Date ".localize(),
                                           viewController: self,
                                           datePickerSelector: #selector(dateSelectionAction(sender:)),
                                           doneSelector: #selector(doneDateButtonTapped(sender:)))
         
         PickerviewAction().showDatePicker(txtfield: endDateTextField,
                                           datePicker: endDatePicker,
-                                          title: "End Date",
+                                          title: "End Date ".localize(),
                                           viewController: self,
                                           datePickerSelector: #selector(dateSelectionAction(sender:)),
                                           doneSelector: #selector(doneDateButtonTapped(sender:)))
         
         PickerviewAction().showDatePicker(txtfield: fromDate_1TextField,
                                           datePicker: fromDate_1DatePicker,
-                                          title: "From Date",
+                                          title: "From Date".localize(),
                                           viewController: self,
                                           datePickerSelector: #selector(dateSelectionAction(sender:)),
                                           doneSelector: #selector(doneDateButtonTapped(sender:)))
         
         PickerviewAction().showDatePicker(txtfield: toDate_1TextField,
                                           datePicker: toDate_1DatePicker,
-                                          title: "To Date",
+                                          title: "To Date".localize(),
                                           viewController: self,
                                           datePickerSelector: #selector(dateSelectionAction(sender:)),
                                           doneSelector: #selector(doneDateButtonTapped(sender:)))
         
         PickerviewAction().showDatePicker(txtfield: fromDate_2TextField,
                                           datePicker: fromDate_2DatePicker,
-                                          title: "From Date",
+                                          title: "From Date".localize(),
                                           viewController: self,
                                           datePickerSelector: #selector(dateSelectionAction(sender:)),
                                           doneSelector: #selector(doneDateButtonTapped(sender:)))
         
         PickerviewAction().showDatePicker(txtfield: toDate_2TextField,
                                           datePicker: toDate_2DatePicker,
-                                          title: "To Date",
+                                          title: "To Date".localize(),
                                           viewController: self,
                                           datePickerSelector: #selector(dateSelectionAction(sender:)),
                                           doneSelector: #selector(doneDateButtonTapped(sender:)))
         
         PickerviewAction().showDatePicker(txtfield: fromDate_3TextField,
                                           datePicker: fromDate_3DatePicker,
-                                          title: "From Date",
+                                          title: "From Date".localize(),
                                           viewController: self,
                                           datePickerSelector: #selector(dateSelectionAction(sender:)),
                                           doneSelector: #selector(doneDateButtonTapped(sender:)))
         
         PickerviewAction().showDatePicker(txtfield: toDate_3TextField,
                                           datePicker: toDate_3DatePicker,
-                                          title: "To Date",
+                                          title: "To Date".localize(),
                                           viewController: self,
                                           datePickerSelector: #selector(dateSelectionAction(sender:)),
                                           doneSelector: #selector(doneDateButtonTapped(sender:)))
@@ -597,7 +600,7 @@ extension BusinessTripViewController{
     }
     
     func setDateText(txtField: UITextField, date: Date){
-        txtField.text = getStringDate(date: date)
+        txtField.text = date.dateToString()
     }
     
     @objc func doneDateButtonTapped(sender: UIBarButtonItem){

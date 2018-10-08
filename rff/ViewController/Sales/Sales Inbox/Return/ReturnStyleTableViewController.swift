@@ -68,6 +68,21 @@ class ReturnStyleTableViewController: UITableViewController {
         }
         return salesArray.count + 1
     }
+    
+    func getPageNumber() -> String{
+        var txt = ""
+        let lastPage = (totalRow).quotientAndRemainder(dividingBy: 10).quotient
+        
+        let currentPage = currentRows.split(separator: "-")[0]
+        
+        if totalRow < 10 {
+            txt = "\(currentPage)-\(salesArray.count) " + "out of".localize() + " \(totalRow)"
+        } else if currentIndex == lastPage {
+            txt = "\(currentPage)-\(totalRow) " + "out of".localize() + " \(totalRow)"
+        } else {  txt = "\(currentRows) " + "out of".localize() + " \(totalRow)" }
+        
+        return txt
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == salesArray.count {
@@ -77,7 +92,8 @@ class ReturnStyleTableViewController: UITableViewController {
                 cell.nextPage.addTarget(self, action: #selector(forwardButtonTapped), for: .touchUpInside)
                 cell.lastPage.addTarget(self, action: #selector(lastButtonTapped), for: .touchUpInside)
                 
-                cell.pageNum.text = "\(currentRows) " + "out of".localize() + " \(totalRow)"
+                cell.pageNum.text = getPageNumber()
+                    //"\(currentRows) " + "out of".localize() + " \(totalRow)"
                 return cell
             }
         } else {

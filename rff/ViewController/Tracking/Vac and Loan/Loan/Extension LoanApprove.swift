@@ -27,13 +27,21 @@ extension InboxApprovalFormViewController{
             loanDeatilsForLoan = LoanData.shared.getLoanDetails(empLoan: empLoan)
         }
         
-        workFlowForLoan = webserviceForLoan.BindApproversGrid(formid: listFormId, pid: pid, langid: LoginViewController.languageChosen)
+        workFlowForLoan = webserviceForLoan.BindApproversGrid(emp_id: appliedEmpId, formid: listFormId, pid: pid, langid: LoginViewController.languageChosen)
         for workFlow in workFlowForLoan{
             workFlowNamesForLoan.append(workFlow.WorkFlow_EmpName)
         }
         userCommentForLoan = webserviceForLoan.BindCommentGrid(pid: pid, fid: listFormId, gvApp_RowCount: workFlowForLoan.count)
         
-        updateWorkFlowPendingStatus(workFlowArray: workFlowForLoan, editWorkFlowArray: &editWorkFlowForLoan)
+        if editWorkFlowForLoan.isEmpty {
+            let updatedValues = CommonTrackFunctions.instance.updateWorkFlowPendingStatus(array: workFlowForLoan, editArray: &editWorkFlowForLoan)
+            editWorkFlowForLoan = updatedValues.0
+            gridEmpId = updatedValues.1
+            gridEmpId_next = updatedValues.2
+            buttonsStackView.isHidden = updatedValues.3
+            gridEmpId_prev = updatedValues.4
+        }
+        
         handleTheHeightOfTableView()
         
         print("--------------------------------------------------------------------")
@@ -128,6 +136,25 @@ extension InboxApprovalFormViewController{
         if let commentText = commentTextView.text,
             let workFlowLast = workFlowForLoan.last{
             
+            for element in editWorkFlowForLoan {
+                if element.WorkFlow_Empid == AuthServices.currentUserId {
+                    if element.WorkFlow_EmpStatus == "On Hold" {
+                        isOnHoldStatus = true
+                        break
+                    }
+                }
+                isOnHoldStatus = false
+            }
+            
+            if buttonType == "BtnHold" || buttonType == "BtnReject" || (isOnHoldStatus && buttonType == "BtnApprove"){
+                gridEmpId_next = gridEmpId
+            }
+            
+            if buttonType == "BtnApprove" && !isOnHoldStatus{
+                gridEmpId_next = gridEmpId
+                gridEmpId = gridEmpId_prev
+            }
+            
             print("""
                 Emp_ID: \(appliedEmpId),
                 pid: \(pid),
@@ -138,7 +165,8 @@ extension InboxApprovalFormViewController{
                 totalgrd_rows: \(workFlowForLoan.count),
                 login_empId: \(AuthServices.currentUserId),
                 finalApp_EmpId: \(workFlowLast.WorkFlow_Empid),
-                finalApp_Status: \(workFlowLast.WorkFlow_EmpStatus)
+                finalApp_Status: \(workFlowLast.WorkFlow_EmpStatus),
+                gridEmpId_next: \(gridEmpId_next)
                 """)
             
             let approveVacationResult = webserviceForLoan.Approve_Loan(
@@ -153,26 +181,38 @@ extension InboxApprovalFormViewController{
                 finalApp_EmpId: workFlowLast.WorkFlow_Empid,
                 finalApp_Status: workFlowLast.WorkFlow_EmpStatus,
                 gridEmpid_next: gridEmpId_next)
-            
+
             if approveVacationResult == "" {
                 AlertMessage().showAlertMessage(
                     alertTitle: "Success",
                     alertMessage: "Loan request " + actionTitle + " successfully",
                     actionTitle: "OK", onAction: {
-                        
-                        ActivityIndicatorDisplayAndAction(activityIndicator: self.activityIndicator, action: {
-                            if let delegate = self.delegate{
-                                delegate.approveAction(isSuccess: true, row: self.cellRow, categorySelected: self.categorySelected)
-                            }
-                            self.navigationController?.popViewController(animated: true)
-                        })
-                        
+                        self.saveActionForLoan(buttonType: buttonType)
                 }, cancelAction: nil, self)
             } else {
-                if let delegate = self.delegate{
-                    delegate.approveAction(isSuccess: false, row: self.cellRow, categorySelected: self.categorySelected)
-                }
+                self.updateDelegateFunction(isSuccess: false)
+                AlertMessage().showAlertMessage(
+                    alertTitle: "Alert",
+                    alertMessage: approveVacationResult,
+                    actionTitle: nil,
+                    onAction: nil,
+                    cancelAction: "OK",
+                    self)
             }
+        }
+    }
+    
+    func saveActionForLoan(buttonType: String){
+        start()
+        DispatchQueue.main.async {
+            let workFlow = self.webserviceForLoan.BindApproversGrid(emp_id: self.appliedEmpId, formid: self.listFormId, pid: self.pid, langid: LoginViewController.languageChosen)
+            
+            let result = CommonTrackFunctions.instance.saveToHistory(array: workFlow, btnType: buttonType, pid: self.pid, formId: self.listFormId)
+            print(result)
+            
+            self.updateDelegateFunction(isSuccess: true)
+            self.navigationController?.popViewController(animated: true)
+            self.stop()
         }
     }
     

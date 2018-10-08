@@ -153,3 +153,28 @@ extension UIScrollView {
 extension Notification.Name{
     static let myNotification = Notification.Name("myNotification")
 }
+
+extension Date{
+    func dateToString() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        
+        return dateFormatter.string(from: self)
+    }
+    
+    func timeToString() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        
+        return dateFormatter.string(from: self)
+    }
+    
+    func fullDateToString() -> String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss a"
+        
+        return dateFormatter.string(from: self)
+    }
+}
+
+

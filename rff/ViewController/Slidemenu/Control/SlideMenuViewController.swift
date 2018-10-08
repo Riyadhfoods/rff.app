@@ -231,9 +231,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
                     return 0
                 } else if indexPath.row == 10{
                     return 0
-                } else if indexPath.row == 12{
-                    return 0
-                }
+                } 
             }
             return 44
         }

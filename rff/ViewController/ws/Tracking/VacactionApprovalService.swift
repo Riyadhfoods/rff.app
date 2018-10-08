@@ -91,7 +91,7 @@ class VacactionApprovalService{
         return rItem1
     }
     
-    func BindApproversGrid(formid:Int, pid:String, langid: Int)-> [WorkFlowModul]{
+    func BindApproversGrid(emp_id: String, formid: Int, pid: String, langid: Int)-> [WorkFlowModul]{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
         
         soapReqXML  += "<soap:Envelope xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\""
@@ -99,6 +99,9 @@ class VacactionApprovalService{
         soapReqXML  += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
         soapReqXML += " <soap:Body>"
         soapReqXML += "<BindApproversGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<emp_id>"
+        soapReqXML += emp_id
+        soapReqXML += "</emp_id>"
         soapReqXML += "<formid>"
         soapReqXML += String(formid)
         soapReqXML += "</formid>"

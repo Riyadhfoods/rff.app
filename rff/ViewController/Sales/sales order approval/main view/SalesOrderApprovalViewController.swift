@@ -14,6 +14,7 @@ class SalesOrderApprovalViewController: UIViewController, ApprovalOrderConfomati
     
     @IBOutlet weak var menuBtn: UIBarButtonItem!
     @IBOutlet weak var salesOrdertableview: UITableView!
+    @IBOutlet weak var aiContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -- MAKR: Variables
@@ -41,7 +42,7 @@ class SalesOrderApprovalViewController: UIViewController, ApprovalOrderConfomati
         super.viewDidLoad()
         
         setCustomNavAndBackButton(navItem: navigationItem, title: "Sales Order Approval".localize(), backTitle: "Return".localize())
-        activityIndicator.startAnimating()
+        start()
         setViewAlignment()
         
         setSlideMenu(controller: self, menuButton: menuBtn)
@@ -49,11 +50,16 @@ class SalesOrderApprovalViewController: UIViewController, ApprovalOrderConfomati
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         if salesOrderDetails.isEmpty || isApproved || isRejected{
             getSalesOrderDetails()
         }
-        activityIndicator.stopAnimating()
+        stop()
     }
+    
+    func start(){startLoader(superView: aiContainer, activityIndicator: activityIndicator)}
+    func stop(){stopLoader(superView: aiContainer, activityIndicator: activityIndicator)}
     
     func getSalesOrderDetails(){
         if let userIdInt = Int(AuthServices.currentUserId){

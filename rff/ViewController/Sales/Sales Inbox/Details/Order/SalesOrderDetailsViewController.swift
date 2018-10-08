@@ -41,6 +41,7 @@ class SalesOrderDetailsViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var aiContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
@@ -78,18 +79,20 @@ class SalesOrderDetailsViewController: UIViewController {
         holderView.layer.borderWidth = 1
         
         setViewAlignment()
-        activityIndicator.startAnimating()
+        start()
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         if  itemsDetailsArray.isEmpty && customerCreditDetailsArray.isEmpty && userCommentArray.isEmpty && workFlowArray.isEmpty{
             setupData()
             handleTheHeightOfTableView()
             self.tableView.reloadData()
         }
-        activityIndicator.stopAnimating()
+        stop()
     }
 
     override func didReceiveMemoryWarning() {
@@ -97,6 +100,9 @@ class SalesOrderDetailsViewController: UIViewController {
     }
     
     // -- MARK: Setups
+    
+    func start(){startLoader(superView: aiContainer, activityIndicator: activityIndicator)}
+    func stop(){stopLoader(superView: aiContainer, activityIndicator: activityIndicator)}
     
     func setupData(){
         itemsDetailsArray = webService.SRI_BindItemGrid(returnid: orderId, querytype: "order")

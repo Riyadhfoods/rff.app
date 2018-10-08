@@ -16,7 +16,6 @@ class VacationsDetailsViewController: UIViewController {
     @IBOutlet weak var showEmpPickerView: UITextField!
     @IBOutlet weak var empDropdown: UIImageView!
     @IBOutlet weak var delegateTextField: UITextField!
-    @IBOutlet weak var showDelegatePickerView: UITextField!
     @IBOutlet weak var delegateDropdown: UIImageView!
     @IBOutlet weak var numOfDays: UITextField!
     @IBOutlet weak var balanceVacation: UILabel!
@@ -71,7 +70,6 @@ class VacationsDetailsViewController: UIViewController {
     let leaveDatePickerDatePicker: UIDatePicker = UIDatePicker()
     let returnDatePickerDatePicker: UIDatePicker = UIDatePicker()
     let pickViewEmpName: UIPickerView = UIPickerView()
-    let pickViewEmpDelegate: UIPickerView = UIPickerView()
     let vacationTypePickerViewPikcer: UIPickerView = UIPickerView()
     
     var datePickerView: UIDatePicker = UIDatePicker()
@@ -138,6 +136,7 @@ class VacationsDetailsViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         setupArrays()
         stop()
     }
@@ -155,7 +154,6 @@ class VacationsDetailsViewController: UIViewController {
         ReturnDatePickerView.tintColor = .clear
         showVacationTypePickerView.tintColor = .clear
         showEmpPickerView.tintColor = .clear
-        showDelegatePickerView.tintColor = .clear
         
         comment.text = ""
         comment.delegate = self
@@ -263,9 +261,6 @@ class VacationsDetailsViewController: UIViewController {
             pickViewEmpName.selectRow(0, inComponent: 0, animated: false)
         }
         
-        delegateTextField.text = "Your delegate"
-        pickViewEmpDelegate.selectRow(0, inComponent: 0, animated: false)
-        
         if vacationTypeArray.isEmpty{
             self.vacationTypeTextField.text = "No Vacation Type available"
             vacationTypeId = ""
@@ -319,6 +314,7 @@ class VacationsDetailsViewController: UIViewController {
     }
     
     func setUpValueToDefault(empNameIndex: Int){
+        delegateTextField.text = "Your delegate"
         comment.text = ""
         delegateId = ""
         ticketRequest = 0
@@ -395,7 +391,21 @@ class VacationsDetailsViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showEmpDelegateList" {
+            if let vc = segue.destination as? searchEmpDeledateVacTableViewController{
+                vc.emps = empDelegateInfoArray
+                vc.delegate = self
+            }
+        }
+    }
+    
     // -- MARK: IBAction
+    
+    @IBAction func showDelegateButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "showEmpDelegateList", sender: nil)
+    }
+    
     
     var ticketRequest: Int = 0
     @IBAction func byCompanyButtonTapped(_ sender: Any) {
@@ -456,7 +466,17 @@ class VacationsDetailsViewController: UIViewController {
                 }
                 
         }, cancelAction: "Cancel", self)
+    }
+}
+
+// -- MARK: Update Emp Delegate value
+
+extension VacationsDetailsViewController: UpdateEmpTextDelegate{
+    func updateEmp(newName: String, newId: String) {
+        delegateTextField.text = newName == "" ? "Your delegate" : newName
+        delegateId = newId == "0" ? "" : "\(newId)"
         
+        print("Vacation view -> Emp name = \(newName)\nEmp id = \(newId)")
     }
 }
 
@@ -472,22 +492,12 @@ extension VacationsDetailsViewController: UIPickerViewDelegate, UIPickerViewData
             cancelSelector: #selector(cancelClick),
             doneSelector: #selector(pickerViewDoneClick))
         
-        PickerviewAction().showPickView(
-            txtfield: showDelegatePickerView,
-            pickerview: pickViewEmpDelegate,
-            viewController: self,
-            cancelSelector: #selector(cancelClick),
-            doneSelector: #selector(pickerViewDoneClick))
-        
         PickerviewAction().showPickView(txtfield: showVacationTypePickerView, pickerview: vacationTypePickerViewPikcer, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(pickerViewDoneClick))
     }
     
     @objc func cancelClick(){
         if pickerView == pickViewEmpName{
             showEmpPickerView.resignFirstResponder()
-            return
-        } else if pickerView == pickViewEmpDelegate{
-            showDelegatePickerView.resignFirstResponder()
             return
         }
         showVacationTypePickerView.resignFirstResponder()
@@ -501,19 +511,6 @@ extension VacationsDetailsViewController: UIPickerViewDelegate, UIPickerViewData
                 self.setUpValueToDefault(empNameIndex: self.empNameIndex)
             }
             showEmpPickerView.resignFirstResponder()
-            return
-        }
-            
-        else if pickerView == pickViewEmpDelegate{
-            if empDelegateIndex == 0 {
-                delegateTextField.text = empDelegateInfoArray[0].Emp_Ename
-                delegateId = "\(empDelegateInfoArray[0].Emp_Id)"
-            }else {
-                delegateTextField.text = empDelegatetextChosen
-            }
-            showDelegatePickerView.resignFirstResponder()
-            
-            print(delegateId)
             return
         }
             
@@ -548,12 +545,9 @@ extension VacationsDetailsViewController: UIPickerViewDelegate, UIPickerViewData
         if pickerView == vacationTypePickerViewPikcer{
             self.pickerView = pickerView
             return vacationTypeArray[row].Vac_Desc
-        } else if pickerView == pickViewEmpName{
-            self.pickerView = pickViewEmpName
-            return empInfoArray[row].Emp_Ename
         }
-        self.pickerView = pickViewEmpDelegate
-        return empDelegateInfoArray[row].Emp_Ename
+        self.pickerView = pickViewEmpName
+        return empInfoArray[row].Emp_Ename
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
@@ -671,19 +665,19 @@ extension VacationsDetailsViewController{
         self.returnDatePickerDatePicker.minimumDate = returnMinDate
         
         if sender == leaveDatePickerDatePicker {
-            leaveStartDate = getStringDate(date: sender.date)
+            leaveStartDate = sender.date.dateToString()
             leaveStartDatePickerView.text = leaveStartDate
             updateVacDetails(leaveDate: leaveStartDate)
             changeSettlementAmount()
             
             if let startReturnDate = calendar.date(byAdding: dateComponents, to: sender.date){
-                ReturnDatePickerView.text = getStringDate(date: startReturnDate)
+                ReturnDatePickerView.text = startReturnDate.dateToString()
                 self.returnDatePickerDatePicker.minimumDate = startReturnDate
                 self.returnDatePickerDatePicker.setDate(startReturnDate, animated: false)
                 getDifferance(fromDate: sender.date, toDate: startReturnDate)
             }
         } else {
-            ReturnDatePickerView.text = getStringDate(date: sender.date)
+            ReturnDatePickerView.text = sender.date.dateToString()
             getDifferance(fromDate: getStartDate(), toDate: sender.date)
         }
     }
@@ -768,7 +762,7 @@ extension VacationsDetailsViewController: UITextFieldDelegate, UITextViewDelegat
                 
                 dateComponents.day = numOfDayInt
                 if let newReturnDate = calendar.date(byAdding: dateComponents, to: startDate){
-                    ReturnDatePickerView.text = getStringDate(date: newReturnDate)
+                    ReturnDatePickerView.text = newReturnDate.dateToString()
                     returnDatePickerDatePicker.setDate(newReturnDate, animated: false)
                 }
             }

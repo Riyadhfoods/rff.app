@@ -39,6 +39,7 @@ class SalesDetailsViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var stackViewWidth: NSLayoutConstraint!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var aiContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -- MARK: Variable
@@ -76,17 +77,19 @@ class SalesDetailsViewController: UIViewController {
         holderView.layer.borderColor = UIColor(red: 105/255, green: 132/255, blue: 92/255, alpha: 1.0).cgColor
         holderView.layer.borderWidth = 1
         setViewAlignment()
-        activityIndicator.startAnimating()
+        start()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         if  itemsDetailsArray.isEmpty && customerCreditDetailsArray.isEmpty && userCommentArray.isEmpty && workFlowArray.isEmpty{
             setupData()
             handleTheHeightOfTableView()
             self.tableView.reloadData()
         }
-        activityIndicator.stopAnimating()
+        stop()
     }
 
     override func didReceiveMemoryWarning() {
@@ -94,6 +97,9 @@ class SalesDetailsViewController: UIViewController {
     }
     
     // -- MARK: Set ups
+    
+    func start(){startLoader(superView: aiContainer, activityIndicator: activityIndicator)}
+    func stop(){stopLoader(superView: aiContainer, activityIndicator: activityIndicator)}
     
     var count = 0
     func setupData(){

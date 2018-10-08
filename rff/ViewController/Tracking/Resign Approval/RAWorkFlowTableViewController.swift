@@ -13,6 +13,7 @@ class RAWorkFlowTableViewController: UITableViewController {
     // -- MARK: Variables
     
     let cellId = "cell_RAWorkFlow"
+    var workFlow = [WorkFlowModul]()
     
     // -- MARK: View kife Cycle
     
@@ -28,11 +29,18 @@ class RAWorkFlowTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return workFlow.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? RAWorkFlowCell {
+            let workFlowElement = workFlow[indexPath.row]
+            cell.idLabel.text = workFlowElement.WorkFlow_Empid
+            cell.nameLabel.text = workFlowElement.WorkFlow_EmpName
+            cell.roleLabel.text = workFlowElement.WorkFlow_EmpRole
+            cell.statusLabel.text = workFlowElement.WorkFlow_EmpStatus
+            cell.transDateLabel.text = workFlowElement.WorkFlow_EmpTransDate
+            
             return cell
         }
         return UITableViewCell()

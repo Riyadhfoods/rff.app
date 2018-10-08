@@ -56,20 +56,24 @@ class ItemsSelectedViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? ItemsSelectedCell{
-            cell.unoits = webservice.BindSalesOrderUnitofMeasure(itemid: itemAddedArray[indexPath.row].Grid_Desc)
+            
+            let row = indexPath.row
+            let item = itemAddedArray[row]
+            cell.unoits = webservice.BindSalesOrderUnitofMeasure(itemid: item.Grid_Desc)
             
             cell.num.text = "\(indexPath.row + 1)"
-            cell.desc.text = itemAddedArray[indexPath.row].Grid_Desc
-            cell.PCSTextfield.text = itemAddedArray[indexPath.row].Grid_UOM
-            cell.qtyTextfield.text = itemAddedArray[indexPath.row].Grid_Qty
-            cell.unitPriceTextfield.text = itemAddedArray[indexPath.row].Grid_UnitPrice
+            cell.desc.text = item.Grid_Desc
+            cell.PCSTextfield.text = item.Grid_UOM
+            cell.qtyTextfield.text = item.Grid_Qty
+            cell.unitPriceTextfield.text = item.Grid_UnitPrice
+            cell.totalPrice.text = item.Grid_TotalPrice
             
-            cell.deleteButton.tag = indexPath.row
+            cell.deleteButton.tag = row
             cell.deleteButton.addTarget(self, action: #selector(handleDeleteAction(sender:)), for: .touchUpInside)
-            cell.indexpathRow = indexPath.row
+            cell.indexpathRow = row
             
-            cell.qtyTextfield.tag = indexPath.row
-            cell.unitPriceTextfield.tag = indexPath.row
+            cell.qtyTextfield.tag = row
+            cell.unitPriceTextfield.tag = row
             cell.delegate = self
             
             return cell

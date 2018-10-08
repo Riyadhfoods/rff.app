@@ -101,7 +101,7 @@ class BusinessTripApprovalService{
         return [BusinessTrip_AppTravelModel]()
     }
     
-    func BindApproversGrid(formid: Int, pid: String, lang: Int) -> [WorkFlowModul]{
+    func BindApproversGrid(emp_id: String, formid: Int, pid: String, lang: Int) -> [WorkFlowModul]{
         var returnValueArray = WorkFlowModul()
         
         var soapReqXML: String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -111,6 +111,9 @@ class BusinessTripApprovalService{
         soapReqXML += " xmlns:soap =\"http://schemas.xmlsoap.org/soap/envelope/\">"
         soapReqXML += " <soap:Body>"
         soapReqXML += "<BindApproversGrid xmlns=\"http://tempuri.org/\">"
+        soapReqXML += "<emp_id>"
+        soapReqXML += emp_id
+        soapReqXML += "</emp_id>"
         soapReqXML += "<formid>"
         soapReqXML += String(formid)
         soapReqXML += "</formid>"

@@ -13,6 +13,7 @@ class RAIncDecTableViewController: UITableViewController {
     // -- MARK: Variables
     
     let cellId = "cell_RAIncDec"
+    var IncDecrDetailsArray = [Inc_DecrDetailsModul]()
     
     // -- MARK: View kife Cycle
     
@@ -28,11 +29,17 @@ class RAIncDecTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return IncDecrDetailsArray.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? RAIncDecCell {
+            let incDec = IncDecrDetailsArray[indexPath.row]
+            cell.dateLabel.text = incDec.Date
+            cell.oldBasicLabel.text = incDec.Old_Basic
+            cell.NewBasicLabel.text = incDec.New_Basic
+            cell.IncDecLabel.text = incDec.Inc_Decr
+            
             return cell
         }
         return UITableViewCell()

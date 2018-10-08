@@ -21,7 +21,7 @@ class CheckSalesApprovalModel{
     var approver1: String = ""
 }
 
-class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDelegate, ItemDetailsDelegate {
+class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDelegate, ItemDetailsDelegate, UITextFieldDelegate {
     
     // -- MARK: IBOutlets
     
@@ -42,12 +42,14 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     @IBOutlet weak var docIdStackView: UIStackView!
     @IBOutlet weak var locCodeStackView: UIStackView!
     @IBOutlet weak var commentStackView: UIStackView!
+    @IBOutlet weak var aiContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableViewHeight: NSLayoutConstraint!
     
     // -- MARK: Variables
     
     let webservice = SalesOrderApproveService.instance
+    let SAH = SaveApproversHistoryService.instance
     let cellId = "cell_detailsSalesOrderRequest"
     
     let cellTitleArray = [
@@ -86,7 +88,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator.startAnimating()
+        start()
         
         setbackNavTitle(navItem: navigationItem)
         title = "Approval Form".localize()
@@ -101,10 +103,14 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         setViewAlignment()
         setUpCommentDisplay()
         commentTextView.delegate = self
+        docId.delegate = self
+        loccode.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         if itemsDetailsArray.isEmpty && customerCreditDetailsArray.isEmpty && userCommentArray.isEmpty && workFlowArray.isEmpty{
             setUpData()
             setUserCommentAndSetWorkFlow()
@@ -116,7 +122,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
             setupComboBox()
         }
         
-        activityIndicator.stopAnimating()
+        stop()
     }
 
     override func didReceiveMemoryWarning() {
@@ -124,6 +130,9 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     }
     
     // -- MARK: Setups
+    
+    func start(){startLoader(superView: aiContainer, activityIndicator: activityIndicator)}
+    func stop(){stopLoader(superView: aiContainer, activityIndicator: activityIndicator)}
     
     func setUpData(){
         itemsDetailsArray = webservice.BindOrderItemGridFor_SalesApprovalForm(emp_id: userId, ordernumber: orderId)
@@ -152,10 +161,12 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         comboBoxArray = webservice.BindCombobox(ordernumber: orderId)
         for comboBox in comboBoxArray{
             if comboBox.DocumentId != ""{
-               docIdReceived = comboBox.DocumentId
+                docIdReceived = comboBox.DocumentId
+                if !docIdStackView.isHidden{ docId.text = docIdReceived }
             }
             if comboBox.LocationCode != ""{
                 locCodeReveived = comboBox.LocationCode
+                if !locCodeStackView.isHidden{ loccode.text = locCodeReveived }
             }
         }
     }
@@ -213,6 +224,11 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         return true
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
     // -- MARK: Helper functions
     
     func getId(row: Int) -> String{
@@ -236,15 +252,15 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
     }
     
     func setUserCommentAndSetWorkFlow(){
-        userCommentArray = webservice.commonSalesService.BindUserComment_SalesApprovalForm(orderid: orderId)
         workFlowArray = webservice.commonSalesService.BindApprovalGrid_SalesApprovalForm(orderid: orderId)
+        userCommentArray = webservice.commonSalesService.BindUserComment_SalesApprovalForm(orderid: orderId)
     }
     
     func handleSuccessAction(action: @escaping () -> Void){
-        self.activityIndicator.startAnimating()
+        self.start()
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.01, execute: {
             action()
-            self.activityIndicator.stopAnimating()
+            self.stop()
         })
     }
     
@@ -258,7 +274,12 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         approveResult = webservice.ApproveFinalOrder(orderno: orderId, approver: checkSalasApproveInfo.approver, empno: userId, comment: comment)
         AlertMessage().showAlertMessage(alertTitle: approveResult, alertMessage: "", actionTitle: "Ok", onAction: {
             self.handleSuccessAction {
+                
                 self.setUserCommentAndSetWorkFlow()
+                if (self.approveResult.contains("Successfully")){
+                    self.runSaveApproveHistory(buttonType: "btnApprove")
+                }
+                
                 self.navigationController?.popToRootViewController(animated: true)
                 if let delegate = self.delegate{
                     delegate.orderRequestStatus(isApproved: true)
@@ -267,8 +288,31 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         }, cancelAction: nil, self)
     }
     
+    func runSaveApproveHistory(buttonType: String){
+        var finalResult = ""
+        if let lastApprover = workFlowArray.last{
+            if lastApprover.WorkFlow_Empid == AuthServices.currentUserId || buttonType == "btnReject" {
+                for element in workFlowArray{
+                    let result = SAH.SaveRP2ApproversHistory(pid: orderId,
+                                                fid: salesOrderApproval_formId,
+                                                final_emp_id: element.WorkFlow_Empid,
+                                                name: element.WorkFlow_EmpName,
+                                                emp_role: element.WorkFlow_EmpRole,
+                                                final_status: element.WorkFlow_EmpStatus,
+                                                approve_date: element.WorkFlow_EmpTransDate)
+                    
+                    if result != "" { finalResult = result; break}
+                    finalResult = "Saved Successfully"
+                }
+            }
+        }
+        print(finalResult)
+        
+//        AlertMessage().showAlertForXTime(alertTitle: finalResult, time: 0.05, tagert: self)
+    }
+    
     var rejectOrReportIssueResault = ""
-    func handleRejectAndReportIssue(comment: String){
+    func handleRejectAndReportIssue(comment: String, isRejected: Bool){
         rejectOrReportIssueResault = webservice.Reject_SalesOrderApproval(
             ordernumber: orderId,
             empnumber: userId,
@@ -283,6 +327,12 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
         AlertMessage().showAlertMessage(alertTitle: rejectOrReportIssueResault, alertMessage: "", actionTitle: "Ok", onAction: {
             self.setUserCommentAndSetWorkFlow()
             self.handleSuccessAction {
+                
+                self.setUserCommentAndSetWorkFlow()
+                if self.rejectOrReportIssueResault.contains("successfully") || self.rejectOrReportIssueResault.contains("Successfully"){
+                    if isRejected { self.runSaveApproveHistory(buttonType: "btnReject") }
+                }
+                
                 self.navigationController?.popToRootViewController(animated: true)
                 if let delegate = self.delegate{
                     delegate.orderRequestStatus(isRejected: true)
@@ -393,7 +443,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
                 onAction: {
                     self.handleSuccessAction {
                         self.handleVisibilityOfButtons(comment: comment)
-                        self.handleRejectAndReportIssue(comment: comment)
+                        self.handleRejectAndReportIssue(comment: comment, isRejected: true)
                     }
             }, cancelAction: "Cancel", self)
         }
@@ -408,7 +458,7 @@ class DetailsSalesOrderApprovalViewController: UIViewController, UITextViewDeleg
                 onAction: {
                     self.handleSuccessAction {
                         self.handleVisibilityOfButtons(comment: comment)
-                        self.handleRejectAndReportIssue(comment: comment)
+                        self.handleRejectAndReportIssue(comment: comment, isRejected: false)
                     }
             }, cancelAction: "Cancel", self)
         }

@@ -34,6 +34,7 @@ class InboxTableViewController: UITableViewController, ApproveActionDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         setCustomNavAndBackButton(navItem: navigationItem, title: navTitle, backTitle: "Return".localize())
         view.backgroundColor = UIColor(red: 244/255, green: 244/255, blue: 244/255, alpha: 1.0)
         
@@ -65,11 +66,11 @@ class InboxTableViewController: UITableViewController, ApproveActionDelegate {
             cell.viewForm.addTarget(self, action: #selector(viewFormButtonTapped(sender:)), for: .touchUpInside)
             cell.viewForm.tag = indexPath.row
 
-//            print("\(indexPath.row)")
-//            print("empid = \(arrayOfInboxGrid[indexPath.row].empid)")
-//            print("empname = \(arrayOfInboxGrid[indexPath.row].empname)")
-//            print("date = \(arrayOfInboxGrid[indexPath.row].date)")
-//            print("pid = \(arrayOfInboxGrid[indexPath.row].pid)")
+            print("\(indexPath.row)")
+            print("empid = \(arrayOfInboxGrid[indexPath.row].empid)")
+            print("empname = \(arrayOfInboxGrid[indexPath.row].empname)")
+            print("date = \(arrayOfInboxGrid[indexPath.row].date)")
+            print("pid = \(arrayOfInboxGrid[indexPath.row].pid)")
             
             return cell
         }
@@ -94,6 +95,8 @@ class InboxTableViewController: UITableViewController, ApproveActionDelegate {
             performSegue(withIdentifier: "showApprovalFormForBusinessTrip", sender: nil)
         } else if listFormId == 1003{
             performSegue(withIdentifier: "showApproveFormForResign", sender: nil)
+        } else if listFormId == 2083{
+            performSegue(withIdentifier: "showApproveFormForInOutDeduction", sender: nil)
         }
         
     }
@@ -111,6 +114,26 @@ class InboxTableViewController: UITableViewController, ApproveActionDelegate {
             }
         } else if segue.identifier == "showApprovalFormForBusinessTrip" {
             if let viewController = segue.destination as? BusinessTripApprovalFormViewController{
+                viewController.listFormId = listFormId
+                viewController.pid = pid
+                viewController.appliedEmpName = empName
+                viewController.appliedEmpId = empId
+                viewController.cellRow = cellRow
+                viewController.categorySelected = categorySelected
+                viewController.delegate = self
+            }
+        } else if segue.identifier == "showApproveFormForResign" {
+            if let viewController = segue.destination as? ResignApprovalViewController{
+                viewController.listFormId = listFormId
+                viewController.pid = pid
+                viewController.appliedEmpName = empName
+                viewController.appliedEmpId = empId
+                viewController.cellRow = cellRow
+                viewController.categorySelected = categorySelected
+                viewController.delegate = self
+            }
+        } else if segue.identifier == "showApproveFormForInOutDeduction" {
+            if let viewController = segue.destination as? InOutDeductionApprovalViewController{
                 viewController.listFormId = listFormId
                 viewController.pid = pid
                 viewController.appliedEmpName = empName

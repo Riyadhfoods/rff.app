@@ -17,6 +17,7 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
     @IBOutlet weak var showListPickerTextfield: UITextField!
     @IBOutlet weak var seachTextfield: UITextField!
     @IBOutlet weak var searchOutlet: UIButton!
+    @IBOutlet weak var aiContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -- MARK: variables
@@ -40,7 +41,7 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
         super.viewDidLoad()
         // ---------------
         setViewAlignment()
-        activityIndicator.stopAnimating()
+        stop()
         
         ListTextfield.tintColor = .clear
         showListPickerTextfield.tintColor = .clear
@@ -51,11 +52,18 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
         setSlideMenu(controller: self, menuButton: menuBtn)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
+    }
+    
     // -- MARK: Setups
     
     func setUpPickerView(){
         PickerviewAction().showPickView(txtfield: showListPickerTextfield, pickerview: selectListPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
     }
+    
+    func start(){startLoader(superView: aiContainer, activityIndicator: activityIndicator)}
+    func stop(){stopLoader(superView: aiContainer, activityIndicator: activityIndicator)}
     
     // -- MARK: objc functions
     
@@ -92,12 +100,12 @@ class SalesInboxViewController: UIViewController, UIPickerViewDelegate, UIPicker
             AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: alertMessage, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
         }
         
-        activityIndicator.startAnimating()
+        start()
         DispatchQueue.main.asyncAfter(wallDeadline: .now() + 0.01) {
             if let searchText = self.seachTextfield.text{
                 self.salesArray = self.salesWebservice.GetSalesInbox(id: self.selectedListIndex, emp_id: AuthServices.currentUserId, searchtext: searchText, index: 0)
             } else { return }
-            self.activityIndicator.stopAnimating()
+            self.stop()
             
             switch self.selectedListIndex {
             case 1: self.performSegue(withIdentifier: self.segueId_orderStyle, sender: nil)

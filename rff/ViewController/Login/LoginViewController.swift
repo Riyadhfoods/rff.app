@@ -53,7 +53,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     let pickViewCompay: UIPickerView = UIPickerView()
     let pickViewLanguage: UIPickerView = UIPickerView()
     var pickview: UIPickerView = UIPickerView()
-    
+        
     let companyArray = ["RiyadhFoods - شركة الرياض لصناعات التغذية"]
     let languageArray = ["English - إنجليزي" , "Arabic - عربي"]
     let userDefault = UserDefaults.standard
@@ -78,6 +78,7 @@ class LoginViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         showCompanyPickerTextField.tintColor = .clear
         showLanguangePickerTextField.tintColor = .clear
         
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         setUpPickerView()
         setUpUserNameToolBar()
         //setupDefaultLanguage()

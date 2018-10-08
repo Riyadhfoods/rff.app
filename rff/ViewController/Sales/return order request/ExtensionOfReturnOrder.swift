@@ -13,16 +13,6 @@ extension ReturnOrderRequestsViewController{
     
     func getCustomers(salesperson: String){
         customerArray = webservice.BindSalesReturnCustomers(salesperson: salesperson)
-        if customerArray.isEmpty {
-            customerNamesArray = ["Select customer".localize()]
-        } else {
-            customerNamesArray = ["Select customer".localize()]
-            customerIdArray = [""]
-            for customer in customerArray{
-                customerNamesArray.append(customer.CustomerName)
-                customerIdArray.append(customer.CustomerId)
-            }
-        }
     }
     
     func getStoreId(customerId: String){
@@ -56,47 +46,65 @@ extension ReturnOrderRequestsViewController{
     }
     
     func getInvoiceNumber(salesperson_id: String, customernumber: String, invoice_date: String){
-        invoiceArray = webservice.SRR_BindInvoice(salesperson_id: salesperson_id, customernumber: customernumber, invoice_date: invoice_date)
-        invoiceNameArray = ["Select invoce"]
-        if invoiceArray.isEmpty{
-            invoiceNameArray = ["Select invoce"]
-        } else {
-            invoiceNameArray = ["Select invoce"]
-            for invoice in invoiceArray{
-                invoiceNameArray.append(invoice.Sop_Number)
+        start()
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            
+            self.invoiceArray = self.webservice.SRR_BindInvoice(salesperson_id: salesperson_id, customernumber: customernumber, invoice_date: invoice_date)
+            self.invoiceNameArray = ["Select invoce"]
+            if self.invoiceArray.isEmpty{
+                self.invoiceNameArray = ["Select invoce"]
+            } else {
+                self.invoiceNameArray = ["Select invoce"]
+                for invoice in self.invoiceArray{
+                    self.invoiceNameArray.append(invoice.Sop_Number)
+                }
             }
+            self.stop()
+            
         }
     }
     
     func getItems(invoiceNumber: String){
-        itemArray = webservice.SRR_BindItemsonChangeofInvoice(invoicenumber: invoiceNumber)
-        if itemArray.isEmpty {
-            itemNameArray = [" "]
-        } else {
-            itemNameArray = [" "]
-            for item in itemArray{
-                itemNameArray.append(item.Items)
+        start()
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            
+            self.itemArray = self.webservice.SRR_BindItemsonChangeofInvoice(invoicenumber: invoiceNumber)
+            if self.itemArray.isEmpty {
+                self.itemNameArray = [" "]
+            } else {
+                self.itemNameArray = [" "]
+                for item in self.itemArray{
+                    self.itemNameArray.append(item.Items)
+                }
             }
+            self.stop()
+            
         }
     }
     
     func HandleValuesForSalesPerson(name: String, id: String){
         setDependentValuesToDefault()
         
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        getCustomers(salesperson: id)
-        customerTextField.text = customerNamesArray[0]
-        customerPickerView.selectRow(0, inComponent: 0, animated: false)
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        start()
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.getCustomers(salesperson: id)
+            self.customerTextField.text = "Select customer".localize()
+            self.setUpDefaultValueForStore()
+            self.storeStackView.isHidden = true
+            self.viewHolder.isHidden = true
+            self.stop()
+        }
     }
     
     func HandleValuesForCustomer(name: String, id: String){
         setDependentValuesToDefault()
         
-        UIApplication.shared.isNetworkActivityIndicatorVisible = true
-        getStoreId(customerId: name)
-        getCreditDetails(customerId: name)
-        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+        start()
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.getStoreId(customerId: name)
+            self.getCreditDetails(customerId: name)
+            self.stop()
+        }
     }
     
     func HandleValuesForInvoiceNo(name: String){
@@ -114,17 +122,17 @@ extension ReturnOrderRequestsViewController{
             salesPersonStoreTextfield.text = "Select sales person".localize()
             merchandiserTextfield.text = "Select merchandiser".localize()
         } else {
-            cityArray = webservice.commonSalesService.BindCity(storevalue: name, customer: customerNamesArray[customerRow])
+            cityArray = webservice.commonSalesService.BindCity(storevalue: name, customer: customerName)
             if !cityArray.isEmpty{
                 cityTextfield.text = cityArray[0].City
                 salesPersonStoreArray = webservice.commonSalesService.BindSalesPersonforStore(
-                    customer: customerNamesArray[customerRow],
+                    customer: customerName,
                     city: cityArray[0].City,
                     store: name)
                 if !salesPersonStoreArray.isEmpty{
                     salesPersonStoreTextfield.text = salesPersonStoreArray[0].SalesPersonStore
                     merchandiserArray = webservice.commonSalesService.BindMerchandiser(
-                        customer: customerNamesArray[customerRow],
+                        customer: customerName,
                         city: cityArray[0].City,
                         store: name,
                         salesperson: salesPersonStoreArray[0].SalesPersonStore)
@@ -139,13 +147,13 @@ extension ReturnOrderRequestsViewController{
     func HandleValuesForCity(name: String){
         if  !cityArray.isEmpty{
             salesPersonStoreArray = webservice.commonSalesService.BindSalesPersonforStore(
-                customer: customerNamesArray[customerRow],
+                customer: customerName,
                 city: name,
                 store: storeIdArray[salesSelecteedRow])
             if !salesPersonStoreArray.isEmpty{
                 salesPersonStoreTextfield.text = salesPersonStoreArray[0].SalesPersonStore
                 merchandiserArray = webservice.commonSalesService.BindMerchandiser(
-                    customer: customerNamesArray[customerRow],
+                    customer: customerName,
                     city: name,
                     store: storeIdArray[salesSelecteedRow],
                     salesperson: salesPersonStoreArray[0].SalesPersonStore)
@@ -162,7 +170,7 @@ extension ReturnOrderRequestsViewController{
     func HandleValuesForSalesPersonStore(name: String){
         if !salesPersonStoreArray.isEmpty{
             merchandiserArray = webservice.commonSalesService.BindMerchandiser(
-                customer: customerNamesArray[customerRow],
+                customer: customerName,
                 city: cityArray[citySelectedRow].City,
                 store: storeIdArray[salesSelecteedRow],
                 salesperson: name)

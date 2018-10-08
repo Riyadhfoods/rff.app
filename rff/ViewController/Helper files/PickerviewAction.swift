@@ -58,6 +58,22 @@ class PickerviewAction{
         
         txtfield.inputAccessoryView = toolBar
     }
+    
+    func showTimePicker(txtfield: UITextField, datePicker: UIDatePicker, title: String, viewController: Any?, datePickerSelector: Selector, doneSelector: Selector){
+        datePicker.datePickerMode = UIDatePickerMode.time
+        txtfield.inputView = datePicker
+        
+        datePicker.addTarget(viewController, action: datePickerSelector, for: .valueChanged)
+        
+        let doneButton = UIBarButtonItem(title: "Done".localize(), style: UIBarButtonItemStyle.plain, target: viewController, action: doneSelector)
+        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.flexibleSpace, target: nil, action: nil)
+        let text = UIBarButtonItem(title: title, style: .plain, target: viewController, action: nil)
+        
+        toolBar.setItems([spaceButton, spaceButton, text, spaceButton, doneButton], animated: false)
+        toolBar.isUserInteractionEnabled = true
+        
+        txtfield.inputAccessoryView = toolBar
+    }
 }
 
 

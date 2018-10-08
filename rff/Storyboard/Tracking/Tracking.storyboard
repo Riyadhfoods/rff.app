@@ -369,11 +369,12 @@
                         <segue destination="XOS-rd-gXo" kind="show" identifier="showApprovalFormForInbox" id="yNq-3k-U0i"/>
                         <segue destination="WAm-8w-x4j" kind="show" identifier="showApprovalFormForBusinessTrip" id="RNe-fg-YPo"/>
                         <segue destination="RGl-ZV-gPO" kind="show" identifier="showApproveFormForResign" id="wR6-LS-TWr"/>
+                        <segue destination="riw-3O-lT8" kind="show" identifier="showApproveFormForInOutDeduction" id="RKD-b9-gqb"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="osA-fv-EtW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4538" y="1334"/>
+            <point key="canvasLocation" x="4692" y="1294"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="paA-BZ-9tt">
@@ -418,6 +419,14 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VkD-WA-Mya" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5714" y="1151"/>
+        </scene>
+        <!--InOutDeductionApproval-->
+        <scene sceneID="uuH-kv-ie5">
+            <objects>
+                <viewControllerPlaceholder storyboardName="InOutDeductionApproval" id="riw-3O-lT8" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Mxd-jc-vw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5712" y="1210"/>
         </scene>
     </scenes>
     <resources>

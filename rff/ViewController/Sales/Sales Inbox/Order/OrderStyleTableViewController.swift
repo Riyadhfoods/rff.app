@@ -65,6 +65,23 @@ class OrderStyleTableViewController: UITableViewController {
         }
         return salesArray.count + 1
     }
+    
+    var arrayCount = 0
+    func getPageNumber() -> String{
+        var txt = ""
+        let lastPage = (totalRow).quotientAndRemainder(dividingBy: 10).quotient
+        
+        arrayCount += salesArray.count
+        let currentPage = currentRows.split(separator: "-")[0]
+        
+        if totalRow < 10 {
+            txt = "\(currentPage)-\(arrayCount) " + "out of".localize() + " \(totalRow)"
+        } else if currentIndex == lastPage {
+            txt = "\(currentPage)-\(totalRow) " + "out of".localize() + " \(totalRow)"
+        } else {  txt = "\(currentRows) " + "out of".localize() + " \(totalRow)" }
+        
+        return txt
+    }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == salesArray.count {
@@ -74,7 +91,7 @@ class OrderStyleTableViewController: UITableViewController {
                 cell.nextPage.addTarget(self, action: #selector(forwardButtonTapped), for: .touchUpInside)
                 cell.lastPage.addTarget(self, action: #selector(lastButtonTapped), for: .touchUpInside)
                 
-                cell.pageNum.text = "\(currentRows) " + "out of".localize() + " \(totalRow)"
+                cell.pageNum.text = getPageNumber()
                 return cell
             }
         } else if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? OrderStyleCell{

@@ -161,13 +161,24 @@
 "Gaurantor" = "Gaurantor";
 "Deduction" = "Deduction";
 "each month" = "each month";
-"" = "";
-"" = "";
-"" = "";
-"" = "";
-"" = "";
-"" = "";
-"" = "";
+
+// resign approval
+"EOS Type " = "EOS Type ";
+"Do you want to approve the request?" = "Do you want to approve the request?";
+"Resign request approved successfully" = "Resign request approved successfully";
+"Do you want to put the request onhold?" = "Do you want to put the request onhold?";
+"Resign request put onhold successfully" = "Resign request put onhold successfully";
+"Do you want to reject the request?" = "Do you want to reject the request?";
+"Resign request rejected successfully" = "Resign request rejected successfully";
+"Nantionality" = "Nantionality";
+"work Hours" = "work Hours";
+"Absent Days" = "Absent Days";
+"Old Basic" = "Old Basic";
+"New Basic" = "New Basic";
+"Inrement/Decrement" = "Inrement/Decrement";
+"Total" = "Total";
+"Result" = "Result";
+"MGR Remark" = "MGR Remark";
 
 // Employee vacation
 "ADD VACATION" = "ADD VACATION";
@@ -196,6 +207,81 @@
 "You have already applied for vacation" = "You have already applied for vacation";
 "Vacation applied successfully" = "Vacation applied successfully";
 "Choose your delegate" = "Choose your delegate";
+
+// Employee Loan
+"Could not send the loan request" = "Could not send the loan request";
+"Loan request is sent successfully" = "Loan request is sent successfully";
+"Do you want to send loan request?" = "Do you want to send loan request?";
+"Please fill all the fields" = "Please fill all the fields";
+
+
+// Employee resign
+"Increment/Decrement Details" = "Increment/Decrement Details";
+"Evaluation Details" = "Evaluation Details";
+"Do you want to send resign request?" = "Do you want to send resign request?";
+"Select Reason" = "Select Reason";
+"You did not select a reason" = "You did not select a reason";
+"Resign request for emp. no. " = "Resign request for emp. no. ";
+" saved successfully..!!" = " saved successfully..!!";
+"Success" = "Success";
+"Reason" = "Reason";
+"End of service" = "End of service";
+
+// Employee BusinessTrip
+"Exit Reentry Visa" = "Exit Reentry Visa";
+"Select Employee" = "Select Employee";
+"Select Transportation" = "Select Transportation";
+"Business Leave Details" = "Business Leave Details";
+"Start Date " = "Start Date ";
+"End Date " = "End Date ";
+"Destination" = "Destination";
+"Business Trip Amount" = "Business Trip Amount";
+"Amount Description" = "Amount Description";
+"Reason for business Trip" = "Reason for business Trip";
+"Travel & Residence Details" = "Travel & Residence Details";
+"Air Line" = "Air Line";
+"Visa" = "Visa";
+"From" = "From";
+"To" = "To";
+"From Date" = "From Date";
+"To Date" = "To Date";
+"Travel Membership" = "Travel Membership";
+"Meet & Assistance" = "Meet & Assistance";
+"Luggage & Cargo" = "Luggage & Cargo";
+"Air Lines" = "Air Lines";
+"Membership Card No." = "Membership Card No.";
+"Others" = "Others";
+"Oops, something went wrong" = "Oops, something went wrong";
+"Confirmation" = "Confirmation";
+"Do you want to send business trip request?" = "Do you want to send business trip request?";
+
+"Mode of Transport" = "Mode of Transport";
+"APPROVE" = "APPROVE";
+"ON HIOLD" = "ON HIOLD";
+"REJECT" = "REJECT";
+"Journey Start Date" = "Journey Start Date";
+"Journey End Date" = "Journey End Date";
+"Reason for Business Trip" = "Reason for Business Trip";
+"AirLines" = "AirLines";
+"From Loaction" = "From Loaction";
+"To Location" = "To Location";
+"From Date" = "From Date";
+"To Date" = "To Date";
+
+"Do you want to approve the request?" = "Do you want to approve the request?";
+"Business trip request approved successfully" = "Business trip request approved successfully";
+"Do you want to put the request onhold?" = "Do you want to put the request onhold?";
+"Business trip request put onhold successfully" = "Business trip request put onhold successfully";
+"Do you want to reject the request?"  = "Do you want to reject the request?";
+"Business trip request rejected successfully" = "Business trip request rejected successfully";
+
+// Employee in out dudection
+"Start Time" = "Start Time";
+"End Time" = "End Time";
+"Delay Minutes" = "Delay Minutes";
+"Do you want to send in-out deduction request?" = "Do you want to send in-out deduction request?";
+"In-out deduction request sent successfully" = "In-out deduction request sent successfully";
+
 
 // Sales Inbox
 "Sales Inbox" = "Sales Inbox";

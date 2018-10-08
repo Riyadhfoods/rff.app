@@ -69,9 +69,9 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         showListPickerTextField.tintColor = .clear
         showCategoryPickerTextField.tintColor = .clear
         
-        setViewAlignment()
         setUpPickerView()
         setupLanguagChange()
+        setViewAlignment()
         setSlideMenu(controller: self, menuButton: menuBtn)
         startLoader(superView: activityIndicatorContainer, activityIndicator: activityIndicator)
     }
@@ -80,6 +80,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         super.viewDidAppear(animated)
 //        listRowIndex = 0
 //        CategopryRowIndex = 0
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         if arrayOfListReceived.isEmpty{
             self.setUpArrays()
         }
@@ -137,18 +138,17 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         arrayOfList.append(list)
         
         for listReceived in arrayOfListReceived{
-            arrayOfList.append(listReceived)
+            if listReceived.listtype == "10" || listReceived.listtype == "1004" || listReceived.listtype == "2079" || listReceived.listtype == "1003" || listReceived.listtype == "2083" {
+                arrayOfList.append(listReceived)
+            }
         }
     }
     
     // -- MSRK: objc functions
     
     @objc func cancelClick(){
-        if pickview == pickViewList{
-            showListPickerTextField.resignFirstResponder()
-            return
-        }
-        showCategoryPickerTextField.resignFirstResponder()
+        if pickview == pickViewList{ showListPickerTextField.resignFirstResponder() }
+        else { showCategoryPickerTextField.resignFirstResponder() }
     }
     
     @objc func doneClick(){
@@ -160,14 +160,14 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
                 listTextfield.text = listTextChosen
                 showListPickerTextField.resignFirstResponder()
             }
-            return
-        }
-        if CategopryRowIndex == 0 {
-            categoryTextfield.text = categoryArray[0]
-            showCategoryPickerTextField.resignFirstResponder()
         } else {
-            categoryTextfield.text = categoryTextChosen
-            showCategoryPickerTextField.resignFirstResponder()
+            if CategopryRowIndex == 0 {
+                categoryTextfield.text = categoryArray[0]
+                showCategoryPickerTextField.resignFirstResponder()
+            } else {
+                categoryTextfield.text = categoryTextChosen
+                showCategoryPickerTextField.resignFirstResponder()
+            }
         }
     }
     
@@ -184,11 +184,10 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        self.pickview = pickerView
         if pickerView == pickViewList{
-            self.pickview = pickViewList
             return arrayOfList[row].listname
         }
-        self.pickview = pickViewCategory
         return categoryArray[row]
     }
     
@@ -200,7 +199,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
             }
             listRowIndex = row
         } else {
-            categoryTextChosen =  categoryArray[row]
+            categoryTextChosen = categoryArray[row]
             categoryIndexSelected = row - 1
             CategopryRowIndex = row
         }
@@ -230,7 +229,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
     
     func runViewIfComeFromHome(){
         var count = 0
-        for list in arrayOfListReceived{
+        for list in arrayOfList{
             if list.listtype == formId{
                 listRowIndex = count + 1
                 CategopryRowIndex = 1

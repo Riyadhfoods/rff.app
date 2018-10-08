@@ -14,6 +14,7 @@ class SalesReturnApprovalViewController: UIViewController, ApprovalConfomationDe
     
     @IBOutlet weak var menuBtn: UIBarButtonItem!
     @IBOutlet weak var salesReturnTableview: UITableView!
+    @IBOutlet weak var aiContainer: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     // -- MARK: Variables
@@ -38,6 +39,7 @@ class SalesReturnApprovalViewController: UIViewController, ApprovalConfomationDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        start()
         setCustomNavAndBackButton(navItem: navigationItem, title: "Sales Return Approval".localize(), backTitle: "Return".localize())
         setViewAlignment()
         setSlideMenu(controller: self, menuButton: menuBtn)
@@ -45,11 +47,12 @@ class SalesReturnApprovalViewController: UIViewController, ApprovalConfomationDe
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        activityIndicator.startAnimating()
+        
+        CommonFunction.shared.getCurrentViewContoller(Target: self)
         if salesReturnDetails.isEmpty || isApproved || isRejected{
             getSalesReturnDetails()
         }
-        activityIndicator.stopAnimating()
+        stop()
     }
     
     func getSalesReturnDetails(){
@@ -57,7 +60,8 @@ class SalesReturnApprovalViewController: UIViewController, ApprovalConfomationDe
         salesReturnTableview.reloadData()
     }
     
-    // -- MARK: IBActions
+    func start(){startLoader(superView: aiContainer, activityIndicator: activityIndicator)}
+    func stop(){stopLoader(superView: aiContainer, activityIndicator: activityIndicator)}
     
 }
 
