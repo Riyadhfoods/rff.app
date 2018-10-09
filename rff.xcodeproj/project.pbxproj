@@ -41,6 +41,8 @@
 		C00D95D120FB760600949ABE /* SalesOrderDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D95D020FB760600949ABE /* SalesOrderDetailsCell.swift */; };
 		C00D95D320FB765D00949ABE /* SalesOrderItemDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D95D220FB765D00949ABE /* SalesOrderItemDetailsViewController.swift */; };
 		C00D95D520FB766E00949ABE /* SalesOrderItemDetailsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00D95D420FB766E00949ABE /* SalesOrderItemDetailsCell.swift */; };
+		C00DC777216C6DBA003ED3BB /* TimerApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00DC776216C6DBA003ED3BB /* TimerApplication.swift */; };
+		C00DC779216C6EDF003ED3BB /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00DC778216C6EDF003ED3BB /* main.swift */; };
 		C00F944121119438007D70AA /* CommonFunctionForSales.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00F944021119438007D70AA /* CommonFunctionForSales.swift */; };
 		C00F94432111A683007D70AA /* CustomActivityIndicatorView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C00F94422111A683007D70AA /* CustomActivityIndicatorView.xib */; };
 		C00F94452111A769007D70AA /* customActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C00F94442111A769007D70AA /* customActivityIndicatorView.swift */; };
@@ -287,6 +289,8 @@
 		C00D95D020FB760600949ABE /* SalesOrderDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesOrderDetailsCell.swift; sourceTree = "<group>"; };
 		C00D95D220FB765D00949ABE /* SalesOrderItemDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesOrderItemDetailsViewController.swift; sourceTree = "<group>"; };
 		C00D95D420FB766E00949ABE /* SalesOrderItemDetailsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesOrderItemDetailsCell.swift; sourceTree = "<group>"; };
+		C00DC776216C6DBA003ED3BB /* TimerApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerApplication.swift; sourceTree = "<group>"; };
+		C00DC778216C6EDF003ED3BB /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		C00F944021119438007D70AA /* CommonFunctionForSales.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonFunctionForSales.swift; sourceTree = "<group>"; };
 		C00F94422111A683007D70AA /* CustomActivityIndicatorView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomActivityIndicatorView.xib; sourceTree = "<group>"; };
 		C00F94442111A769007D70AA /* customActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = customActivityIndicatorView.swift; sourceTree = "<group>"; };
@@ -553,6 +557,8 @@
 			isa = PBXGroup;
 			children = (
 				C061756C209EF792007F8E59 /* AppDelegate.swift */,
+				C00DC778216C6EDF003ED3BB /* main.swift */,
+				C00DC776216C6DBA003ED3BB /* TimerApplication.swift */,
 				C0E6E26C20D7F78800E7E3C0 /* Localizable.strings */,
 				C0E6E26820D7F75500E7E3C0 /* LanguageManger.swift */,
 				C00707F820A05F2800320ED4 /* SWRevealViewController.h */,
@@ -1687,6 +1693,7 @@
 				C08A26DF20A6E8340028052C /* ReturnOrderRequestsViewController.swift in Sources */,
 				C08A26A520A6E4810028052C /* OverTimeCalcViewController.swift in Sources */,
 				C0A9E71420DE19B9000C7A0D /* WorkFlowViewController.swift in Sources */,
+				C00DC779216C6EDF003ED3BB /* main.swift in Sources */,
 				C08A26BD20A6E7140028052C /* ITRequestViewController.swift in Sources */,
 				C00851D820EA1D13009673C5 /* UserCommentReturnCell.swift in Sources */,
 				C08A26ED20A6E8B50028052C /* ReportViewController.swift in Sources */,
@@ -1698,6 +1705,7 @@
 				C0ADDFAF2121740000D3D911 /* TravelMembershipViewController.swift in Sources */,
 				C08A26A720A6E48D0028052C /* SettleCalcViewController.swift in Sources */,
 				C087AEB12105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift in Sources */,
+				C00DC777216C6DBA003ED3BB /* TimerApplication.swift in Sources */,
 				C0ADDFB32121744C00D3D911 /* BTWorkFlowTableViewController.swift in Sources */,
 				C00AF2242109D11C008D1CD3 /* LoginService.swift in Sources */,
 				C0B90AD620B6C10000760FD0 /* VacationsDetailsViewController.swift in Sources */,

@@ -10,7 +10,7 @@ import UIKit
 import Fabric
 import Crashlytics
 
-@UIApplicationMain
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     static let shared = AppDelegate()
@@ -27,6 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logUser()
         Fabric.with([Crashlytics.self])
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AppDelegate.applicationDidTimeout(notification:)),
+                                               name: .appTimeout,
+                                               object: nil
+        )
+        
         // To set a default language
         LanguageManger.shared.defaultLanguage = .en
         
@@ -35,6 +41,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().tintColor = .white
         
         return true
+    }
+    
+    @objc func applicationDidTimeout(notification: NSNotification) {
+        var topWindow: UIWindow? = UIWindow(frame: UIScreen.main.bounds)
+        topWindow?.rootViewController = UIViewController()
+        topWindow?.windowLevel = UIWindowLevelAlert + 1
+        
+        if UIApplication.topViewController() is LoginViewController{
+            return
+        }
+        
+        print("application did timeout, perform actions")
+        
+        let alert = UIAlertController(title: "Session Timeout", message: "Timeout due to inactivity, please login again.", preferredStyle: .alert)
+        let cancelButton = UIAlertAction(title: "OK", style: .cancel, handler: { (action) in
+            topWindow?.isHidden = true // if you want to hide the topwindow then use this
+            topWindow = nil
+            self.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        })
+        alert.addAction(cancelButton)
+        
+        topWindow?.makeKeyAndVisible()
+        topWindow?.rootViewController?.present(alert, animated: true, completion: nil)
     }
     
     func logUser(){
@@ -59,3 +88,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+extension UIApplication {
+    class func topViewController(controller: UIViewController? = UIApplication.shared.keyWindow?.rootViewController) -> UIViewController? {
+        if let navigationController = controller as? UINavigationController {
+            return topViewController(controller: navigationController.visibleViewController)
+        }
+        if let tabController = controller as? UITabBarController {
+            if let selected = tabController.selectedViewController {
+                return topViewController(controller: selected)
+            }
+        }
+        if let presented = controller?.presentedViewController {
+            return topViewController(controller: presented)
+        }
+        return controller
+    }
+}
