@@ -46,7 +46,7 @@ class SalesOrderSearchTableViewController: UITableViewController {
     }
     
     func setSearchBar(){
-        searchFeature.setSearchController(Target: self, tableView: tableView, searchController: searchController, searchText: "Search employees")
+        searchFeature.setSearchController(Target: self, tableView: tableView, searchController: searchController, searchText: "Search")
         definesPresentationContext = true
     }
     

@@ -15,3 +15,4 @@ let BusinessTrip_formId = 2079
 let InOutDudection_formId = 2083
 let salesOrderApproval_formId = 2032
 let salesReturnOrder_formId = 2081
+let salesCollectionRequest_formId = 2112

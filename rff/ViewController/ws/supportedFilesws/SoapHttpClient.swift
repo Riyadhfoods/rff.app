@@ -33,7 +33,7 @@ public class SoapHttpClient {
     }
     
     
-    public class func callWS(Host:String,WebServiceUrl:String, SoapAction:String, SoapMessage:String)-> Data{
+    public class func callWS(WebServiceUrl:String, SoapAction:String, SoapMessage:String)-> Data{
         self.Error = nil;
         self.ErrorString = nil;
         self.StatusCode = nil;
@@ -50,7 +50,7 @@ public class SoapHttpClient {
         let session = URLSession.shared
         req.httpMethod = "POST"
         req.httpBody = SoapMessage.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        req.addValue(Host, forHTTPHeaderField: "Host")
+        req.addValue(currentHost, forHTTPHeaderField: "Host")
         req.addValue("text/xml;charset =utf-8", forHTTPHeaderField: "Content-Type")
         
         let contentLength = SoapMessage.utf8.count
@@ -87,68 +87,14 @@ public class SoapHttpClient {
         return responseData
     }
     
-    public class func callWS(Host:String,WebServiceUrl:String, SoapAction:String, SoapMessage:String, activityIndicator: UIActivityIndicatorView)-> Data{
-        activityIndicator.startAnimating()
-        self.Error = nil;
-        self.ErrorString = nil;
-        self.StatusCode = nil;
-        self.StatusDescription = nil;
-        self.ResponseData = nil;
-        self.ResponseString = nil;
-        
-        var responseData : Data = Data()
-        
-        let semaphore = DispatchSemaphore.init(value: 0)
-        let url = URL.init(string: WebServiceUrl)
-        let req = NSMutableURLRequest(url: url!)
-        
-        let session = URLSession.shared
-        req.httpMethod = "POST"
-        req.httpBody = SoapMessage.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        req.addValue(Host, forHTTPHeaderField: "Host")
-        req.addValue("text/xml;charset =utf-8", forHTTPHeaderField: "Content-Type")
-        
-        let contentLength = SoapMessage.utf8.count
-        req.addValue(String(contentLength), forHTTPHeaderField: "Content-Length")
-        req.addValue(SoapAction, forHTTPHeaderField: "SOAPAction")
-        
-        let task_ = session.dataTask(with: req as URLRequest){ (data, response, error) in
-            DispatchQueue.main.async {
-                activityIndicator.stopAnimating()
-            }
-            self.Error=error
-            
-            if let httpResponse = response as? HTTPURLResponse {
-                self.StatusCode = httpResponse.statusCode
-                if httpResponse.statusCode != 200 {
-                    self.StatusCode=httpResponse.statusCode
-                    self.ErrorString=httpResponse.description
-                    
-                    responseData = Data()
-                    self.ResponseData = Data()
-                } else {
-                    responseData = data!
-                    self.ResponseData = data
-                    let responseString =  String.init(data: data!, encoding: String.Encoding.utf8)
-                    self.ResponseString = responseString!
-                }
-            }
-            semaphore.signal()
-        }
-        task_.resume()
-        
-        semaphore.wait()
-        return responseData
-    }
-    
     public class func downloadString(host:String, url:String, soapAction:String, soapMessage:String)->String{
-        let responseData       = SoapHttpClient.callWS(Host : host,WebServiceUrl:url,SoapAction:soapAction, SoapMessage:soapMessage)
+        let responseData       = SoapHttpClient.callWS(WebServiceUrl:url,SoapAction:soapAction, SoapMessage:soapMessage)
         //let responseString     = NSString(data: responseData , encoding: NSUTF8StringEncoding)
         let responseString = String.init(data: responseData, encoding: String.Encoding.utf8)
         let str:String = responseString!
         return str
     }
-    public class func callWSAsync(Host:String,WebServiceUrl:String,SoapAction:String, SoapMessage:String, completion :@escaping ( Swift.Error?, Data?, String)->Void){
+    public class func callWSAsync(WebServiceUrl:String,SoapAction:String, SoapMessage:String, completion :@escaping ( Swift.Error?, Data?, String)->Void){
         self.Error = nil;
         self.ErrorString = nil;
         self.StatusCode = nil;
@@ -165,7 +111,7 @@ public class SoapHttpClient {
         req.httpMethod = "POST"
         //req.httpBody = SoapMessage.dataUsingEncoding(NSUTF8StringEncoding)
         req.httpBody = SoapMessage.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        req.addValue(Host, forHTTPHeaderField: "Host")
+        req.addValue(currentHost, forHTTPHeaderField: "Host")
         req.addValue("text/xml;charset =utf-8", forHTTPHeaderField: "Content-Type")
         //req.addValue(String(SoapMessage.characters.count), forHTTPHeaderField: "Content-Length")
         

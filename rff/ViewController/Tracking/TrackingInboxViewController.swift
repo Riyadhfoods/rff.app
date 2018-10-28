@@ -138,7 +138,7 @@ class TrackingInboxViewController: UIViewController, UIPickerViewDelegate, UIPic
         arrayOfList.append(list)
         
         for listReceived in arrayOfListReceived{
-            if listReceived.listtype == "10" || listReceived.listtype == "1004" || listReceived.listtype == "2079" || listReceived.listtype == "1003" || listReceived.listtype == "2083" {
+            if listReceived.listtype == "10" || listReceived.listtype == "1004" || listReceived.listtype == "2079" || listReceived.listtype == "1003" || listReceived.listtype == "2083" || listReceived.listtype == "2112" {
                 arrayOfList.append(listReceived)
             }
         }

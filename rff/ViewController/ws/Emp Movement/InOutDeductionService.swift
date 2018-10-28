@@ -11,8 +11,7 @@ class InOutDeductionService{
     static let instance = InOutDeductionService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/In_Out_deduction.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/In_Out_deduction.asmx"
     
     func Bind_dllEmp(lang: Int, emp_id: String, formid: Int) -> [Emp_InfoModul]{
         var returnValueArray = Emp_InfoModul()
@@ -39,7 +38,7 @@ class InOutDeductionService{
         
         let soapAction: String = "http://tempuri.org/Bind_dllEmp"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = Emp_InfoModul() }, getValue: {elemName, strVal in
             
             let rItem1 = returnValueArray
@@ -93,7 +92,7 @@ class InOutDeductionService{
         
         let soapAction: String = "http://tempuri.org/save_data"
         
-        let responseData:Data = SoapHttpClient.callWS(Host :self.Host ,WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData);
         if let strVal = strVal{
             let returnValue: String = strVal
@@ -124,7 +123,7 @@ class InOutDeductionService{
         
         let soapAction: String = "http://tempuri.org/Get_In_Out_Deduction_Data"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = In_Ou_Deduction_Modul() }, getValue: {elemName, strVal in
             
             let rItem1 = returnValueArray
@@ -161,7 +160,7 @@ class InOutDeductionService{
         
         let soapAction :String = "http://tempuri.org/Get_Emp_Details"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = Emp_Details_Modul() }, getValue: {elemName, strVal in
             
             let rItem1 = returnValueArray
@@ -213,7 +212,7 @@ class InOutDeductionService{
         
         let soapAction: String = "http://tempuri.org/BindApproversGrid"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = WorkFlowModul() }, getValue: {elemName, strVal in
             
             let rItem1 = returnValueArray
@@ -253,7 +252,7 @@ class InOutDeductionService{
         
         let soapAction :String = "http://tempuri.org/BindCommentGrid"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = CommentModul() }, getValue: {elemName, strVal in
             
             let rItem1 = returnValueArray
@@ -313,7 +312,7 @@ class InOutDeductionService{
         
         let soapAction :String = "http://tempuri.org/Approve_IOD"
         
-        let responseData:Data = SoapHttpClient.callWS(Host :self.Host ,WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData);
         if let strVal = strVal{
             let returnValue: String = strVal

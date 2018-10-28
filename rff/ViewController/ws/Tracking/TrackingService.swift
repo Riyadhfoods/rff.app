@@ -12,8 +12,7 @@ class TrackingService{
     static let instance = TrackingService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/ios.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/ios.asmx"
     
     private var returnValueForddlReqType = ListTypeModul()
     private func getElementValueForddlReqType(elemName: String, strVal: String) -> ListTypeModul{
@@ -40,7 +39,7 @@ class TrackingService{
         
         let soapAction :String = "http://tempuri.org/Bind_ddlReqType"
         
-        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForddlReqType = ListTypeModul() }, getValue: {elementName, value in
             self.getElementValueForddlReqType(elemName: elementName, strVal: value)
@@ -88,7 +87,7 @@ class TrackingService{
         
         let soapAction :String = "http://tempuri.org/SearchInbox"
         
-        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForSearchInbox = InboxGridModul() }, getValue: {elementName, value in
             self.getElementValueForSearchInbox(elemName: elementName, strVal: value)

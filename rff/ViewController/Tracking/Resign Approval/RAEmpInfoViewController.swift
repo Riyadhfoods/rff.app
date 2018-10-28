@@ -25,6 +25,7 @@ class RAEmpInfoViewController: UIViewController {
     @IBOutlet weak var companyLabel: UILabel!
     @IBOutlet weak var workHrsLabel: UILabel!
     @IBOutlet weak var absentDaysLabel: UILabel!
+    @IBOutlet weak var viewWidth: NSLayoutConstraint!
     
     // -- MARK: Variables
     
@@ -35,6 +36,7 @@ class RAEmpInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpView()
         setUpData()
     }
 
@@ -43,6 +45,10 @@ class RAEmpInfoViewController: UIViewController {
     }
     
     // -- MARK: Setups
+    
+    func setUpView(){
+        viewWidth.constant = AppDelegate.shared.screenSize.width - 32
+    }
     
     func setUpData(){
         for emp in empDetailsArray{

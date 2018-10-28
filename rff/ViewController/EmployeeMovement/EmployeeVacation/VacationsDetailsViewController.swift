@@ -345,14 +345,14 @@ class VacationsDetailsViewController: UIViewController {
             exitreentry: exitReEntryVisaSelected,
             comment: comment.text,
             error: "")
-        
+
         print(empVacationDetails)
-        
+
         if pid.Error == ""{
             let alertTitle = "Alert".localize()
             let messageTitle = "You have already applied for vacation".localize()
             AlertMessage().showAlertMessage(alertTitle: alertTitle, alertMessage: messageTitle, actionTitle: nil, onAction: nil, cancelAction: "Ok", self)
-            
+
         } else if pid.Error == "1"{
             for ticketdep in ticketdependentArray{
                 _ = webserviceForVacationDetails.UpdateVisaReq(
@@ -361,7 +361,7 @@ class VacationsDetailsViewController: UIViewController {
                     value: requiredVisaSelected,
                     error: "")
             }
-            
+
             if vacationTypeId == "10" {
                 _ = webserviceForVacationDetails.save_settlement(
                     emp_id: selectedEmpId,
@@ -381,7 +381,7 @@ class VacationsDetailsViewController: UIViewController {
                     netticketp: settlementDetails.NetTicketPrice,
                     error: "")
             }
-            
+
             let alertMessage = "Vacation request sent successfully".localize()
             AlertMessage().showAlertMessage(alertTitle: "Success", alertMessage: alertMessage, actionTitle: "OK", onAction: {
                 self.handleSuccessAction {

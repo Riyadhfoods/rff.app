@@ -11,8 +11,7 @@ import Foundation
 class LoginService{
     static let instance = LoginService()
     
-    private var Url:String = "http://82.118.166.164/ios_hrms/ios.asmx"
-    private var Host:String = "82.118.166.164"
+    private var Url:String = "http://\(currentHost)/ios_hrms/ios.asmx"
     
     func CheckLogin(username:String, password:String, error:String, langid:Int)-> [String?]{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -40,7 +39,7 @@ class LoginService{
         
         let soapAction :String = "http://tempuri.org/CheckLogin"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         let strVals: [String?] = CommonFunction.shared.stringArrFromXML(data: responseData)
        
         var vals = [String?]()
@@ -78,7 +77,7 @@ class LoginService{
         
         let soapAction :String = "http://tempuri.org/ChangePassword"
         
-        let responseData: Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         let strVal: String? = CommonFunction.shared.stringFromXML(data: responseData)
         
         if let strVal = strVal{

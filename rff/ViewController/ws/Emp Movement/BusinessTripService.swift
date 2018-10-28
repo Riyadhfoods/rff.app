@@ -12,8 +12,7 @@ class BusinessTripService{
     static let instance = BusinessTripService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/BusinessTrip.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/BusinessTrip.asmx"
     
     func BindDdlEmps(emp_id:String, lang:Int)-> [BusinessTripClass]{
         var returnValueArray = BusinessTripClass()
@@ -36,7 +35,7 @@ class BusinessTripService{
         
         let soapAction: String = "http://tempuri.org/BindDdlEmps"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = BusinessTripClass() }, getValue: {elemName, strVal in
             
@@ -69,7 +68,7 @@ class BusinessTripService{
         
         let soapAction :String = "http://tempuri.org/BindDdlTrans"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = BusinessTripClass() }, getValue: {elemName, strVal in
             
@@ -202,7 +201,7 @@ class BusinessTripService{
         
         let soapAction: String = "http://tempuri.org/SubmitBusinessTrip"
         
-        let responseData:Data = SoapHttpClient.callWS(Host :self.Host ,WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData);
         if let strVal = strVal{
             let returnValue: String = strVal

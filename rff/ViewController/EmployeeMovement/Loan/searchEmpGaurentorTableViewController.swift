@@ -20,7 +20,6 @@ class searchEmpGaurentorTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setSearchBar()
     }
     

@@ -598,12 +598,30 @@ class InvoiceAndItemModul{
     var Items: String = ""
 }
 
+// -- Sales Collection
 
+class TerritoryModul{
+    var territoryId: String = ""
+    var territoryName: String = ""
+}
 
+class CollCustomerModul{
+    var CustomerId: String = ""
+    var CustomerName: String = ""
+}
 
+class CollectionTypeModul{
+    var Desc: String = ""
+    var Id: String = ""
+}
 
+class BankTypeModul{
+    var Name: String = ""
+    var Id: String = ""
+}
 
-
-
-
+class CollSalesPersonModul{
+    var SalesPersonId : String = ""
+    var SalespersonName : String = ""
+}
 

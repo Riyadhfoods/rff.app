@@ -8,6 +8,12 @@
 
 import Foundation
 
+let Host = "82.118.166.164"     // public live
+let LocalHost = "192.168.0.18"  // Local live
+let TestHost = "192.168.0.29"   // Test
+
+let currentHost = TestHost
+
 class CommonFunction{
     static let shared = CommonFunction()
     fileprivate var currentVC: UIViewController?

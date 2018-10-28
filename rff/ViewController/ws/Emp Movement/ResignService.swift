@@ -12,8 +12,7 @@ class ResignService{
     static let instance = ResignService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/Resign.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/Resign.asmx"
     
     func Bind_ddlReason(lang: Int) -> [ReasonModul]{
         var returnValueArray = ReasonModul()
@@ -34,7 +33,7 @@ class ResignService{
         
         let soapAction: String = "http://tempuri.org/Bind_ddlReason"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = ReasonModul() }, getValue: {elemName, strVal in
             
@@ -74,7 +73,7 @@ class ResignService{
         
         let soapAction: String = "http://tempuri.org/Bind_dllEmp"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = Emp_InfoModul() }, getValue: {elemName, strVal in
             
@@ -130,7 +129,7 @@ class ResignService{
         
         let soapAction: String = "http://tempuri.org/Get_Emp_Details"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = ResignEmpDetailsModul() }, getValue: {elemName, strVal in
             self.getElementValueForGet_Emp_Details(elemName: elemName, strVal: strVal, returnValueArray: returnValueArray)
@@ -161,7 +160,7 @@ class ResignService{
         
         let soapAction: String = "http://tempuri.org/Get_Inc_Desc_Details"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = Inc_DecrDetailsModul() }, getValue: {elemName, strVal in
             
@@ -200,7 +199,7 @@ class ResignService{
         
         let soapAction: String = "http://tempuri.org/Get_Eva_Details"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = EvaDetailsModul() }, getValue: {elemName, strVal in
             
@@ -258,7 +257,7 @@ class ResignService{
         
         let soapAction: String = "http://tempuri.org/Submit_Resign_Request"
         
-        let responseData:Data = SoapHttpClient.callWS(Host :self.Host ,WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData);
         if let strVal = strVal{
             let returnValue: String = strVal
@@ -292,7 +291,7 @@ class ResignService{
         
         let soapAction :String = "http://tempuri.org/Get_Saved_Res_Details"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = ResignEmpDetailsModul() }, getValue: {elemName, strVal in
             
@@ -336,7 +335,7 @@ class ResignService{
         
         let soapAction: String = "http://tempuri.org/BindApproversGrid"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = WorkFlowModul() }, getValue: {elemName, strVal in
             
@@ -378,7 +377,7 @@ class ResignService{
         
         let soapAction: String = "http://tempuri.org/BindCommentGrid"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueArray = CommentModul() }, getValue: {elemName, strVal in
             
@@ -440,7 +439,7 @@ class ResignService{
         
         let soapAction :String = "http://tempuri.org/Approve_EOS"
         
-        let responseData:Data = SoapHttpClient.callWS(Host :self.Host ,WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData);
         if let strVal = strVal{
             let returnValue: String = strVal

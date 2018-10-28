@@ -13,8 +13,7 @@ class SalesOrderApproveService{
     let commonSalesService = SalesCommonService.instance
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/sales.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/sales.asmx"
     
     private var returnValueForSalesOrderApprove = SalesOrderApproveModul()
     private func getElementValueForSalesOrderApprove(elemName: String, strVal: String) -> SalesOrderApproveModul{
@@ -47,7 +46,7 @@ class SalesOrderApproveService{
         
         let soapAction: String = "http://tempuri.org/SalesOrderApprove"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForSalesOrderApprove = SalesOrderApproveModul() }, getValue: {elementName, value in
             self.getElementValueForSalesOrderApprove(elemName: elementName, strVal: value)
@@ -95,7 +94,7 @@ class SalesOrderApproveService{
         
         let soapAction: String = "http://tempuri.org/BindOrderItemGridFor_SalesApprovalForm"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindOrderItemGrid = OrderApproveItem() }, getValue: {elementName, value in
             self.getElementValueForBindOrderItemGrid(elemName: elementName, strVal: value)
@@ -137,7 +136,7 @@ class SalesOrderApproveService{
         
         let soapAction: String = "http://tempuri.org/BindCustomerCreditGridView_SalesApprovalForm"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindCustomerCreditGridView = OrderApproveCreditModul() }, getValue: {elementName, value in
             self.getElementValueForBindCustomerCreditGridView(elemName: elementName, strVal: value)
@@ -171,7 +170,7 @@ class SalesOrderApproveService{
         
         let soapAction: String = "http://tempuri.org/BindCombobox"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindCombobox = ComBoxMudel() }, getValue: {elementName, value in
             self.getElementValueForBindCombobox(elemName: elementName, strVal: value)
@@ -224,7 +223,7 @@ class SalesOrderApproveService{
         
         let soapAction: String = "http://tempuri.org/CheckSalesApproval"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForCheckSalesApproval = SalesOrderButtonVisibiltyMudel() }, getValue: {elementName, value in
             self.getElementValueForCheckSalesApproval(elemName: elementName, strVal: value)
         }) as? [SalesOrderButtonVisibiltyMudel]{ return returnValue }
@@ -255,7 +254,7 @@ class SalesOrderApproveService{
         
         let soapAction: String = "http://tempuri.org/BeforeApproveFinalOrder"
         
-        let _ = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let _ = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
     }
     
     func ApproveFinalOrder(orderno: String, approver: String, empno: String, comment: String) -> String{
@@ -284,7 +283,7 @@ class SalesOrderApproveService{
         
         let soapAction: String = "http://tempuri.org/ApproveFinalOrder"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData);
         if let strVal = strVal{
             let returnValue: String = strVal
@@ -334,7 +333,7 @@ class SalesOrderApproveService{
         
         let soapAction: String = "http://tempuri.org/Reject_SalesOrderApproval"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData);
         if let strVal = strVal{
             let returnValue: String = strVal
@@ -379,7 +378,7 @@ class SalesOrderApproveService{
         
         let soapAction :String = "http://tempuri.org/SaveToGp"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url , SoapAction: soapAction, SoapMessage: soapReqXML)
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForSaveToGp = SaveToGpMudel() }, getValue: {elementName, value in
             self.getElementValueForSaveToGp(elemName: elementName, strVal: value)
         }) as? [SaveToGpMudel]{ return returnValue }

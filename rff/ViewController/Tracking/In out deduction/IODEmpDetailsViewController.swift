@@ -35,6 +35,7 @@ class IODEmpDetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpView()
         setUpData()
     }
 
@@ -43,6 +44,10 @@ class IODEmpDetailsViewController: UIViewController {
     }
     
     // -- MARK: Set ups
+    
+    func setUpView(){
+        viewWidth.constant = AppDelegate.shared.screenSize.width - 32
+    }
     
     func setUpData(){
         for emp in empDetailsArray{

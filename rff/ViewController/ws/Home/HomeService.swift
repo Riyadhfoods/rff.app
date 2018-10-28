@@ -12,8 +12,7 @@ class HomeService{
     static let instance = HomeService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/ios.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/ios.asmx"
     
     private var returnValueForTask_Inbox = Task_InboxModul()
     private func getElementValueForTask_Inbox(elemName: String, strVal: String) -> Task_InboxModul{
@@ -48,7 +47,7 @@ class HomeService{
         
         let soapAction :String = "http://tempuri.org/Task_Inbox"
         
-        let responseData: Data = SoapHttpClient.callWS(Host : self.Host ,WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForTask_Inbox = Task_InboxModul() }, getValue: {elementName, value in
                 self.getElementValueForTask_Inbox(elemName: elementName, strVal: value)

@@ -97,6 +97,8 @@ class InboxTableViewController: UITableViewController, ApproveActionDelegate {
             performSegue(withIdentifier: "showApproveFormForResign", sender: nil)
         } else if listFormId == 2083{
             performSegue(withIdentifier: "showApproveFormForInOutDeduction", sender: nil)
+        } else if listFormId == 2112{
+            performSegue(withIdentifier: "showApproveFormForCollection", sender: nil)
         }
         
     }
@@ -141,6 +143,15 @@ class InboxTableViewController: UITableViewController, ApproveActionDelegate {
                 viewController.cellRow = cellRow
                 viewController.categorySelected = categorySelected
                 viewController.delegate = self
+            }
+        } else if segue.identifier == "showApproveFormForCollection" {
+            if let viewController = segue.destination as? CollectionApprovalViewController{
+                viewController.listFormId = listFormId
+                viewController.pid = pid
+                viewController.appliedEmpName = empName
+                viewController.appliedEmpId = empId
+                viewController.cellRow = cellRow
+                viewController.categorySelected = categorySelected
             }
         }
     }

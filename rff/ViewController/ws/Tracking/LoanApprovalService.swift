@@ -12,8 +12,7 @@ class LoanApprovalService{
     static let instance = LoanApprovalService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/approvals/loan_app.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/approvals/loan_app.asmx"
     
     private var returnValueForGet_Emps_Details = LoanApprovalModul()
     private func getElementValueForGet_Emps_Details(elemName: String, strVal: String) -> LoanApprovalModul{
@@ -76,7 +75,7 @@ class LoanApprovalService{
         
         let soapAction :String = "http://tempuri.org/Get_Emps_Details"
         
-        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForGet_Emps_Details = LoanApprovalModul() }, getValue: {elementName, value in
             self.getElementValueForGet_Emps_Details(elemName: elementName, strVal: value)
@@ -122,7 +121,7 @@ class LoanApprovalService{
         
         let soapAction :String = "http://tempuri.org/BindApproversGrid"
         
-        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindApproversGrid = WorkFlowModul() }, getValue: {elementName, value in
             self.getElementValueForBindApproversGrid(elemName: elementName, strVal: value)
@@ -163,7 +162,7 @@ class LoanApprovalService{
         
         let soapAction :String = "http://tempuri.org/BindCommentGrid"
         
-        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindCommentGrid = CommentModul() }, getValue: {elementName, value in
             self.getElementValueForBindCommentGrid(elemName: elementName, strVal: value)
@@ -219,7 +218,7 @@ class LoanApprovalService{
         
         let soapAction :String = "http://tempuri.org/Approve_Loan"
         
-        let responseData: Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData)
         
         if let strVal = strVal{

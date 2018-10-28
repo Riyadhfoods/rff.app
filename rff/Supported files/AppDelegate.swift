@@ -27,11 +27,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logUser()
         Fabric.with([Crashlytics.self])
         
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(AppDelegate.applicationDidTimeout(notification:)),
-                                               name: .appTimeout,
-                                               object: nil
-        )
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(AppDelegate.applicationDidTimeout(notification:)),
+//                                               name: .appTimeout,
+//                                               object: nil
+//        )
         
         // To set a default language
         LanguageManger.shared.defaultLanguage = .en
@@ -74,6 +74,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AppDelegate.applicationDidTimeout(notification:)),
+                                               name: .appTimeout,
+                                               object: nil
+        )
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

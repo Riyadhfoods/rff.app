@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O3g-iC-rWo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="O3g-iC-rWo">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -370,6 +371,7 @@
                         <segue destination="WAm-8w-x4j" kind="show" identifier="showApprovalFormForBusinessTrip" id="RNe-fg-YPo"/>
                         <segue destination="RGl-ZV-gPO" kind="show" identifier="showApproveFormForResign" id="wR6-LS-TWr"/>
                         <segue destination="riw-3O-lT8" kind="show" identifier="showApproveFormForInOutDeduction" id="RKD-b9-gqb"/>
+                        <segue destination="rZP-Ek-12A" kind="show" identifier="showApproveFormForCollection" id="hcv-M7-VE7"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="osA-fv-EtW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -402,7 +404,7 @@
                 <viewControllerPlaceholder storyboardName="VacAndLoanApproval" id="XOS-rd-gXo" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ePi-0s-XSR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5743" y="1046"/>
+            <point key="canvasLocation" x="5740" y="1046"/>
         </scene>
         <!--BusinessTripApproval-->
         <scene sceneID="mAs-ty-E2K">
@@ -426,7 +428,15 @@
                 <viewControllerPlaceholder storyboardName="InOutDeductionApproval" id="riw-3O-lT8" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Mxd-jc-vw0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5712" y="1210"/>
+            <point key="canvasLocation" x="5757" y="1211"/>
+        </scene>
+        <!--CollectionApproval-->
+        <scene sceneID="tga-lg-ctb">
+            <objects>
+                <viewControllerPlaceholder storyboardName="CollectionApproval" id="rZP-Ek-12A" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="97z-CY-7eO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5730" y="1293"/>
         </scene>
     </scenes>
     <resources>

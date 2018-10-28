@@ -262,21 +262,13 @@ extension SlideMenuViewController {
         case 2:
             identifier = "showSalesReturnApproval"
         case 3:
-            identifier = "showSalesPromotionApproval"
-        case 4:
             identifier = "showSalesOrderRequest"
-        case 5:
+        case 4:
             identifier = "showReturnOrderRequests"
+        case 5:
+            identifier = "showSalesCollectionRequest"
         case 6:
-            identifier = "showPromotionRequest"
-        case 7:
-            identifier = "showOthaimSalesStatus"
-        case 8:
-            identifier = "showSalesPlanSummay"
-        case 9:
-            identifier = "showSalesPersonAreaSetup"
-        case 10:
-            identifier = "showSalesStoreUpdate"
+            identifier = "showCommisionRequest"
         default:
             break
         }

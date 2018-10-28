@@ -89,7 +89,6 @@ class SalesOrderRequestsViewController: UIViewController {
     @IBOutlet weak var viewHolder: UIView!
     
     @IBOutlet weak var itemsTextfield: UITextField!
-    //@IBOutlet weak var showItemsPickerViewTextfield: UITextField!
     @IBOutlet weak var unoitTextfield: UITextField!
     @IBOutlet weak var showUnoitPickerViewTextfield: UITextField!
     @IBOutlet weak var qtyTextfield: UITextField!
@@ -915,7 +914,6 @@ extension SalesOrderRequestsViewController: UIPickerViewDelegate, UIPickerViewDa
         PickerviewAction().showPickView(txtfield: showCityPickerViewTextfield, pickerview: cityPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
         PickerviewAction().showPickView(txtfield: showSalesPersonPickerViewTextfield, pickerview: salesPersonStorePickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
         PickerviewAction().showPickView(txtfield: showMerchandiserPickerViewTextfield, pickerview: merchandiserPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
-        //PickerviewAction().showPickView(txtfield: showItemsPickerViewTextfield, pickerview: itemsPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
         PickerviewAction().showPickView(txtfield: showUnoitPickerViewTextfield, pickerview: unoitPickerView, viewController: self, cancelSelector: #selector(cancelClick), doneSelector: #selector(doneClick))
     }
     

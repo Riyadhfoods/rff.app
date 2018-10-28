@@ -205,6 +205,16 @@
 		C0BE2E4420CDD540005F8B4A /* TransferPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE2E4320CDD540005F8B4A /* TransferPagesCell.swift */; };
 		C0BE2E4620CDD553005F8B4A /* ReturnPagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0BE2E4520CDD553005F8B4A /* ReturnPagesCell.swift */; };
 		C0C0158821085D52009B1861 /* VacData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C0158721085D52009B1861 /* VacData.swift */; };
+		C0C184A5217EFF7400A348A1 /* SalesCollectionRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C184A4217EFF7400A348A1 /* SalesCollectionRequest.storyboard */; };
+		C0C184A8217F02FA00A348A1 /* SalesCollectionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C184A7217F02FA00A348A1 /* SalesCollectionRequestViewController.swift */; };
+		C0C184AB217F2D9900A348A1 /* CommissionRequest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C184AA217F2D9900A348A1 /* CommissionRequest.storyboard */; };
+		C0C184AE217F2E6C00A348A1 /* CommissionRequestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C184AD217F2E6C00A348A1 /* CommissionRequestViewController.swift */; };
+		C0C184B0217F3A1400A348A1 /* CollectionApproval.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0C184AF217F3A1400A348A1 /* CollectionApproval.storyboard */; };
+		C0C184B3217F3D3800A348A1 /* CollectionApprovalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C184B2217F3D3800A348A1 /* CollectionApprovalViewController.swift */; };
+		C0C184B5217F3D6D00A348A1 /* CACreaterDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C184B4217F3D6D00A348A1 /* CACreaterDetailsViewController.swift */; };
+		C0C184B7217F3D8800A348A1 /* CACollectionDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C184B6217F3D8700A348A1 /* CACollectionDetailsViewController.swift */; };
+		C0C184B9217F3D9D00A348A1 /* CAUserCommentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C184B8217F3D9D00A348A1 /* CAUserCommentViewController.swift */; };
+		C0C184BB217F3DB100A348A1 /* CAWorkFlowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C184BA217F3DB100A348A1 /* CAWorkFlowViewController.swift */; };
 		C0C72B6E2106ECDB00C37656 /* EmployeeInfoInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B6D2106ECDB00C37656 /* EmployeeInfoInboxViewController.swift */; };
 		C0C72B702106ED3B00C37656 /* PreviousNewLoanDetailsInboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B6F2106ED3B00C37656 /* PreviousNewLoanDetailsInboxTableViewController.swift */; };
 		C0C72B722106ED9D00C37656 /* LoanDetailsInboxViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0C72B712106ED9D00C37656 /* LoanDetailsInboxViewController.swift */; };
@@ -229,6 +239,8 @@
 		C0E53AC82141120700363155 /* SalesReturnSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E53AC72141120700363155 /* SalesReturnSearchTableViewController.swift */; };
 		C0E560C4210DB09300AAB272 /* VacationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E560C3210DB09300AAB272 /* VacationService.swift */; };
 		C0E5790321204C6400523BDF /* BusinessTripApproval.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E5790221204C6400523BDF /* BusinessTripApproval.storyboard */; };
+		C0E5820121803C9B000D3603 /* SalesCollectionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E5820021803C9B000D3603 /* SalesCollectionService.swift */; };
+		C0E58203218046AF000D3603 /* SearchCollectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E58202218046AF000D3603 /* SearchCollectionTableViewController.swift */; };
 		C0E6140220FDB8AE00309A53 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140420FDB8AE00309A53 /* Home.storyboard */; };
 		C0E6140720FDB8CE00309A53 /* Master.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140920FDB8CE00309A53 /* Master.storyboard */; };
 		C0E6140C20FDB97700309A53 /* Loan.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0E6140E20FDB97700309A53 /* Loan.storyboard */; };
@@ -457,6 +469,16 @@
 		C0BE2E4320CDD540005F8B4A /* TransferPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferPagesCell.swift; sourceTree = "<group>"; };
 		C0BE2E4520CDD553005F8B4A /* ReturnPagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReturnPagesCell.swift; sourceTree = "<group>"; };
 		C0C0158721085D52009B1861 /* VacData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacData.swift; sourceTree = "<group>"; };
+		C0C184A4217EFF7400A348A1 /* SalesCollectionRequest.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SalesCollectionRequest.storyboard; sourceTree = "<group>"; };
+		C0C184A7217F02FA00A348A1 /* SalesCollectionRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesCollectionRequestViewController.swift; sourceTree = "<group>"; };
+		C0C184AA217F2D9900A348A1 /* CommissionRequest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CommissionRequest.storyboard; sourceTree = "<group>"; };
+		C0C184AD217F2E6C00A348A1 /* CommissionRequestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommissionRequestViewController.swift; sourceTree = "<group>"; };
+		C0C184AF217F3A1400A348A1 /* CollectionApproval.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = CollectionApproval.storyboard; sourceTree = "<group>"; };
+		C0C184B2217F3D3800A348A1 /* CollectionApprovalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionApprovalViewController.swift; sourceTree = "<group>"; };
+		C0C184B4217F3D6D00A348A1 /* CACreaterDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CACreaterDetailsViewController.swift; sourceTree = "<group>"; };
+		C0C184B6217F3D8700A348A1 /* CACollectionDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CACollectionDetailsViewController.swift; sourceTree = "<group>"; };
+		C0C184B8217F3D9D00A348A1 /* CAUserCommentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAUserCommentViewController.swift; sourceTree = "<group>"; };
+		C0C184BA217F3DB100A348A1 /* CAWorkFlowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAWorkFlowViewController.swift; sourceTree = "<group>"; };
 		C0C72B6D2106ECDB00C37656 /* EmployeeInfoInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeInfoInboxViewController.swift; sourceTree = "<group>"; };
 		C0C72B6F2106ED3B00C37656 /* PreviousNewLoanDetailsInboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousNewLoanDetailsInboxTableViewController.swift; sourceTree = "<group>"; };
 		C0C72B712106ED9D00C37656 /* LoanDetailsInboxViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoanDetailsInboxViewController.swift; sourceTree = "<group>"; };
@@ -481,6 +503,8 @@
 		C0E53AC72141120700363155 /* SalesReturnSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesReturnSearchTableViewController.swift; sourceTree = "<group>"; };
 		C0E560C3210DB09300AAB272 /* VacationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VacationService.swift; sourceTree = "<group>"; };
 		C0E5790221204C6400523BDF /* BusinessTripApproval.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = BusinessTripApproval.storyboard; sourceTree = "<group>"; };
+		C0E5820021803C9B000D3603 /* SalesCollectionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesCollectionService.swift; sourceTree = "<group>"; };
+		C0E58202218046AF000D3603 /* SearchCollectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCollectionTableViewController.swift; sourceTree = "<group>"; };
 		C0E6140520FDB8B100309A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Home.storyboard; sourceTree = "<group>"; };
 		C0E6140820FDB8CE00309A53 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Master.storyboard; sourceTree = "<group>"; };
 		C0E6140B20FDB8D000309A53 /* ar */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ar; path = ar.lproj/Master.strings; sourceTree = "<group>"; };
@@ -862,6 +886,7 @@
 				C0C7AD8521131E700068250F /* SalesReturnApproveService.swift */,
 				C01C39A3211AB71400614157 /* SalesOrderRequestService.swift */,
 				C015330D211AF504008D0471 /* SalesReturnRequestService.swift */,
+				C0E5820021803C9B000D3603 /* SalesCollectionService.swift */,
 			);
 			path = Sales;
 			sourceTree = "<group>";
@@ -1003,11 +1028,13 @@
 		C078EB5D20A84E6300E0B812 /* Sales */ = {
 			isa = PBXGroup;
 			children = (
+				C0C184A4217EFF7400A348A1 /* SalesCollectionRequest.storyboard */,
 				C0E6142B20FDBC9E00309A53 /* ReturnOrderRequests.storyboard */,
 				C0E6142620FDBC9400309A53 /* SalesOrderRequest.storyboard */,
 				C0E6142120FDBC8C00309A53 /* SalesReturnApproval.storyboard */,
 				C0E6141C20FDBC7F00309A53 /* SalesOrderApproval.storyboard */,
 				C0E6141720FDBC6F00309A53 /* SalesInbox.storyboard */,
+				C0C184AA217F2D9900A348A1 /* CommissionRequest.storyboard */,
 			);
 			path = Sales;
 			sourceTree = "<group>";
@@ -1097,6 +1124,7 @@
 			isa = PBXGroup;
 			children = (
 				C078EB6D20A84FFC00E0B812 /* Tracking.storyboard */,
+				C0C184AF217F3A1400A348A1 /* CollectionApproval.storyboard */,
 				C0ED1498213D241C00C82687 /* InOutDeductionApproval.storyboard */,
 				C02C494321352F68004F8B05 /* ResignApproval.storyboard */,
 				C0E5790221204C6400523BDF /* BusinessTripApproval.storyboard */,
@@ -1141,6 +1169,8 @@
 		C08A267120A6E1BC0028052C /* Sales */ = {
 			isa = PBXGroup;
 			children = (
+				C0C184AC217F2E5000A348A1 /* commission request */,
+				C0C184A6217F02D200A348A1 /* sales collection request */,
 				C03C7C0B20C7D98900D8248C /* Sales Inbox */,
 				C05777A920CE799F00423FE7 /* sales order approval */,
 				C05777AC20CE908700423FE7 /* sales return approval */,
@@ -1243,6 +1273,7 @@
 				C0ADDFA7212172F100D3D911 /* Business Trip */,
 				C02C494721353BE6004F8B05 /* Resign Approval */,
 				C0CF53B7213D286C007A7A0E /* In out deduction */,
+				C0C184B1217F3CF300A348A1 /* Collection App */,
 				C0DF980F213BEE2A00845D9B /* CommonTrackFunctions.swift */,
 			);
 			path = Tracking;
@@ -1312,6 +1343,35 @@
 				C0F2A64A20F7406D005A2984 /* attachments */,
 			);
 			path = "return order request";
+			sourceTree = "<group>";
+		};
+		C0C184A6217F02D200A348A1 /* sales collection request */ = {
+			isa = PBXGroup;
+			children = (
+				C0C184A7217F02FA00A348A1 /* SalesCollectionRequestViewController.swift */,
+				C0E58202218046AF000D3603 /* SearchCollectionTableViewController.swift */,
+			);
+			path = "sales collection request";
+			sourceTree = "<group>";
+		};
+		C0C184AC217F2E5000A348A1 /* commission request */ = {
+			isa = PBXGroup;
+			children = (
+				C0C184AD217F2E6C00A348A1 /* CommissionRequestViewController.swift */,
+			);
+			path = "commission request";
+			sourceTree = "<group>";
+		};
+		C0C184B1217F3CF300A348A1 /* Collection App */ = {
+			isa = PBXGroup;
+			children = (
+				C0C184B2217F3D3800A348A1 /* CollectionApprovalViewController.swift */,
+				C0C184B4217F3D6D00A348A1 /* CACreaterDetailsViewController.swift */,
+				C0C184B6217F3D8700A348A1 /* CACollectionDetailsViewController.swift */,
+				C0C184B8217F3D9D00A348A1 /* CAUserCommentViewController.swift */,
+				C0C184BA217F3DB100A348A1 /* CAWorkFlowViewController.swift */,
+			);
+			path = "Collection App";
 			sourceTree = "<group>";
 		};
 		C0C72B732106EDAF00C37656 /* Vac Approval */ = {
@@ -1562,9 +1622,12 @@
 				C078EB8620A8527900E0B812 /* TicketChange.storyboard in Resources */,
 				C078EB7220A850BE00E0B812 /* EmployeeVacation.storyboard in Resources */,
 				C078EB7E20A851B400E0B812 /* SalaryPreview.storyboard in Resources */,
+				C0C184B0217F3A1400A348A1 /* CollectionApproval.storyboard in Resources */,
 				C0ED1499213D241C00C82687 /* InOutDeductionApproval.storyboard in Resources */,
 				C00F94432111A683007D70AA /* CustomActivityIndicatorView.xib in Resources */,
 				C078EB8420A8524E00E0B812 /* VacationDaysUpdate.storyboard in Resources */,
+				C0C184AB217F2D9900A348A1 /* CommissionRequest.storyboard in Resources */,
+				C0C184A5217EFF7400A348A1 /* SalesCollectionRequest.storyboard in Resources */,
 				C078EBAA20A857D400E0B812 /* ITMasterFile.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1628,6 +1691,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0E58203218046AF000D3603 /* SearchCollectionTableViewController.swift in Sources */,
 				C0C7AD8421130CAF0068250F /* SalesCommonService.swift in Sources */,
 				C0ADDFAB2121739B00D3D911 /* BusinessLeaveDetailsViewController.swift in Sources */,
 				C08A26CB20A6E7850028052C /* UpdateBankStatusViewController.swift in Sources */,
@@ -1639,6 +1703,7 @@
 				C05777AE20CE90B200423FE7 /* SalesReturnApprovalCellCell.swift in Sources */,
 				C0CF53B6213D2868007A7A0E /* InOutDeductionApprovalViewController.swift in Sources */,
 				C0D2ABA520A805EE001AE4FD /* InboxTableViewController.swift in Sources */,
+				C0E5820121803C9B000D3603 /* SalesCollectionService.swift in Sources */,
 				C03C7C1320C7DA3D00D8248C /* TransferStyleCell.swift in Sources */,
 				C0CB9CFF20F5F0EB001502E7 /* ROActions.swift in Sources */,
 				C00851DA20EA1D37009673C5 /* UserCommentReturnViewController.swift in Sources */,
@@ -1651,6 +1716,7 @@
 				C02C495121353C65004F8B05 /* RAWorkFlowTableViewController.swift in Sources */,
 				C05777AB20CE79CB00423FE7 /* SalesOrderApprovalCell.swift in Sources */,
 				C00F94452111A769007D70AA /* customActivityIndicatorView.swift in Sources */,
+				C0C184B7217F3D8800A348A1 /* CACollectionDetailsViewController.swift in Sources */,
 				C08A26D320A6E7C60028052C /* MyComplainViewController.swift in Sources */,
 				C08A26DD20A6E8200028052C /* SalesOrderRequestsViewController.swift in Sources */,
 				C0CB9D0120F5FAF3001502E7 /* ExtensionOfReturnOrder.swift in Sources */,
@@ -1662,6 +1728,7 @@
 				C040CABA2121499000BA548D /* UI.swift in Sources */,
 				C08A26C920A6E7710028052C /* TrackPaymentReqViewController.swift in Sources */,
 				C0C7AD822112FCED0068250F /* SalesOrderApproveService.swift in Sources */,
+				C0C184BB217F3DB100A348A1 /* CAWorkFlowViewController.swift in Sources */,
 				C08A269720A6E3D50028052C /* SalaryChangeViewController.swift in Sources */,
 				C0CF53BD213D28B5007A7A0E /* IODWorkFlowTableViewController.swift in Sources */,
 				C0CE40CD20BC281200A06CB4 /* PendingInboxCell.swift in Sources */,
@@ -1677,6 +1744,7 @@
 				C0A9E72620DE423C000C7A0D /* DetailsSalesReturnApprovalCell.swift in Sources */,
 				C08A268120A6E2DE0028052C /* TrackingInboxViewController.swift in Sources */,
 				C0E560C4210DB09300AAB272 /* VacationService.swift in Sources */,
+				C0C184A8217F02FA00A348A1 /* SalesCollectionRequestViewController.swift in Sources */,
 				C00AF22E2109E3FC008D1CD3 /* VacactionApprovalService.swift in Sources */,
 				C00D95C220FB164B00949ABE /* SalesCreditCutomerDetailsViewController.swift in Sources */,
 				C008655A20C94472006CD88E /* ItemsSelectedCell.swift in Sources */,
@@ -1705,6 +1773,7 @@
 				C0ADDFAF2121740000D3D911 /* TravelMembershipViewController.swift in Sources */,
 				C08A26A720A6E48D0028052C /* SettleCalcViewController.swift in Sources */,
 				C087AEB12105E4F90090BC2E /* SettlementandTicketDetailsViewController.swift in Sources */,
+				C0C184AE217F2E6C00A348A1 /* CommissionRequestViewController.swift in Sources */,
 				C00DC777216C6DBA003ED3BB /* TimerApplication.swift in Sources */,
 				C0ADDFB32121744C00D3D911 /* BTWorkFlowTableViewController.swift in Sources */,
 				C00AF2242109D11C008D1CD3 /* LoginService.swift in Sources */,
@@ -1741,6 +1810,7 @@
 				C08A26C720A6E75B0028052C /* NewPaymentReqViewController.swift in Sources */,
 				C087AEAD2105DC790090BC2E /* AdministrativeUseInboxViewController.swift in Sources */,
 				C00D95CF20FB75C800949ABE /* SalesOrderDetailsViewController.swift in Sources */,
+				C0C184B5217F3D6D00A348A1 /* CACreaterDetailsViewController.swift in Sources */,
 				C0234D3A20C5237E008BB55B /* extensions.swift in Sources */,
 				C0B7F4BE20A1A89F007D1F67 /* Section.swift in Sources */,
 				C0C7AD8621131E700068250F /* SalesReturnApproveService.swift in Sources */,
@@ -1752,6 +1822,7 @@
 				C02C494F21353C5A004F8B05 /* RAUserCommentTableViewController.swift in Sources */,
 				C00AF2292109D6F1008D1CD3 /* TrackingService.swift in Sources */,
 				C0E6E26920D7F75600E7E3C0 /* LanguageManger.swift in Sources */,
+				C0C184B9217F3D9D00A348A1 /* CAUserCommentViewController.swift in Sources */,
 				C0A9E71E20DE410F000C7A0D /* DetailsSalesReturnApprovalViewController.swift in Sources */,
 				C008655820C94455006CD88E /* ItemsSelectedViewController.swift in Sources */,
 				C00478F220F2088E002CAA44 /* FilePreviewViewController.swift in Sources */,
@@ -1791,6 +1862,7 @@
 				C0A9E71620DE201B000C7A0D /* ItemDetailsCell.swift in Sources */,
 				C09F1E8320A984E4005F4C23 /* EmployeeInfoTableViewCell.swift in Sources */,
 				C08A26D920A6E7FC0028052C /* SalesReturnApprovalViewController.swift in Sources */,
+				C0C184B3217F3D3800A348A1 /* CollectionApprovalViewController.swift in Sources */,
 				C01C39A4211AB71400614157 /* SalesOrderRequestService.swift in Sources */,
 				C08A269F20A6E4310028052C /* BusinessTripViewController.swift in Sources */,
 				C015330E211AF504008D0471 /* SalesReturnRequestService.swift in Sources */,

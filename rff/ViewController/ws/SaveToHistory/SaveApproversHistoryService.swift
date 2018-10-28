@@ -12,8 +12,7 @@ class SaveApproversHistoryService{
     static let instance = SaveApproversHistoryService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/saveapphistory.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/saveapphistory.asmx"
     
     func SaveRP2ApproversHistory(pid:String, fid:Int, final_emp_id:String, name:String, emp_role:String, final_status:String, approve_date:String)-> String{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"
@@ -50,7 +49,7 @@ class SaveApproversHistoryService{
         
         let soapAction :String = "http://tempuri.org/SaveRP2ApproversHistory"
         
-        let responseData:Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData:Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData);
         if let strVal = strVal{
             let returnValue: String = strVal
@@ -94,7 +93,7 @@ class SaveApproversHistoryService{
         
         let soapAction: String = "http://tempuri.org/SaveApproversHistory"
         
-        let responseData: Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         let strVal: String? = commonFunction.stringFromXML(data: responseData);
         if let strVal = strVal{
             let returnValue: String = strVal

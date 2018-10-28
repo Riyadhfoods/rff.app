@@ -12,8 +12,7 @@ class LoanService{
     static let instance = LoanService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/loan.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/loan.asmx"
     
     private var returnValueForBindEmployees = EmpInfoModul_2()
     private func getElementValueForBindEmployees(elemName: String, strVal: String) -> EmpInfoModul_2{
@@ -43,7 +42,7 @@ class LoanService{
         
         let soapAction: String = "http://tempuri.org/BindEmployees"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host ,WebServiceUrl :self.Url, SoapAction: soapAction, SoapMessage :soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl :self.Url, SoapAction: soapAction, SoapMessage :soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindEmployees = EmpInfoModul_2() }, getValue: {elementName, value in
             self.getElementValueForBindEmployees(elemName: elementName, strVal: value)
@@ -94,7 +93,7 @@ class LoanService{
         
         let soapAction: String = "http://tempuri.org/SubmitEmpLoan"
         
-        let responseData: Data = SoapHttpClient.callWS(Host : self.Host,WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl:self.Url,SoapAction:soapAction,SoapMessage:soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForSubmitEmpLoan = SubmitModul() }, getValue: {elementName, value in
             self.getElementValueForSubmitEmpLoan(elemName: elementName, strVal: value)

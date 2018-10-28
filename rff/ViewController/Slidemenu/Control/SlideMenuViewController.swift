@@ -109,14 +109,10 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
                     "Sales Inbox",
                     "Sales Order Approval",
                     "Sales Return Approval",
-                    "Sales Promotion Approval",
                     "Sales Order Requests",
                     "Return Order Requests",
-                    "Promotion Request",
-                    "Othaim Sales Status",
-                    "Sales Plan Summary",
-                    "Sales Person Area Setup",
-                    "Sales Store Update"
+                    "Sales Collection Request",
+                    "Commision Request"
                 ]),
             Section(name: "REPORT", items: [], isExpanded: false),
             Section(name: "SignOut", items: [], isExpanded: false)
@@ -200,21 +196,7 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if sections[indexPath.section].isExpanded{
-            if indexPath.section == 10{
-                if indexPath.row == 3{
-                    return 0
-                } else if indexPath.row == 6{
-                    return 0
-                } else if indexPath.row == 7{
-                    return 0
-                } else if indexPath.row == 8{
-                    return 0
-                } else if indexPath.row == 9{
-                    return 0
-                } else if indexPath.row == 10{
-                    return 0
-                }
-            } else if indexPath.section == 3{
+            if indexPath.section == 3{
                 if indexPath.row == 3{
                     return 0
                 } else if indexPath.row == 4{
@@ -232,6 +214,10 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
                 } else if indexPath.row == 10{
                     return 0
                 } 
+            } else if indexPath.section == 10{
+                if indexPath.row == 6 {
+                    return 0
+                }
             }
             return 44
         }
@@ -245,8 +231,6 @@ class SlideMenuViewController: UIViewController, UITableViewDelegate, UITableVie
             header.headerIcon.image = menuImages[section].headerTitleImage
             header.expandButton.tag = section
             header.expandButton.addTarget(self, action: #selector(toggleSection(sender:)), for: .touchUpInside)
-            
-//            header.expandedIcon.text = sections[section].isExpanded ? "➖" : "➕"
             
             if (section == 0 || section == 11 || section == 12){
                 header.expandedIcon.isHidden = true

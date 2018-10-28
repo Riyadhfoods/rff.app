@@ -12,8 +12,7 @@ class VacationService{
     static let instance = VacationService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/ios.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/ios.asmx"
     
     private var returnValueForBindEmpsVacationsDropDown = EmpInfoModul()
     private func getElementValueForBindEmpsVacationsDropDown(elemName: String, strVal: String) -> EmpInfoModul{
@@ -45,7 +44,7 @@ class VacationService{
         
         let soapAction :String = "http://tempuri.org/BindEmpsVacationsDropDown"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindEmpsVacationsDropDown = EmpInfoModul() }, getValue: {elementName, value in
             self.getElementValueForBindEmpsVacationsDropDown(elemName: elementName, strVal: value)
@@ -74,7 +73,7 @@ class VacationService{
         
         let soapAction :String = "http://tempuri.org/BindDelegateVacationsDropDown"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindEmpsVacationsDropDown = EmpInfoModul() }, getValue: {elementName, value in
             self.getElementValueForBindEmpsVacationsDropDown(elemName: elementName, strVal: value)
@@ -108,7 +107,7 @@ class VacationService{
         
         let soapAction :String = "http://tempuri.org/BindVacationType_DDL"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindVacationType_DDL = VacTypeInfoModul() }, getValue: {elementName, value in
             self.getElementValueForBindVacationType_DDL(elemName: elementName, strVal: value)
@@ -150,7 +149,7 @@ class VacationService{
         
         let soapAction :String = "http://tempuri.org/GetEmpVacationTickets"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForGetEmpVacationTickets = EmpDepVacTicketInfoModul() }, getValue: {elementName, value in
             self.getElementValueForGetEmpVacationTickets(elemName: elementName, strVal: value)
@@ -208,7 +207,7 @@ class VacationService{
         
         let soapAction :String = "http://tempuri.org/GetEmpVacationDetails"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.Values(data: responseData, reSet: { returnValueForGetEmpVacationDetails = EmpVacationDetailsModul() }, getValue: { (elementName, value) -> AnyObject in
             self.getElementValueForGetEmpVacationDetails(elemName: elementName, strVal: value)
@@ -252,7 +251,7 @@ class VacationService{
         
         let soapAction: String = "http://tempuri.org/calculateActualVacatioDays"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.Values(data: responseData, reSet: { returnValueForcalculateActualVacatioDays = UpdateVacationDetailsInfoModul() }, getValue: { (elementName, value) -> AnyObject in
             self.getElementValueForcalculateActualVacatioDays(elemName: elementName, strVal: value)
@@ -311,7 +310,7 @@ class VacationService{
         
         let soapAction: String = "http://tempuri.org/get_settlement_details"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.Values(data: responseData, reSet: { returnValueForget_settlement_details = settlmentDetailsModul() }, getValue: { (elementName, value) -> AnyObject in
             self.getElementValueForget_settlement_details(elemName: elementName, strVal: value)
@@ -378,7 +377,7 @@ class VacationService{
         
         let soapAction: String = "http://tempuri.org/SubmitEmpVacation"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.Values(data: responseData, reSet: { returnValueForSubmitEmpVacation = submitModul() }, getValue: { (elementName, value) -> AnyObject in
             self.getElementValueForSubmitEmpVacation(elemName: elementName, strVal: value)
@@ -449,7 +448,7 @@ class VacationService{
         
         let soapAction: String = "http://tempuri.org/save_settlement"
         
-        let _: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let _: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         return ""
     }
     
@@ -479,7 +478,7 @@ class VacationService{
         
         let soapAction: String = "http://tempuri.org/UpdateVisaReq"
         
-        let _: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let _: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         return ""
     }
 }

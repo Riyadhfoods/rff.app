@@ -13,8 +13,7 @@ class SalesInboxService{
     let commonSalesService = SalesCommonService.instance
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://82.118.166.164/ios_hrms/sales.asmx"
-    private var Host: String = "82.118.166.164"
+    private var Url: String = "http://\(currentHost)/ios_hrms/sales.asmx"
     
     private var returnValueForSalesInbox = SalesInboxModul()
     private func getElementValueForSalesInbox(elementName: String, value: String) -> SalesInboxModul{
@@ -62,7 +61,7 @@ class SalesInboxService{
 
         let soapAction: String = "http://tempuri.org/GetSalesInbox"
 
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForSalesInbox = SalesInboxModul() }, getValue: {elementName, value in
             self.getElementValueForSalesInbox(elementName: elementName, value: value)
@@ -129,7 +128,7 @@ class SalesInboxService{
         
         let soapAction: String = "http://tempuri.org/SRI_BindItemGrid"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindItemGrid = SalesItemInboxModul() }, getValue: {elementName, value in
             self.getElementValueForBindItemGrid(elementName: elementName, value: value)
@@ -168,7 +167,7 @@ class SalesInboxService{
         
         let soapAction: String = "http://tempuri.org/SRI_BindCustomerCreditLimit"
         
-        let responseData: Data = SoapHttpClient.callWS(Host: self.Host, WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
+        let responseData: Data = SoapHttpClient.callWS(WebServiceUrl: self.Url, SoapAction: soapAction, SoapMessage: soapReqXML)
         
         if let returnValue = commonFunction.ArrValues(data: responseData, reSet: { returnValueForBindCustomerCreditLimit = SalesCreditLimmitInboxModul() }, getValue: {elementName, value in
             self.getElementValueForBindCustomerCreditLimit(elementName: elementName, value: value)

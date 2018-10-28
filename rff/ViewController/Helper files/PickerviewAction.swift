@@ -31,6 +31,7 @@ class PickerviewAction{
         pickerview.delegate = viewController as? UIPickerViewDelegate
         
         txtfield.delegate = viewController as? UITextFieldDelegate
+        txtfield.tintColor = .clear
         txtfield.inputView = pickerview
         let cancelButton = UIBarButtonItem(title: "Cancel".localize(), style: .plain, target: viewController, action: cancelSelector)
         if doneSelector != nil {

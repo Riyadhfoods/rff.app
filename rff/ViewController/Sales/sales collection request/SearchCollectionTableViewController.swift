@@ -1,38 +1,35 @@
 //
-//  SalesReturnSearchTableViewController.swift
+//  SearchCollectionViewController.swift
 //  rff
 //
-//  Created by Riyadh Foods Industrial Co. on 06/09/2018.
+//  Created by Riyadh Foods Industrial Co. on 24/10/2018.
 //  Copyright © 2018 Riyadh Foods Industrial Co. All rights reserved.
 //
 
 import UIKit
 
-protocol UpdateSalesReturnInfoDelegate {
-    func updateSalesparson(newSalesperson: String, newSalespersonId: String)
-    func updateCustomer(newCustomer: String, newCustomerId: String)
+protocol UpdateCollectionSlsAndCustomerValueDelegate {
+    func updateSalesPerson(name: String, id: String)
+    func updateCustomer(name: String, id: String)
 }
 
-class SalesReturnSearchTableViewController: UITableViewController {
-    
+class SearchCollectionTableViewController: UITableViewController {
+
     let searchController = UISearchController(searchResultsController: nil)
     let searchFeature = SearchFeature.instance
-    let cellId = "cell_salesReturnSearch"
+    let cellId = "cell_salesCollectionSearch"
     
-    var salesPersons = [SalesPersonModul]()
-    var customers = [CustomerModul]()
-    var filteredsalesPersons = [SalesPersonModul]()
-    var filteredcustomers = [CustomerModul]()
+    var salesPersons = [CollSalesPersonModul]()
+    var customers = [CollCustomerModul]()
+    var filteredsalesPersons = [CollSalesPersonModul]()
+    var filteredcustomers = [CollCustomerModul]()
     
-    var delegate: UpdateSalesReturnInfoDelegate?
+    var delegate: UpdateCollectionSlsAndCustomerValueDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setSearchBar()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     
     func setSearchBar(){
@@ -42,11 +39,11 @@ class SalesReturnSearchTableViewController: UITableViewController {
     
     func filterContentForSearchText(_ searchText: String) {
         if !salesPersons.isEmpty{
-            filteredsalesPersons = salesPersons.filter({( salesPerson : SalesPersonModul) -> Bool in
-                return salesPerson.SalesPerson.lowercased().contains(searchText.lowercased())
+            filteredsalesPersons = salesPersons.filter({( salesPerson : CollSalesPersonModul) -> Bool in
+                return salesPerson.SalespersonName.lowercased().contains(searchText.lowercased())
             })
         } else if !customers.isEmpty{
-            filteredcustomers = customers.filter({( customer : CustomerModul) -> Bool in
+            filteredcustomers = customers.filter({( customer : CollCustomerModul) -> Bool in
                 return customer.CustomerName.lowercased().contains(searchText.lowercased())
             })
         }
@@ -57,7 +54,7 @@ class SalesReturnSearchTableViewController: UITableViewController {
 
 // MARK: - Table view data source
 
-extension SalesReturnSearchTableViewController{
+extension SearchCollectionTableViewController{
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if !salesPersons.isEmpty{
@@ -69,19 +66,21 @@ extension SalesReturnSearchTableViewController{
         }
         return 0
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
         
         let textContent: String
         if !salesPersons.isEmpty{
             textContent = searchFeature.isFiltering() ?
-                filteredsalesPersons[indexPath.row].SalesPerson :
-                salesPersons[indexPath.row].SalesPerson
+                filteredsalesPersons[indexPath.row].SalespersonName :
+                salesPersons[indexPath.row].SalespersonName
         } else {
-            textContent = searchFeature.isFiltering() ? filteredcustomers[indexPath.row].CustomerName : customers[indexPath.row].CustomerName
+            textContent = searchFeature.isFiltering() ?
+                filteredcustomers[indexPath.row].CustomerName :
+                customers[indexPath.row].CustomerName
         }
-        
+
         cell.textLabel?.text = textContent
         
         return cell
@@ -92,34 +91,33 @@ extension SalesReturnSearchTableViewController{
         let isFiltering = searchFeature.isFiltering()
         
         if !salesPersons.isEmpty{
-            
+
             let salesPersonNameSelected = isFiltering ?
-                filteredsalesPersons[row].SalesPerson :
-                salesPersons[row].SalesPerson
+                filteredsalesPersons[row].SalespersonName :
+                salesPersons[row].SalespersonName
             let salesPersonIdSelected = isFiltering ?
                 filteredsalesPersons[row].SalesPersonId :
                 salesPersons[row].SalesPersonId
-            if let delegate = delegate{delegate.updateSalesparson(newSalesperson: salesPersonNameSelected, newSalespersonId: salesPersonIdSelected)}
-            
+            if let delegate = delegate{delegate.updateSalesPerson(name: salesPersonNameSelected, id: salesPersonIdSelected)}
+
         } else if !customers.isEmpty{
-            
+
             let customerNameSelected = isFiltering ?
                 filteredcustomers[row].CustomerName :
-                
                 customers[row].CustomerName
             let customerIdSelected = isFiltering ?
                 filteredcustomers[row].CustomerId :
                 customers[row].CustomerId
-            if let delegate = delegate{delegate.updateCustomer(newCustomer: customerNameSelected, newCustomerId: customerIdSelected)}
-            
+            if let delegate = delegate{delegate.updateCustomer(name: customerNameSelected, id: customerIdSelected)}
+
         }
         
         navigationController?.popViewController(animated: true)
     }
-
+    
 }
 
-extension SalesReturnSearchTableViewController: UISearchResultsUpdating{
+extension SearchCollectionTableViewController: UISearchResultsUpdating{
     func updateSearchResults(for searchController: UISearchController) {
         if let searchText = searchController.searchBar.text{
             filterContentForSearchText(searchText)
