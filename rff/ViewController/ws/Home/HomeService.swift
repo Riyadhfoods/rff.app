@@ -12,7 +12,7 @@ class HomeService{
     static let instance = HomeService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/ios.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/ios.asmx"
     
     private var returnValueForTask_Inbox = Task_InboxModul()
     private func getElementValueForTask_Inbox(elemName: String, strVal: String) -> Task_InboxModul{

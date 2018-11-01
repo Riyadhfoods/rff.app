@@ -11,7 +11,7 @@ class InOutDeductionService{
     static let instance = InOutDeductionService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/In_Out_deduction.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/In_Out_deduction.asmx"
     
     func Bind_dllEmp(lang: Int, emp_id: String, formid: Int) -> [Emp_InfoModul]{
         var returnValueArray = Emp_InfoModul()

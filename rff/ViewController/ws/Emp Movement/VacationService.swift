@@ -12,7 +12,7 @@ class VacationService{
     static let instance = VacationService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/ios.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/ios.asmx"
     
     private var returnValueForBindEmpsVacationsDropDown = EmpInfoModul()
     private func getElementValueForBindEmpsVacationsDropDown(elemName: String, strVal: String) -> EmpInfoModul{

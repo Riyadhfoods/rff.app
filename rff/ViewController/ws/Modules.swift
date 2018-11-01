@@ -625,3 +625,25 @@ class CollSalesPersonModul{
     var SalespersonName : String = ""
 }
 
+class CreatorAndCollectionDetailsModul{
+    var emp_name : String = ""
+    var mgr_name : String = ""
+    var dept_name : String = ""
+    var nationality : String = ""
+    var join_date : String = ""
+    var start_date : String = ""
+    var job_desc : String = ""
+    var sub_job_desc : String = ""
+    var comp : String = ""
+    var basic_salary : String = ""
+    var package : String = ""
+    var customer_name : String = ""
+    var sales_person : String = ""
+    var coll_type : String = ""
+    var territory : String = ""
+    var invoice_date : String = ""
+    var invoice_no : String = ""
+    var amount : String = ""
+    var check_book_no : String = ""
+    var error : String = ""
+}

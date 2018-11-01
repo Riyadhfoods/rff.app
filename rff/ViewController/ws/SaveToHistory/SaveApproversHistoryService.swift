@@ -12,7 +12,7 @@ class SaveApproversHistoryService{
     static let instance = SaveApproversHistoryService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/saveapphistory.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/saveapphistory.asmx"
     
     func SaveRP2ApproversHistory(pid:String, fid:Int, final_emp_id:String, name:String, emp_role:String, final_status:String, approve_date:String)-> String{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"

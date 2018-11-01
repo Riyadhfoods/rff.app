@@ -8,11 +8,15 @@
 
 import Foundation
 
-let Host = "82.118.166.164"     // public live
-let LocalHost = "192.168.0.18"  // Local live
-let TestHost = "192.168.0.29"   // Test
+let IP = "82.118.166.164"     // public live
+let LocalIP = "192.168.0.18"  // Local live
+let TestIP = "192.168.0.29"   // Test
 
-let currentHost = TestHost
+let host = "ios_hrms"
+let test_host = "ios_test"
+
+let currentIP = IP
+let current_host = test_host
 
 class CommonFunction{
     static let shared = CommonFunction()

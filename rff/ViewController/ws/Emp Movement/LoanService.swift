@@ -12,7 +12,7 @@ class LoanService{
     static let instance = LoanService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/loan.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/loan.asmx"
     
     private var returnValueForBindEmployees = EmpInfoModul_2()
     private func getElementValueForBindEmployees(elemName: String, strVal: String) -> EmpInfoModul_2{

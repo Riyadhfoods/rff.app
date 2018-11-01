@@ -11,7 +11,7 @@ import Foundation
 class LoginService{
     static let instance = LoginService()
     
-    private var Url:String = "http://\(currentHost)/ios_hrms/ios.asmx"
+    private var Url:String = "http://\(currentIP)/\(current_host)/ios.asmx"
     
     func CheckLogin(username:String, password:String, error:String, langid:Int)-> [String?]{
         var soapReqXML:String = "<?xml version=\"1.0\" encoding=\"utf-8\"?>"

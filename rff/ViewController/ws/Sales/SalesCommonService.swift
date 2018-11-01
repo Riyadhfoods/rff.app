@@ -12,7 +12,7 @@ class SalesCommonService{
     static let instance = SalesCommonService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/sales.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/sales.asmx"
     
     private var returnValueForBindUserComment = CommentModul()
     private func getElementValueForBindUserComment(elementName: String, value: String) -> CommentModul{

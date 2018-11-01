@@ -12,7 +12,7 @@ class ResignService{
     static let instance = ResignService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/Resign.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/Resign.asmx"
     
     func Bind_ddlReason(lang: Int) -> [ReasonModul]{
         var returnValueArray = ReasonModul()

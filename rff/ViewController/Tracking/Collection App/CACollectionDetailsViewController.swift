@@ -24,7 +24,7 @@ class CACollectionDetailsViewController: UIViewController {
     
     // -- MARK: Variables
     
-    var collectionDetails = [String]()
+    var creatorAndCollectionDetails = CreatorAndCollectionDetailsModul()
     
     // -- MARK: View life cycle
     
@@ -41,12 +41,12 @@ class CACollectionDetailsViewController: UIViewController {
     }
     
     func setUp(){
-        customerLabel.text = ""
-        salesPersonLabel.text = ""
-        collectionTypeLabel.text = ""
-        territoryLabel.text = ""
-        amount.text = ""
-        checkNoAndBankNameTitle.text = ""
-        checkNoAndBankNameLabel.text = ""
+        customerLabel.text = creatorAndCollectionDetails.customer_name
+        salesPersonLabel.text = creatorAndCollectionDetails.sales_person
+        collectionTypeLabel.text = creatorAndCollectionDetails.coll_type
+        territoryLabel.text = creatorAndCollectionDetails.territory
+        amount.text = creatorAndCollectionDetails.amount
+        //checkNoAndBankNameTitle.text = ""
+        checkNoAndBankNameLabel.text = creatorAndCollectionDetails.check_book_no
     }
 }

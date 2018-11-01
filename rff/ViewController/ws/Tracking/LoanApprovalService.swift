@@ -12,7 +12,7 @@ class LoanApprovalService{
     static let instance = LoanApprovalService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/approvals/loan_app.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/approvals/loan_app.asmx"
     
     private var returnValueForGet_Emps_Details = LoanApprovalModul()
     private func getElementValueForGet_Emps_Details(elemName: String, strVal: String) -> LoanApprovalModul{

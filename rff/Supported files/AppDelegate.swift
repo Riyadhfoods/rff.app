@@ -27,11 +27,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         logUser()
         Fabric.with([Crashlytics.self])
         
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(AppDelegate.applicationDidTimeout(notification:)),
-//                                               name: .appTimeout,
-//                                               object: nil
-//        )
+        // To take some action when there is no activity for 15 minutes
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AppDelegate.applicationDidTimeout(notification:)),
+                                               name: .appTimeout,
+                                               object: nil
+        )
         
         // To set a default language
         LanguageManger.shared.defaultLanguage = .en

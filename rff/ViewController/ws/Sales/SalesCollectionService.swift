@@ -15,7 +15,7 @@ class SalesCollectionService{
     let commonSalesService = SalesCommonService.instance
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/sales.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/sales.asmx"
     
     func GetCollectionType_SC(lang: String)-> [CollectionTypeModul]{
         var returnValueArray = CollectionTypeModul()

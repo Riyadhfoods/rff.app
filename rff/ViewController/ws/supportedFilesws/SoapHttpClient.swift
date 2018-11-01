@@ -50,7 +50,7 @@ public class SoapHttpClient {
         let session = URLSession.shared
         req.httpMethod = "POST"
         req.httpBody = SoapMessage.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        req.addValue(currentHost, forHTTPHeaderField: "Host")
+        req.addValue(currentIP, forHTTPHeaderField: "Host")
         req.addValue("text/xml;charset =utf-8", forHTTPHeaderField: "Content-Type")
         
         let contentLength = SoapMessage.utf8.count
@@ -111,7 +111,7 @@ public class SoapHttpClient {
         req.httpMethod = "POST"
         //req.httpBody = SoapMessage.dataUsingEncoding(NSUTF8StringEncoding)
         req.httpBody = SoapMessage.data(using: String.Encoding.utf8, allowLossyConversion: false)
-        req.addValue(currentHost, forHTTPHeaderField: "Host")
+        req.addValue(currentIP, forHTTPHeaderField: "Host")
         req.addValue("text/xml;charset =utf-8", forHTTPHeaderField: "Content-Type")
         //req.addValue(String(SoapMessage.characters.count), forHTTPHeaderField: "Content-Length")
         

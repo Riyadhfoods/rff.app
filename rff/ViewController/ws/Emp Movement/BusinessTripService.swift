@@ -12,7 +12,7 @@ class BusinessTripService{
     static let instance = BusinessTripService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/BusinessTrip.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/BusinessTrip.asmx"
     
     func BindDdlEmps(emp_id:String, lang:Int)-> [BusinessTripClass]{
         var returnValueArray = BusinessTripClass()

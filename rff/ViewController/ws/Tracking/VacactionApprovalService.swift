@@ -12,7 +12,7 @@ class VacactionApprovalService{
     static let instance = VacactionApprovalService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/approvals/vac_app.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/approvals/vac_app.asmx"
     
     private var returnValueForGetData = VacationApprovalModul()
     private func getElementValueForGetData(elemName: String, strVal: String) -> VacationApprovalModul{

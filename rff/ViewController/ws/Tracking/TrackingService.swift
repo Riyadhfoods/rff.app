@@ -12,7 +12,7 @@ class TrackingService{
     static let instance = TrackingService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/ios.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/ios.asmx"
     
     private var returnValueForddlReqType = ListTypeModul()
     private func getElementValueForddlReqType(elemName: String, strVal: String) -> ListTypeModul{

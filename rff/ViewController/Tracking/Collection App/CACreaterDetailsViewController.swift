@@ -24,7 +24,7 @@ class CACreaterDetailsViewController: UIViewController {
     
     // -- MARK: Variables
     
-    var creatorDetails = [String]()
+    var creatorAndCollectionDetails = CreatorAndCollectionDetailsModul()
     
     // -- MARK: View life cycle
     
@@ -41,14 +41,14 @@ class CACreaterDetailsViewController: UIViewController {
     }
     
     func setUp(){
-        nameLabel.text = ""
-        mgrLabel.text = ""
-        departmentLabel.text = ""
-        nationalityLabel.text = ""
-        joinDateLabel.text = ""
-        startDateLabel.text = ""
-        jobDescLabel.text = ""
-        subJobLabel.text = ""
+        nameLabel.text = creatorAndCollectionDetails.emp_name
+        mgrLabel.text = creatorAndCollectionDetails.mgr_name
+        departmentLabel.text = creatorAndCollectionDetails.dept_name
+        nationalityLabel.text = creatorAndCollectionDetails.nationality
+        joinDateLabel.text = creatorAndCollectionDetails.join_date
+        startDateLabel.text = creatorAndCollectionDetails.start_date
+        jobDescLabel.text = creatorAndCollectionDetails.job_desc
+        subJobLabel.text = creatorAndCollectionDetails.sub_job_desc
     }
     
 }

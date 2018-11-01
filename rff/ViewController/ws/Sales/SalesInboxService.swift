@@ -13,7 +13,7 @@ class SalesInboxService{
     let commonSalesService = SalesCommonService.instance
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/sales.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/sales.asmx"
     
     private var returnValueForSalesInbox = SalesInboxModul()
     private func getElementValueForSalesInbox(elementName: String, value: String) -> SalesInboxModul{

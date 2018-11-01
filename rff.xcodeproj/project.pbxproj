@@ -232,6 +232,7 @@
 		C0CF53BD213D28B5007A7A0E /* IODWorkFlowTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0CF53BC213D28B5007A7A0E /* IODWorkFlowTableViewController.swift */; };
 		C0D2ABA520A805EE001AE4FD /* InboxTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */; };
 		C0D2ABA720A80606001AE4FD /* InboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */; };
+		C0D8EB8D2186F30C00EE2791 /* SalesCollectionApprovalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0D8EB8C2186F30C00EE2791 /* SalesCollectionApprovalService.swift */; };
 		C0DC68FB21258B7000DD4F45 /* BusinessTripApprovalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DC68FA21258B7000DD4F45 /* BusinessTripApprovalService.swift */; };
 		C0DF980C213BA1DF00845D9B /* SearchFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF980B213BA1DF00845D9B /* SearchFeature.swift */; };
 		C0DF980E213BB21500845D9B /* SalesOrderSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0DF980D213BB21500845D9B /* SalesOrderSearchTableViewController.swift */; };
@@ -496,6 +497,7 @@
 		C0CF53BC213D28B5007A7A0E /* IODWorkFlowTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IODWorkFlowTableViewController.swift; sourceTree = "<group>"; };
 		C0D2ABA420A805EE001AE4FD /* InboxTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewController.swift; sourceTree = "<group>"; };
 		C0D2ABA620A80606001AE4FD /* InboxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InboxTableViewCell.swift; sourceTree = "<group>"; };
+		C0D8EB8C2186F30C00EE2791 /* SalesCollectionApprovalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesCollectionApprovalService.swift; sourceTree = "<group>"; };
 		C0DC68FA21258B7000DD4F45 /* BusinessTripApprovalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessTripApprovalService.swift; sourceTree = "<group>"; };
 		C0DF980B213BA1DF00845D9B /* SearchFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFeature.swift; sourceTree = "<group>"; };
 		C0DF980D213BB21500845D9B /* SalesOrderSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SalesOrderSearchTableViewController.swift; sourceTree = "<group>"; };
@@ -685,6 +687,7 @@
 				C00AF22D2109E3FC008D1CD3 /* VacactionApprovalService.swift */,
 				C0F5D2A8210C2EAA00F49A41 /* LoanApprovalService.swift */,
 				C0DC68FA21258B7000DD4F45 /* BusinessTripApprovalService.swift */,
+				C0D8EB8C2186F30C00EE2791 /* SalesCollectionApprovalService.swift */,
 			);
 			path = Tracking;
 			sourceTree = "<group>";
@@ -1888,6 +1891,7 @@
 				C061756D209EF792007F8E59 /* AppDelegate.swift in Sources */,
 				C08A26CD20A6E7970028052C /* NewTaskViewController.swift in Sources */,
 				C08A26A120A6E4440028052C /* InOutDeductionViewController.swift in Sources */,
+				C0D8EB8D2186F30C00EE2791 /* SalesCollectionApprovalService.swift in Sources */,
 				C08A268D20A6E3420028052C /* EmployeeViolationViewController.swift in Sources */,
 				C08A26D120A6E7BC0028052C /* NewComplainViewController.swift in Sources */,
 				C0C72B6E2106ECDB00C37656 /* EmployeeInfoInboxViewController.swift in Sources */,

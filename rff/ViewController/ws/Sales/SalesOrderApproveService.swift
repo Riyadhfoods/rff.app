@@ -13,7 +13,7 @@ class SalesOrderApproveService{
     let commonSalesService = SalesCommonService.instance
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/sales.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/sales.asmx"
     
     private var returnValueForSalesOrderApprove = SalesOrderApproveModul()
     private func getElementValueForSalesOrderApprove(elemName: String, strVal: String) -> SalesOrderApproveModul{

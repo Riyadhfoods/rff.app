@@ -32,17 +32,17 @@ class CAWorkFlowViewController: UITableViewController {
 
 extension CAWorkFlowViewController{
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return workFlow.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? CAWorkFlow{
-//            let workFlowElement = workFlow[indexPath.row]
-//            cell.empIdLable.text = workFlowElement.WorkFlow_Empid
-//            cell.nameLabel.text = workFlowElement.WorkFlow_EmpName
-//            cell.roleLable.text = workFlowElement.WorkFlow_EmpRole
-//            cell.statusLabel.text = workFlowElement.WorkFlow_EmpStatus
-//            cell.tranDateLabel.text = workFlowElement.WorkFlow_EmpTransDate
+            let workFlowElement = workFlow[indexPath.row]
+            cell.empIdLable.text = workFlowElement.WorkFlow_Empid
+            cell.nameLabel.text = workFlowElement.WorkFlow_EmpName
+            cell.roleLable.text = workFlowElement.WorkFlow_EmpRole
+            cell.statusLabel.text = workFlowElement.WorkFlow_EmpStatus
+            cell.tranDateLabel.text = workFlowElement.WorkFlow_EmpTransDate
             return cell
         }
         

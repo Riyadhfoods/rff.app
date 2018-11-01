@@ -13,7 +13,7 @@ class SalesReturnApproveService{
     let commonSalesService = SalesCommonService.instance
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/sales.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/sales.asmx"
     
     private var returnValueForBindOrder = SalesReturnApproveModul()
     private func getElementValueForBindOrder(elementName: String, value: String) -> SalesReturnApproveModul{

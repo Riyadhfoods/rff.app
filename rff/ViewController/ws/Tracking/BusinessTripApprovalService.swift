@@ -11,7 +11,7 @@ class BusinessTripApprovalService{
     static let instance = BusinessTripApprovalService()
     let commonFunction = CommonFunction.shared
     
-    private var Url: String = "http://\(currentHost)/ios_hrms/approvals/BusinessTrip_App.asmx"
+    private var Url: String = "http://\(currentIP)/\(current_host)/approvals/BusinessTrip_App.asmx"
     
     func Bind_business_trip_Details(pid: String, lang: Int) -> [BusinessTrip_AppModel]{
         var returnValueArray = BusinessTrip_AppModel()

@@ -152,6 +152,7 @@ class InboxTableViewController: UITableViewController, ApproveActionDelegate {
                 viewController.appliedEmpId = empId
                 viewController.cellRow = cellRow
                 viewController.categorySelected = categorySelected
+                viewController.delegate = self
             }
         }
     }
